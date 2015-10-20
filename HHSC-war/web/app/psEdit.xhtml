@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template=".././WEB-INF/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+
+        <h:form id="formEdit">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="ps" icon="ui-icon-arrowreturn-1-w"  />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" action="#{psManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>                                
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelView" header="订单信息">
+                <p:panelGrid id="plgView" styleClass="plgView Wid90 Responsive" >
+                    <p:row>
+                        <p:column>
+                            <h:outputText  value="花号"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText  id="itemid" value="#{psManagedBean.currentEntity.itemid}" title="Itemid"/>
+                        </p:column>
+                        <p:column rowspan="6" styleClass="Wid40">
+                            <p:graphicImage value="/resources/upload/img/#{psManagedBean.currentEntity.orderimg}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText  value="色号"/></p:column>
+                        <p:column colspan="3"><h:outputText id="colorid" value="#{psManagedBean.currentEntity.colorid}" title="Colorid"/></p:column>>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="成品规格"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemspec" value="#{psManagedBean.currentEntity.itemspec}" title="Itemspec"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="数量"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{psManagedBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="业务"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="salesman" value="#{psManagedBean.currentEntity.salesman.username}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="制单日期"/></p:column>
+                        <p:column><h:outputText id="orderdate2" value="#{psManagedBean.currentEntity.orderdate}" title="Orderdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="印花交期"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="yhdate" value="#{psManagedBean.currentEntity.yhdate}" title="Yhdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>  
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="面料"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemdesc" value="#{psManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="营业备注"/></p:column>
+                        <p:column colspan="4">
+                            <p:inputTextarea id="salesremark" value="#{psManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                             styleClass="Wid90 Responsive" readonly="true"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel id="panelEdit" header="配色信息－修改">
+                <h:panelGrid id="plgEdit" columns="2" columnClasses="Wid20,Wid80" styleClass="plgEdit Wid60 Responsive" >
+                    <h:outputText value="配色交期" />
+                    <h:outputText id="psdeldate" value="#{psManagedBean.currentEntity.psdeldate}" title="psdeldate">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                    <p:outputLabel value="配色要求" for="psremark" />
+                    <p:inputTextarea id="psremark" value="#{psManagedBean.currentEntity.psremark}" title="psremark" 
+                                     styleClass="Wid90 Responsive" required="true" requiredMessage="备注不能为空."/>
+                    <p:outputLabel value="尿素" for="psns" />
+                    <p:inputText id="psns" value="#{psManagedBean.currentEntity.psns}" title="Psns" />
+                    <p:outputLabel value="糊料" for="pshl" />
+                    <p:inputText id="pshl" value="#{psManagedBean.currentEntity.pshl}" title="Pshl" />
+                    <p:outputLabel value="渗透剂" for="psyj" />
+                    <p:inputText id="psyj" value="#{psManagedBean.currentEntity.psyj}" title="Psyj" />
+                    <p:outputLabel value="蒸化时长" for="pszhsj" />
+                    <p:inputText id="pszhsj" value="#{psManagedBean.currentEntity.pszhsj}" title="Pszhsj" />
+                    <p:outputLabel value="蒸化次数" for="pszhcs" />
+                    <p:inputText id="pszhcs" value="#{psManagedBean.currentEntity.pszhcs}" title="Pszhcs" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

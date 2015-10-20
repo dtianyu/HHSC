@@ -1,0 +1,148 @@
+*{
+    padding: 0px;  
+}
+
+li{
+    list-style: none;    
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+.Wid40 input,.Wid40 span,.Wid60 input,.Wid60 span{
+     width:95%; 
+}
+
+
+.Wid40 span.ui-button-icon-left,.Wid60 span.ui-button-icon-left{
+    width: 16px;
+}
+.Wid40 span.ui-button-text,.Wid60 span.ui-button-text{
+    width: 24px;
+}
+
+.w020,.w020 input,.w020 label,.w020 span{
+    width: 20px;
+}
+
+.w040,.w040 input,.w040 label,.w040 span{
+    width: 40px;
+}
+
+.w060,.w060 input,.w060 label,.w060 span{
+    width: 60px;
+}
+
+.w080,.w080 input,.w080 label,.w080 span{
+    width: 80px;
+}
+
+.w100,.w100 input,.w100 label,.w100 span{
+    width: 100px;
+}
+
+.w120,.w120 input,.w120 label,.w120 span{
+    width: 120px;
+}
+
+.w140,.w140 input,.w140 label,.w140 span{
+    width: 140px;
+}
+
+.w160,.w160 input,.w160 label,.w160 span{
+    width: 160px;
+}
+
+.w180,.w180 input,.w180 label,.w180 span{
+    width: 180px;
+}
+
+.w200,.w200 input,.w200 label,.w200 span{
+    width: 200px;
+}
+
+.w250,.w250 input,.w250 label,.w250 span{
+    width: 250px;
+}
+
+.w300,.w300 input,.w300 label,.w300 span{
+    width: 300px;
+}
+
+.w350,.w350 input,.w350 label,.w350 span{
+    width: 350px;
+}
+
+.w400,.w400 input,.w400 label,.w400 span{
+    width: 400px;
+}
+
+/*-------------------------------MainFrameStyle*/
+#top{
+    margin-bottom: 10px;
+}
+
+#topInfo{
+
+}
+
+#topNav{
+}
+
+#container{
+    min-height: 760px;
+    padding-bottom: 70px;
+}
+
+#leftSlide{
+    margin-right: 10px;
+}
+
+#rightContent{
+
+}
+
+#bottom{
+    margin: auto;
+    height: 55px; 
+    background-color: #f5f5f5;   
+    border-top:  #1995dc solid 5px;
+    text-align: center;
+}
+
+.topToolbar{
+    margin-bottom: 10px;
+}
+
+.fileUpload{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/*-------------------------------MainFrameStyle*/
+
+.ui-button .ui-button-text {
+    font-size: 10px;
+}
+
+.ui-datatable .ui-paginator .ui-paginator-current,
+.ui-datatable .ui-paginator .ui-paginator-first,
+.ui-datatable .ui-paginator .ui-paginator-prev,
+.ui-datatable .ui-paginator .ui-paginator-pages .ui-paginator-page,
+.ui-datatable .ui-paginator .ui-paginator-next,
+.ui-datatable .ui-paginator .ui-paginator-last, 
+.ui-datatable .ui-paginator .ui-paginator-rpp-options{
+    padding: 1px 2px;
+}
+
+.ui-widget-header,.ui-widget-footer,.tableList td,.plgNew td,.plgEdit td,.plgView td{
+    height: 28px;
+}
+
+.tableList .ui-selectonemenu-label{
+    height: 12px;
+}

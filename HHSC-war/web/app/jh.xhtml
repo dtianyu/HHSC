@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template=".././WEB-INF/template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{jhManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{jhManagedBean.view('jhView')}"  icon="ui-icon-document"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnEdit" action="#{jhManagedBean.edit('jhEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{jhManagedBean.doEdit}"/>  
+                    <p:commandButton id="btnDelete" actionListener="#{jhManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                                     rendered="#{jhManagedBean.doDel}" update=":formList"/> 
+                    <p:commandButton id="btnVerify" actionListener="#{jhManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
+                                     rendered="#{jhManagedBean.doCfm}"   update=":formList"/>
+                    <p:commandButton id="btnUnverify" actionListener="#{jhManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                                     rendered="#{jhManagedBean.doUnCfm}"  update=":formList"/>    
+                    <p:commandButton id="btnCreate" action="#{jhManagedBean.create('jhNew')}" icon="ui-icon-plus" value="新增" 
+                                     rendered="#{jhManagedBean.doAdd}"/> 
+                </f:facet>
+            </p:toolbar>               
+            <p:dataTable value="#{jhManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+                         selectionMode="single" selection="#{jhManagedBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    计划维护
+                </f:facet>
+                <p:ajax event="rowSelect"  update=":formList:toolbar" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="订单日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.orderdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="花号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemid}"/>
+                </p:column>
+                <p:column styleClass="Wid30 Responsive">
+                    <f:facet name="header">
+                        <h:outputText value="规格"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemspec}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qty}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="印花交期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.yhdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="接收日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jhrecdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="状态"/>
+                    </f:facet>
+                    <h:outputText value="#{item.jhstatus}"/>
+                </p:column>               
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template=".././WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />           
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="jh" icon="ui-icon-arrowreturn-1-w"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{jhManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>                
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelView" header="订单信息">
+                <p:panelGrid id="plgView" styleClass="plgView Wid90 Responsive" >
+                    <p:row>
+                        <p:column>
+                            <h:outputText  value="花号"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText  id="itemid" value="#{jhManagedBean.currentEntity.itemid}" title="Itemid"/>
+                        </p:column>
+                        <p:column rowspan="6" styleClass="Wid40">
+                            <p:graphicImage value="/resources/upload/img/#{jhManagedBean.currentEntity.orderimg}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText  value="色号"/></p:column>
+                        <p:column colspan="3"><h:outputText id="colorid" value="#{jhManagedBean.currentEntity.colorid}" title="Colorid"/></p:column>>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="成品规格"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemspec" value="#{jhManagedBean.currentEntity.itemspec}" title="Itemspec"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="数量"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{jhManagedBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="业务"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="salesman" value="#{jhManagedBean.currentEntity.salesman.username}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="制单日期"/></p:column>
+                        <p:column><h:outputText id="orderdate2" value="#{jhManagedBean.currentEntity.orderdate}" title="Orderdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="印花交期"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="yhdate" value="#{jhManagedBean.currentEntity.yhdate}" title="Yhdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>  
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="面料"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemdesc" value="#{jhManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="营业备注"/></p:column>
+                        <p:column colspan="4">
+                            <p:inputTextarea id="salesremark" value="#{jhManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                             styleClass="Wid90 Responsive" readonly="true"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel id="panelEdit" header="计划信息－修改">
+                <h:panelGrid id="plgEdit" columns="5" columnClasses="Wid20,Wid60,Wid10,Wid5,Wid5" styleClass="plgEdit Wid60 Responsive" >
+                    <p:outputLabel value="画稿交期" for="hgdeldate" />
+                    <p:calendar id="hgdeldate" value="#{jhManagedBean.currentEntity.hgdeldate}" title="hgdeldate" 
+                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd"/>
+                    </p:calendar>
+                    <h:outputText id="hgstatus" value="#{jhManagedBean.currentEntity.hgstatus}"/>
+                    <p:commandButton id="passHG" value="忽略" actionListener="#{jhManagedBean.passHG(true)}" icon="ui-icon-locked"  process="@this" update="formEdit:hgdeldate,formEdit:hgstatus"/>
+                    <p:commandButton id="cancelHG" value="取消" actionListener="#{jhManagedBean.passHG(false)}" icon="ui-icon-unlocked"  process="@this" update="formEdit:hgdeldate,formEdit:hgstatus"/>
+                    <p:outputLabel value="制版交期" for="zbdeldate" />
+                    <p:calendar id="zbdeldate" value="#{jhManagedBean.currentEntity.zbdeldate}" title="zbdeldate" 
+                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </p:calendar>
+                    <h:outputText id="zbstatus" value="#{jhManagedBean.currentEntity.zbstatus}"/>
+                    <p:commandButton id="passZB" value="忽略" actionListener="#{jhManagedBean.passZB(true)}" icon="ui-icon-locked" process="@this" update="formEdit:zbdeldate,formEdit:zbstatus"/>
+                    <p:commandButton id="cancelZB" value="取消" actionListener="#{jhManagedBean.passZB(false)}" icon="ui-icon-unlocked" process="@this" update="formEdit:zbdeldate,formEdit:zbstatus"/>
+                    <p:outputLabel value="配色交期" for="psdeldate" />
+                    <p:calendar id="psdeldate" value="#{jhManagedBean.currentEntity.psdeldate}" title="psdeldate" 
+                                pattern="yyyy/MM/dd"  placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </p:calendar>
+                    <h:outputText id="psstatus" value="#{jhManagedBean.currentEntity.psstatus}"/>
+                    <p:commandButton id="passPS" value="忽略" actionListener="#{jhManagedBean.passPS(true)}" icon="ui-icon-locked" process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
+                    <p:commandButton id="cancelPS" value="取消" actionListener="#{jhManagedBean.passPS(false)}" icon="ui-icon-unlocked" process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
+                    <p:outputLabel value="印花交期" for="yhdeldate" />
+                    <p:calendar id="yhdeldate" value="#{jhManagedBean.currentEntity.yhdeldate}" title="yhdeldate" 
+                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </p:calendar>
+                    <h:outputText id="yhstatus" value="#{jhManagedBean.currentEntity.yhstatus}"/>
+                    <p:commandButton id="passYH" value="忽略" actionListener="#{jhManagedBean.passYH(true)}" icon="ui-icon-locked" process="@this" update="formEdit:yhdeldate,formEdit:yhstatus"/>
+                    <p:commandButton id="cancelYH" value="取消" actionListener="#{jhManagedBean.passYH(false)}" icon="ui-icon-unlocked" process="@this" update="formEdit:yhdeldate,formEdit:yhstatus"/>
+                    <p:outputLabel value="蒸化交期" for="zhdeldate" />
+                    <p:calendar id="zhdeldate" value="#{jhManagedBean.currentEntity.zhdeldate}" title="zhdeldate" 
+                                pattern="yyyy/MM/dd"  placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </p:calendar>
+                    <h:outputText id="zhstatus" value="#{jhManagedBean.currentEntity.zhstatus}"/>
+                    <h:outputText value=""/>
+                    <h:outputText value=""/>
+                    <p:outputLabel value="仓库交期" for="ckdeldate" />
+                    <p:calendar id="ckdeldate" value="#{jhManagedBean.currentEntity.ckdeldate}" title="ckdeldate" 
+                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </p:calendar>
+                    <h:outputText value=""/>
+                    <h:outputText value=""/>
+                    <h:outputText value=""/>
+                    <p:outputLabel value="计划备注" for="jhremark" />
+                    <p:inputTextarea id="jhremark" value="#{jhManagedBean.currentEntity.jhremark}" title="jhremark" 
+                                     styleClass="Wid90 Responsive" />
+                    <h:outputText value=""/>
+                    <h:outputText value=""/>
+                    <h:outputText value=""/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

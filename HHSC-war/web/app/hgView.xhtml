@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template=".././WEB-INF/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="hg" icon="ui-icon-arrowreturn-1-w"  />                    
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelView" header="订单信息">
+                <p:panelGrid id="plgView" styleClass="plgView Wid90 Responsive" >
+                    <p:row>
+                        <p:column>
+                            <h:outputText  value="花号"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText  id="itemid" value="#{hgManagedBean.currentEntity.itemid}" title="Itemid"/>
+                        </p:column>
+                        <p:column rowspan="6" styleClass="Wid40">
+                            <p:graphicImage value="/resources/upload/img/#{hgManagedBean.currentEntity.orderimg}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText  value="色号"/></p:column>
+                        <p:column colspan="3"><h:outputText id="colorid" value="#{hgManagedBean.currentEntity.colorid}" title="Colorid"/></p:column>>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="成品规格"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemspec" value="#{hgManagedBean.currentEntity.itemspec}" title="Itemspec"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="数量"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{hgManagedBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="业务"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="salesman" value="#{hgManagedBean.currentEntity.salesman.username}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="制单日期"/></p:column>
+                        <p:column><h:outputText id="orderdate2" value="#{hgManagedBean.currentEntity.orderdate}" title="Orderdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="印花交期"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText id="yhdate" value="#{hgManagedBean.currentEntity.yhdate}" title="Yhdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>  
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="面料"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemdesc" value="#{hgManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="营业备注"/></p:column>
+                        <p:column colspan="4">
+                            <p:inputTextarea id="salesremark" value="#{hgManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                             styleClass="Wid90 Responsive" readonly="true"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel id="panelEdit" header="画稿信息－查看">
+                <h:panelGrid id="plgEdit" columns="2" columnClasses="Wid20,Wid80" styleClass="plgEdit Wid60 Responsive" >
+                    <h:outputText value="画稿交期"/>
+                    <h:outputText id="hgdeldate" value="#{hgManagedBean.currentEntity.hgdeldate}" title="hgdeldate">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                    <h:outputText value="画稿要求"/>
+                    <p:inputTextarea id="hgremark" value="#{hgManagedBean.currentEntity.hgremark}" title="Salesremark" 
+                                     styleClass="Wid90 Responsive" readonly="true"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
