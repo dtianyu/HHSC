@@ -10,7 +10,7 @@ import com.lightshell.comm.GraphicCode;
 import com.hhsc.ejb.SystemUserBean;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SystemUserModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperSingleBean;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -30,7 +30,7 @@ import org.primefaces.model.StreamedContent;
  */
 @ManagedBean(name = "systemUserManagedBean")
 @SessionScoped
-public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
+public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
 
     @EJB
     private SystemUserBean systemUserBean;
@@ -63,7 +63,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
                 entity.setOptdate(null);
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(SuperOperateBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuperSingleBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

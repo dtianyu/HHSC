@@ -5,10 +5,10 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.SalesOrderBean;
-import com.hhsc.entity.SalesOrder;
+import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.entity.FactoryOrder;
 import com.hhsc.lazy.JHModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperSingleBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,19 +21,19 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "jhManagedBean")
 @SessionScoped
-public class JHManagedBean extends SuperOperateBean<SalesOrder> {
+public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
 
     @EJB
-    private SalesOrderBean salesOrderBean;
+    private FactoryOrderBean factoryOrderBean;
 
     public JHManagedBean() {
-        super(SalesOrder.class);
+        super(FactoryOrder.class);
     }
 
     @Override
     public void init() {
-        setSuperEJB(salesOrderBean);
-        setModel(new JHModel(salesOrderBean));
+        setSuperEJB(factoryOrderBean);
+        setModel(new JHModel(factoryOrderBean));
         super.init();
     }
 
@@ -138,20 +138,27 @@ public class JHManagedBean extends SuperOperateBean<SalesOrder> {
     @Override
     public void setToolBar() {
         if (currentEntity != null && currentSysprg != null) {
-            if (currentEntity.getJhstatus() != null) {
-                switch (currentEntity.getJhstatus()) {
-                    case "V":
-                        this.doEdit = currentSysprg.getDoedit() && false;
-                        this.doDel = currentSysprg.getDodel() && false;
-                        this.doCfm = false;
-                        this.doUnCfm = currentSysprg.getDouncfm() && true;
-                        break;
-                    default:
-                        this.doEdit = currentSysprg.getDoedit() && true;
-                        this.doDel = currentSysprg.getDodel() && true;
-                        this.doCfm = currentSysprg.getDocfm() && true;
-                        this.doUnCfm = false;
-                        break;
+            if (currentEntity.getJhstatus() != null && currentEntity.getYhstatus() != null) {
+                if ("V".equals(currentEntity.getYhstatus())) {
+                    this.doEdit = currentSysprg.getDoedit() && false;
+                    this.doDel = currentSysprg.getDodel() && false;
+                    this.doCfm = false;
+                    this.doUnCfm = currentSysprg.getDouncfm() && false;
+                } else {
+                    switch (currentEntity.getJhstatus()) {
+                        case "V":
+                            this.doEdit = currentSysprg.getDoedit() && false;
+                            this.doDel = currentSysprg.getDodel() && false;
+                            this.doCfm = false;
+                            this.doUnCfm = currentSysprg.getDouncfm() && true;
+                            break;
+                        default:
+                            this.doEdit = currentSysprg.getDoedit() && true;
+                            this.doDel = currentSysprg.getDodel() && true;
+                            this.doCfm = currentSysprg.getDocfm() && true;
+                            this.doUnCfm = false;
+                            break;
+                    }
                 }
             }
         }

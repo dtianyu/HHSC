@@ -12,7 +12,7 @@ import com.hhsc.entity.SysgrantModule;
 import com.hhsc.entity.Sysmodule;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SysgrantModuleModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperSingleBean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +24,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "sysgrantModuleManagedBean")
 @SessionScoped
-public class SysgrantModuleManagedBean extends SuperOperateBean<SysgrantModule> {
+public class SysgrantModuleManagedBean extends SuperSingleBean<SysgrantModule> {
 
     @EJB
     private SysgrantModuleBean sysgrantModuleBean;

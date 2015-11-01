@@ -5,11 +5,13 @@
  */
 package com.hhsc.web;
 
-import com.lightshell.comm.SuperManagedBean;
 import com.lightshell.comm.BaseEntityWithOperate;
 import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
+import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.SuperMultiManagedBean;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -21,8 +23,9 @@ import javax.faces.context.FacesContext;
  *
  * @author KevinDong
  * @param <T>
+ * @param <Y>
  */
-public abstract class SuperOperateBean<T extends BaseEntityWithOperate> extends SuperManagedBean<T> {
+public abstract class SuperMultiBean<T extends BaseEntityWithOperate, Y extends BaseDetailEntity> extends SuperMultiManagedBean<T, Y> {
 
     @EJB
     protected SysprgBean sysprgBean;
@@ -36,9 +39,11 @@ public abstract class SuperOperateBean<T extends BaseEntityWithOperate> extends 
 
     /**
      * @param entityClass
+     * @param detailClass
      */
-    public SuperOperateBean(Class<T> entityClass) {
+    public SuperMultiBean(Class<T> entityClass, Class<Y> detailClass) {
         this.entityClass = entityClass;
+        this.detailClass = detailClass;
     }
 
     @Override
@@ -67,22 +72,32 @@ public abstract class SuperOperateBean<T extends BaseEntityWithOperate> extends 
 
     @Override
     public void create() {
+        if (this.detailList != null && !this.detailList.isEmpty()) {
+            this.detailList.clear();
+        } else {
+            this.detailList = new ArrayList<>();
+        }
         if (getNewEntity() == null) {
-            T entity;
             try {
-                entity = entityClass.newInstance();
+                T entity = entityClass.newInstance();
                 entity.setStatus("N");
                 entity.setCreator(getUserManagedBean().getCurrentUser().getUserid());
                 entity.setCredateToNow();
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(SuperOperateBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuperMultiBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     public String edit(String path) {
         if (currentEntity != null) {
+            setDetailList(this.detailEJB.findByPId(currentEntity.getId()));
+            if (this.detailList == null) {
+                if (this.detailList == null) {
+                    this.detailList = new ArrayList<>();
+                }
+            }
             return path;
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择编辑数据！"));
@@ -100,6 +115,37 @@ public abstract class SuperOperateBean<T extends BaseEntityWithOperate> extends 
         return this.appImgPath;
     }
 
+    protected int getMaxSeq() {
+        if (this.detailList == null || this.detailList.isEmpty()) {
+            return 1;
+        }
+        int seq = 0;
+        for (Y entity : this.detailList) {
+            if (entity.getSeq() > seq) {
+                seq = entity.getSeq();
+            }
+        }
+        boolean b = true;
+        boolean ret;
+        for (int i = 1; i <= seq; i++) {
+            ret = true;
+            for (Y entity : this.detailList) {
+                if (entity.getSeq() == i) {
+                    ret = ret && false;
+                    break;
+                }
+            }
+            if (ret) {
+                return i;
+            }
+        }
+        if (b) {
+            return seq + 1;
+        } else {
+            return 0;
+        }
+    }
+
     public String persist(String path) {
         try {
             persist();
@@ -107,6 +153,11 @@ public abstract class SuperOperateBean<T extends BaseEntityWithOperate> extends 
         } catch (Exception e) {
             return "";
         }
+    }
+
+    @Override
+    public void pull() {
+
     }
 
     @Override
@@ -132,17 +183,6 @@ public abstract class SuperOperateBean<T extends BaseEntityWithOperate> extends 
                         this.doUnCfm = false;
                 }
             }
-        }
-    }
-
-    ;
-
-    public String update(String path) {
-        try {
-            update();
-            return path;
-        } catch (Exception e) {
-            return "";
         }
     }
 

@@ -5,10 +5,10 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.SalesOrderBean;
-import com.hhsc.entity.SalesOrder;
+import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.entity.FactoryOrder;
 import com.hhsc.lazy.CPModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperSingleBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,19 +21,19 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "cpManagedBean")
 @SessionScoped
-public class CPManagedBean extends SuperOperateBean<SalesOrder> {
+public class CPManagedBean extends SuperSingleBean<FactoryOrder> {
 
     @EJB
-    private SalesOrderBean salesOrderBean;
+    private FactoryOrderBean factoryOrderBean;
 
     public CPManagedBean() {
-        super(SalesOrder.class);
+        super(FactoryOrder.class);
     }
 
     @Override
     public void init() {
-        setSuperEJB(salesOrderBean);
-        setModel(new CPModel(salesOrderBean));
+        setSuperEJB(factoryOrderBean);
+        setModel(new CPModel(factoryOrderBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
         }

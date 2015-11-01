@@ -87,14 +87,14 @@
                 </p:panelGrid>
             </p:panel>
             <p:panel id="panelEdit" header="计划信息－修改">
-                <h:panelGrid id="plgEdit" columns="5" columnClasses="Wid20,Wid60,Wid10,Wid5,Wid5" styleClass="plgEdit Wid60 Responsive" >
+                <h:panelGrid id="plgEdit" columns="5" columnClasses="Wid20,Wid50,Wid10,Wid10,Wid10" styleClass="plgEdit Wid60 Responsive" >
                     <p:outputLabel value="画稿交期" for="hgdeldate" />
                     <p:calendar id="hgdeldate" value="#{jhManagedBean.currentEntity.hgdeldate}" title="hgdeldate" 
                                 pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="交期不能为空.">
                         <f:convertDateTime pattern="yyyy/MM/dd"/>
                     </p:calendar>
                     <h:outputText id="hgstatus" value="#{jhManagedBean.currentEntity.hgstatus}"/>
-                    <p:commandButton id="passHG" value="忽略" actionListener="#{jhManagedBean.passHG(true)}" icon="ui-icon-locked"  process="@this" update="formEdit:hgdeldate,formEdit:hgstatus"/>
+                    <p:commandButton id="passHG" value="确定" actionListener="#{jhManagedBean.passHG(true)}" icon="ui-icon-locked"  process="@this" update="formEdit:hgdeldate,formEdit:hgstatus"/>
                     <p:commandButton id="cancelHG" value="取消" actionListener="#{jhManagedBean.passHG(false)}" icon="ui-icon-unlocked"  process="@this" update="formEdit:hgdeldate,formEdit:hgstatus"/>
                     <p:outputLabel value="制版交期" for="zbdeldate" />
                     <p:calendar id="zbdeldate" value="#{jhManagedBean.currentEntity.zbdeldate}" title="zbdeldate" 
@@ -102,7 +102,7 @@
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </p:calendar>
                     <h:outputText id="zbstatus" value="#{jhManagedBean.currentEntity.zbstatus}"/>
-                    <p:commandButton id="passZB" value="忽略" actionListener="#{jhManagedBean.passZB(true)}" icon="ui-icon-locked" process="@this" update="formEdit:zbdeldate,formEdit:zbstatus"/>
+                    <p:commandButton id="passZB" value="确定" actionListener="#{jhManagedBean.passZB(true)}" icon="ui-icon-locked" process="@this" update="formEdit:zbdeldate,formEdit:zbstatus"/>
                     <p:commandButton id="cancelZB" value="取消" actionListener="#{jhManagedBean.passZB(false)}" icon="ui-icon-unlocked" process="@this" update="formEdit:zbdeldate,formEdit:zbstatus"/>
                     <p:outputLabel value="配色交期" for="psdeldate" />
                     <p:calendar id="psdeldate" value="#{jhManagedBean.currentEntity.psdeldate}" title="psdeldate" 
@@ -110,7 +110,7 @@
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </p:calendar>
                     <h:outputText id="psstatus" value="#{jhManagedBean.currentEntity.psstatus}"/>
-                    <p:commandButton id="passPS" value="忽略" actionListener="#{jhManagedBean.passPS(true)}" icon="ui-icon-locked" process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
+                    <p:commandButton id="passPS" value="确定" actionListener="#{jhManagedBean.passPS(true)}" icon="ui-icon-locked" process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
                     <p:commandButton id="cancelPS" value="取消" actionListener="#{jhManagedBean.passPS(false)}" icon="ui-icon-unlocked" process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
                     <p:outputLabel value="印花交期" for="yhdeldate" />
                     <p:calendar id="yhdeldate" value="#{jhManagedBean.currentEntity.yhdeldate}" title="yhdeldate" 
@@ -118,7 +118,7 @@
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </p:calendar>
                     <h:outputText id="yhstatus" value="#{jhManagedBean.currentEntity.yhstatus}"/>
-                    <p:commandButton id="passYH" value="忽略" actionListener="#{jhManagedBean.passYH(true)}" icon="ui-icon-locked" process="@this" update="formEdit:yhdeldate,formEdit:yhstatus"/>
+                    <p:commandButton id="passYH" value="确定" actionListener="#{jhManagedBean.passYH(true)}" icon="ui-icon-locked" process="@this" update="formEdit:yhdeldate,formEdit:yhstatus"/>
                     <p:commandButton id="cancelYH" value="取消" actionListener="#{jhManagedBean.passYH(false)}" icon="ui-icon-unlocked" process="@this" update="formEdit:yhdeldate,formEdit:yhstatus"/>
                     <p:outputLabel value="蒸化交期" for="zhdeldate" />
                     <p:calendar id="zhdeldate" value="#{jhManagedBean.currentEntity.zhdeldate}" title="zhdeldate" 

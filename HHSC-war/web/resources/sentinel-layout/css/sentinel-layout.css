@@ -7,11 +7,11 @@
 /* FONT-FACE*/
 @font-face {
     font-family: 'titillium_webregular';
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-regular-webfont.eot']}");
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-regular-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-regular-webfont.woff']}") format('woff'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-regular-webfont.ttf']}") format('truetype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-regular-webfont.svg']}#titillium_webregular") format('svg');
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-regular-webfont.eot.xhtml?ln=sentinel-layout");
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-regular-webfont.eot.xhtml?ln=sentinel-layout#iefix") format('embedded-opentype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-regular-webfont.woff.xhtml?ln=sentinel-layout") format('woff'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-regular-webfont.ttf.xhtml?ln=sentinel-layout") format('truetype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-regular-webfont.svg.xhtml?ln=sentinel-layout#titillium_webregular") format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -19,11 +19,11 @@
 
 @font-face {
     font-family: 'titillium_websemibold';
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-semibold-webfont.eot']}");
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-semibold-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-semibold-webfont.woff']}") format('woff'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-semibold-webfont.ttf']}") format('truetype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-semibold-webfont.svg']}#titillium_websemibold") format('svg');
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibold-webfont.eot.xhtml?ln=sentinel-layout");
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibold-webfont.eot.xhtml?ln=sentinel-layout#iefix") format('embedded-opentype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibold-webfont.woff.xhtml?ln=sentinel-layout") format('woff'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibold-webfont.ttf.xhtml?ln=sentinel-layout") format('truetype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibold-webfont.svg.xhtml?ln=sentinel-layout#titillium_websemibold") format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -31,11 +31,11 @@
 
 @font-face {
     font-family: 'titillium_webbold';
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-bold-webfont.eot']}");
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-bold-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-bold-webfont.woff']}") format('woff'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-bold-webfont.ttf']}") format('truetype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-bold-webfont.svg']}#titillium_webbold") format('svg');
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bold-webfont.eot.xhtml?ln=sentinel-layout");
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bold-webfont.eot.xhtml?ln=sentinel-layout#iefix") format('embedded-opentype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bold-webfont.woff.xhtml?ln=sentinel-layout") format('woff'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bold-webfont.ttf.xhtml?ln=sentinel-layout") format('truetype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bold-webfont.svg.xhtml?ln=sentinel-layout#titillium_webbold") format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -43,11 +43,11 @@
 
 @font-face {
     font-family: 'titillium_webbold_italic';
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-bolditalic-webfont.eot']}");
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-bolditalic-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-bolditalic-webfont.woff']}") format('woff'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-bolditalic-webfont.ttf']}") format('truetype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-bolditalic-webfont.svg']}#titillium_webbold_italic") format('svg');
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bolditalic-webfont.eot.xhtml?ln=sentinel-layout");
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bolditalic-webfont.eot.xhtml?ln=sentinel-layout#iefix") format('embedded-opentype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bolditalic-webfont.woff.xhtml?ln=sentinel-layout") format('woff'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bolditalic-webfont.ttf.xhtml?ln=sentinel-layout") format('truetype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-bolditalic-webfont.svg.xhtml?ln=sentinel-layout#titillium_webbold_italic") format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -55,11 +55,11 @@
 
 @font-face {
     font-family: 'titillium_websemibold_italic';
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-semibolditalic-webfont.eot']}");
-    src: url("#{resource['sentinel-layout:fonts/titilliumweb-semibolditalic-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-semibolditalic-webfont.woff']}") format('woff'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-semibolditalic-webfont.ttf']}") format('truetype'),
-         url("#{resource['sentinel-layout:fonts/titilliumweb-semibolditalic-webfont.svg']}#titillium_websemibold_italic") format('svg');
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibolditalic-webfont.eot.xhtml?ln=sentinel-layout");
+    src: url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibolditalic-webfont.eot.xhtml?ln=sentinel-layout#iefix") format('embedded-opentype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibolditalic-webfont.woff.xhtml?ln=sentinel-layout") format('woff'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibolditalic-webfont.ttf.xhtml?ln=sentinel-layout") format('truetype'),
+         url("/HHSC-war/javax.faces.resource/fonts/titilliumweb-semibolditalic-webfont.svg.xhtml?ln=sentinel-layout#titillium_websemibold_italic") format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -75,8 +75,8 @@ body{background-color: #F6F8F8; margin:0px;}
 .GRAYback{background-color:#F7F7F7;}
 
 /* LOGIN PAGE */
-.login-back{background-image:url("#{resource['sentinel-layout:images/login-back.svg']}"); background-position:top left; background-repeat:no-repeat; background-size: 50%;}
-.error-back{background-image:url("#{resource['sentinel-layout:images/error-back.svg']}"); background-position:right bottom; background-repeat:no-repeat; background-size: 900px; background-attachment: fixed;}
+.login-back{background-image:url("/HHSC-war/javax.faces.resource/images/login-back.svg.xhtml?ln=sentinel-layout"); background-position:top left; background-repeat:no-repeat; background-size: 50%;}
+.error-back{background-image:url("/HHSC-war/javax.faces.resource/images/error-back.svg.xhtml?ln=sentinel-layout"); background-position:right bottom; background-repeat:no-repeat; background-size: 900px; background-attachment: fixed;}
 
     #login-logo{width:auto; margin-bottom:-2px; padding:0px; margin:18px; line-height: 30px; display:inline-block;}
         #login-logo img{height:30px;}
@@ -118,7 +118,7 @@ body{background-color: #F6F8F8; margin:0px;}
 				.alertBubble{background-color:#e90c45; color:#ffffff; overflow:hidden; padding:3px 4px; display:inline-block; position:absolute; margin-top:-5px;}
 				
 				.layout-header-widgets-submenu{width:200px; padding:14px; margin:0px; position:relative; margin-top:8px; margin-left:-180px; overflow:auto; display:none; max-height: 300px;
-											   background-image:url("#{resource['sentinel-layout:images/popupBlueArrow.png']}"); background-repeat:no-repeat; background-position:top right;}
+											   background-image:url("/HHSC-war/javax.faces.resource/images/popupBlueArrow.png.xhtml?ln=sentinel-layout"); background-repeat:no-repeat; background-position:top right;}
 					.layout-header-widgets-submenu li{padding:0px; margin:0px; margin-left:0px !important; border-bottom:solid 1px #083359; width:100% !important; height:auto !important; 
 													display:block; background-color:#0b4170;}
 						.layout-header-widgets-submenu li i{float:left; margin:0px 10px !important;}
@@ -134,7 +134,7 @@ body{background-color: #F6F8F8; margin:0px;}
 								   color:#5A5A5A !important; font-size:14px;}
 			.layout-menubar-search:focus{color:#939393 !important;}
 		.layout-menubar-container{width:260px; padding:0px; margin-bottom:60px;}
-			#layout-menubar li {width:100%; padding:0px; color:#D9D9D9; font-size:14px; cursor:pointer;}
+			#layout-menubar li {width:100%; padding:0px; color:#D9D9D9; font-size: 18px; cursor:pointer;}
 			#layout-menubar li:hover{background-color:#303030;}
 			.layout-menubar-active{background-color:#303030; text-shadow: 0 1px 0 #000000;}
 				.layout-menubar-active i{}
@@ -490,7 +490,7 @@ box-shadow: inset 0px 0px 0px 1px rgba(100,100,100,1);
 		#sm-topmenu{padding:0px; width:50%; max-height:80%; position:fixed; top:50px; padding:14px; display: none;
 						-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5); -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5); box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
 						border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;
-						background-image:url("#{resource['sentinel-layout:images/popupBlueArrow.png']}"); background-repeat:no-repeat; background-position:right top;}
+						background-image:url("/HHSC-war/javax.faces.resource/images/popupBlueArrow.png.xhtml?ln=sentinel-layout"); background-repeat:no-repeat; background-position:right top;}
 			#sm-topmenu>li{width:100%; border-radius:0px; -webkit-border-radius:0px; -moz-border-radius:0px; margin:0px; border-bottom:solid 1px #083359; min-height:47px; height:47px; font-size:11px; overflow:hidden;}
 				#sm-topmenu>li>i{font-size:20px; overflow:hidden; margin:10px 0px; display:block;}
 				#sm-topmenu>li .alertBubble{ margin:-20px 0px 0px 10px; right: 52%;}

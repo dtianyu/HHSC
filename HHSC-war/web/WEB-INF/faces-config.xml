@@ -36,7 +36,47 @@
             <from-outcome>resetPwd</from-outcome>
             <to-view-id>/sys/resetPwd.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>  
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategory</from-outcome>
+            <to-view-id>/base/itemcategory.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategoryNew</from-outcome>
+            <to-view-id>/base/itemcategoryNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategoryEdit</from-outcome>
+            <to-view-id>/base/itemcategoryEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategoryView</from-outcome>
+            <to-view-id>/base/itemcategoryView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemdesign</from-outcome>
+            <to-view-id>/base/itemdesign.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemdesignNew</from-outcome>
+            <to-view-id>/base/itemdesignNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemdesignEdit</from-outcome>
+            <to-view-id>/base/itemdesignEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemdesignView</from-outcome>
+            <to-view-id>/base/itemdesignView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>dd</from-outcome>
             <to-view-id>/app/dd.xhtml</to-view-id>

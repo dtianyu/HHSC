@@ -5,8 +5,8 @@
  */
 package com.hhsc.lazy;
 
-import com.hhsc.ejb.SalesOrderBean;
-import com.hhsc.entity.SalesOrder;
+import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.entity.FactoryOrder;
 import com.lightshell.comm.BaseLazyModel;
 import java.util.HashMap;
 import java.util.List;
@@ -17,15 +17,15 @@ import org.primefaces.model.SortOrder;
  *
  * @author kevindong
  */
-public class JHModel extends BaseLazyModel<SalesOrder> {
+public class JHModel extends BaseLazyModel<FactoryOrder> {
 
-    private SalesOrderBean salesOrderBean;
+    private FactoryOrderBean factoryOrderBean;
     private Map<String, Object> filter;
     private Map<String, String> order;
 
-    public JHModel(SalesOrderBean superEJB) {
+    public JHModel(FactoryOrderBean superEJB) {
         this.superEJB = superEJB;
-        this.salesOrderBean = superEJB;
+        this.factoryOrderBean = superEJB;
         filter = new HashMap<>();
         filter.put("salesstatus", "V");
         order = new HashMap<>();
@@ -34,9 +34,9 @@ public class JHModel extends BaseLazyModel<SalesOrder> {
     }
 
     @Override
-    public List<SalesOrder> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        setDataList(salesOrderBean.findByFilter(filter, first, pageSize, order));
-        setRowCount(salesOrderBean.getRowCountByFilter(filter));
+    public List<FactoryOrder> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        setDataList(factoryOrderBean.findByFilter(filter, first, pageSize, order));
+        setRowCount(factoryOrderBean.getRowCountByFilter(filter));
         return this.dataList;
     }
 

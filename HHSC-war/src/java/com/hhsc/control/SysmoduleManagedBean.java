@@ -8,7 +8,7 @@ package com.hhsc.control;
 import com.hhsc.ejb.SysmoduleBean;
 import com.hhsc.entity.Sysmodule;
 import com.hhsc.lazy.SysmoduleModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperSingleBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -19,7 +19,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SysmoduleManagedBean extends SuperOperateBean<Sysmodule> {
+public class SysmoduleManagedBean extends SuperSingleBean<Sysmodule> {
 
     @EJB
     private SysmoduleBean sysmoduleBean;
@@ -29,16 +29,6 @@ public class SysmoduleManagedBean extends SuperOperateBean<Sysmodule> {
      */
     public SysmoduleManagedBean() {
         super(Sysmodule.class);
-    }
-
-    @Override
-    protected void buildJsonObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void buildJsonArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -57,13 +47,4 @@ public class SysmoduleManagedBean extends SuperOperateBean<Sysmodule> {
         super.init();
     }
 
-    @Override
-    public void pull() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setToolBar() {
-
-    }
 }

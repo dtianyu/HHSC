@@ -5,12 +5,16 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.SalesOrderBean;
+import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
-import com.hhsc.entity.SalesOrder;
+import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.DDModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.SuperSingleBean;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -25,10 +29,12 @@ import org.primefaces.event.FileUploadEvent;
  */
 @ManagedBean(name = "ddManagedBean")
 @SessionScoped
-public class DDManagedBean extends SuperOperateBean<SalesOrder> {
+public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail> {
 
     @EJB
-    private SalesOrderBean salesOrderBean;
+    private FactoryOrderBean factoryOrderBean;
+    @EJB
+    private SalesOrderDetailBean salesOrderDetailBean;
     @EJB
     private SystemUserBean systemUserBean;
 
@@ -38,12 +44,13 @@ public class DDManagedBean extends SuperOperateBean<SalesOrder> {
      * Creates a new instance of SalesOrderManagedBean
      */
     public DDManagedBean() {
-        super(SalesOrder.class);
+        super(FactoryOrder.class, SalesOrderDetail.class);
     }
 
     @Override
     public void create() {
         super.create();
+        this.newEntity.setColorid("colorid");
         this.newEntity.setOrderdate(getDate());
         this.newEntity.setSalesman(userManagedBean.getCurrentUser());
         this.newEntity.setSalesstatus("N");
@@ -66,6 +73,24 @@ public class DDManagedBean extends SuperOperateBean<SalesOrder> {
     }
 
     @Override
+    public void createDetail() {
+        super.createDetail();
+        this.newDetail.setSeq(getMaxSeq());
+        this.newDetail.setDesignid(0);
+        this.newDetail.setItemno("itemno");
+        this.newDetail.setCharge(BigDecimal.ZERO);
+        this.newDetail.setSuitqty(0);
+        this.newDetail.setMeterqty(BigDecimal.ZERO);
+        this.newDetail.setPrice(BigDecimal.ZERO);
+        this.newDetail.setDiscount(BigDecimal.valueOf(100));
+        this.newDetail.setAmts(BigDecimal.ZERO);
+        this.newDetail.setTaxes(BigDecimal.ZERO);
+        this.newDetail.setExcludingtax(BigDecimal.ZERO);
+        this.newDetail.setDeliverdate(this.getDate());
+        this.setCurrentDetail(newDetail);
+    }
+
+    @Override
     public void handleFileUploadWhenNew(FileUploadEvent event) {
         super.handleFileUploadWhenNew(event);
         if (this.fileName != null && this.newEntity != null) {
@@ -83,18 +108,11 @@ public class DDManagedBean extends SuperOperateBean<SalesOrder> {
 
     @Override
     public void init() {
-        setSuperEJB(salesOrderBean);
-        setModel(new DDModel(salesOrderBean, userManagedBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        setSuperEJB(factoryOrderBean);
+        setDetailEJB(salesOrderDetailBean);
+        setModel(new DDModel(factoryOrderBean, userManagedBean));
         setSystemUserList(systemUserBean.findAll());
         super.init();
-    }
-
-    @Override
-    public void pull() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

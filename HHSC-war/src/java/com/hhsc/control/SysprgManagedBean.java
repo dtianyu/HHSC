@@ -10,7 +10,7 @@ import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysmodule;
 import com.hhsc.entity.Sysprg;
 import com.hhsc.lazy.SysprgModel;
-import com.hhsc.web.SuperOperateBean;
+import com.hhsc.web.SuperSingleBean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +22,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SysprgManagedBean extends SuperOperateBean<Sysprg> {
+public class SysprgManagedBean extends SuperSingleBean<Sysprg> {
 
     @EJB
     private SysmoduleBean sysmoduleBean;

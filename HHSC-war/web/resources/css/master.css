@@ -14,8 +14,13 @@ li{
     float: left;
 }
 
-.Wid40 input,.Wid40 span,.Wid60 input,.Wid60 span{
-     width:95%; 
+.Wid30 input,.Wid30 span,
+.Wid40 input,.Wid40 span,
+.Wid50 input,.Wid50 span,
+.Wid60 input,.Wid60 span,
+.Wid70 input,.Wid70 span,
+.Wid80 input,.Wid80 span{
+    width:95%; 
 }
 
 
@@ -23,7 +28,7 @@ li{
     width: 16px;
 }
 .Wid40 span.ui-button-text,.Wid60 span.ui-button-text{
-    width: 24px;
+    width: 32px;
 }
 
 .w020,.w020 input,.w020 label,.w020 span{
@@ -119,15 +124,16 @@ li{
     margin-bottom: 10px;
 }
 
+.detailToolbar{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .fileUpload{
     margin-top: 10px;
     margin-bottom: 10px;
 }
 /*-------------------------------MainFrameStyle*/
-
-.ui-button .ui-button-text {
-    font-size: 10px;
-}
 
 .ui-datatable .ui-paginator .ui-paginator-current,
 .ui-datatable .ui-paginator .ui-paginator-first,
@@ -139,10 +145,17 @@ li{
     padding: 1px 2px;
 }
 
-.ui-widget-header,.ui-widget-footer,.tableList td,.plgNew td,.plgEdit td,.plgView td{
-    height: 28px;
+.tableList td,.plgNew td,.plgEdit td,.plgView td{
+    height: 32px;
 }
 
 .tableList .ui-selectonemenu-label{
     height: 12px;
+}
+
+.plgNew .Wid40 img,.plgEdit .Wid40 img,.plgView .Wid40 img,
+.plgNew .Wid60 img,.plgEdit .Wid60 img,.plgView .Wid80 img,
+.plgNew .Wid80 img,.plgEdit .Wid80 img,.plgView .Wid80 img{
+    max-width: 270px;
+    max-height: 180px;
 }

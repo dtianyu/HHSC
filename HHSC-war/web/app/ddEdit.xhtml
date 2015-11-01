@@ -9,21 +9,21 @@
     <ui:define name="content">
 
         <h:form id="formEdit">
+            <h:outputScript name="ddEdit.js" library="js" /> 
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="dd" icon="ui-icon-arrowreturn-1-w"  />                          
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{ddManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>                                
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{ddManagedBean.update()}" icon="ui-icon-disk" 
+                                     process="@this,plgEdit" update="plgEdit"/>                                
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelEdit" header="订单信息－修改">
-                <h:panelGrid id="plgEdit" columns="2" columnClasses="Wid20,Wid80" styleClass="Wid60 Responsive" >
+                <h:panelGrid id="plgEdit" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgEdit Container80 Responsive" >
                     <p:outputLabel value="花号" for="itemid" />
                     <p:inputText id="itemid" value="#{ddManagedBean.currentEntity.itemid}" title="Itemid" required="true" requiredMessage="花号不能为空."/>
-                    <p:outputLabel value="色号" for="colorid" />
-                    <p:inputText id="colorid" value="#{ddManagedBean.currentEntity.colorid}" title="Colorid" required="true" requiredMessage="色号不能为空."/>
                     <p:outputLabel value="成品规格" for="itemspec" />
                     <p:inputText id="itemspec" value="#{ddManagedBean.currentEntity.itemspec}" title="Itemspec" required="true" requiredMessage="规格不能为空."/>
                     <p:outputLabel value="面料" for="itemdesc" />
@@ -50,16 +50,83 @@
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </p:calendar>
                     <p:outputLabel value="营业备注" for="salesremark" />
-                    <p:inputTextarea id="salesremark" value="#{ddManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                    <p:inputTextarea id="salesremark" rows="4" value="#{ddManagedBean.currentEntity.salesremark}" title="Salesremark" 
                                      styleClass="Wid90 Responsive" required="true" requiredMessage="备注不能为空."/>
+                    <p:outputLabel value="成品要求" for="cpremark" />
+                    <p:inputTextarea id="cpremark" rows="4" value="#{ddManagedBean.currentEntity.cpremark}" title="Cpremark" 
+                                     styleClass="Wid90 Responsive"/>
                     <p:outputLabel value="图片" for="orderimg" />
-                    <p:inputText id="orderimg" value="#{ddManagedBean.currentEntity.orderimg}" placeholder="图片大小270X180px"/>                   
+                    <p:inputText id="orderimg" value="#{ddManagedBean.currentEntity.orderimg}" placeholder="图片大小270X180px"/>  
                 </h:panelGrid>
+            </p:panel>
+            <p:panel id="panelDetail">
+                <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                    <f:facet name="left">
+                        <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{ddManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                         oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                         update="plgEditDetail" process="@this" />
+                        <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{ddManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                         oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                         update="tableList,plgEditDetail" process="@this" />  
+                    </f:facet>
+                    <f:facet name="right">                        
+                        <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{ddManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                         onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                         update="tableList,plgEditDetail" process="@this,plgEditDetail"/>                                
+                    </f:facet>
+                </p:toolbar>
+                <h:panelGrid id="plgEditDetail" columns="2" columnClasses="Wid30,Wid70" styleClass="Container40" >
+                    <p:column styleClass="Wid20">
+                        <p:outputLabel value="色号" for="colorid" />
+                    </p:column>
+                    <p:column styleClass="Wid80">
+                        <p:inputText id="colorid" value="#{ddManagedBean.currentDetail.colorid}" title="Colorid" 
+                                     placeholder="输入色号" required="true" requiredMessage="色号不能为空"/>
+                    </p:column>
+                    <p:column styleClass="Wid20">
+                        <p:outputLabel value="数量" for="detailqty"/>
+                    </p:column>
+                    <p:column styleClass="Wid80">
+                        <p:inputText id="detailqty" value="#{ddManagedBean.currentDetail.qty}" title="detailqty"
+                                     placeholder="输入数量" required="true" requiredMessage="数量不能为空"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="单位" for="unit" />
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="unit" value="#{ddManagedBean.currentDetail.unit}" title="unit"
+                                     placeholder="输入单位" required="true" requiredMessage="单位不能为空"/>
+                    </p:column>
+                </h:panelGrid>
+                <p:dataTable id="tableList" value="#{ddManagedBean.detailList}" var="item" styleClass="tableList"
+                             selectionMode="single" selection="#{ddManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                    <p:ajax event="rowSelect"  update=":formEdit:plgEditDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                    <p:ajax event="rowUnselect"  update=":formEdit:plgEditDetail" oncomplete="" />
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="色号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.colorid}"/>
+                    </p:column>
+                    <p:column styleClass="TexAlRight">
+                        <f:facet name="header">
+                            <h:outputText value="数量"/>
+                        </f:facet>
+                        <h:outputText value="#{item.qty}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="单位"/>
+                        </f:facet>
+                        <h:outputText value="#{item.unit}"/>
+                    </p:column>
+                </p:dataTable>
             </p:panel>
         </h:form>
         <h:form id="formUpload">
             <p:fileUpload id="fileUpload"  fileUploadListener="#{ddManagedBean.handleFileUploadWhenEdit}" sizeLimit="5000000" styleClass="fileUpload"
-                          update=":formUpload,formEdit:orderimg"/>
+                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                          update=":formUpload,:formEdit:orderimg" process="@this"/>
             <p:panelGrid id="plgUpload" columns="2" columnClasses="Wid20,Wid60">
                 <h:outputLabel value="文件名：" for="fileName" />
                 <h:outputText id="fileName"  value="#{ddManagedBean.fileName}"/>

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SysgrantModule.getRowCountByUserId", query = "SELECT COUNT(s) FROM SysgrantModule s WHERE s.systemuser.id = :userid "),
     @NamedQuery(name = "SysgrantModule.findAll", query = "SELECT s FROM SysgrantModule s ORDER BY s.systemuser.id,s.sysmodule.id"),
     @NamedQuery(name = "SysgrantModule.findById", query = "SELECT s FROM SysgrantModule s WHERE s.id = :id"),
-    @NamedQuery(name = "SysgrantModule.findByUserId", query = "SELECT s FROM SysgrantModule s WHERE s.systemuser.id = :userid"),
+    @NamedQuery(name = "SysgrantModule.findByUserId", query = "SELECT s FROM SysgrantModule s WHERE s.systemuser.id = :userid ORDER BY s.sysmodule.sortid "),
     @NamedQuery(name = "SysgrantModule.findByModuleId", query = "SELECT s FROM SysgrantModule s WHERE s.sysmodule.id = :moduleid"),
     @NamedQuery(name = "SysgrantModule.findByStatus", query = "SELECT s FROM SysgrantModule s WHERE s.status = :status")})
 public class SysgrantModule extends BaseEntityWithOperate {
