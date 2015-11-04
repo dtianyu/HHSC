@@ -218,6 +218,12 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, Y extends 
 
     public String view(String path) {
         if (currentEntity != null) {
+            setDetailList(this.detailEJB.findByPId(currentEntity.getId()));
+            if (this.detailList == null) {
+                if (this.detailList == null) {
+                    this.detailList = new ArrayList<>();
+                }
+            }
             return path;
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择查看数据！"));

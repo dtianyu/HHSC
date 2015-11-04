@@ -21,43 +21,121 @@
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelEdit" header="订单信息－修改">
-                <h:panelGrid id="plgEdit" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgEdit Container80 Responsive" >
-                    <p:outputLabel value="花号" for="itemid" />
-                    <p:inputText id="itemid" value="#{ddManagedBean.currentEntity.itemid}" title="Itemid" required="true" requiredMessage="花号不能为空."/>
-                    <p:outputLabel value="成品规格" for="itemspec" />
-                    <p:inputText id="itemspec" value="#{ddManagedBean.currentEntity.itemspec}" title="Itemspec" required="true" requiredMessage="规格不能为空."/>
-                    <p:outputLabel value="面料" for="itemdesc" />
-                    <p:inputText id="itemdesc" value="#{ddManagedBean.currentEntity.itemdesc}" title="Itemdesc" required="true" requiredMessage="面料不能为空."/>
-                    <p:outputLabel value="数量" for="qty" />
-                    <p:inputText id="qty" value="#{ddManagedBean.currentEntity.qty}" title="Qty" required="true" requiredMessage="数量不能为空."/>
-                    <p:outputLabel value="制单日期" for="orderdate" />
-                    <p:calendar id="orderdate" value="#{ddManagedBean.currentEntity.orderdate}" title="Orderdate" 
-                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="日期不能为空.">
-                        <f:convertDateTime pattern="yyyy/MM/dd" />
-                    </p:calendar>
-                    <p:outputLabel value="业务" for="salesman" />
-                    <p:selectOneMenu id="salesman" value="#{ddManagedBean.currentEntity.salesman}" required="true" 
-                                     converter="systemUserConverter" requiredMessage="业务不能为空.">
-                        <!-- TODO: update below reference to list of available items-->
-                        <f:selectItem itemLabel="Select One" itemValue="" />  
-                        <f:selectItems value="#{ddManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="生产设备" for="equipmentid" />
-                    <p:inputText id="equipmentid" value="#{ddManagedBean.currentEntity.equipmentid}" title="Equipmentid" />
-                    <p:outputLabel value="印花交期" for="yhdate" />
-                    <p:calendar id="yhdate" value="#{ddManagedBean.currentEntity.yhdate}" title="Yhdate" 
-                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="印花交期为空.">
-                        <f:convertDateTime pattern="yyyy/MM/dd" />
-                    </p:calendar>
-                    <p:outputLabel value="营业备注" for="salesremark" />
-                    <p:inputTextarea id="salesremark" rows="4" value="#{ddManagedBean.currentEntity.salesremark}" title="Salesremark" 
-                                     styleClass="Wid90 Responsive" required="true" requiredMessage="备注不能为空."/>
-                    <p:outputLabel value="成品要求" for="cpremark" />
-                    <p:inputTextarea id="cpremark" rows="4" value="#{ddManagedBean.currentEntity.cpremark}" title="Cpremark" 
-                                     styleClass="Wid90 Responsive"/>
-                    <p:outputLabel value="图片" for="orderimg" />
-                    <p:inputText id="orderimg" value="#{ddManagedBean.currentEntity.orderimg}" placeholder="图片大小270X180px"/>  
-                </h:panelGrid>
+                <p:panelGrid id="plgEdit"  styleClass="plgEdit Wid80 Responsive" >
+                    <p:row>
+                        <p:column><p:outputLabel value="花号" for="itemid" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemid" value="#{ddManagedBean.currentEntity.itemid}" title="Itemid" required="true" requiredMessage="花号不能为空."/>
+                        </p:column>
+                        <p:column><p:outputLabel value="成品规格" for="itemspec" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemspec" value="#{ddManagedBean.currentEntity.itemspec}" title="Itemspec" required="true" requiredMessage="规格不能为空."/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="面料" for="itemdesc" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemdesc" value="#{ddManagedBean.currentEntity.itemdesc}" title="Itemdesc" required="true" requiredMessage="面料不能为空."/>
+                        </p:column>
+                        <p:column><p:outputLabel value="订单数量" for="orderqty" /></p:column>
+                        <p:column>
+                            <p:inputText id="orderqty" value="#{ddManagedBean.currentEntity.orderqty}" title="orderqty" required="true" requiredMessage="数量不能为空."/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="制单日期" for="orderdate" /></p:column>
+                        <p:column>
+                            <p:calendar id="orderdate" value="#{ddManagedBean.currentEntity.orderdate}" title="Orderdate" 
+                                        pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="日期不能为空.">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                        <p:column><p:outputLabel value="业务" for="salesman" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="salesman" value="#{ddManagedBean.currentEntity.salesman}" required="true" 
+                                             converter="systemUserConverter" requiredMessage="业务不能为空.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{ddManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="生产设备" for="equipmentid" /></p:column>
+                        <p:column>
+                            <p:inputText id="equipmentid" value="#{ddManagedBean.currentEntity.equipmentid}" title="Equipmentid" />
+                        </p:column>
+                        <p:column><p:outputLabel value="印花交期" for="yhdate" /></p:column>
+                        <p:column>
+                            <p:calendar id="yhdate" value="#{ddManagedBean.currentEntity.yhdate}" title="Yhdate" 
+                                        pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="印花交期为空.">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>                   
+                    <p:row>
+                        <p:column><p:outputLabel value="营业备注" for="salesremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="salesremark" rows="3" value="#{ddManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                             styleClass="Wid90 Responsive" required="true" requiredMessage="备注不能为空."/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="hgreq" rows="3" value="#{ddManagedBean.currentEntity.hgreq}" title="hgreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="制版要求" for="zbreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="zbreq" rows="3" value="#{ddManagedBean.currentEntity.zbreq}" title="zbreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="配色要求" for="psreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="psreq" rows="3" value="#{ddManagedBean.currentEntity.psreq}" title="psreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="印花要求" for="yhreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="yhreq" rows="3" value="#{ddManagedBean.currentEntity.yhreq}" title="yhreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="后整要求" for="zhreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="zhreq" rows="3" value="#{ddManagedBean.currentEntity.zhreq}" title="zhreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="仓库要求" for="ckreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="ckreq" rows="3" value="#{ddManagedBean.currentEntity.ckreq}" title="ckreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="成品要求" for="cpreq" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="cpreq" rows="3" value="#{ddManagedBean.currentEntity.cpreq}" title="cpreq" 
+                                             styleClass="Wid90 Responsive"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="图片" for="orderimg" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="orderimg" value="#{ddManagedBean.currentEntity.orderimg}" placeholder="图片大小270X180px"/> 
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
             <p:panel id="panelDetail">
                 <p:toolbar id="detailToolbar" styleClass="detailToolbar">

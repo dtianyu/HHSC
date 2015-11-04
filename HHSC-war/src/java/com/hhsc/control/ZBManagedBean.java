@@ -6,9 +6,11 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.ZBModel;
-import com.hhsc.web.SuperSingleBean;
+import com.hhsc.web.SuperMultiBean;
 import com.lightshell.comm.BaseLib;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -22,18 +24,21 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "zbManagedBean")
 @SessionScoped
-public class ZBManagedBean extends SuperSingleBean<FactoryOrder> {
+public class ZBManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
+    @EJB
+    private FactoryOrderDetailBean factoryOrderDetailBean;
 
     public ZBManagedBean() {
-        super(FactoryOrder.class);
+        super(FactoryOrder.class, FactoryOrderDetail.class);
     }
 
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
+        setDetailEJB(factoryOrderDetailBean);
         setModel(new ZBModel(factoryOrderBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
@@ -93,8 +98,10 @@ public class ZBManagedBean extends SuperSingleBean<FactoryOrder> {
             try {
                 currentEntity.setZbstatus("M");
                 currentEntity.setZbdelman(null);
+                currentEntity.setPsrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("ZB");
                 update();
                 setToolBar();
             } catch (Exception e) {
@@ -109,9 +116,10 @@ public class ZBManagedBean extends SuperSingleBean<FactoryOrder> {
             try {
                 currentEntity.setZbstatus("V");
                 currentEntity.setZbdelman(getUserManagedBean().getCurrentUser().getUsername());
-                currentEntity.setYhrecdate(getDate());
+                currentEntity.setPsrecdate(getDate());
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("PS");
                 update();
                 setToolBar();
             } catch (Exception e) {

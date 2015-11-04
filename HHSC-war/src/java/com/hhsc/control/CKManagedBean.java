@@ -6,9 +6,11 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.CKModel;
-import com.hhsc.web.SuperSingleBean;
+import com.hhsc.web.SuperMultiBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,18 +23,21 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "ckManagedBean")
 @SessionScoped
-public class CKManagedBean extends SuperSingleBean<FactoryOrder> {
+public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
+    @EJB
+    private FactoryOrderDetailBean factoryOrderDetailBean;
 
     public CKManagedBean() {
-        super(FactoryOrder.class);
+        super(FactoryOrder.class, FactoryOrderDetail.class);
     }
 
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
+        setDetailEJB(factoryOrderDetailBean);
         setModel(new CKModel(factoryOrderBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
@@ -92,8 +97,10 @@ public class CKManagedBean extends SuperSingleBean<FactoryOrder> {
             try {
                 currentEntity.setCkstatus("M");
                 currentEntity.setCkdelman(null);
+                currentEntity.setCprecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("CK");
                 update();
                 setToolBar();
             } catch (Exception e) {
@@ -111,6 +118,7 @@ public class CKManagedBean extends SuperSingleBean<FactoryOrder> {
                 currentEntity.setCprecdate(getDate());
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("CP");
                 update();
                 setToolBar();
             } catch (Exception e) {

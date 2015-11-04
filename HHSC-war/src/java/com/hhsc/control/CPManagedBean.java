@@ -6,9 +6,11 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.CPModel;
-import com.hhsc.web.SuperSingleBean;
+import com.hhsc.web.SuperMultiBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,18 +23,21 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "cpManagedBean")
 @SessionScoped
-public class CPManagedBean extends SuperSingleBean<FactoryOrder> {
+public class CPManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
+    @EJB
+    private FactoryOrderDetailBean factoryOrderDetailBean;
 
     public CPManagedBean() {
-        super(FactoryOrder.class);
+        super(FactoryOrder.class, FactoryOrderDetail.class);
     }
 
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
+        setDetailEJB(factoryOrderDetailBean);
         setModel(new CPModel(factoryOrderBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
@@ -90,6 +95,7 @@ public class CPManagedBean extends SuperSingleBean<FactoryOrder> {
                 currentEntity.setOptdateToNow();
                 currentEntity.setCfmuser(null);
                 currentEntity.setCfmdate(null);
+                currentEntity.setStatus("CP");
                 update();
                 setToolBar();
             } catch (Exception e) {

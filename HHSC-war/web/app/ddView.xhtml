@@ -16,11 +16,9 @@
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelView" header="订单信息">
-                <p:panelGrid id="plgView" styleClass="plgView Wid90 Responsive" >
+                <p:panelGrid id="plgView" styleClass="plgView Wid80 Responsive" >
                     <p:row>
-                        <p:column>
-                            <h:outputText  value="花号"/>
-                        </p:column>
+                        <p:column><h:outputText  value="花号"/></p:column>
                         <p:column colspan="3">
                             <h:outputText  id="itemid" value="#{ddManagedBean.currentEntity.itemid}" title="Itemid"/>
                         </p:column>
@@ -29,31 +27,25 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText  value="色号"/></p:column>
+                        <p:column><h:outputText value="面料"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="colorid" value="#{ddManagedBean.currentEntity.colorid}" title="Colorid"/>
-                        </p:column>>
+                            <h:outputText id="itemdesc" value="#{ddManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                        </p:column>
                     </p:row>
                     <p:row>
-                        <p:column>
-                            <h:outputText value="成品规格"/>
-                        </p:column>
+                        <p:column><h:outputText value="成品规格"/></p:column>
                         <p:column colspan="3">
                             <h:outputText id="itemspec" value="#{ddManagedBean.currentEntity.itemspec}" title="Itemspec"/>
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column><h:outputText value="订单数量"/></p:column>
                         <p:column>
-                            <h:outputText value="数量"/>
+                            <h:outputText id="orderqty" value="#{ddManagedBean.currentEntity.orderqty}" title="Orderqty"/>
                         </p:column>
+                        <p:column><h:outputText value="计划数量"/></p:column>
                         <p:column>
-                            <h:outputText id="qty" value="#{ddManagedBean.currentEntity.qty}" title="Qty"/>
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="业务"/>
-                        </p:column>
-                        <p:column>
-                            <h:outputText id="salesman" value="#{ddManagedBean.currentEntity.salesman.username}"/>
+                            <h:outputText id="qty" value="#{ddManagedBean.currentEntity.qty}" title="qty"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -71,9 +63,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="面料"/></p:column>
+                        <p:column><h:outputText value="业务"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="itemdesc" value="#{ddManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                            <h:outputText id="salesman" value="#{ddManagedBean.currentEntity.salesman.username}"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -106,7 +98,7 @@
                     <p:row>
                         <p:column><h:outputText value="画稿要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="hgremark" value="#{ddManagedBean.currentEntity.hgremark}" title="Salesremark" 
+                            <p:inputTextarea id="hgreq" value="#{ddManagedBean.currentEntity.hgreq}" title="hgreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>
                     </p:row>
@@ -133,7 +125,7 @@
                     <p:row>
                         <p:column><h:outputText value="制版要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="zbremark" value="#{ddManagedBean.currentEntity.zbremark}" title="zbremark" 
+                            <p:inputTextarea id="zbreq" value="#{ddManagedBean.currentEntity.zbreq}" title="zbreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>                
                     </p:row>
@@ -160,7 +152,7 @@
                     <p:row>
                         <p:column><h:outputText value="配色要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="psremark" value="#{ddManagedBean.currentEntity.psremark}" title="psremark" 
+                            <p:inputTextarea id="psreq" value="#{ddManagedBean.currentEntity.psreq}" title="psreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>                
                     </p:row>
@@ -187,7 +179,7 @@
                     <p:row>
                         <p:column><h:outputText value="印花要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="yhremark" value="#{ddManagedBean.currentEntity.yhremark}" title="yhremark" 
+                            <p:inputTextarea id="yhreq" value="#{ddManagedBean.currentEntity.yhreq}" title="yhreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>                
                     </p:row>
@@ -212,9 +204,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="蒸化要求"/></p:column>
+                        <p:column><h:outputText value="后整要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="zhremark" value="#{ddManagedBean.currentEntity.zhremark}" title="zhremark" 
+                            <p:inputTextarea id="zhreq" value="#{ddManagedBean.currentEntity.zhreq}" title="zhreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>                
                     </p:row>
@@ -241,7 +233,7 @@
                     <p:row>
                         <p:column><h:outputText value="仓库要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="ckremark" value="#{ddManagedBean.currentEntity.ckremark}" title="ckremark" 
+                            <p:inputTextarea id="ckreq" value="#{ddManagedBean.currentEntity.ckreq}" title="ckreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>                
                     </p:row>
@@ -258,9 +250,7 @@
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-
-                        </p:column>
+                        <p:column><h:outputText value="完成日期"/></p:column>
                         <p:column>
 
                         </p:column>
@@ -268,11 +258,34 @@
                     <p:row>
                         <p:column><h:outputText value="成品要求"/></p:column>
                         <p:column colspan="5">
-                            <p:inputTextarea id="cpremark" value="#{ddManagedBean.currentEntity.cpremark}" title="cpremark" 
+                            <p:inputTextarea id="cpreq" value="#{ddManagedBean.currentEntity.cpreq}" title="cpreq" 
                                              styleClass="Wid90 Responsive" readonly="true"/>
                         </p:column>                
                     </p:row>
                 </p:panelGrid>
+                <p:dataTable id="tableList" value="#{ddManagedBean.detailList}" var="item" styleClass="tableList Wid80"
+                             selectionMode="single" selection="#{ddManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                    <p:ajax event="rowSelect"/>
+                    <p:ajax event="rowUnselect"/>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="色号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.colorid}"/>
+                    </p:column>
+                    <p:column styleClass="TexAlRight">
+                        <f:facet name="header">
+                            <h:outputText value="数量"/>
+                        </f:facet>
+                        <h:outputText value="#{item.qty}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="单位"/>
+                        </f:facet>
+                        <h:outputText value="#{item.unit}"/>
+                    </p:column>
+                </p:dataTable>
             </p:panel>
         </h:form>
 

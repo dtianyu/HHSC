@@ -31,27 +31,41 @@
                          rowsPerPageTemplate="15,30,45"  lazy="true" 
                          selectionMode="single" selection="#{zhManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    蒸化维护
+                    后整维护
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="订单日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.orderdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
                     <h:outputText value="#{item.itemid}"/>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid20 Responsive">
                     <f:facet name="header">
-                        <h:outputText value="色号"/>
-                    </f:facet>
-                    <h:outputText value="#{item.colorid}"/>
-                </p:column>
-                <p:column styleClass="Wid30 Responsive">
-                    <f:facet name="header">
-                        <h:outputText value="规格"/>
+                        <h:outputText value="成品规格"/>
                     </f:facet>
                     <h:outputText value="#{item.itemspec}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="订单数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.orderqty}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="计划数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qty}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

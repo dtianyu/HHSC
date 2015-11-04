@@ -65,9 +65,9 @@
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="数量"/>
+                        <h:outputText value="订单数量"/>
                     </f:facet>
-                    <h:outputText value="#{item.qty}"/>
+                    <h:outputText value="#{item.orderqty}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
@@ -87,7 +87,7 @@
                     <f:facet name="header">
                         <h:outputText value="状态"/>
                     </f:facet>
-                    <h:outputText value="#{item.salesstatus}"/>
+                    <h:outputText value="#{item.status}"/>
                 </p:column>               
             </p:dataTable>
         </h:form>

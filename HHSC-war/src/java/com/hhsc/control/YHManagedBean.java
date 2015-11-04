@@ -6,9 +6,11 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.YHModel;
-import com.hhsc.web.SuperSingleBean;
+import com.hhsc.web.SuperMultiBean;
 import com.lightshell.comm.BaseLib;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -22,18 +24,21 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "yhManagedBean")
 @SessionScoped
-public class YHManagedBean extends SuperSingleBean<FactoryOrder> {
+public class YHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
+    @EJB
+    private FactoryOrderDetailBean factoryOrderDetailBean;
 
     public YHManagedBean() {
-        super(FactoryOrder.class);
+        super(FactoryOrder.class, FactoryOrderDetail.class);
     }
 
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
+        setDetailEJB(factoryOrderDetailBean);
         setModel(new YHModel(factoryOrderBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
@@ -93,8 +98,10 @@ public class YHManagedBean extends SuperSingleBean<FactoryOrder> {
             try {
                 currentEntity.setYhstatus("M");
                 currentEntity.setYhdelman(null);
+                currentEntity.setZhrecdate(null);                
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("YH");
                 update();
                 setToolBar();
             } catch (Exception e) {
@@ -112,6 +119,7 @@ public class YHManagedBean extends SuperSingleBean<FactoryOrder> {
                 currentEntity.setZhrecdate(getDate());
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("HZ");
                 update();
                 setToolBar();
             } catch (Exception e) {

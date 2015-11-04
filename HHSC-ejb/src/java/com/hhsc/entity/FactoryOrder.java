@@ -58,6 +58,10 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "orderdate")
     @Temporal(TemporalType.DATE)
     private Date orderdate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "orderqty")
+    private String orderqty;
     @Size(max = 200)
     @Column(name = "orderimg")
     private String orderimg;
@@ -81,9 +85,6 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Size(min = 1, max = 200)
     @Column(name = "itemspec")
     private String itemspec;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "qty")
     private String qty;
     @Size(max = 20)
@@ -135,8 +136,18 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "hgrecman")
     private String hgrecman;
     @Size(max = 400)
+    @Column(name = "hgreq")
+    private String hgreq;
+    @Size(max = 400)
     @Column(name = "hgremark")
     private String hgremark;
+    @Column(name = "hgsets")
+    private int hgsets;
+    @Size(max = 200)
+    @Column(name = "hgspec")
+    private String hgspec;
+    @Column(name = "hgcolors")
+    private int hgcolors;
     @Column(name = "hgdeldate")
     @Temporal(TemporalType.DATE)
     private Date hgdeldate;
@@ -158,8 +169,16 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "zbrecman")
     private String zbrecman;
     @Size(max = 400)
+    @Column(name = "zbreq")
+    private String zbreq;
+    @Size(max = 400)
     @Column(name = "zbremark")
     private String zbremark;
+    @Column(name = "zbcount")
+    private int zbcount;
+    @Size(max = 45)
+    @Column(name = "zbequip")
+    private String zbequip;
     @Column(name = "zbdeldate")
     @Temporal(TemporalType.DATE)
     private Date zbdeldate;
@@ -181,6 +200,9 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "psrecman")
     private String psrecman;
     @Size(max = 400)
+    @Column(name = "psreq")
+    protected String psreq;
+    @Size(max = 400)
     @Column(name = "psremark")
     private String psremark;
     @Size(max = 45)
@@ -198,6 +220,12 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Size(max = 45)
     @Column(name = "pszhcs")
     private String pszhcs;
+    @Size(max = 45)
+    @Column(name = "pszhyl")
+    protected String pszhyl;
+    @Size(max = 45)
+    @Column(name = "pszhsd")
+    protected String pszhsd;
     @Column(name = "psdeldate")
     @Temporal(TemporalType.DATE)
     private Date psdeldate;
@@ -218,6 +246,9 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Size(max = 20)
     @Column(name = "yhrecman")
     private String yhrecman;
+    @Size(max = 400)
+    @Column(name = "yhreq")
+    protected String yhreq;
     @Size(max = 400)
     @Column(name = "yhremark")
     private String yhremark;
@@ -246,6 +277,9 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Size(max = 20)
     @Column(name = "zhrecman")
     private String zhrecman;
+    @Size(max = 400)
+    @Column(name = "zhreq")
+    protected String zhreq;
     @Size(max = 400)
     @Column(name = "zhremark")
     private String zhremark;
@@ -288,6 +322,21 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "bjdeldate")
     @Temporal(TemporalType.DATE)
     private Date bjdeldate;
+    @Size(max = 45)
+    @Column(name = "sxsb")
+    protected String sxsb;
+    @Size(max = 45)
+    @Column(name = "sxsj")
+    protected String sxsj;
+    @Size(max = 45)
+    @Column(name = "sxwd")
+    protected String sxwd;
+    @Size(max = 45)
+    @Column(name = "sxzj")
+    protected String sxzj;
+    @Size(max = 45)
+    @Column(name = "hgsb")
+    protected String hgsb;
     @Size(max = 200)
     @Column(name = "sxremark")
     private String sxremark;
@@ -318,6 +367,9 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "ckrecman")
     private String ckrecman;
     @Size(max = 400)
+    @Column(name = "ckreq")
+    protected String ckreq;
+    @Size(max = 400)
     @Column(name = "ckremark")
     private String ckremark;
     @Column(name = "ckdeldate")
@@ -341,8 +393,14 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "cprecman")
     private String cprecman;
     @Size(max = 400)
+    @Column(name = "cpreq")
+    protected String cpreq;
+    @Size(max = 400)
     @Column(name = "cpremark")
     private String cpremark;
+    @Size(max = 45)
+    @Column(name = "bzfs")
+    protected String bzfs;
     @Column(name = "cpdeldate")
     @Temporal(TemporalType.DATE)
     private Date cpdeldate;
@@ -1255,6 +1313,300 @@ public class FactoryOrder extends BaseEntityWithOperate {
      */
     public void setZhdelman(String zhdelman) {
         this.zhdelman = zhdelman;
+    }
+
+    /**
+     * @return the orderqty
+     */
+    public String getOrderqty() {
+        return orderqty;
+    }
+
+    /**
+     * @param orderqty the orderqty to set
+     */
+    public void setOrderqty(String orderqty) {
+        this.orderqty = orderqty;
+    }
+
+    /**
+     * @return the hgreq
+     */
+    public String getHgreq() {
+        return hgreq;
+    }
+
+    /**
+     * @param hgreq the hgreq to set
+     */
+    public void setHgreq(String hgreq) {
+        this.hgreq = hgreq;
+    }
+
+    /**
+     * @return the hgsets
+     */
+    public int getHgsets() {
+        return hgsets;
+    }
+
+    /**
+     * @param hgsets the hgsets to set
+     */
+    public void setHgsets(int hgsets) {
+        this.hgsets = hgsets;
+    }
+
+    /**
+     * @return the hgspec
+     */
+    public String getHgspec() {
+        return hgspec;
+    }
+
+    /**
+     * @param hgspec the hgspec to set
+     */
+    public void setHgspec(String hgspec) {
+        this.hgspec = hgspec;
+    }
+
+    /**
+     * @return the hgcolors
+     */
+    public int getHgcolors() {
+        return hgcolors;
+    }
+
+    /**
+     * @param hgcolors the hgcolors to set
+     */
+    public void setHgcolors(int hgcolors) {
+        this.hgcolors = hgcolors;
+    }
+
+    /**
+     * @return the zbreq
+     */
+    public String getZbreq() {
+        return zbreq;
+    }
+
+    /**
+     * @param zbreq the zbreq to set
+     */
+    public void setZbreq(String zbreq) {
+        this.zbreq = zbreq;
+    }
+
+    /**
+     * @return the zbcount
+     */
+    public int getZbcount() {
+        return zbcount;
+    }
+
+    /**
+     * @param zbcount the zbcount to set
+     */
+    public void setZbcount(int zbcount) {
+        this.zbcount = zbcount;
+    }
+
+    /**
+     * @return the zbequip
+     */
+    public String getZbequip() {
+        return zbequip;
+    }
+
+    /**
+     * @param zbequip the zbequip to set
+     */
+    public void setZbequip(String zbequip) {
+        this.zbequip = zbequip;
+    }
+
+    /**
+     * @return the psreq
+     */
+    public String getPsreq() {
+        return psreq;
+    }
+
+    /**
+     * @param psreq the psreq to set
+     */
+    public void setPsreq(String psreq) {
+        this.psreq = psreq;
+    }
+
+    /**
+     * @return the pszhyl
+     */
+    public String getPszhyl() {
+        return pszhyl;
+    }
+
+    /**
+     * @param pszhyl the pszhyl to set
+     */
+    public void setPszhyl(String pszhyl) {
+        this.pszhyl = pszhyl;
+    }
+
+    /**
+     * @return the pszhsd
+     */
+    public String getPszhsd() {
+        return pszhsd;
+    }
+
+    /**
+     * @param pszhsd the pszhsd to set
+     */
+    public void setPszhsd(String pszhsd) {
+        this.pszhsd = pszhsd;
+    }
+
+    /**
+     * @return the yhreq
+     */
+    public String getYhreq() {
+        return yhreq;
+    }
+
+    /**
+     * @param yhreq the yhreq to set
+     */
+    public void setYhreq(String yhreq) {
+        this.yhreq = yhreq;
+    }
+
+    /**
+     * @return the zhreq
+     */
+    public String getZhreq() {
+        return zhreq;
+    }
+
+    /**
+     * @param zhreq the zhreq to set
+     */
+    public void setZhreq(String zhreq) {
+        this.zhreq = zhreq;
+    }
+
+    /**
+     * @return the ckreq
+     */
+    public String getCkreq() {
+        return ckreq;
+    }
+
+    /**
+     * @param ckreq the ckreq to set
+     */
+    public void setCkreq(String ckreq) {
+        this.ckreq = ckreq;
+    }
+
+    /**
+     * @return the cpreq
+     */
+    public String getCpreq() {
+        return cpreq;
+    }
+
+    /**
+     * @param cpreq the cpreq to set
+     */
+    public void setCpreq(String cpreq) {
+        this.cpreq = cpreq;
+    }
+
+    /**
+     * @return the sxsb
+     */
+    public String getSxsb() {
+        return sxsb;
+    }
+
+    /**
+     * @param sxsb the sxsb to set
+     */
+    public void setSxsb(String sxsb) {
+        this.sxsb = sxsb;
+    }
+
+    /**
+     * @return the sxsj
+     */
+    public String getSxsj() {
+        return sxsj;
+    }
+
+    /**
+     * @param sxsj the sxsj to set
+     */
+    public void setSxsj(String sxsj) {
+        this.sxsj = sxsj;
+    }
+
+    /**
+     * @return the sxwd
+     */
+    public String getSxwd() {
+        return sxwd;
+    }
+
+    /**
+     * @param sxwd the sxwd to set
+     */
+    public void setSxwd(String sxwd) {
+        this.sxwd = sxwd;
+    }
+
+    /**
+     * @return the sxzj
+     */
+    public String getSxzj() {
+        return sxzj;
+    }
+
+    /**
+     * @param sxzj the sxzj to set
+     */
+    public void setSxzj(String sxzj) {
+        this.sxzj = sxzj;
+    }
+
+    /**
+     * @return the hgsb
+     */
+    public String getHgsb() {
+        return hgsb;
+    }
+
+    /**
+     * @param hgsb the hgsb to set
+     */
+    public void setHgsb(String hgsb) {
+        this.hgsb = hgsb;
+    }
+
+    /**
+     * @return the bzfs
+     */
+    public String getBzfs() {
+        return bzfs;
+    }
+
+    /**
+     * @param bzfs the bzfs to set
+     */
+    public void setBzfs(String bzfs) {
+        this.bzfs = bzfs;
     }
 
 }

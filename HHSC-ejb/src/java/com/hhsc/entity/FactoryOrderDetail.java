@@ -25,22 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author kevindong
  */
 @Entity
-@Table(name = "salesorderdetail")
+@Table(name = "factoryorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s"),
-    @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid"),
-    @NamedQuery(name = "SalesOrderDetail.findBySeq", query = "SELECT s FROM SalesOrderDetail s WHERE s.seq = :seq"),
-    @NamedQuery(name = "SalesOrderDetail.findByDesignid", query = "SELECT s FROM SalesOrderDetail s WHERE s.designid = :designid"),
-    @NamedQuery(name = "SalesOrderDetail.findByCustomeritem", query = "SELECT s FROM SalesOrderDetail s WHERE s.customeritem = :customeritem"),
-    @NamedQuery(name = "SalesOrderDetail.findByItemno", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemno = :itemno")})
-public class SalesOrderDetail extends BaseDetailEntity {
+    @NamedQuery(name = "FactoryOrderDetail.findAll", query = "SELECT f FROM FactoryOrderDetail f"),
+    @NamedQuery(name = "FactoryOrderDetail.findById", query = "SELECT f FROM FactoryOrderDetail f WHERE f.id = :id"),
+    @NamedQuery(name = "FactoryOrderDetail.findByPId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.pid = :pid"),
+    @NamedQuery(name = "FactoryOrderDetail.findBySeq", query = "SELECT f FROM FactoryOrderDetail f WHERE f.seq = :seq"),
+    @NamedQuery(name = "FactoryOrderDetail.findByDesignId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.designid = :designid"),
+    @NamedQuery(name = "FactoryOrderDetail.findByColorId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.colorid = :colorid")})
+public class FactoryOrderDetail extends BaseDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "designid")
-    private int designid;
+    private Integer designid;
     @Size(max = 45)
     @Column(name = "customeritem")
     private String customeritem;
@@ -58,15 +55,11 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @Size(min = 1, max = 45)
     @Column(name = "itemno")
     private String itemno;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "charge")
-    private BigDecimal charge;
     @Basic(optional = false)
     @NotNull
     @Column(name = "suitqty")
     private int suitqty;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "meterqty")
@@ -75,25 +68,9 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @NotNull
     @Column(name = "qty")
     private BigDecimal qty;
-    @Size(min = 1, max = 10)
+    @Size(max = 10)
     @Column(name = "unit")
-    protected String unit;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "price")
-    private BigDecimal price;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "discount")
-    private BigDecimal discount;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "amts")
-    private BigDecimal amts;
-    @Column(name = "taxes")
-    private BigDecimal taxes;
-    @Column(name = "excludingtax")
-    private BigDecimal excludingtax;
+    private String unit;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deliverdate")
@@ -103,14 +80,14 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @Column(name = "remark")
     private String remark;
 
-    public SalesOrderDetail() {
+    public FactoryOrderDetail() {
     }
 
-    public int getDesignid() {
+    public Integer getDesignid() {
         return designid;
     }
 
-    public void setDesignid(int designid) {
+    public void setDesignid(Integer designid) {
         this.designid = designid;
     }
 
@@ -154,14 +131,6 @@ public class SalesOrderDetail extends BaseDetailEntity {
         this.itemno = itemno;
     }
 
-    public BigDecimal getCharge() {
-        return charge;
-    }
-
-    public void setCharge(BigDecimal charge) {
-        this.charge = charge;
-    }
-
     public int getSuitqty() {
         return suitqty;
     }
@@ -186,44 +155,12 @@ public class SalesOrderDetail extends BaseDetailEntity {
         this.qty = qty;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
-    }
-
-    public BigDecimal getAmts() {
-        return amts;
-    }
-
-    public void setAmts(BigDecimal amts) {
-        this.amts = amts;
-    }
-
-    public BigDecimal getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(BigDecimal taxes) {
-        this.taxes = taxes;
-    }
-
-    public BigDecimal getExcludingtax() {
-        return excludingtax;
-    }
-
-    public void setExcludingtax(BigDecimal excludingtax) {
-        this.excludingtax = excludingtax;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public Date getDeliverdate() {
@@ -252,10 +189,10 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SalesOrderDetail)) {
+        if (!(object instanceof FactoryOrderDetail)) {
             return false;
         }
-        SalesOrderDetail other = (SalesOrderDetail) object;
+        FactoryOrderDetail other = (FactoryOrderDetail) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -267,21 +204,7 @@ public class SalesOrderDetail extends BaseDetailEntity {
 
     @Override
     public String toString() {
-        return "com.hhsc.entity.SalesOrderDetail[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the unit
-     */
-    public String getUnit() {
-        return unit;
-    }
-
-    /**
-     * @param unit the unit to set
-     */
-    public void setUnit(String unit) {
-        this.unit = unit;
+        return "com.hhsc.entity.FactoryOrderDetail[ id=" + id + " ]";
     }
 
 }

@@ -6,14 +6,13 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
-import com.hhsc.ejb.SalesOrderDetailBean;
+import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
 import com.hhsc.entity.FactoryOrder;
-import com.hhsc.entity.SalesOrderDetail;
+import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.DDModel;
 import com.hhsc.web.SuperMultiBean;
-import com.hhsc.web.SuperSingleBean;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -29,12 +28,12 @@ import org.primefaces.event.FileUploadEvent;
  */
 @ManagedBean(name = "ddManagedBean")
 @SessionScoped
-public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail> {
+public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
     @EJB
-    private SalesOrderDetailBean salesOrderDetailBean;
+    private FactoryOrderDetailBean factoryOrderDetailBean;
     @EJB
     private SystemUserBean systemUserBean;
 
@@ -44,7 +43,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail
      * Creates a new instance of SalesOrderManagedBean
      */
     public DDManagedBean() {
-        super(FactoryOrder.class, SalesOrderDetail.class);
+        super(FactoryOrder.class, FactoryOrderDetail.class);
     }
 
     @Override
@@ -78,14 +77,8 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail
         this.newDetail.setSeq(getMaxSeq());
         this.newDetail.setDesignid(0);
         this.newDetail.setItemno("itemno");
-        this.newDetail.setCharge(BigDecimal.ZERO);
         this.newDetail.setSuitqty(0);
         this.newDetail.setMeterqty(BigDecimal.ZERO);
-        this.newDetail.setPrice(BigDecimal.ZERO);
-        this.newDetail.setDiscount(BigDecimal.valueOf(100));
-        this.newDetail.setAmts(BigDecimal.ZERO);
-        this.newDetail.setTaxes(BigDecimal.ZERO);
-        this.newDetail.setExcludingtax(BigDecimal.ZERO);
         this.newDetail.setDeliverdate(this.getDate());
         this.setCurrentDetail(newDetail);
     }
@@ -109,7 +102,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
-        setDetailEJB(salesOrderDetailBean);
+        setDetailEJB(factoryOrderDetailBean);
         setModel(new DDModel(factoryOrderBean, userManagedBean));
         setSystemUserList(systemUserBean.findAll());
         super.init();
@@ -148,8 +141,10 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail
         if (null != getCurrentEntity()) {
             try {
                 currentEntity.setSalesstatus("M");
+                currentEntity.setJhrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("DD");
                 update();
                 setToolBar();
             } catch (Exception e) {
@@ -166,6 +161,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, SalesOrderDetail
                 currentEntity.setJhrecdate(getDate());
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("JH");
                 update();
                 setToolBar();
             } catch (Exception e) {

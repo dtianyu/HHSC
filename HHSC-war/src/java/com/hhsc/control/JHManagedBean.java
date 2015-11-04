@@ -6,9 +6,11 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
+import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.JHModel;
-import com.hhsc.web.SuperSingleBean;
+import com.hhsc.web.SuperMultiBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,18 +23,21 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "jhManagedBean")
 @SessionScoped
-public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
+public class JHManagedBean extends SuperMultiBean<FactoryOrder,FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
+    @EJB
+    private FactoryOrderDetailBean factoryOrderDetailBean;
 
     public JHManagedBean() {
-        super(FactoryOrder.class);
+        super(FactoryOrder.class,FactoryOrderDetail.class);
     }
 
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
+        setDetailEJB(factoryOrderDetailBean);
         setModel(new JHModel(factoryOrderBean));
         super.init();
     }
@@ -45,11 +50,13 @@ public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
                     currentEntity.setHgdelman(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setHgstatus("V");
                     currentEntity.setZbrecdate(getDate());
+                    currentEntity.setStatus("ZB");
                 } else {
                     currentEntity.setHgdeldate(null);
                     currentEntity.setHgdelman(null);
                     currentEntity.setHgstatus("M");
                     currentEntity.setZbrecdate(null);
+                    currentEntity.setStatus("HG");
                 }
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
@@ -65,11 +72,13 @@ public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
                     currentEntity.setZbdelman(null);
                     currentEntity.setZbstatus("V");
                     currentEntity.setPsrecdate(getDate());
+                    currentEntity.setStatus("PS");
                 } else {
                     currentEntity.setZbdeldate(null);
                     currentEntity.setZbdelman(null);
                     currentEntity.setZbstatus("M");
                     currentEntity.setPsrecdate(null);
+                    currentEntity.setStatus("ZB");
                 }
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
@@ -85,11 +94,13 @@ public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
                     currentEntity.setPsdelman(null);
                     currentEntity.setPsstatus("V");
                     currentEntity.setYhrecdate(getDate());
+                    currentEntity.setStatus("YH");
                 } else {
                     currentEntity.setPsdeldate(null);
                     currentEntity.setPsdelman(null);
                     currentEntity.setPsstatus("M");
                     currentEntity.setYhrecdate(null);
+                    currentEntity.setStatus("PS");
                 }
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
@@ -105,11 +116,13 @@ public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
                     currentEntity.setYhdelman(null);
                     currentEntity.setYhstatus("V");
                     currentEntity.setZhrecdate(getDate());
+                    currentEntity.setStatus("HZ");
                 } else {
                     currentEntity.setYhdeldate(null);
                     currentEntity.setYhdelman(null);
                     currentEntity.setYhstatus("M");
                     currentEntity.setZhrecdate(null);
+                    currentEntity.setStatus("YH");
                 }
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
@@ -170,8 +183,10 @@ public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
             try {
                 currentEntity.setJhstatus("M");
                 currentEntity.setJhdelman(null);
+                currentEntity.setHgrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                currentEntity.setStatus("JH");
                 update();
                 setToolBar();
             } catch (Exception e) {
@@ -189,6 +204,9 @@ public class JHManagedBean extends SuperSingleBean<FactoryOrder> {
                 currentEntity.setHgrecdate(getDate());
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
+                if ("JH".equals(currentEntity.getStatus().trim())){
+                    currentEntity.setStatus("HG");
+                }
                 update();
                 setToolBar();
             } catch (Exception e) {
