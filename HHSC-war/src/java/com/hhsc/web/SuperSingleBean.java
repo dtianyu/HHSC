@@ -164,6 +164,11 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
             }
         }
     }
+    
+    public String verify(String path){
+        this.verify();
+        return path;
+    }
 
     public void unverify() {
         if (null != getCurrentEntity()) {
@@ -179,6 +184,11 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+    
+    public String unverify(String path){
+        this.unverify();
+        return path;
     }
 
     public String view(String path) {

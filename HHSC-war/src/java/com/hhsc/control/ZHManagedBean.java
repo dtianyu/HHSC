@@ -30,6 +30,8 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
 
+    protected String designid;
+
     public ZHManagedBean() {
         super(FactoryOrder.class, FactoryOrderDetail.class);
     }
@@ -39,9 +41,7 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         setSuperEJB(factoryOrderBean);
         setDetailEJB(factoryOrderDetailBean);
         setModel(new ZHModel(factoryOrderBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        getModel().getFilterFields().put("zhstatus", "N");
         super.init();
     }
 
@@ -55,11 +55,37 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setZhreaded(Boolean.TRUE);
                     currentEntity.setZhreaddate(getDate());
                 }
-                currentEntity.setZhstatus("R");
                 update();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        }
+    }
+
+    @Override
+    public void query() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            if (queryDateBegin != null) {
+                this.model.getFilterFields().put("zhdeldateBegin", queryDateBegin);
+            }
+            if (queryDateEnd != null) {
+                this.model.getFilterFields().put("zhdeldateEnd", queryDateEnd);
+            }
+            if (getDesignid() != null && !"".equals(designid)) {
+                this.model.getFilterFields().put("itemid", getDesignid());
+            }
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("zhstatus", queryState);
+            }
+        }
+    }
+
+    @Override
+    public void reset() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("zhstatus", "N");
         }
     }
 
@@ -95,7 +121,7 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
-                currentEntity.setZhstatus("M");
+                currentEntity.setZhstatus("N");
                 currentEntity.setZhdelman(null);
                 currentEntity.setCkrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
@@ -125,6 +151,20 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+
+    /**
+     * @return the designid
+     */
+    public String getDesignid() {
+        return designid;
+    }
+
+    /**
+     * @param designid the designid to set
+     */
+    public void setDesignid(String designid) {
+        this.designid = designid;
     }
 
 }

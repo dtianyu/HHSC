@@ -15,170 +15,143 @@
                     <p:button id="btnReturn" value="返回" outcome="cp" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnVerify" action="#{cpManagedBean.verify('cp')}" icon="ui-icon-locked" value="提交" 
+                                     rendered="#{cpManagedBean.doCfm}" update="plgEdit"/>
                     <p:commandButton id="btnSave" value="保存" action="#{cpManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>                                
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelEdit" header="成品信息－修改">
-                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid80 Responsive" >
+                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100" >
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="成品交期" for="cpdeldate" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="成品交期" for="cpdeldate2" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:calendar id="cpdeldate" value="#{cpManagedBean.currentEntity.cpdeldate}" title="Cpdeldate" 
-                                        required="true" requiredMessage="成品交期不能空" pattern="yyyy/MM/dd">
+                            <h:outputText id="cpdeldate2" value="#{cpManagedBean.currentEntity.cpdeldate}" title="Cpdeldate"> 
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
-                            </p:calendar>
+                            </h:outputText>
                         </p:column>
-                        <p:column styleClass="Wid20"></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="实际交期"/></p:column>
                         <p:column styleClass="Wid30">
+                            <h:outputText id="cfmdate" value="#{cpManagedBean.currentEntity.cfmdate}" title="cfmdate"> 
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="成品备注" for="cpremark" /></p:column>
                         <p:column colspan="3">
-                            <p:inputTextarea id="cpremark" value="#{cpManagedBean.currentEntity.cpremark}" title="Cpremark" 
-                                             styleClass="Wid90 Responsive" />
+                            <p:inputTextarea id="cpremark" rows="2" value="#{cpManagedBean.currentEntity.cpremark}" title="Cpremark" 
+                                             styleClass="Wid90" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
             </p:panel>
-            <p:panel id="panelView" header="订单信息">
-                <p:panelGrid id="plgView" styleClass="plgView Wid80 Responsive" >
-                    <p:row>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab id="tab1" title="订单信息">
+                    <p:panelGrid id="plgView" styleClass="plgView Wid100" >
+                        <p:row>
+                            <p:column><h:outputText  value="花号"/></p:column>
+                            <p:column>
+                                <h:outputText  id="itemid" value="#{cpManagedBean.currentEntity.itemid}" title="Itemid"/>
+                            </p:column>
+                            <p:column><h:outputText value="制单日期"/></p:column>
+                            <p:column><h:outputText id="orderdate" value="#{cpManagedBean.currentEntity.orderdate}" title="Orderdate">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column rowspan="6" colspan="2" styleClass="Wid40">
+                                <p:graphicImage value="/resources/upload/img/#{cpManagedBean.currentEntity.orderimg}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="面料"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="itemdesc" value="#{cpManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="成品规格"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="itemspec" value="#{cpManagedBean.currentEntity.itemspec}" title="Itemspec"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="订单数量"/></p:column>
+                            <p:column>
+                                <h:outputText id="orderqty" value="#{cpManagedBean.currentEntity.orderqty}" title="Orderqty"/>
+                            </p:column>
+                            <p:column><h:outputText value="计划数量"/></p:column>
+                            <p:column>
+                                <h:outputText id="qty" value="#{cpManagedBean.currentEntity.qty}" title="Qty"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="印花交期"/></p:column>
+                            <p:column>
+                                <h:outputText id="yhdate" value="#{cpManagedBean.currentEntity.yhdate}" title="Yhdate" >
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>  
+                            </p:column>
+                            <p:column><h:outputText value="成品交期"/></p:column>
+                            <p:column>
+                                <h:outputText id="cpdeldate" value="#{cpManagedBean.currentEntity.cpdeldate}" title="cpdeldate" >
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>  
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="业务"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="salesman" value="#{cpManagedBean.currentEntity.salesman.username}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="Wid20"><h:outputText value="营业备注"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="salesremark" rows="2" value="#{cpManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>                   
+                        <p:row>
+                            <p:column><h:outputText value="成品要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="cpreq" rows="2" value="#{cpManagedBean.currentEntity.cpreq}" title="cpreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab id="tab2" title="分色明细">
+                    <p:dataTable id="tableList" value="#{cpManagedBean.detailList}" var="item" styleClass="tableList Wid100"
+                                 selectionMode="single" selection="#{cpManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:ajax event="rowSelect"/>
+                        <p:ajax event="rowUnselect"/>
                         <p:column>
-                            <h:outputText  value="花号"/>
+                            <f:facet name="header">
+                                <h:outputText value="色号"/>
+                            </f:facet>
+                            <h:outputText value="#{item.colorid}"/>
                         </p:column>
-                        <p:column colspan="3">
-                            <h:outputText  id="itemid" value="#{cpManagedBean.currentEntity.itemid}" title="Itemid"/>
+                        <p:column styleClass="TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qty}"/>
                         </p:column>
-                        <p:column rowspan="6" colspan="2" styleClass="Wid40">
-                            <p:graphicImage value="/resources/upload/img/#{cpManagedBean.currentEntity.orderimg}"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="面料"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="itemdesc" value="#{cpManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="成品规格"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="itemspec" value="#{cpManagedBean.currentEntity.itemspec}" title="Itemspec"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="订单数量"/></p:column>
-                        <p:column>
-                            <h:outputText id="orderqty" value="#{cpManagedBean.currentEntity.orderqty}" title="Orderqty"/>
-                        </p:column>
-                        <p:column><h:outputText value="计划数量"/></p:column>
-                        <p:column>
-                            <h:outputText id="qty" value="#{cpManagedBean.currentEntity.qty}" title="Qty"/>
-                        </p:column>
-
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="制单日期"/></p:column>
-                        <p:column><h:outputText id="orderdate2" value="#{cpManagedBean.currentEntity.orderdate}" title="Orderdate">
-                                <f:convertDateTime pattern="yyyy/MM/dd" />
-                            </h:outputText>
+                        <p:column styleClass="TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="计划数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jhqty}"/>
                         </p:column>
                         <p:column>
-                            <h:outputText value="印花交期"/>
+                            <f:facet name="header">
+                                <h:outputText value="单位"/>
+                            </f:facet>
+                            <h:outputText value="#{item.unit}"/>
                         </p:column>
-                        <p:column>
-                            <h:outputText id="yhdate" value="#{cpManagedBean.currentEntity.yhdate}" title="Yhdate" >
-                                <f:convertDateTime pattern="yyyy/MM/dd" />
-                            </h:outputText>  
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="业务"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="salesman" value="#{cpManagedBean.currentEntity.salesman.username}"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="营业备注"/></p:column>
-                        <p:column colspan="4">
-                            <p:inputTextarea id="salesremark" value="#{cpManagedBean.currentEntity.salesremark}" title="Salesremark" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="画稿要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="hgreq" value="#{cpManagedBean.currentEntity.hgreq}" title="hgreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="制版要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="zbreq" value="#{cpManagedBean.currentEntity.zbreq}" title="zbreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="配色要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="psreq" value="#{cpManagedBean.currentEntity.psreq}" title="psreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="印花要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="yhreq" value="#{cpManagedBean.currentEntity.yhreq}" title="yhreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="后整要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="zhreq" value="#{cpManagedBean.currentEntity.zhreq}" title="zhreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="仓库要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="ckreq" value="#{cpManagedBean.currentEntity.ckreq}" title="ckreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="成品要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="cpreq" value="#{cpManagedBean.currentEntity.cpreq}" title="cpreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                </p:panelGrid>
-                <p:dataTable id="tableList" value="#{cpManagedBean.detailList}" var="item" styleClass="tableList Wid80"
-                             selectionMode="single" selection="#{cpManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                    <p:ajax event="rowSelect"/>
-                    <p:ajax event="rowUnselect"/>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="色号"/>
-                        </f:facet>
-                        <h:outputText value="#{item.colorid}"/>
-                    </p:column>
-                    <p:column styleClass="TexAlRight">
-                        <f:facet name="header">
-                            <h:outputText value="数量"/>
-                        </f:facet>
-                        <h:outputText value="#{item.qty}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="单位"/>
-                        </f:facet>
-                        <h:outputText value="#{item.unit}"/>
-                    </p:column>
-                </p:dataTable>
-            </p:panel>
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
         </h:form>
 
     </ui:define>

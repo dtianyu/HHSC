@@ -19,7 +19,7 @@
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelNew" header="花号维护－新增">
-                <h:panelGrid id="plgNew" columns="2" columnClasses="Wid20,Wid80" styleClass="plgNew Wid60 Responsive">
+                <h:panelGrid id="plgNew" columns="2" columnClasses="Wid20,Wid80" styleClass="plgNew Wid100 Responsive">
                     <p:outputLabel value="花号" for="designid" />
                     <p:inputText id="designid" value="#{itemDesignManagedBean.newEntity.designid}" title="Designid" required="true" requiredMessage="The Designid field is required."/>
                     <p:outputLabel value="备注" for="remark" />
@@ -30,12 +30,9 @@
             </p:panel>
         </h:form>
         <h:form id="formUpload">
-            <p:fileUpload id="fileUpload" fileUploadListener="#{itemDesignManagedBean.handleFileUploadWhenNew}" sizeLimit="5000000" styleClass="fileUpload"
-                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update=":formUpload,formNew:filename"/>
-            <p:panelGrid id="plgUpload" columns="2" columnClasses="Wid20,Wid60">
-                <h:outputLabel value="文件名：" for="fileName" />
-                <h:outputText id="fileName"  value="#{itemDesignManagedBean.fileName}"/>
-            </p:panelGrid> 
+            <p:fileUpload id="fileUpload" fileUploadListener="#{itemDesignManagedBean.handleFileUploadWhenNew}"  styleClass="fileUpload"
+                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000" 
+                          label="选择" uploadLabel="上传" cancelLabel="取消" update=":formNew:filename"/> 
         </h:form>
     </ui:define>
 

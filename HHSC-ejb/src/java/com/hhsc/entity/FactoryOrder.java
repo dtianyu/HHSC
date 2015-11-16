@@ -31,14 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FactoryOrder.getRowCount", query = "SELECT COUNT(s) FROM FactoryOrder s "),
-    @NamedQuery(name = "FactoryOrder.getRowCountBySalesman", query = "SELECT COUNT(s) FROM FactoryOrder s WHERE s.salesman.id = :salesman "),
     @NamedQuery(name = "FactoryOrder.findAll", query = "SELECT s FROM FactoryOrder s ORDER BY s.salesstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findById", query = "SELECT s FROM FactoryOrder s WHERE s.id = :id"),
     @NamedQuery(name = "FactoryOrder.findByOrderId", query = "SELECT s FROM FactoryOrder s WHERE s.orderid = :orderid"),
-    @NamedQuery(name = "FactoryOrder.findByOrderdate", query = "SELECT s FROM FactoryOrder s WHERE s.orderdate = :orderdate"),
-    @NamedQuery(name = "FactoryOrder.findByItemId", query = "SELECT s FROM FactoryOrder s WHERE s.itemid = :itemid"),
-    @NamedQuery(name = "FactoryOrder.findByColorId", query = "SELECT s FROM FactoryOrder s WHERE s.colorid = :colorid"),
-    @NamedQuery(name = "FactoryOrder.findBySalesman", query = "SELECT s FROM FactoryOrder s WHERE s.salesman.id = :salesman ORDER BY s.salesstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findBySalesstatus", query = "SELECT s FROM FactoryOrder s WHERE s.salesstatus = :salesstatus ORDER BY s.salesstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findByHgstatus", query = "SELECT s FROM FactoryOrder s WHERE s.hgstatus = :hgstatus ORDER BY s.hgstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findByZbstatus", query = "SELECT s FROM FactoryOrder s WHERE s.zbstatus = :zbstatus ORDER BY s.zbstatus,s.id DESC"),
@@ -256,7 +251,7 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Column(name = "scbm")
     private String scbm;
     @Column(name = "gyds")
-    private BigDecimal gyds;
+    private String gyds;
     @Column(name = "yhdeldate")
     @Temporal(TemporalType.DATE)
     private Date yhdeldate;
@@ -283,6 +278,9 @@ public class FactoryOrder extends BaseEntityWithOperate {
     @Size(max = 400)
     @Column(name = "zhremark")
     private String zhremark;
+    @Size(max = 45)
+    @Column(name = "zhqty")
+    protected String zhqty;
     @Size(max = 45)
     @Column(name = "zhsb")
     private String zhsb;
@@ -926,11 +924,11 @@ public class FactoryOrder extends BaseEntityWithOperate {
         this.scbm = scbm;
     }
 
-    public BigDecimal getGyds() {
+    public String getGyds() {
         return gyds;
     }
 
-    public void setGyds(BigDecimal gyds) {
+    public void setGyds(String gyds) {
         this.gyds = gyds;
     }
 
@@ -1607,6 +1605,20 @@ public class FactoryOrder extends BaseEntityWithOperate {
      */
     public void setBzfs(String bzfs) {
         this.bzfs = bzfs;
+    }
+
+    /**
+     * @return the zhqty
+     */
+    public String getZhqty() {
+        return zhqty;
+    }
+
+    /**
+     * @param zhqty the zhqty to set
+     */
+    public void setZhqty(String zhqty) {
+        this.zhqty = zhqty;
     }
 
 }

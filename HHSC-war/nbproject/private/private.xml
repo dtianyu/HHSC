@@ -3,21 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/ZBManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/YHManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/ZHManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/zh.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/yh.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/hgEdit.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/ddEdit.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/base/itemdesignSelect.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/query/ItemDesignQueryBean.java</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/converter/SystemUserConverter.java</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/ddNew.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/resources/js/detailEdit.js</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/ck.xhtml</file>
             <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/CKManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/dd.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/jh.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/CPManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/HGManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/hg.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/PSManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/ps.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/zb.xhtml</file>
         </group>
     </open-files>
 </project-private>

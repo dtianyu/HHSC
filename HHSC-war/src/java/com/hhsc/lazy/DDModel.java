@@ -20,24 +20,22 @@ import org.primefaces.model.SortOrder;
 public class DDModel extends BaseLazyModel<FactoryOrder> {
 
     private UserManagedBean userManagedBean;
-    private FactoryOrderBean factoryOrderBean;
 
     public DDModel(FactoryOrderBean superEJB, UserManagedBean userManagedBean) {
         this.superEJB = superEJB;
         this.userManagedBean = userManagedBean;
-        this.factoryOrderBean = superEJB;
     }
 
     @Override
-    public List<FactoryOrder> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public List<FactoryOrder> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {       
+        this.sortFields.put("salesstatus", "ASC");
+        this.sortFields.put("id", "DESC");
         if (userManagedBean != null) {
-            if (userManagedBean.getCurrentUser().getSuperuser()) {
-                setDataList(superEJB.findAll(first, pageSize));
-                setRowCount(superEJB.getRowCount());
-            } else {
-                setDataList(factoryOrderBean.findBySalesman(userManagedBean.getCurrentUser().getId(), first, pageSize));
-                setRowCount(factoryOrderBean.getRowCountBySalesman(userManagedBean.getCurrentUser().getId()));
+            if (!userManagedBean.getCurrentUser().getSuperuser()) {
+                this.filterFields.put("salesman.id", userManagedBean.getCurrentUser().getId());
             }
+            setDataList(superEJB.findByFilters(this.filterFields, first, pageSize, this.sortFields));
+            setRowCount(superEJB.getRowCount(this.filterFields));
         }
         return this.dataList;
     }

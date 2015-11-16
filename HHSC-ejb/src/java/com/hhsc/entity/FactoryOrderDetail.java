@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryOrderDetail.findAll", query = "SELECT f FROM FactoryOrderDetail f"),
     @NamedQuery(name = "FactoryOrderDetail.findById", query = "SELECT f FROM FactoryOrderDetail f WHERE f.id = :id"),
     @NamedQuery(name = "FactoryOrderDetail.findByPId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.pid = :pid"),
-    @NamedQuery(name = "FactoryOrderDetail.findBySeq", query = "SELECT f FROM FactoryOrderDetail f WHERE f.seq = :seq"),
     @NamedQuery(name = "FactoryOrderDetail.findByDesignId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.designid = :designid"),
     @NamedQuery(name = "FactoryOrderDetail.findByColorId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.colorid = :colorid")})
 public class FactoryOrderDetail extends BaseDetailEntity {
@@ -71,6 +70,8 @@ public class FactoryOrderDetail extends BaseDetailEntity {
     @Size(max = 10)
     @Column(name = "unit")
     private String unit;
+    @Column(name = "jhqty")
+    protected BigDecimal jhqty;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deliverdate")
@@ -205,6 +206,20 @@ public class FactoryOrderDetail extends BaseDetailEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.FactoryOrderDetail[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the jhqty
+     */
+    public BigDecimal getJhqty() {
+        return jhqty;
+    }
+
+    /**
+     * @param jhqty the jhqty to set
+     */
+    public void setJhqty(BigDecimal jhqty) {
+        this.jhqty = jhqty;
     }
 
 }

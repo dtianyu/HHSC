@@ -30,6 +30,8 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
 
+    protected String designid;
+
     public PSManagedBean() {
         super(FactoryOrder.class, FactoryOrderDetail.class);
     }
@@ -39,9 +41,7 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         setSuperEJB(factoryOrderBean);
         setDetailEJB(factoryOrderDetailBean);
         setModel(new PSModel(factoryOrderBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        getModel().getFilterFields().put("psstatus", "N");
         super.init();
     }
 
@@ -55,11 +55,37 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setPsreaded(Boolean.TRUE);
                     currentEntity.setPsreaddate(getDate());
                 }
-                currentEntity.setPsstatus("R");
                 update();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        }
+    }
+
+    @Override
+    public void query() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            if (queryDateBegin != null) {
+                this.model.getFilterFields().put("psdeldateBegin", queryDateBegin);
+            }
+            if (queryDateEnd != null) {
+                this.model.getFilterFields().put("psdeldateEnd", queryDateEnd);
+            }
+            if (getDesignid() != null && !"".equals(designid)) {
+                this.model.getFilterFields().put("itemid", getDesignid());
+            }
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("psstatus", queryState);
+            }
+        }
+    }
+
+    @Override
+    public void reset() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("psstatus", "N");
         }
     }
 
@@ -95,7 +121,7 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
-                currentEntity.setPsstatus("M");
+                currentEntity.setPsstatus("N");
                 currentEntity.setPsdelman(null);
                 currentEntity.setYhrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
@@ -125,6 +151,20 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+
+    /**
+     * @return the designid
+     */
+    public String getDesignid() {
+        return designid;
+    }
+
+    /**
+     * @param designid the designid to set
+     */
+    public void setDesignid(String designid) {
+        this.designid = designid;
     }
 
 }

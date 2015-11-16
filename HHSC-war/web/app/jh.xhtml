@@ -9,6 +9,25 @@
     <ui:define name="content">
 
         <h:form id="formList">
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid40" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="色号" for="designid" />
+                    <p:inputText id="designid" value="#{jhManagedBean.designid}" title="色号" />
+                    <h:outputLabel value="计划状态" for="state" />
+                    <p:selectOneMenu id="state" value="#{jhManagedBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="未提交" itemValue="N"/>
+                        <f:selectItem itemLabel="已提交" itemValue="V"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="接单日期" for="daybegin" />
+                    <p:calendar id="daybegin" value="#{jhManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="截止日期" for="dayend" />
+                    <p:calendar id="dayend" value="#{jhManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                </p:panelGrid>
+            </p:panel>
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
@@ -19,13 +38,19 @@
                     <p:commandButton id="btnEdit" action="#{jhManagedBean.edit('jhEdit')}" icon="ui-icon-pencil" value="编辑"
                                      rendered="#{jhManagedBean.doEdit}"/>  
                     <p:commandButton id="btnDelete" actionListener="#{jhManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
-                                     rendered="#{jhManagedBean.doDel}" update=":formList"/> 
+                                     rendered="#{jhManagedBean.doDel}" update=":formList">
+                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnVerify" actionListener="#{jhManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
                                      rendered="#{jhManagedBean.doCfm}"   update=":formList"/>
                     <p:commandButton id="btnUnverify" actionListener="#{jhManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{jhManagedBean.doUnCfm}"  update=":formList"/>    
                     <p:commandButton id="btnCreate" action="#{jhManagedBean.create('jhNew')}" icon="ui-icon-plus" value="新增" 
-                                     rendered="#{jhManagedBean.doAdd}"/> 
+                                     rendered="#{jhManagedBean.doAdd}"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{jhManagedBean.reset()}"  icon="ui-icon-refresh"  
+                                     update=":formList"/> 
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{jhManagedBean.query()}"  icon="ui-icon-search"  
+                                     update=":formList"/>
                 </f:facet>
             </p:toolbar>               
             <p:dataTable value="#{jhManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
@@ -51,7 +76,7 @@
                     </f:facet>
                     <h:outputText value="#{item.itemid}"/>
                 </p:column>
-                <p:column styleClass="Wid20 Responsive">
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="成品规格"/>
                     </f:facet>

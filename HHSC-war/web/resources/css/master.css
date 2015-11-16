@@ -19,75 +19,30 @@ li{
 .Wid50 input,.Wid50 span,
 .Wid60 input,.Wid60 span,
 .Wid70 input,.Wid70 span,
-.Wid80 input,.Wid80 span{
+.Wid80 input,.Wid80 span,
+.Wid90 input,.Wid90 span,
+.Wid100 input,.Wid100 span{
     width:95%; 
 }
 
-
-.Wid40 span.ui-button-icon-left,.Wid60 span.ui-button-icon-left{
+.Wid20 span.ui-button-icon-left,.Wid30 span.ui-button-icon-left,
+.Wid40 span.ui-button-icon-left,.Wid50 span.ui-button-icon-left,
+.Wid60 span.ui-button-icon-left,.Wid70 span.ui-button-icon-left{
     width: 16px;
 }
-.Wid40 span.ui-button-text,.Wid60 span.ui-button-text{
+.Wid20 span.ui-button-text,.Wid30 span.ui-button-text,
+.Wid40 span.ui-button-text,.Wid50 span.ui-button-text,
+.Wid60 span.ui-button-text,.Wid70 span.ui-button-text{
     width: 32px;
 }
 
-.w020,.w020 input,.w020 label,.w020 span{
-    width: 20px;
+.Wid30 input.inputWithButton,.Wid40 input.inputWithButton,
+.Wid50 input.inputWithButton,.Wid60 input.inputWithButton,
+.Wid70 input.inputWithButton,.Wid80 input.inputWithButton,
+.Wid90 input.inputWithButton,.Wid100 input.inputWithButton{
+    width: 80%;
 }
 
-.w040,.w040 input,.w040 label,.w040 span{
-    width: 40px;
-}
-
-.w060,.w060 input,.w060 label,.w060 span{
-    width: 60px;
-}
-
-.w080,.w080 input,.w080 label,.w080 span{
-    width: 80px;
-}
-
-.w100,.w100 input,.w100 label,.w100 span{
-    width: 100px;
-}
-
-.w120,.w120 input,.w120 label,.w120 span{
-    width: 120px;
-}
-
-.w140,.w140 input,.w140 label,.w140 span{
-    width: 140px;
-}
-
-.w160,.w160 input,.w160 label,.w160 span{
-    width: 160px;
-}
-
-.w180,.w180 input,.w180 label,.w180 span{
-    width: 180px;
-}
-
-.w200,.w200 input,.w200 label,.w200 span{
-    width: 200px;
-}
-
-.w250,.w250 input,.w250 label,.w250 span{
-    width: 250px;
-}
-
-.w300,.w300 input,.w300 label,.w300 span{
-    width: 300px;
-}
-
-.w350,.w350 input,.w350 label,.w350 span{
-    width: 350px;
-}
-
-.w400,.w400 input,.w400 label,.w400 span{
-    width: 400px;
-}
-
-/*-------------------------------MainFrameStyle*/
 #top{
     margin-bottom: 10px;
 }
@@ -129,10 +84,15 @@ li{
     margin-bottom: 10px;
 }
 
+.plgQuery{
+    margin-bottom: 10px;
+}
+
 .fileUpload{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 /*-------------------------------MainFrameStyle*/
 
 .ui-datatable .ui-paginator .ui-paginator-current,
@@ -153,9 +113,8 @@ li{
     height: 12px;
 }
 
-.plgNew .Wid40 img,.plgEdit .Wid40 img,.plgView .Wid40 img,
-.plgNew .Wid60 img,.plgEdit .Wid60 img,.plgView .Wid80 img,
-.plgNew .Wid80 img,.plgEdit .Wid80 img,.plgView .Wid80 img{
+.plgNew .Wid30 img,.plgEdit .Wid30 img,.plgView .Wid30 img,
+.plgNew .Wid40 img,.plgEdit .Wid40 img,.plgView .Wid40 img{
     max-width: 270px;
     max-height: 180px;
 }

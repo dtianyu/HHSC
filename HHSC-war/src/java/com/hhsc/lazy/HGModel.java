@@ -8,7 +8,6 @@ package com.hhsc.lazy;
 import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.entity.FactoryOrder;
 import com.lightshell.comm.BaseLazyModel;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.primefaces.model.SortOrder;
@@ -19,25 +18,16 @@ import org.primefaces.model.SortOrder;
  */
 public class HGModel extends BaseLazyModel<FactoryOrder> {
 
-    private FactoryOrderBean factoryOrderBean;
-    private Map<String, Object> filter;
-    private Map<String, String> order;
-
     public HGModel(FactoryOrderBean superEJB) {
         this.superEJB = superEJB;
-        this.factoryOrderBean = superEJB;
-        filter = new HashMap<>();
-        filter.put("jhstatus", "V");
-        order = new HashMap<>();
-        order.put("hgstatus", "ASC");
-        order.put("id", "DESC");
     }
 
     @Override
     public List<FactoryOrder> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        setDataList(factoryOrderBean.findByFilter(filter, first, pageSize, order));
-        setRowCount(factoryOrderBean.getRowCountByFilter(filter));
-        return this.dataList;
+        this.filterFields.put("jhstatus", "V");       
+        this.sortFields.put("hgstatus", "ASC");
+        this.sortFields.put("id", "DESC");
+        return super.load(first, pageSize, sortField, sortOrder, filters);
     }
 
 }

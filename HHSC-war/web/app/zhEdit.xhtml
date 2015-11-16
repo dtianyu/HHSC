@@ -15,71 +15,94 @@
                     <p:button id="btnReturn" value="返回" outcome="zh" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnVerify" action="#{zhManagedBean.verify('zh')}" icon="ui-icon-locked" value="提交" 
+                                     rendered="#{zhManagedBean.doCfm}" update="plgEdit"/>
                     <p:commandButton id="btnSave" value="保存" action="#{zhManagedBean.update()}" icon="ui-icon-disk" update="panelEdit"/>                                
                 </f:facet>
             </p:toolbar>        
             <p:panel id="panelEdit" header="后整信息－修改">
-                <p:panelGrid id="plgEdit"  styleClass="plgEdit Wid80 Responsive">
+                <p:panelGrid id="plgEdit"  styleClass="plgEdit Wid100">
                     <p:row>
-                        <p:column><h:outputText value="后整交期"/></p:column>
-                        <p:column colspan="3">
+                        <p:column styleClass="Wid20"><h:outputText value="后整交期"/></p:column>
+                        <p:column styleClass="Wid30">
                             <h:outputText id="zhdeldate" value="#{zhManagedBean.currentEntity.zhdeldate}" title="Zhdeldate" >
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="蒸化数量" for="zhqty" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="zhqty" value="#{zhManagedBean.currentEntity.zhqty}" title="zhqty" 
+                                         required="true" requiredMessage="蒸化数量不能为空"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="进布压力" for="jbyl" /></p:column>
                         <p:column>
-                            <p:inputText id="jbyl" value="#{zhManagedBean.currentEntity.jbyl}" title="Jbyl" />
+                            <p:inputText id="jbyl" value="#{zhManagedBean.currentEntity.jbyl}" title="Jbyl" 
+                                         required="true" requiredMessage="进布压力不能为空"/>
                         </p:column>
                         <p:column><p:outputLabel value="衬布" for="cb" /></p:column>
                         <p:column>
-                            <p:inputText id="cb" value="#{zhManagedBean.currentEntity.cb}" title="Cb" />    
+                            <p:selectOneMenu id="cb" value="#{zhManagedBean.currentEntity.cb}" title="Cb" 
+                                             required="true" requiredMessage="衬布不能为空">
+                                <f:selectItem itemLabel="无" itemValue="无"/>
+                                <f:selectItem itemLabel="棉布" itemValue="棉布"/>
+                                <f:selectItem itemLabel="化纤" itemValue="化纤"/>
+                                <f:selectItem itemLabel="无纺" itemValue="无纺"/>                              
+                            </p:selectOneMenu>    
                         </p:column>
                     </p:row> 
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="蒸化设备" for="zhsb"/></p:column>
-                        <p:column styleClass="Wid30">
-                            <p:inputText id="zhsb" value="#{zhManagedBean.currentEntity.zhsb}" title="Zhsb" />  
+                        <p:column><p:outputLabel value="蒸化设备" for="zhsb"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="zhsb" value="#{zhManagedBean.currentEntity.zhsb}" title="Zhsb" 
+                                             required="true" requiredMessage="蒸化设备不能为空">
+                                <f:selectItem itemLabel="1号设备" itemValue="1号设备"/>
+                                <f:selectItem itemLabel="2号设备" itemValue="2号设备"/>
+                                <f:selectItem itemLabel="3号设备" itemValue="3号设备"/>
+                                <f:selectItem itemLabel="4号设备" itemValue="4号设备"/>
+                                <f:selectItem itemLabel="5号设备" itemValue="5号设备"/>
+                                <f:selectItem itemLabel="6号设备" itemValue="6号设备"/>
+                            </p:selectOneMenu>  
                         </p:column>
-                        <p:column styleClass="Wid20"><p:outputLabel value="蒸化时长" for="zhsj" /></p:column>
-                        <p:column styleClass="Wid30">
-                            <p:inputText id="zhsj" value="#{zhManagedBean.currentEntity.zhsj}" title="Zhsj" />
+                        <p:column><p:outputLabel value="蒸化时长" for="zhsj" /></p:column>
+                        <p:column>
+                            <p:inputText id="zhsj" value="#{zhManagedBean.currentEntity.zhsj}" title="Zhsj" 
+                                         required="true" requiredMessage="蒸化时长不能为空"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="蒸化次数" for="zhcs" /></p:column>
                         <p:column>
-                            <p:inputText id="zhcs" value="#{zhManagedBean.currentEntity.zhcs}" title="Zhcs" />  
+                            <p:inputText id="zhcs" value="#{zhManagedBean.currentEntity.zhcs}" title="Zhcs" 
+                                         required="true" requiredMessage="蒸化次数不能为空"/>  
                         </p:column>
                         <p:column><p:outputLabel value="蒸化压力" for="zhyl" /></p:column>
                         <p:column>
-                            <p:inputText id="zhyl" value="#{zhManagedBean.currentEntity.zhyl}" title="Zhyl" />    
+                            <p:inputText id="zhyl" value="#{zhManagedBean.currentEntity.zhyl}" title="Zhyl" 
+                                         required="true" requiredMessage="蒸化压力不能为空"/>    
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="蒸化温度" for="zhwd" /></p:column>
                         <p:column>
-                            <p:inputText id="zhwd" value="#{zhManagedBean.currentEntity.zhwd}" title="Zhwd" />
+                            <p:inputText id="zhwd" value="#{zhManagedBean.currentEntity.zhwd}" title="Zhwd" 
+                                         required="true" requiredMessage="蒸化温度不能为空"/>
                         </p:column>
                         <p:column><p:outputLabel value="蒸化湿度" for="zhsd" /></p:column>
                         <p:column>
-                            <p:inputText id="zhsd" value="#{zhManagedBean.currentEntity.zhsd}" title="Zhsd" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><p:outputLabel value="蒸化备注" for="zhremark" /></p:column>
-                        <p:column colspan="3">
-                            <p:inputTextarea id="zhremark" value="#{zhManagedBean.currentEntity.zhremark}" title="Zhremark"
-                                             styleClass="Wid90 Responsive" required="true" requiredMessage="备注不能为空.">
-                            </p:inputTextarea>                   
+                            <p:inputText id="zhsd" value="#{zhManagedBean.currentEntity.zhsd}" title="Zhsd" 
+                                         required="true" requiredMessage="蒸化湿度不能为空"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="水洗设备" for="sxsb"/></p:column>
                         <p:column>
-                            <p:inputText id="sxsb" value="#{zhManagedBean.currentEntity.sxsb}" title="sxsb" />  
+                            <p:selectOneMenu id="sxsb" value="#{zhManagedBean.currentEntity.sxsb}" title="sxsb" >
+                                <f:selectItem itemLabel="平车" itemValue="平车"/>
+                                <f:selectItem itemLabel="绳状" itemValue="绳状"/>
+                                <f:selectItem itemLabel="手洗" itemValue="手洗"/>
+                            </p:selectOneMenu>
                         </p:column>
                         <p:column><p:outputLabel value="水洗时长" for="sxsj" /></p:column>
                         <p:column>
@@ -143,7 +166,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="烘箱要求" for="hxremark" /></p:column>
+                        <p:column><p:outputLabel value="烘箱时长" for="hxremark" /></p:column>
                         <p:column>
                             <p:inputText id="hxremark" value="#{zhManagedBean.currentEntity.hxremark}" title="Hxremark" />
                         </p:column>
@@ -153,147 +176,166 @@
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
                         </p:column>
-                    </p:row> 
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="后整备注" for="zhremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="zhremark" rows="2" value="#{zhManagedBean.currentEntity.zhremark}" title="Zhremark"
+                                             styleClass="Wid90">
+                            </p:inputTextarea>                   
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
-            <p:panel id="panelView" header="订单信息">
-                <p:panelGrid id="plgView" styleClass="plgView Wid80 Responsive" >
-                    <p:row>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab id="tab1" title="订单信息">
+                    <p:panelGrid id="plgView" styleClass="plgView Wid100" >
+                        <p:row>
+                            <p:column><h:outputText value="花号"/></p:column>
+                            <p:column>
+                                <h:outputText  id="itemid" value="#{zhManagedBean.currentEntity.itemid}" title="Itemid"/>
+                            </p:column>
+                            <p:column><h:outputText value="制单日期"/></p:column>
+                            <p:column><h:outputText id="orderdate" value="#{zhManagedBean.currentEntity.orderdate}" title="Orderdate">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column rowspan="6" colspan="2" styleClass="Wid40">
+                                <p:graphicImage value="/resources/upload/img/#{zhManagedBean.currentEntity.orderimg}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="面料"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="itemdesc" value="#{zhManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="成品规格"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="itemspec" value="#{zhManagedBean.currentEntity.itemspec}" title="Itemspec"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="订单数量"/></p:column>
+                            <p:column>
+                                <h:outputText id="orderqty" value="#{zhManagedBean.currentEntity.orderqty}" title="Orderqty"/>
+                            </p:column>
+                            <p:column><h:outputText value="计划数量"/></p:column>
+                            <p:column>
+                                <h:outputText id="qty" value="#{zhManagedBean.currentEntity.qty}" title="Qty"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="印花交期"/></p:column>
+                            <p:column>
+                                <h:outputText id="yhdate" value="#{zhManagedBean.currentEntity.yhdate}" title="Yhdate" >
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>  
+                            </p:column>
+                            <p:column><h:outputText value="成品交期"/></p:column>
+                            <p:column>
+                                <h:outputText id="cpdeldate" value="#{zhManagedBean.currentEntity.cpdeldate}" title="cpdeldate" >
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>  
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="业务"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="salesman" value="#{zhManagedBean.currentEntity.salesman.username}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="Wid20"><h:outputText value="营业备注"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="salesremark" rows="2" value="#{zhManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="画稿要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="hgreq" rows="2" value="#{zhManagedBean.currentEntity.hgreq}" title="hgreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="制版要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="zbreq" rows="2" value="#{zhManagedBean.currentEntity.zbreq}" title="zbreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="配色要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="psreq" rows="2" value="#{zhManagedBean.currentEntity.psreq}" title="psreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="印花要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="yhreq" rows="2" value="#{zhManagedBean.currentEntity.yhreq}" title="yhreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="后整要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="zhreq" rows="2" value="#{zhManagedBean.currentEntity.zhreq}" title="zhreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="仓库要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="ckreq" rows="2" value="#{zhManagedBean.currentEntity.ckreq}" title="ckreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="成品要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="cpreq" rows="2" value="#{zhManagedBean.currentEntity.cpreq}" title="cpreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab id="tab2" title="分色明细">
+                    <p:dataTable id="tableList" value="#{zhManagedBean.detailList}" var="item" styleClass="tableList Wid100"
+                                 selectionMode="single" selection="#{zhManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:ajax event="rowSelect"/>
+                        <p:ajax event="rowUnselect"/>
                         <p:column>
-                            <h:outputText  value="花号"/>
+                            <f:facet name="header">
+                                <h:outputText value="色号"/>
+                            </f:facet>
+                            <h:outputText value="#{item.colorid}"/>
                         </p:column>
-                        <p:column colspan="3">
-                            <h:outputText  id="itemid" value="#{zhManagedBean.currentEntity.itemid}" title="Itemid"/>
+                        <p:column styleClass="TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qty}"/>
                         </p:column>
-                        <p:column rowspan="6" colspan="2" styleClass="Wid40">
-                            <p:graphicImage value="/resources/upload/img/#{zhManagedBean.currentEntity.orderimg}"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="面料"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="itemdesc" value="#{zhManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="成品规格"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="itemspec" value="#{zhManagedBean.currentEntity.itemspec}" title="Itemspec"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="订单数量"/></p:column>
-                        <p:column>
-                            <h:outputText id="orderqty" value="#{zhManagedBean.currentEntity.orderqty}" title="Orderqty"/>
-                        </p:column>
-                        <p:column><h:outputText value="计划数量"/></p:column>
-                        <p:column>
-                            <h:outputText id="qty" value="#{zhManagedBean.currentEntity.qty}" title="Qty"/>
-                        </p:column>
-
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="制单日期"/></p:column>
-                        <p:column><h:outputText id="orderdate2" value="#{zhManagedBean.currentEntity.orderdate}" title="Orderdate">
-                                <f:convertDateTime pattern="yyyy/MM/dd" />
-                            </h:outputText>
+                        <p:column styleClass="TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="计划数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jhqty}"/>
                         </p:column>
                         <p:column>
-                            <h:outputText value="印花交期"/>
+                            <f:facet name="header">
+                                <h:outputText value="单位"/>
+                            </f:facet>
+                            <h:outputText value="#{item.unit}"/>
                         </p:column>
-                        <p:column>
-                            <h:outputText id="yhdate" value="#{zhManagedBean.currentEntity.yhdate}" title="Yhdate" >
-                                <f:convertDateTime pattern="yyyy/MM/dd" />
-                            </h:outputText>  
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="业务"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="salesman" value="#{zhManagedBean.currentEntity.salesman.username}"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="营业备注"/></p:column>
-                        <p:column colspan="4">
-                            <p:inputTextarea id="salesremark" value="#{zhManagedBean.currentEntity.salesremark}" title="Salesremark" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="画稿要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="hgreq" value="#{zhManagedBean.currentEntity.hgreq}" title="hgreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="制版要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="zbreq" value="#{zhManagedBean.currentEntity.zbreq}" title="zbreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="配色要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="psreq" value="#{zhManagedBean.currentEntity.psreq}" title="psreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="印花要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="yhreq" value="#{zhManagedBean.currentEntity.yhreq}" title="yhreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="后整要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="zhreq" value="#{zhManagedBean.currentEntity.zhreq}" title="zhreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="仓库要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="ckreq" value="#{zhManagedBean.currentEntity.ckreq}" title="ckreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="成品要求"/></p:column>
-                        <p:column colspan="5">
-                            <p:inputTextarea id="cpreq" value="#{zhManagedBean.currentEntity.cpreq}" title="cpreq" 
-                                             styleClass="Wid90 Responsive" readonly="true"/>
-                        </p:column>                
-                    </p:row>
-                </p:panelGrid>
-                <p:dataTable id="tableList" value="#{zhManagedBean.detailList}" var="item" styleClass="tableList Wid80"
-                             selectionMode="single" selection="#{zhManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                    <p:ajax event="rowSelect"/>
-                    <p:ajax event="rowUnselect"/>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="色号"/>
-                        </f:facet>
-                        <h:outputText value="#{item.colorid}"/>
-                    </p:column>
-                    <p:column styleClass="TexAlRight">
-                        <f:facet name="header">
-                            <h:outputText value="数量"/>
-                        </f:facet>
-                        <h:outputText value="#{item.qty}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="单位"/>
-                        </f:facet>
-                        <h:outputText value="#{item.unit}"/>
-                    </p:column>
-                </p:dataTable>
-            </p:panel>
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
         </h:form>
 
     </ui:define>

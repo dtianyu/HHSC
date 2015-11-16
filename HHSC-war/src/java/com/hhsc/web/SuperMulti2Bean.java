@@ -10,7 +10,7 @@ import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.BaseDetailEntity;
-import com.lightshell.comm.SuperMultiManagedBean;
+import com.lightshell.comm.SuperMulti2ManagedBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,8 +25,9 @@ import javax.faces.context.FacesContext;
  * @author KevinDong
  * @param <T>
  * @param <V>
+ * @param <X>
  */
-public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends BaseDetailEntity> extends SuperMultiManagedBean<T, V> {
+public abstract class SuperMulti2Bean<T extends BaseEntityWithOperate, V extends BaseDetailEntity, X extends BaseDetailEntity> extends SuperMulti2ManagedBean<T, V, X> {
 
     @EJB
     protected SysprgBean sysprgBean;
@@ -41,10 +42,12 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends 
     /**
      * @param entityClass
      * @param detailClass
+     * @param detailClass2
      */
-    public SuperMultiBean(Class<T> entityClass, Class<V> detailClass) {
+    public SuperMulti2Bean(Class<T> entityClass, Class<V> detailClass, Class<X> detailClass2) {
         this.entityClass = entityClass;
         this.detailClass = detailClass;
+        this.detailClass2 = detailClass2;
     }
 
     @Override
@@ -78,6 +81,11 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends 
         } else {
             this.detailList = new ArrayList<>();
         }
+        if (this.detailList2 != null && !this.detailList2.isEmpty()) {
+            this.detailList2.clear();
+        } else {
+            this.detailList2 = new ArrayList<>();
+        }
         if (getNewEntity() == null) {
             try {
                 T entity = entityClass.newInstance();
@@ -86,7 +94,7 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends 
                 entity.setCredateToNow();
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(SuperMultiBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SuperMulti2Bean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -97,6 +105,12 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends 
             if (this.detailList == null) {
                 if (this.detailList == null) {
                     this.detailList = new ArrayList<>();
+                }
+            }
+            setDetailList2(this.detailEJB2.findByPId(currentEntity.getId()));
+            if (this.detailList2 == null) {
+                if (this.detailList2 == null) {
+                    this.detailList2 = new ArrayList<>();
                 }
             }
             return path;
@@ -202,6 +216,12 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends 
             if (this.detailList == null) {
                 if (this.detailList == null) {
                     this.detailList = new ArrayList<>();
+                }
+            }
+            setDetailList2(this.detailEJB2.findByPId(currentEntity.getId()));
+            if (this.detailList2 == null) {
+                if (this.detailList2 == null) {
+                    this.detailList2 = new ArrayList<>();
                 }
             }
             return path;

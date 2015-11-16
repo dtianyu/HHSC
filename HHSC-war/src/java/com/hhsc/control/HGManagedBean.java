@@ -31,6 +31,8 @@ public class HGManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
 
+    protected String designid;
+
     public HGManagedBean() {
         super(FactoryOrder.class, FactoryOrderDetail.class);
     }
@@ -40,9 +42,7 @@ public class HGManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         setSuperEJB(factoryOrderBean);
         setDetailEJB(factoryOrderDetailBean);
         setModel(new HGModel(factoryOrderBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        getModel().getFilterFields().put("hgstatus", "N");
         super.init();
     }
 
@@ -56,11 +56,37 @@ public class HGManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setHgreaded(Boolean.TRUE);
                     currentEntity.setHgreaddate(BaseLib.getDate());
                 }
-                currentEntity.setHgstatus("R");
                 update();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        }
+    }
+
+    @Override
+    public void query() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            if (queryDateBegin != null) {
+                this.model.getFilterFields().put("hgdeldateBegin", queryDateBegin);
+            }
+            if (queryDateEnd != null) {
+                this.model.getFilterFields().put("hgdeldateEnd", queryDateEnd);
+            }
+            if (getDesignid() != null && !"".equals(designid)) {
+                this.model.getFilterFields().put("itemid", getDesignid());
+            }
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("hgstatus", queryState);
+            }
+        }
+    }
+
+    @Override
+    public void reset() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("hgstatus", "N");
         }
     }
 
@@ -96,7 +122,7 @@ public class HGManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
-                currentEntity.setHgstatus("M");
+                currentEntity.setHgstatus("N");
                 currentEntity.setHgdelman(null);
                 currentEntity.setZbrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
@@ -126,6 +152,20 @@ public class HGManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+
+    /**
+     * @return the designid
+     */
+    public String getDesignid() {
+        return designid;
+    }
+
+    /**
+     * @param designid the designid to set
+     */
+    public void setDesignid(String designid) {
+        this.designid = designid;
     }
 
 }

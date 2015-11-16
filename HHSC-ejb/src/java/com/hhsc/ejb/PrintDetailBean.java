@@ -5,15 +5,13 @@
  */
 package com.hhsc.ejb;
 
-import com.hhsc.entity.FactoryOrder;
+import com.hhsc.entity.PrintDetail;
 import com.lightshell.comm.SuperEJB;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -21,18 +19,25 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class FactoryOrderBean extends SuperEJB<FactoryOrder> {
+public class PrintDetailBean extends SuperEJB<PrintDetail> {
 
     @PersistenceContext(unitName = "HHSC-ejbPU")
     private EntityManager em;
 
-    public FactoryOrderBean() {
-        super(FactoryOrder.class);
+    public PrintDetailBean() {
+        super(PrintDetail.class);
     }
 
     @Override
     public EntityManager getEntityManager() {
         return em;
     }
+
+    @Override
+    public List<PrintDetail> findByPId(Object value) {
+        return super.findByPId(Integer.parseInt(value.toString())); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 
 }

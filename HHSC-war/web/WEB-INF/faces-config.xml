@@ -19,7 +19,18 @@
             <renderer-type>org.primefaces.component.SentinelMenuRenderer</renderer-type>
             <renderer-class>org.primefaces.sentinel.component.menu.SentinelMenuRenderer</renderer-class>
         </renderer>
-    </render-kit>   
+    </render-kit>  
+    <application>
+        <action-listener>
+            org.primefaces.application.DialogActionListener
+        </action-listener>
+        <navigation-handler>
+            org.primefaces.application.DialogNavigationHandler
+        </navigation-handler>
+        <view-handler>
+            org.primefaces.application.DialogViewHandler
+        </view-handler>
+    </application> 
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
@@ -30,6 +41,16 @@
         <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>404</from-outcome>
+            <to-view-id>/404.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -75,6 +96,11 @@
         <navigation-case>
             <from-outcome>itemdesignView</from-outcome>
             <to-view-id>/base/itemdesignView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemdesignSelect</from-outcome>
+            <to-view-id>/base/itemdesignSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

@@ -10,6 +10,7 @@ import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
+import com.hhsc.entity.ItemDesign;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.DDModel;
 import com.hhsc.web.SuperMultiBean;
@@ -21,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -29,15 +31,17 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean(name = "ddManagedBean")
 @SessionScoped
 public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
-
+    
     @EJB
     private FactoryOrderBean factoryOrderBean;
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
     @EJB
     private SystemUserBean systemUserBean;
-
+    
     private List<SystemUser> systemUserList;
+    
+    private String designid;
 
     /**
      * Creates a new instance of SalesOrderManagedBean
@@ -45,7 +49,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public DDManagedBean() {
         super(FactoryOrder.class, FactoryOrderDetail.class);
     }
-
+    
     @Override
     public void create() {
         super.create();
@@ -70,19 +74,36 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         this.newEntity.setCpstatus("N");
         this.newEntity.setCpreaded(Boolean.FALSE);
     }
-
+    
     @Override
     public void createDetail() {
         super.createDetail();
-        this.newDetail.setSeq(getMaxSeq());
+        this.newDetail.setSeq(getMaxSeq(this.detailList));
         this.newDetail.setDesignid(0);
         this.newDetail.setItemno("itemno");
         this.newDetail.setSuitqty(0);
         this.newDetail.setMeterqty(BigDecimal.ZERO);
+        this.newDetail.setJhqty(BigDecimal.ZERO);
         this.newDetail.setDeliverdate(this.getDate());
         this.setCurrentDetail(newDetail);
     }
-
+    
+    @Override
+    public void handleDialogReturnWhenEdit(SelectEvent event) {
+        ItemDesign entity = (ItemDesign) event.getObject();
+        if (entity != null) {
+            this.currentEntity.setItemid(entity.getDesignid());
+        }
+    }
+    
+    @Override
+    public void handleDialogReturnWhenNew(SelectEvent event) {
+        ItemDesign entity = (ItemDesign) event.getObject();
+        if (entity != null) {
+            this.newEntity.setItemid(entity.getDesignid());
+        }
+    }
+    
     @Override
     public void handleFileUploadWhenNew(FileUploadEvent event) {
         super.handleFileUploadWhenNew(event);
@@ -90,7 +111,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             this.newEntity.setOrderimg(fileName);
         }
     }
-
+    
     @Override
     public void handleFileUploadWhenEdit(FileUploadEvent event) {
         super.handleFileUploadWhenEdit(event);
@@ -98,16 +119,44 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             this.currentEntity.setOrderimg(fileName);
         }
     }
-
+    
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
         setDetailEJB(factoryOrderDetailBean);
         setModel(new DDModel(factoryOrderBean, userManagedBean));
+        getModel().getFilterFields().put("salesstatus", "N");
         setSystemUserList(systemUserBean.findAll());
         super.init();
     }
-
+    
+    @Override
+    public void query() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            if (queryDateBegin != null) {
+                this.model.getFilterFields().put("orderdateBegin", queryDateBegin);
+            }
+            if (queryDateEnd != null) {
+                this.model.getFilterFields().put("orderdateEnd", queryDateEnd);
+            }
+            if (designid != null && !"".equals(designid)) {
+                this.model.getFilterFields().put("itemid", designid);
+            }
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("salesstatus", queryState);
+            }
+        }
+    }
+    
+    @Override
+    public void reset() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("salesstatus", "N");
+        }
+    }
+    
     @Override
     public void setToolBar() {
         if (currentEntity != null && currentSysprg != null) {
@@ -135,12 +184,12 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             }
         }
     }
-
+    
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
-                currentEntity.setSalesstatus("M");
+                currentEntity.setSalesstatus("N");
                 currentEntity.setJhrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
@@ -152,7 +201,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             }
         }
     }
-
+    
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
@@ -184,4 +233,18 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         this.systemUserList = systemUserList;
     }
 
+    /**
+     * @return the designid
+     */
+    public String getDesignid() {
+        return designid;
+    }
+
+    /**
+     * @param designid the designid to set
+     */
+    public void setDesignid(String designid) {
+        this.designid = designid;
+    }
+    
 }

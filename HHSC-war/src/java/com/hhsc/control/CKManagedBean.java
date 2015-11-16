@@ -30,6 +30,8 @@ public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
 
+    protected String designid;
+
     public CKManagedBean() {
         super(FactoryOrder.class, FactoryOrderDetail.class);
     }
@@ -39,9 +41,7 @@ public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         setSuperEJB(factoryOrderBean);
         setDetailEJB(factoryOrderDetailBean);
         setModel(new CKModel(factoryOrderBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        getModel().getFilterFields().put("ckstatus", "N");
         super.init();
     }
 
@@ -55,12 +55,38 @@ public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setCkreaded(Boolean.TRUE);
                     currentEntity.setCkreaddate(getDate());
                 }
-                currentEntity.setCkstatus("R");
                 update();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+
+    @Override
+    public void query() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            if (queryDateBegin != null) {
+                this.model.getFilterFields().put("ckdeldateBegin", queryDateBegin);
+            }
+            if (queryDateEnd != null) {
+                this.model.getFilterFields().put("ckdeldateEnd", queryDateEnd);
+            }
+            if (getDesignid() != null && !"".equals(designid)) {
+                this.model.getFilterFields().put("itemid", getDesignid());
+            }
+            if (designid != null && !"ALL".equals(designid)) {
+                this.model.getFilterFields().put("ckstatus", designid);
+            }
+        }
+    }
+
+    @Override
+    public void reset() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("ckstatus", "N");
+        }     
     }
 
     @Override
@@ -95,7 +121,7 @@ public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
-                currentEntity.setCkstatus("M");
+                currentEntity.setCkstatus("N");
                 currentEntity.setCkdelman(null);
                 currentEntity.setCprecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
@@ -125,6 +151,20 @@ public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+
+    /**
+     * @return the designid
+     */
+    public String getDesignid() {
+        return designid;
+    }
+
+    /**
+     * @param designid the designid to set
+     */
+    public void setDesignid(String designid) {
+        this.designid = designid;
     }
 
 }

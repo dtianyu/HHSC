@@ -7,11 +7,14 @@ package com.hhsc.control;
 
 import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.ejb.FactoryOrderDetailBean;
+import com.hhsc.ejb.PrintDetailBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
+import com.hhsc.entity.PrintDetail;
 import com.hhsc.lazy.YHModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.SuperMulti2Bean;
 import com.lightshell.comm.BaseLib;
+import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -24,25 +27,37 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "yhManagedBean")
 @SessionScoped
-public class YHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
+public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDetail, PrintDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
+    @EJB
+    private PrintDetailBean printDetailBean;
+
+    protected String designid;
 
     public YHManagedBean() {
-        super(FactoryOrder.class, FactoryOrderDetail.class);
+        super(FactoryOrder.class, FactoryOrderDetail.class, PrintDetail.class);
+    }
+
+    @Override
+    public void createDetail2() {
+        super.createDetail2();
+        this.newDetail2.setSeq(getMaxSeq(this.detailList2));
+        this.newDetail2.setQty(BigDecimal.ONE);
+        this.newDetail2.setPrice(BigDecimal.ZERO);
+        this.setCurrentDetail2(newDetail2);
     }
 
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
         setDetailEJB(factoryOrderDetailBean);
+        setDetailEJB2(printDetailBean);
         setModel(new YHModel(factoryOrderBean));
-        if (currentEntity == null) {
-            setCurrentEntity(getNewEntity());
-        }
+        getModel().getFilterFields().put("yhstatus", "N");
         super.init();
     }
 
@@ -56,11 +71,37 @@ public class YHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setYhreaded(Boolean.TRUE);
                     currentEntity.setYhreaddate(BaseLib.getDate());
                 }
-                currentEntity.setYhstatus("R");
                 update();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        }
+    }
+
+    @Override
+    public void query() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            if (queryDateBegin != null) {
+                this.model.getFilterFields().put("yhdeldateBegin", queryDateBegin);
+            }
+            if (queryDateEnd != null) {
+                this.model.getFilterFields().put("yhdeldateEnd", queryDateEnd);
+            }
+            if (designid != null && !"".equals(designid)) {
+                this.model.getFilterFields().put("itemid", designid);
+            }
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("yhstatus", queryState);
+            }
+        }
+    }
+
+    @Override
+    public void reset() {
+        if (this.model != null && this.model.getFilterFields() != null) {
+            this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("yhstatus", "N");
         }
     }
 
@@ -96,9 +137,9 @@ public class YHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
-                currentEntity.setYhstatus("M");
+                currentEntity.setYhstatus("N");
                 currentEntity.setYhdelman(null);
-                currentEntity.setZhrecdate(null);                
+                currentEntity.setZhrecdate(null);
                 currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setOptdateToNow();
                 currentEntity.setStatus("YH");
@@ -126,6 +167,20 @@ public class YHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
+    }
+
+    /**
+     * @return the designid
+     */
+    public String getDesignid() {
+        return designid;
+    }
+
+    /**
+     * @param designid the designid to set
+     */
+    public void setDesignid(String designid) {
+        this.designid = designid;
     }
 
 }
