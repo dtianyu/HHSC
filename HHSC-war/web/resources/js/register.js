@@ -8,7 +8,7 @@
 var waiting = function () {
     var sendCount = $(document.getElementById('formRegister:count')).val();
     //alert(sendCount);
-    if (sendCount !== "0" ) {
+    if (sendCount !== "0") {
         var btn = $(document.getElementById('formRegister:btnSendVerifyCode'));
         waitingTime.waiting(btn);
     }
@@ -34,7 +34,7 @@ var waitingTime = {
     }
 };
 
-var sendGraphicCode = function(){
+var sendGraphicCode = function () {
     var btnSend = $(document.getElementById('formRegister:btnSendGraphicCode'));
     btnSend.click();
 };

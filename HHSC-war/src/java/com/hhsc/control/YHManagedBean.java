@@ -89,7 +89,7 @@ public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDet
                 this.model.getFilterFields().put("yhdeldateEnd", queryDateEnd);
             }
             if (designid != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("itemid", designid);
+                this.model.getFilterFields().put("designid", designid);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("yhstatus", queryState);
@@ -136,17 +136,21 @@ public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDet
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setYhstatus("N");
-                currentEntity.setYhdelman(null);
-                currentEntity.setZhrecdate(null);
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("YH");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setYhstatus("N");
+                    currentEntity.setYhdelman(null);
+                    currentEntity.setZhrecdate(null);
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("YH");
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
@@ -154,17 +158,21 @@ public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDet
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setYhstatus("V");
-                currentEntity.setYhdelman(getUserManagedBean().getCurrentUser().getUsername());
-                currentEntity.setZhrecdate(getDate());
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("HZ");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setYhstatus("V");
+                    currentEntity.setYhdelman(getUserManagedBean().getCurrentUser().getUsername());
+                    currentEntity.setZhrecdate(getDate());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("HZ");
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }

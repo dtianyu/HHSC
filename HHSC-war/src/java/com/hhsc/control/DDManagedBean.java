@@ -31,16 +31,16 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "ddManagedBean")
 @SessionScoped
 public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
-    
+
     @EJB
     private FactoryOrderBean factoryOrderBean;
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
     @EJB
     private SystemUserBean systemUserBean;
-    
+
     private List<SystemUser> systemUserList;
-    
+
     private String designid;
 
     /**
@@ -49,12 +49,11 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public DDManagedBean() {
         super(FactoryOrder.class, FactoryOrderDetail.class);
     }
-    
+
     @Override
     public void create() {
         super.create();
-        this.newEntity.setColorid("colorid");
-        this.newEntity.setOrderdate(getDate());
+        this.newEntity.setFormdate(getDate());
         this.newEntity.setSalesman(userManagedBean.getCurrentUser());
         this.newEntity.setSalesstatus("N");
         this.newEntity.setJhstatus("N");
@@ -74,44 +73,84 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         this.newEntity.setCpstatus("N");
         this.newEntity.setCpreaded(Boolean.FALSE);
     }
-    
+
     @Override
     public void createDetail() {
         super.createDetail();
         this.newDetail.setSeq(getMaxSeq(this.detailList));
-        this.newDetail.setDesignid(0);
+        this.newDetail.setDesignid("");
         this.newDetail.setItemno("itemno");
         this.newDetail.setSuitqty(0);
         this.newDetail.setMeterqty(BigDecimal.ZERO);
         this.newDetail.setJhqty(BigDecimal.ZERO);
+        this.newDetail.setInqty(BigDecimal.ZERO);
         this.newDetail.setDeliverdate(this.getDate());
         this.setCurrentDetail(newDetail);
     }
-    
+
+    @Override
+    protected boolean doBeforePersist() {
+        if (this.newEntity != null && this.currentSysprg != null) {
+            String formid = "";
+            if (this.currentSysprg.getNoauto()) {
+                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.currentSysprg.getNolead(), this.currentSysprg.getNoformat(), this.currentSysprg.getNoseqlen());
+            }
+            this.newEntity.setFormid(formid);
+            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
+                for (FactoryOrderDetail detail : this.addedDetailList) {
+                    detail.setPformid(formid);
+                    detail.setDesignid(this.newEntity.getDesignid());
+                }
+            }
+            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
+                for (FactoryOrderDetail detail : this.editedDetailList) {
+                    detail.setPformid(formid);
+                    detail.setDesignid(this.newEntity.getDesignid());
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean doBeforeUpdate() {
+        if (this.currentEntity != null) {
+            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
+                for (FactoryOrderDetail detail : this.addedDetailList) {
+                    detail.setPformid(this.currentEntity.getFormid());
+                    detail.setDesignid(this.currentEntity.getDesignid());
+                }
+            }
+            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
+                for (FactoryOrderDetail detail : this.editedDetailList) {
+                    detail.setPformid(this.currentEntity.getFormid());
+                    detail.setDesignid(this.currentEntity.getDesignid());
+                }
+            }
+            return super.doBeforeUpdate();
+        }
+        return false;
+    }
+
     @Override
     public void handleDialogReturnWhenEdit(SelectEvent event) {
-        ItemDesign entity = (ItemDesign) event.getObject();
-        if (entity != null) {
-            this.currentEntity.setItemid(entity.getDesignid());
+        if (event.getObject() != null) {
+            ItemDesign entity = (ItemDesign) event.getObject();
+            this.currentEntity.setDesignid(entity.getDesignid());
+            this.currentEntity.setOrderimg(entity.getFilename());
         }
     }
-    
+
     @Override
     public void handleDialogReturnWhenNew(SelectEvent event) {
-        ItemDesign entity = (ItemDesign) event.getObject();
-        if (entity != null) {
-            this.newEntity.setItemid(entity.getDesignid());
+        if (event.getObject() != null) {
+            ItemDesign entity = (ItemDesign) event.getObject();
+            this.newEntity.setDesignid(entity.getDesignid());
+            this.newEntity.setOrderimg(entity.getFilename());
         }
     }
-    
-    @Override
-    public void handleFileUploadWhenNew(FileUploadEvent event) {
-        super.handleFileUploadWhenNew(event);
-        if (this.fileName != null && this.newEntity != null) {
-            this.newEntity.setOrderimg(fileName);
-        }
-    }
-    
+
     @Override
     public void handleFileUploadWhenEdit(FileUploadEvent event) {
         super.handleFileUploadWhenEdit(event);
@@ -119,7 +158,15 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             this.currentEntity.setOrderimg(fileName);
         }
     }
-    
+
+    @Override
+    public void handleFileUploadWhenNew(FileUploadEvent event) {
+        super.handleFileUploadWhenNew(event);
+        if (this.fileName != null && this.newEntity != null) {
+            this.newEntity.setOrderimg(fileName);
+        }
+    }
+
     @Override
     public void init() {
         setSuperEJB(factoryOrderBean);
@@ -129,26 +176,26 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         setSystemUserList(systemUserBean.findAll());
         super.init();
     }
-    
+
     @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
             if (queryDateBegin != null) {
-                this.model.getFilterFields().put("orderdateBegin", queryDateBegin);
+                this.model.getFilterFields().put("formdateBegin", queryDateBegin);
             }
             if (queryDateEnd != null) {
-                this.model.getFilterFields().put("orderdateEnd", queryDateEnd);
+                this.model.getFilterFields().put("formdateEnd", queryDateEnd);
             }
             if (designid != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("itemid", designid);
+                this.model.getFilterFields().put("designid", designid);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("salesstatus", queryState);
             }
         }
     }
-    
+
     @Override
     public void reset() {
         if (this.model != null && this.model.getFilterFields() != null) {
@@ -156,7 +203,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             this.model.getFilterFields().put("salesstatus", "N");
         }
     }
-    
+
     @Override
     public void setToolBar() {
         if (currentEntity != null && currentSysprg != null) {
@@ -184,37 +231,45 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             }
         }
     }
-    
+
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setSalesstatus("N");
-                currentEntity.setJhrecdate(null);
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("DD");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setSalesstatus("N");
+                    currentEntity.setJhrecdate(null);
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("DD");
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
-    
+
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setSalesstatus("V");
-                currentEntity.setJhrecdate(getDate());
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("JH");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setSalesstatus("V");
+                    currentEntity.setJhrecdate(getDate());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("JH");
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
@@ -246,5 +301,5 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     public void setDesignid(String designid) {
         this.designid = designid;
     }
-    
+
 }

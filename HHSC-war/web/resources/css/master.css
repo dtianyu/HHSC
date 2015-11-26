@@ -14,7 +14,7 @@ li{
     float: left;
 }
 
-.Wid30 input,.Wid30 span,
+/*.Wid30 input,.Wid30 span,
 .Wid40 input,.Wid40 span,
 .Wid50 input,.Wid50 span,
 .Wid60 input,.Wid60 span,
@@ -22,6 +22,17 @@ li{
 .Wid80 input,.Wid80 span,
 .Wid90 input,.Wid90 span,
 .Wid100 input,.Wid100 span{
+    width:95%; 
+}*/
+
+.Wid30 input,
+.Wid40 input,
+.Wid50 input,
+.Wid60 input,
+.Wid70 input,
+.Wid80 input,
+.Wid90 input,
+.Wid100 input{
     width:95%; 
 }
 

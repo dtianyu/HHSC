@@ -100,18 +100,9 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
         return this.appImgPath;
     }
 
-    public String persist(String path) {
-        try {
-            persist();
-            return path;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
     @Override
     public void pull() {
-        
+
     }
 
     @Override
@@ -136,7 +127,17 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
                         this.doCfm = currentSysprg.getDocfm() && true;
                         this.doUnCfm = false;
                 }
+            } else {
+                this.doEdit = false;
+                this.doDel = false;
+                this.doCfm = false;
+                this.doUnCfm = false;
             }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
         }
     }
 
@@ -151,52 +152,43 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
         }
     }
 
-    public void verify() {
-        if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setStatus("V");
-                currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setCfmdateToNow();
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
-            }
-        }
-    }
-    
-    public String verify(String path){
-        this.verify();
-        return path;
-    }
-
+    @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setStatus("M");
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setCfmuser(null);
-                currentEntity.setCfmdate(null);
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setStatus("N");//简化查询条件,此处不再提供修改状态(M)
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setCfmuser(null);
+                    currentEntity.setCfmdate(null);
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
-    
-    public String unverify(String path){
-        this.unverify();
-        return path;
-    }
 
-    public String view(String path) {
-        if (currentEntity != null) {
-            return path;
+    @Override
+    public void verify() {
+        if (null != getCurrentEntity()) {
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setStatus("V");
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setCfmdateToNow();
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择查看数据！"));
-            return "";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
         }
     }
 

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formNew">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="factorystorage" icon="ui-icon-arrowreturn-1-w"  />                          
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{factoryStorageManagedBean.persist()}" icon="ui-icon-disk" 
+                                     process="@this,plgNew" update="plgNew"/>                                
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelNew" header="生产入库－新增">
+                <p:panelGrid id="plgNew" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30"  styleClass="plgNew Wid100">
+                    <p:outputLabel value="部门" for="deptid" />
+                    <p:inputText id="deptid" value="#{factoryStorageManagedBean.newEntity.deptid}" title="Deptid" />
+                    <p:outputLabel value="入库日期" for="formdate" />
+                    <p:calendar id="formdate" value="#{factoryStorageManagedBean.newEntity.formdate}" title="Formdate" 
+                                pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="日期不能为空.">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </p:calendar>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel id="panelDetail">
+                <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                    <f:facet name="left">
+                        <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{factoryStorageManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                         oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                         update="plgEditDetail" process="@this" />
+                        <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{factoryStorageManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                         oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                         update="tableList,plgEditDetail" process="@this" />  
+                    </f:facet>
+                    <f:facet name="right">                        
+                        <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{factoryStorageManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                         onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                         update="tableList,plgEditDetail" process="@this,plgEditDetail"/>                                
+                    </f:facet>
+                </p:toolbar>
+                <p:panelGrid id="plgEditDetail" styleClass="plgEdit Container100" >
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="流转单号" for="sformid" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="sformid" value="#{factoryStorageManagedBean.currentDetail.sformid}" title="Sformid" styleClass="inputWithButton"
+                                         required="true" readonly="true"/>
+                            <p:commandButton actionListener="#{factoryStorageManagedBean.openDialog('factoryorderdetailSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{factoryStorageManagedBean.handleDialogReturnWhenDetailNew}" update="plgEditDetail" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="流转序号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText value="#{factoryStorageManagedBean.currentDetail.sseq}" title="Sseq" readonly="true"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="花号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText value="#{factoryStorageManagedBean.currentDetail.designid}" title="Designid" readonly="true"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="色号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText value="#{factoryStorageManagedBean.currentDetail.colorid}" title="Colorid" readonly="true"/>   
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="面料"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText value="#{factoryStorageManagedBean.currentDetail.itemno}" title="Itemno" readonly="true"/>  
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="可入库量" for="allowqty"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="allowqty" value="#{factoryStorageManagedBean.currentDetail.allowqty}" title="allowqty" readonly="true"/>                                         
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="入库数量" for="qty"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="qty" value="#{factoryStorageManagedBean.currentDetail.qty}" title="Qty"
+                                         required="true" requiredMessage="入库数量不可空白" validatorMessage="入库数量不能大于可入库数量">
+                                <f:validateDoubleRange minimum="1" maximum="#{factoryStorageManagedBean.currentDetail.allowqty}"/>
+                            </p:inputText>
+                        </p:column>
+                        <p:column></p:column>
+                        <p:column>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:dataTable id="tableList" value="#{factoryStorageManagedBean.detailList}" var="item" styleClass="tableList"
+                             selectionMode="single" selection="#{factoryStorageManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                    <p:ajax event="rowSelect"  update=":formNew:plgEditDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                    <p:ajax event="rowUnselect"  update=":formNew:plgEditDetail" />       
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="流转单号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sformid}"/>
+                    </p:column>
+                    <p:column styleClass="Wid10">
+                        <f:facet name="header">
+                            <h:outputText value="序号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sseq}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="花号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.designid}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="色号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.colorid}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="面料"/>
+                        </f:facet>
+                        <h:outputText value="#{item.itemno}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="可入库量"/>
+                        </f:facet>
+                        <h:outputText value="#{item.allowqty}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="入库数量"/>
+                        </f:facet>
+                        <h:outputText value="#{item.qty}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

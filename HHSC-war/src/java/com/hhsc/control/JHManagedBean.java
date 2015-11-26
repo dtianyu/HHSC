@@ -57,7 +57,7 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 } else {
                     currentEntity.setHgdeldate(null);
                     currentEntity.setHgdelman(null);
-                    currentEntity.setHgstatus("M");
+                    currentEntity.setHgstatus("N");
                     currentEntity.setZbrecdate(null);
                     currentEntity.setStatus("HG");
                 }
@@ -79,7 +79,7 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 } else {
                     currentEntity.setZbdeldate(null);
                     currentEntity.setZbdelman(null);
-                    currentEntity.setZbstatus("M");
+                    currentEntity.setZbstatus("N");
                     currentEntity.setPsrecdate(null);
                     currentEntity.setStatus("ZB");
                 }
@@ -101,7 +101,7 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 } else {
                     currentEntity.setPsdeldate(null);
                     currentEntity.setPsdelman(null);
-                    currentEntity.setPsstatus("M");
+                    currentEntity.setPsstatus("N");
                     currentEntity.setYhrecdate(null);
                     currentEntity.setStatus("PS");
                 }
@@ -123,7 +123,7 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 } else {
                     currentEntity.setYhdeldate(null);
                     currentEntity.setYhdelman(null);
-                    currentEntity.setYhstatus("M");
+                    currentEntity.setYhstatus("N");
                     currentEntity.setZhrecdate(null);
                     currentEntity.setStatus("YH");
                 }
@@ -155,13 +155,13 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
             if (queryDateBegin != null) {
-                this.model.getFilterFields().put("orderdateBegin", queryDateBegin);
+                this.model.getFilterFields().put("formdateBegin", queryDateBegin);
             }
             if (queryDateEnd != null) {
-                this.model.getFilterFields().put("orderdateEnd", queryDateEnd);
+                this.model.getFilterFields().put("formdateEnd", queryDateEnd);
             }
             if (designid != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("itemid", designid);
+                this.model.getFilterFields().put("designid", designid);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("jhstatus", queryState);
@@ -209,17 +209,21 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setJhstatus("N");
-                currentEntity.setJhdelman(null);
-                currentEntity.setHgrecdate(null);
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("JH");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setJhstatus("N");
+                    currentEntity.setJhdelman(null);
+                    currentEntity.setHgrecdate(null);
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("JH");
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
@@ -227,19 +231,23 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setJhstatus("V");
-                currentEntity.setJhdelman(getUserManagedBean().getCurrentUser().getUsername());
-                currentEntity.setHgrecdate(getDate());
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                if ("JH".equals(currentEntity.getStatus().trim())) {
-                    currentEntity.setStatus("HG");
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setJhstatus("V");
+                    currentEntity.setJhdelman(getUserManagedBean().getCurrentUser().getUsername());
+                    currentEntity.setHgrecdate(getDate());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    if ("JH".equals(currentEntity.getStatus().trim())) {
+                        currentEntity.setStatus("HG");
+                    }
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
                 }
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }

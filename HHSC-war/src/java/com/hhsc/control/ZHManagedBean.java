@@ -73,7 +73,7 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 this.model.getFilterFields().put("zhdeldateEnd", queryDateEnd);
             }
             if (getDesignid() != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("itemid", getDesignid());
+                this.model.getFilterFields().put("designid", getDesignid());
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("zhstatus", queryState);
@@ -120,17 +120,21 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setZhstatus("N");
-                currentEntity.setZhdelman(null);
-                currentEntity.setCkrecdate(null);
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("HZ");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setZhstatus("N");
+                    currentEntity.setZhdelman(null);
+                    currentEntity.setCkrecdate(null);
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("HZ");
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
@@ -138,17 +142,21 @@ public class ZHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setZhstatus("V");
-                currentEntity.setZhdelman(getUserManagedBean().getCurrentUser().getUsername());
-                currentEntity.setCkrecdate(getDate());
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("CK");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setZhstatus("V");
+                    currentEntity.setZhdelman(getUserManagedBean().getCurrentUser().getUsername());
+                    currentEntity.setCkrecdate(getDate());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("CK");
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }

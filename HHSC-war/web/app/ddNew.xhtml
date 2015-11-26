@@ -23,13 +23,13 @@
             <p:panel id="panelNew" header="订单信息－新增">
                 <p:panelGrid id="plgNew"  styleClass="plgNew Wid100" >
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="花号" for="itemid" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="花号" for="designid" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="itemid" value="#{ddManagedBean.newEntity.itemid}" title="Itemid" styleClass="inputWithButton"
+                            <p:inputText id="designid" value="#{ddManagedBean.newEntity.designid}" title="Itemid" styleClass="inputWithButton"
                                          required="true" requiredMessage="花号不能为空."/>
                             <p:commandButton actionListener="#{ddManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{ddManagedBean.handleDialogReturnWhenNew}" update="itemid" />
+                                <p:ajax event="dialogReturn" listener="#{ddManagedBean.handleDialogReturnWhenNew}" update="designid" />
                             </p:commandButton>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="成品规格" for="itemspec" /></p:column>
@@ -49,9 +49,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="制单日期" for="orderdate" /></p:column>
+                        <p:column><p:outputLabel value="制单日期" for="formdate" /></p:column>
                         <p:column>
-                            <p:calendar id="orderdate" value="#{ddManagedBean.newEntity.orderdate}" title="Orderdate" 
+                            <p:calendar id="formdate" value="#{ddManagedBean.newEntity.formdate}" title="Orderdate" 
                                         pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="日期不能为空.">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>

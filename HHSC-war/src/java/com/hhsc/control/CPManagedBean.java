@@ -73,7 +73,7 @@ public class CPManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 this.model.getFilterFields().put("cpdeldateEnd", queryDateEnd);
             }
             if (getDesignid() != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("itemid", getDesignid());
+                this.model.getFilterFields().put("designid", getDesignid());
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("cpstatus", queryState);
@@ -113,19 +113,23 @@ public class CPManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setCpstatus("N");
-                currentEntity.setCpdelman(null);
-                currentEntity.setStatusToModify();
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setCfmuser(null);
-                currentEntity.setCfmdate(null);
-                currentEntity.setStatus("CP");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setCpstatus("N");
+                    currentEntity.setCpdelman(null);
+                    currentEntity.setStatusToModify();
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setCfmuser(null);
+                    currentEntity.setCfmdate(null);
+                    currentEntity.setStatus("CP");
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
@@ -133,18 +137,22 @@ public class CPManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setCpstatus("V");
-                currentEntity.setCpdelman(getUserManagedBean().getCurrentUser().getUsername());
-                currentEntity.setStatus("V");
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setCfmdateToNow();
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setCpstatus("V");
+                    currentEntity.setCpdelman(getUserManagedBean().getCurrentUser().getUsername());
+                    currentEntity.setStatus("V");
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setCfmdateToNow();
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }

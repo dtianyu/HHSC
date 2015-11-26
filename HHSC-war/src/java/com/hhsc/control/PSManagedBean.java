@@ -73,7 +73,7 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 this.model.getFilterFields().put("psdeldateEnd", queryDateEnd);
             }
             if (getDesignid() != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("itemid", getDesignid());
+                this.model.getFilterFields().put("designid", getDesignid());
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("psstatus", queryState);
@@ -120,17 +120,21 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setPsstatus("N");
-                currentEntity.setPsdelman(null);
-                currentEntity.setYhrecdate(null);
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("PS");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setPsstatus("N");
+                    currentEntity.setPsdelman(null);
+                    currentEntity.setYhrecdate(null);
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("PS");
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
@@ -138,17 +142,21 @@ public class PSManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setPsstatus("V");
-                currentEntity.setPsdelman(getUserManagedBean().getCurrentUser().getUsername());
-                currentEntity.setYhrecdate(getDate());
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setStatus("YH");
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setPsstatus("V");
+                    currentEntity.setPsdelman(getUserManagedBean().getCurrentUser().getUsername());
+                    currentEntity.setYhrecdate(getDate());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setStatus("YH");
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }

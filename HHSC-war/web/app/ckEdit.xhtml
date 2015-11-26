@@ -58,14 +58,14 @@
                 <p:tab id="tab1" title="订单信息">
                     <p:panelGrid id="plgView" styleClass="plgView Wid100" >
                         <p:row>
-                            <p:column>
+                            <p:column styleClass="Wid20">
                                 <h:outputText  value="花号"/>
                             </p:column>
                             <p:column>
-                                <h:outputText  id="itemid" value="#{ckManagedBean.currentEntity.itemid}" title="Itemid"/>
+                                <h:outputText  id="designid" value="#{ckManagedBean.currentEntity.designid}" title="Itemid"/>
                             </p:column>
                             <p:column><h:outputText value="制单日期"/></p:column>
-                            <p:column><h:outputText id="orderdate" value="#{ckManagedBean.currentEntity.orderdate}" title="Orderdate">
+                            <p:column><h:outputText id="formdate" value="#{ckManagedBean.currentEntity.formdate}" title="Orderdate">
                                     <f:convertDateTime pattern="yyyy/MM/dd" />
                                 </h:outputText>
                             </p:column>
@@ -195,6 +195,12 @@
                                 <h:outputText value="计划数量"/>
                             </f:facet>
                             <h:outputText value="#{item.jhqty}"/>
+                        </p:column>
+                        <p:column styleClass="TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="入库数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inqty}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

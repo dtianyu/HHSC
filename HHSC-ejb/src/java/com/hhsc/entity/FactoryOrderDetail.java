@@ -35,12 +35,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryOrderDetail.findByColorId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.colorid = :colorid")})
 public class FactoryOrderDetail extends BaseDetailEntity {
 
+    @Size(max = 20)
+    @Column(name = "pformid")
+    private String pformid;
+    @Size(max = 20)
     @Column(name = "designid")
-    private Integer designid;
+    private String designid;
     @Size(max = 45)
     @Column(name = "customeritem")
     private String customeritem;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "colorid")
     private String colorid;
     @Size(max = 45)
@@ -71,7 +77,9 @@ public class FactoryOrderDetail extends BaseDetailEntity {
     @Column(name = "unit")
     private String unit;
     @Column(name = "jhqty")
-    protected BigDecimal jhqty;
+    private BigDecimal jhqty;
+    @Column(name = "inqty")
+    protected BigDecimal inqty;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deliverdate")
@@ -84,11 +92,11 @@ public class FactoryOrderDetail extends BaseDetailEntity {
     public FactoryOrderDetail() {
     }
 
-    public Integer getDesignid() {
+    public String getDesignid() {
         return designid;
     }
 
-    public void setDesignid(Integer designid) {
+    public void setDesignid(String designid) {
         this.designid = designid;
     }
 
@@ -197,7 +205,7 @@ public class FactoryOrderDetail extends BaseDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        if ((this.colorid == null && other.colorid != null) || (this.colorid != null && !this.colorid.equals(other.colorid))) {
+        if (!this.colorid.equals(other.colorid)) {
             return false;
         }
         return this.seq == other.seq;
@@ -220,6 +228,34 @@ public class FactoryOrderDetail extends BaseDetailEntity {
      */
     public void setJhqty(BigDecimal jhqty) {
         this.jhqty = jhqty;
+    }
+
+    /**
+     * @return the inqty
+     */
+    public BigDecimal getInqty() {
+        return inqty;
+    }
+
+    /**
+     * @param inqty the inqty to set
+     */
+    public void setInqty(BigDecimal inqty) {
+        this.inqty = inqty;
+    }
+
+    /**
+     * @return the pformid
+     */
+    public String getPformid() {
+        return pformid;
+    }
+
+    /**
+     * @param pformid the pformid to set
+     */
+    public void setPformid(String pformid) {
+        this.pformid = pformid;
     }
 
 }

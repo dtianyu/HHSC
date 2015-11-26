@@ -34,16 +34,6 @@
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>home</from-outcome>
-            <to-view-id>/home.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>login</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>404</from-outcome>
             <to-view-id>/404.xhtml</to-view-id>
             <redirect/>
@@ -54,8 +44,113 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>resetPwd</from-outcome>
             <to-view-id>/sys/resetPwd.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ck</from-outcome>
+            <to-view-id>/app/ck.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
+        <navigation-case>
+            <from-outcome>ckNew</from-outcome>
+            <to-view-id>/app/ckNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ckEdit</from-outcome>
+            <to-view-id>/app/ckEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ckView</from-outcome>
+            <to-view-id>/app/ckView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cp</from-outcome>
+            <to-view-id>/app/cp.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
+        <navigation-case>
+            <from-outcome>cpNew</from-outcome>
+            <to-view-id>/app/cpNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cpEdit</from-outcome>
+            <to-view-id>/app/cpEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cpView</from-outcome>
+            <to-view-id>/app/cpView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>dd</from-outcome>
+            <to-view-id>/app/dd.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ddNew</from-outcome>
+            <to-view-id>/app/ddNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ddEdit</from-outcome>
+            <to-view-id>/app/ddEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ddView</from-outcome>
+            <to-view-id>/app/ddView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>factorystorage</from-outcome>
+            <to-view-id>/app/factorystorage.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>factorystorageNew</from-outcome>
+            <to-view-id>/app/factorystorageNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>factorystorageEdit</from-outcome>
+            <to-view-id>/app/factorystorageEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>factorystorageView</from-outcome>
+            <to-view-id>/app/factorystorageView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>hg</from-outcome>
+            <to-view-id>/app/hg.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>hgEdit</from-outcome>
+            <to-view-id>/app/hgEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>hgView</from-outcome>
+            <to-view-id>/app/hgView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -99,31 +194,6 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>itemdesignSelect</from-outcome>
-            <to-view-id>/base/itemdesignSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>dd</from-outcome>
-            <to-view-id>/app/dd.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>ddNew</from-outcome>
-            <to-view-id>/app/ddNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>ddEdit</from-outcome>
-            <to-view-id>/app/ddEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>ddView</from-outcome>
-            <to-view-id>/app/ddView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>jh</from-outcome>
             <to-view-id>/app/jh.xhtml</to-view-id>
             <redirect/>
@@ -136,36 +206,6 @@
         <navigation-case>
             <from-outcome>jhView</from-outcome>
             <to-view-id>/app/jhView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>hg</from-outcome>
-            <to-view-id>/app/hg.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>hgEdit</from-outcome>
-            <to-view-id>/app/hgEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>hgView</from-outcome>
-            <to-view-id>/app/hgView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>zb</from-outcome>
-            <to-view-id>/app/zb.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>zbEdit</from-outcome>
-            <to-view-id>/app/zbEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>zbView</from-outcome>
-            <to-view-id>/app/zbView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -183,106 +223,6 @@
             <to-view-id>/app/psView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        <navigation-case>
-            <from-outcome>yh</from-outcome>
-            <to-view-id>/app/yh.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>yhNew</from-outcome>
-            <to-view-id>/app/yhNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>yhEdit</from-outcome>
-            <to-view-id>/app/yhEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>yhView</from-outcome>
-            <to-view-id>/app/yhView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>zh</from-outcome>
-            <to-view-id>/app/zh.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>zhNew</from-outcome>
-            <to-view-id>/app/zhNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>zhEdit</from-outcome>
-            <to-view-id>/app/zhEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>zhView</from-outcome>
-            <to-view-id>/app/zhView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>ck</from-outcome>
-            <to-view-id>/app/ck.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>ckNew</from-outcome>
-            <to-view-id>/app/ckNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>ckEdit</from-outcome>
-            <to-view-id>/app/ckEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>ckView</from-outcome>
-            <to-view-id>/app/ckView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>cp</from-outcome>
-            <to-view-id>/app/cp.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>cpNew</from-outcome>
-            <to-view-id>/app/cpNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>cpEdit</from-outcome>
-            <to-view-id>/app/cpEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>cpView</from-outcome>
-            <to-view-id>/app/cpView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>     
-        <navigation-case>
-            <from-outcome>systemuser</from-outcome>
-            <to-view-id>/sys/systemuser.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>  
-        <navigation-case>
-            <from-outcome>systemuserNew</from-outcome>
-            <to-view-id>/sys/systemuserNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>        
-        <navigation-case>
-            <from-outcome>systemuserEdit</from-outcome>
-            <to-view-id>/sys/systemuserEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>systemuserView</from-outcome>
-            <to-view-id>/sys/systemuserView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case> 
         <navigation-case>
             <from-outcome>sysmodule</from-outcome>
             <to-view-id>/sys/sysmodule.xhtml</to-view-id>
@@ -361,6 +301,111 @@
         <navigation-case>
             <from-outcome>sysgrantprgView</from-outcome>
             <to-view-id>/sys/sysgrantprgView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemuser</from-outcome>
+            <to-view-id>/sys/systemuser.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>systemuserNew</from-outcome>
+            <to-view-id>/sys/systemuserNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>systemuserEdit</from-outcome>
+            <to-view-id>/sys/systemuserEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemuserView</from-outcome>
+            <to-view-id>/sys/systemuserView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>warehouse</from-outcome>
+            <to-view-id>/base/warehouse.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>warehouseNew</from-outcome>
+            <to-view-id>/base/warehouseNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>warehouseEdit</from-outcome>
+            <to-view-id>/base/warehouseEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>warehouseView</from-outcome>
+            <to-view-id>/base/warehouseView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>yh</from-outcome>
+            <to-view-id>/app/yh.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
+        <navigation-case>
+            <from-outcome>yhNew</from-outcome>
+            <to-view-id>/app/yhNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>yhEdit</from-outcome>
+            <to-view-id>/app/yhEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>yhView</from-outcome>
+            <to-view-id>/app/yhView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>zb</from-outcome>
+            <to-view-id>/app/zb.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>zbEdit</from-outcome>
+            <to-view-id>/app/zbEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>zbView</from-outcome>
+            <to-view-id>/app/zbView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>    
+        <navigation-case>
+            <from-outcome>zh</from-outcome>
+            <to-view-id>/app/zh.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
+        <navigation-case>
+            <from-outcome>zhNew</from-outcome>
+            <to-view-id>/app/zhNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>zhEdit</from-outcome>
+            <to-view-id>/app/zhEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>zhView</from-outcome>
+            <to-view-id>/app/zhView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>                          
+        <navigation-case>
+            <from-outcome>factoryorderdetailSelect</from-outcome>
+            <to-view-id>/df/factoryorderdetailSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>itemdesignSelect</from-outcome>
+            <to-view-id>/df/itemdesignSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>                                  
     </navigation-rule>

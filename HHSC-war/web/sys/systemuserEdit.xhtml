@@ -27,8 +27,15 @@
                     <h:outputText value="姓名"/>
                     <p:inputText id="username" value="#{systemUserManagedBean.currentEntity.username}" placeholder="姓名"  styleClass ="Wid90"/>
                     <h:outputText value="邮箱"/>
-                    <p:inputText id="email" value="#{systemUserManagedBean.currentEntity.email}" placeholder="邮箱" styleClass ="Wid90">
-                    </p:inputText>
+                    <p:inputText id="email" value="#{systemUserManagedBean.currentEntity.email}" placeholder="邮箱" styleClass ="Wid90"/>
+                    <h:outputText value="密码"/>
+                    <p:password id="pwd1" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90" 
+                                match="pwd2" feedback="false">
+                    </p:password>
+                    <h:outputText value="确认密码"/>
+                    <p:password id="pwd2" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90" 
+                                feedback="false">
+                    </p:password>
                 </h:panelGrid>
             </p:panel>
         </h:form>

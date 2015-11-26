@@ -6,7 +6,6 @@
 package com.hhsc.entity;
 
 import com.lightshell.comm.BaseEntityWithOperate;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryOrder.getRowCount", query = "SELECT COUNT(s) FROM FactoryOrder s "),
     @NamedQuery(name = "FactoryOrder.findAll", query = "SELECT s FROM FactoryOrder s ORDER BY s.salesstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findById", query = "SELECT s FROM FactoryOrder s WHERE s.id = :id"),
-    @NamedQuery(name = "FactoryOrder.findByOrderId", query = "SELECT s FROM FactoryOrder s WHERE s.orderid = :orderid"),
+    @NamedQuery(name = "FactoryOrder.findByFormId", query = "SELECT s FROM FactoryOrder s WHERE s.formid = :formid"),
     @NamedQuery(name = "FactoryOrder.findBySalesstatus", query = "SELECT s FROM FactoryOrder s WHERE s.salesstatus = :salesstatus ORDER BY s.salesstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findByHgstatus", query = "SELECT s FROM FactoryOrder s WHERE s.hgstatus = :hgstatus ORDER BY s.hgstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findByZbstatus", query = "SELECT s FROM FactoryOrder s WHERE s.zbstatus = :zbstatus ORDER BY s.zbstatus,s.id DESC"),
@@ -46,13 +45,13 @@ public class FactoryOrder extends BaseEntityWithOperate {
     private SystemUser salesman;
 
     @Size(max = 45)
-    @Column(name = "orderid")
-    private String orderid;
+    @Column(name = "formid")
+    private String formid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "orderdate")
+    @Column(name = "formdate")
     @Temporal(TemporalType.DATE)
-    private Date orderdate;
+    private Date formdate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "orderqty")
@@ -62,14 +61,9 @@ public class FactoryOrder extends BaseEntityWithOperate {
     private String orderimg;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "itemid")
-    private String itemid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "colorid")
-    private String colorid;
+    @Size(min = 1, max = 20)
+    @Column(name = "designid")
+    private String designid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 400)
@@ -416,36 +410,28 @@ public class FactoryOrder extends BaseEntityWithOperate {
         this.id = id;
     }
 
-    public String getOrderid() {
-        return orderid;
+    public String getFormid() {
+        return formid;
     }
 
-    public void setOrderid(String orderid) {
-        this.orderid = orderid;
+    public void setFormid(String formid) {
+        this.formid = formid;
     }
 
-    public Date getOrderdate() {
-        return orderdate;
+    public Date getFormdate() {
+        return formdate;
     }
 
-    public void setOrderdate(Date orderdate) {
-        this.orderdate = orderdate;
+    public void setFormdate(Date formdate) {
+        this.formdate = formdate;
     }
 
-    public String getItemid() {
-        return itemid;
+    public String getDesignid() {
+        return designid;
     }
 
-    public void setItemid(String itemid) {
-        this.itemid = itemid;
-    }
-
-    public String getColorid() {
-        return colorid;
-    }
-
-    public void setColorid(String colorid) {
-        this.colorid = colorid;
+    public void setDesignid(String designid) {
+        this.designid = designid;
     }
 
     public String getItemdesc() {

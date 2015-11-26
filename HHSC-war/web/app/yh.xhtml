@@ -9,13 +9,13 @@
     <ui:define name="content">
 
         <h:form id="formList">
-             <p:panel id="panelQuery">
+            <p:panel id="panelQuery">
                 <f:facet name="header">
                     查询条件
                 </f:facet>
-                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid40" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="色号" for="designid" />
-                    <p:inputText id="designid" value="#{yhManagedBean.designid}" title="色号" />
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="花号" for="designid" />
+                    <p:inputText id="designid" value="#{yhManagedBean.designid}" title="花号" />
                     <h:outputLabel value="印花状态" for="state" />
                     <p:selectOneMenu id="state" value="#{yhManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
@@ -62,7 +62,7 @@
                     <f:facet name="header">
                         <h:outputText value="订单日期"/>
                     </f:facet>
-                    <h:outputText value="#{item.orderdate}">
+                    <h:outputText value="#{item.formdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
@@ -70,7 +70,7 @@
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemid}"/>
+                    <h:outputText value="#{item.designid}"/>
                 </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">

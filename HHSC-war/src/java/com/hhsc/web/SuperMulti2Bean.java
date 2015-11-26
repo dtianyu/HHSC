@@ -12,7 +12,6 @@ import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.BaseDetailEntity;
 import com.lightshell.comm.SuperMulti2ManagedBean;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -130,15 +129,6 @@ public abstract class SuperMulti2Bean<T extends BaseEntityWithOperate, V extends
         return this.appImgPath;
     }
 
-    public String persist(String path) {
-        try {
-            persist();
-            return path;
-        } catch (Exception e) {
-            return "error";
-        }
-    }
-
     @Override
     public void pull() {
 
@@ -170,46 +160,47 @@ public abstract class SuperMulti2Bean<T extends BaseEntityWithOperate, V extends
         }
     }
 
-    public void verify() {
-        if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setStatus("V");
-                currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setCfmdateToNow();
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
-            }
-        }
-    }
-
-    public String verify(String path) {
-        this.verify();
-        return path;
-    }
-
+    @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            try {
-                currentEntity.setStatus("M");
-                currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
-                currentEntity.setOptdateToNow();
-                currentEntity.setCfmuser(null);
-                currentEntity.setCfmdate(null);
-                update();
-                setToolBar();
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            if (doBeforeUnverify()) {
+                try {
+                    currentEntity.setStatus("N");
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptdateToNow();
+                    currentEntity.setCfmuser(null);
+                    currentEntity.setCfmdate(null);
+                    update();
+                    doAfterUnverify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
             }
         }
     }
 
-    public String unverify(String path) {
-        this.unverify();
-        return path;
+    @Override
+    public void verify() {
+        if (null != getCurrentEntity()) {
+            if (doBeforeVerify()) {
+                try {
+                    currentEntity.setStatus("V");
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setCfmdateToNow();
+                    update();
+                    doAfterVerify();
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+            }
+        }
     }
 
+    @Override
     public String view(String path) {
         if (currentEntity != null) {
             setDetailList(this.detailEJB.findByPId(currentEntity.getId()));

@@ -37,7 +37,5 @@ public class FactoryOrderDetailBean extends SuperEJB<FactoryOrderDetail> {
     public List<FactoryOrderDetail> findByPId(Object value) {
         return super.findByPId(Integer.parseInt(value.toString())); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
 }

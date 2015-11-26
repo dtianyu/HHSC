@@ -88,6 +88,20 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
     }
 
     @Override
+    protected boolean doBeforeUpdate() {
+        if(currentEntity!=null &&  this.pwd!=null && !"".equals(this.pwd)){
+            try {
+                currentEntity.setPassword(BaseLib.securityMD5(pwd));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return super.doBeforeUpdate(); 
+    }
+    
+    
+
+    @Override
     public String edit(String path) {
         if (currentEntity != null) {
             this.mobile = currentEntity.getUserid();
