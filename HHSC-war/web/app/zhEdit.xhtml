@@ -15,9 +15,8 @@
                     <p:button id="btnReturn" value="返回" outcome="zh" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" action="#{zhManagedBean.verify('zh')}" icon="ui-icon-locked" value="提交" 
-                                     rendered="#{zhManagedBean.doCfm}" update="plgEdit"/>
-                    <p:commandButton id="btnSave" value="保存" action="#{zhManagedBean.update()}" icon="ui-icon-disk" update="panelEdit"/>                                
+                    <p:commandButton id="btnSave" value="保存" action="#{zhManagedBean.update()}" icon="ui-icon-disk" 
+                                     rendered="#{zhManagedBean.doCfm}" update="panelEdit"/>                                
                 </f:facet>
             </p:toolbar>        
             <p:panel id="panelEdit" header="后整信息－修改">

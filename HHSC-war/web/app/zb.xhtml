@@ -37,8 +37,6 @@
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" action="#{zbManagedBean.edit('zbEdit')}" icon="ui-icon-pencil" value="编辑"  
                                      rendered="#{zbManagedBean.doEdit}"/>                                                     
-                    <p:commandButton id="btnVerify" actionListener="#{zbManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
-                                     rendered="#{zbManagedBean.doCfm}"   update=":formList"/>
                     <p:commandButton id="btnUnverify" actionListener="#{zbManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{zbManagedBean.doUnCfm}"  update=":formList"/>                   
                     <p:commandButton id="btnCreate" action="#{zbManagedBean.create('zbNew')}" icon="ui-icon-plus" value="新增" 

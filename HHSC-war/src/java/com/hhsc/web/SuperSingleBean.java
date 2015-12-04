@@ -30,8 +30,9 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
 
-    private String appDataPath;
-    private String appImgPath;
+    protected String persistenceUnitName;
+    protected String appDataPath;
+    protected String appImgPath;
     protected Sysprg currentSysprg;
 
     /**
@@ -54,6 +55,9 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
     @Override
     public void construct() {
         FacesContext fc = FacesContext.getCurrentInstance();
+        appDataPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
+        appImgPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
+        persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
@@ -61,8 +65,6 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
             this.doAdd = currentSysprg.getDoadd();
         }
         super.construct();
-        appDataPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
-        appImgPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
     }
 
     @Override
@@ -81,15 +83,6 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
         }
     }
 
-    public String edit(String path) {
-        if (currentEntity != null) {
-            return path;
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择编辑数据！"));
-            return "";
-        }
-    }
-
     @Override
     public String getAppDataPath() {
         return this.appDataPath;
@@ -98,6 +91,11 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
     @Override
     public String getAppImgPath() {
         return this.appImgPath;
+    }
+
+    @Override
+    public String getPersistenceUnitName() {
+        return this.persistenceUnitName;
     }
 
     @Override
@@ -112,26 +110,19 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && currentSysprg != null) {
-            if (currentEntity.getStatus() != null) {
-                switch (currentEntity.getStatus()) {
-                    case "V":
-                        this.doEdit = currentSysprg.getDoedit() && false;
-                        this.doDel = currentSysprg.getDodel() && false;
-                        this.doCfm = false;
-                        this.doUnCfm = currentSysprg.getDouncfm() && true;
-                        break;
-                    default:
-                        this.doEdit = currentSysprg.getDoedit() && true;
-                        this.doDel = currentSysprg.getDodel() && true;
-                        this.doCfm = currentSysprg.getDocfm() && true;
-                        this.doUnCfm = false;
-                }
-            } else {
-                this.doEdit = false;
-                this.doDel = false;
-                this.doCfm = false;
-                this.doUnCfm = false;
+        if (currentEntity != null && currentSysprg != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "V":
+                    this.doEdit = currentSysprg.getDoedit() && false;
+                    this.doDel = currentSysprg.getDodel() && false;
+                    this.doCfm = false;
+                    this.doUnCfm = currentSysprg.getDouncfm() && true;
+                    break;
+                default:
+                    this.doEdit = currentSysprg.getDoedit() && true;
+                    this.doDel = currentSysprg.getDodel() && true;
+                    this.doCfm = currentSysprg.getDocfm() && true;
+                    this.doUnCfm = false;
             }
         } else {
             this.doEdit = false;
@@ -140,8 +131,6 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
             this.doUnCfm = false;
         }
     }
-
-    ;
 
     public String update(String path) {
         try {
@@ -155,40 +144,46 @@ public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends S
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            if (doBeforeUnverify()) {
-                try {
+            try {
+                if (doBeforeUnverify()) {
                     currentEntity.setStatus("N");//简化查询条件,此处不再提供修改状态(M)
                     currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                     currentEntity.setOptdateToNow();
                     currentEntity.setCfmuser(null);
                     currentEntity.setCfmdate(null);
-                    update();
+                    superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                } catch (Exception e) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "取消前检查失败!"));
                 }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
         }
     }
 
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            if (doBeforeVerify()) {
-                try {
+            try {
+                if (doBeforeVerify()) {
                     currentEntity.setStatus("V");
                     currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
                     currentEntity.setCfmdateToNow();
-                    update();
+                    superEJB.verify(currentEntity);
                     doAfterVerify();
-                } catch (Exception e) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
                 }
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
         }
     }
 

@@ -15,8 +15,6 @@
                     <p:button id="btnReturn" value="返回" outcome="ps" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" action="#{psManagedBean.verify('ps')}" icon="ui-icon-locked" value="提交" 
-                                     rendered="#{psManagedBean.doCfm}" update="plgEdit"/>
                     <p:commandButton id="btnSave" value="保存" action="#{psManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>                                
                 </f:facet>
             </p:toolbar>  

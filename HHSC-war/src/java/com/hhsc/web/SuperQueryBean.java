@@ -5,16 +5,12 @@
  */
 package com.hhsc.web;
 
-import com.lightshell.comm.BaseEntityWithOperate;
 import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.BaseEntity;
 import com.lightshell.comm.SuperSingleManagedBean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
@@ -31,8 +27,9 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
 
-    private String appDataPath;
-    private String appImgPath;
+    protected String persistenceUnitName;
+    protected String appDataPath;
+    protected String appImgPath;
     protected Sysprg currentSysprg;
 
     /**
@@ -56,9 +53,10 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     public void construct() {
         //不需要进行操作权限设置
         FacesContext fc = FacesContext.getCurrentInstance();
-        super.construct();
         appDataPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
         appImgPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
+        persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
+        super.construct();
     }
 
     @Override
@@ -84,6 +82,11 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     @Override
     public String getAppImgPath() {
         return this.appImgPath;
+    }
+
+    @Override
+    public String getPersistenceUnitName() {
+        return this.persistenceUnitName;
     }
 
     @Override

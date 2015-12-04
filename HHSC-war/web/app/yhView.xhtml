@@ -8,15 +8,19 @@
 
     <ui:define name="content">
 
-        <h:form id="formEdit">
+        <h:form id="formView">
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="yh" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="提交" action="#{yhManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{yhManagedBean.doCfm}" process="@this" update="formView"/>
+                </f:facet>
             </p:toolbar>  
-            <p:panel id="panelEdit" header="印花信息－查看">
-                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+            <p:panel id="panelView" header="印花信息－查看">
+                <p:panelGrid id="plgView" styleClass="plgView Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="印花交期" /></p:column>
                         <p:column styleClass="Wid30">

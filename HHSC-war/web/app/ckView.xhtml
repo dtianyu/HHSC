@@ -8,15 +8,19 @@
 
     <ui:define name="content">
 
-        <h:form id="formEdit">
+        <h:form id="formView">
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="ck" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" action="#{ckManagedBean.verify()}" icon="ui-icon-locked" value="出货" 
+                                     rendered="#{ckManagedBean.doCfm}" update="formView"/>
+                </f:facet>
             </p:toolbar>  
-            <p:panel id="panelEdit" header="仓库信息－查看">
-                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100" >
+            <p:panel id="panelView" header="仓库信息－查看">
+                <p:panelGrid id="plgView" styleClass="plgView Wid100" >
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="仓库交期"/></p:column>
                         <p:column styleClass="Wid30">

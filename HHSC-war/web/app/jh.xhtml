@@ -41,8 +41,6 @@
                                      rendered="#{jhManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnVerify" actionListener="#{jhManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
-                                     rendered="#{jhManagedBean.doCfm}"   update=":formList"/>
                     <p:commandButton id="btnUnverify" actionListener="#{jhManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{jhManagedBean.doUnCfm}"  update=":formList"/>    
                     <p:commandButton id="btnCreate" action="#{jhManagedBean.create('jhNew')}" icon="ui-icon-plus" value="新增" 

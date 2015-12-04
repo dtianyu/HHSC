@@ -15,8 +15,6 @@
                     <p:button id="btnReturn" value="返回" outcome="ck" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" action="#{ckManagedBean.verify('ck')}" icon="ui-icon-locked" value="出货" 
-                                     rendered="#{ckManagedBean.doCfm}"   update="plgEdit"/>
                     <p:commandButton id="btnSave" value="保存" action="#{ckManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>                                
                 </f:facet>
             </p:toolbar>

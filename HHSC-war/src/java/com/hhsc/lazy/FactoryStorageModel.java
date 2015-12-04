@@ -10,7 +10,7 @@ import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
 import java.util.List;
 import java.util.Map;
-import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -23,10 +23,10 @@ public class FactoryStorageModel extends BaseLazyModel<FactoryStorage> {
     }
 
     @Override
-    public List<FactoryStorage> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
+    public List<FactoryStorage> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         this.sortFields.put("status", "ASC");
         this.sortFields.put("id", "DESC");
-        return super.load(first, pageSize, multiSortMeta, filters);
+        return super.load(first, pageSize, sortField, sortOrder, filters);
     }
 
 }

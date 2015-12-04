@@ -69,8 +69,7 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
     }
 
     @Override
-    protected boolean doBeforePersist() {
-
+    protected boolean doBeforePersist() throws Exception {
         try {
             newEntity.setUserid(mobile);
             newEntity.setUsername(username);
@@ -81,19 +80,17 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
             newEntity.setLocked(Boolean.FALSE);
             return true;
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
-        return false;
-
     }
 
     @Override
-    protected boolean doBeforeUpdate() {
+    protected boolean doBeforeUpdate() throws Exception {
         if(currentEntity!=null &&  this.pwd!=null && !"".equals(this.pwd)){
             try {
                 currentEntity.setPassword(BaseLib.securityMD5(pwd));
             } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+                throw ex;
             }
         }
         return super.doBeforeUpdate(); 

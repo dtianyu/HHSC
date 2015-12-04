@@ -125,7 +125,12 @@ li{
 }
 
 .plgNew .Wid30 img,.plgEdit .Wid30 img,.plgView .Wid30 img,
-.plgNew .Wid40 img,.plgEdit .Wid40 img,.plgView .Wid40 img{
+.plgNew .Wid40 img,.plgEdit .Wid40 img,.plgView .Wid40 img,
+.ui-datagrid-column .plgView img{
     max-width: 270px;
-    max-height: 180px;
+    height: 180px;
+}
+
+.ui-datagrid-column .panelView{
+    min-height: 305px;
 }

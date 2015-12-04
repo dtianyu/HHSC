@@ -14,6 +14,11 @@
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="jh" icon="ui-icon-arrowreturn-1-w"  />                    
                 </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="提交" action="#{jhManagedBean.verify('jh')}" icon="ui-icon-locked" 
+                                     rendered="#{jhManagedBean.doCfm}"
+                                     process="@this" update="formView" />
+                </f:facet>
             </p:toolbar>
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab id="tab1" title="订单信息">

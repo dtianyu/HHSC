@@ -92,73 +92,82 @@ public class ZBManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && currentSysprg != null) {
-            if (currentEntity.getZbstatus() != null && currentEntity.getPsstatus() != null) {
-                if ("V".equals(currentEntity.getPsstatus())) {
-                    this.doEdit = false;
-                    this.doDel = false;
-                    this.doCfm = false;
-                    this.doUnCfm = false;
-                } else {
-                    switch (currentEntity.getZbstatus()) {
-                        case "V":
-                            this.doEdit = currentSysprg.getDoedit() && false;
-                            this.doDel = currentSysprg.getDodel() && false;
-                            this.doCfm = false;
-                            this.doUnCfm = currentSysprg.getDouncfm() && true;
-                            break;
-                        default:
-                            this.doEdit = currentSysprg.getDoedit() && true;
-                            this.doDel = currentSysprg.getDodel() && true;
-                            this.doCfm = currentSysprg.getDocfm() && true;
-                            this.doUnCfm = false;
-                    }
+        if (currentEntity != null && currentSysprg != null && currentEntity.getZbstatus() != null && currentEntity.getPsstatus() != null) {
+            if ("V".equals(currentEntity.getPsstatus())) {
+                this.doEdit = false;
+                this.doDel = false;
+                this.doCfm = false;
+                this.doUnCfm = false;
+            } else {
+                switch (currentEntity.getZbstatus()) {
+                    case "V":
+                        this.doEdit = currentSysprg.getDoedit() && false;
+                        this.doDel = currentSysprg.getDodel() && false;
+                        this.doCfm = false;
+                        this.doUnCfm = currentSysprg.getDouncfm() && true;
+                        break;
+                    default:
+                        this.doEdit = currentSysprg.getDoedit() && true;
+                        this.doDel = currentSysprg.getDodel() && true;
+                        this.doCfm = currentSysprg.getDocfm() && true;
+                        this.doUnCfm = false;
                 }
             }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
         }
     }
 
     @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
-            if (doBeforeUnverify()) {
-                try {
+            try {
+                if (doBeforeUnverify()) {
                     currentEntity.setZbstatus("N");
                     currentEntity.setZbdelman(null);
                     currentEntity.setPsrecdate(null);
                     currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                     currentEntity.setOptdateToNow();
                     currentEntity.setStatus("ZB");
-                    update();
+                    superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                } catch (Exception e) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "取消前检查失败!"));
                 }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
         }
     }
 
     @Override
     public void verify() {
         if (null != getCurrentEntity()) {
-            if (doBeforeVerify()) {
-                try {
+            try {
+                if (doBeforeVerify()) {
                     currentEntity.setZbstatus("V");
                     currentEntity.setZbdelman(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setPsrecdate(getDate());
                     currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
                     currentEntity.setOptdateToNow();
                     currentEntity.setStatus("PS");
-                    update();
+                    superEJB.verify(currentEntity);
                     doAfterVerify();
-                } catch (Exception e) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
                 }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
         }
     }
 

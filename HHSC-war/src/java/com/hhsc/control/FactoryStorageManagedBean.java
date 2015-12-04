@@ -59,30 +59,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     }
 
     @Override
-    protected boolean doAfterVerify() {
-        if (this.currentEntity != null) {
-            FactoryOrderDetail factoryOrderDetail;
-            if (this.detailList != null && !this.detailList.isEmpty()) {
-                for (FactoryStorageDetail detail : this.detailList) {
-                    try {
-                        factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
-                        if (factoryOrderDetail == null) {
-                            return false;
-                        }
-                        factoryOrderDetail.setInqty(factoryOrderDetail.getInqty().add(detail.getQty()));
-                        factoryOrderDetailBean.update(factoryOrderDetail);
-                    } catch (Exception e) {
-                        return false;
-                    }
-                }
-            }
-            return super.doAfterVerify();
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean doBeforePersist() {
+    protected boolean doBeforePersist() throws Exception {
         if (this.newEntity != null && this.currentSysprg != null) {
             String formid = "";
             if (this.currentSysprg.getNoauto()) {
@@ -105,7 +82,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     }
 
     @Override
-    protected boolean doBeforeUpdate() {
+    protected boolean doBeforeUpdate() throws Exception {
         if (this.currentEntity != null) {
             FactoryOrderDetail factoryOrderDetail;
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
@@ -144,40 +121,63 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     }
 
     @Override
-    protected boolean doBeforeUnverify() {
-        if (this.currentEntity != null) {
-            FactoryOrderDetail factoryOrderDetail;
-            if (this.detailList != null && !this.detailList.isEmpty()) {
-                for (FactoryStorageDetail detail : this.detailList) {
-                    try {
-                        factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
-                        if (factoryOrderDetail == null) {
-                            return false;
-                        }
-                        factoryOrderDetail.setInqty(factoryOrderDetail.getInqty().subtract(detail.getQty()));
-                        factoryOrderDetailBean.update(factoryOrderDetail);
-                    } catch (Exception e) {
-                        return false;
-                    }
-                }
-            }
-            return super.doBeforeUnverify();
+    protected boolean doBeforeUnverify() throws Exception {
+        if (this.detailList != null && !this.detailList.isEmpty()) {
+            this.detailList.clear();
         }
-        return false;
-    }
-
-    @Override
-    protected boolean doBeforeVerify() {
+        this.detailList = detailEJB.findByPId(currentEntity.getId());
         if (this.detailList == null || this.detailList.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有入库明细!"));
             return false;
+        } else {
+            FactoryOrderDetail factoryOrderDetail;
+            for (FactoryStorageDetail detail : this.detailList) {
+                try {
+                    factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
+                    if (factoryOrderDetail == null) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
+                        return false;
+                    }
+                    if (factoryOrderDetail.getInqty().compareTo(detail.getQty()) < 0) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可还原数量不足!"));
+                        return false;
+                    }
+                } catch (Exception e) {
+                    throw new Exception(e.getMessage());
+                }
+            }
         }
-        return super.doBeforeVerify();
+        return true;
     }
 
     @Override
-    public void handleDialogReturnWhenDetailEdit(SelectEvent event
-    ) {
+    protected boolean doBeforeVerify() throws Exception {
+        if (this.detailList == null || this.detailList.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有入库明细!"));
+            return false;
+        } else {
+            FactoryOrderDetail factoryOrderDetail;
+            for (FactoryStorageDetail detail : this.detailList) {
+                try {
+                    factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
+                    if (factoryOrderDetail == null) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
+                        return false;
+                    }
+                    if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
+                        return false;
+                    }
+                } catch (Exception e) {
+                    throw new Exception(e.getMessage());
+                }
+            }
+            return true;
+        }
+    }
+
+    @Override
+    public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
             FactoryOrderDetailForStorage entity = (FactoryOrderDetailForStorage) event.getObject();
             this.currentDetail.setSid(entity.getId());
@@ -192,8 +192,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     }
 
     @Override
-    public void handleDialogReturnWhenDetailNew(SelectEvent event
-    ) {
+    public void handleDialogReturnWhenDetailNew(SelectEvent event) {
         if (event.getObject() != null) {
             FactoryOrderDetailForStorage entity = (FactoryOrderDetailForStorage) event.getObject();
             this.newDetail.setSid(entity.getId());

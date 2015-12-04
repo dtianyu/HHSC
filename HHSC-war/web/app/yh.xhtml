@@ -37,8 +37,6 @@
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" action="#{yhManagedBean.edit('yhEdit')}" icon="ui-icon-pencil" value="编辑"
                                      rendered="#{yhManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnVerify" actionListener="#{yhManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
-                                     rendered="#{yhManagedBean.doCfm}"   update=":formList"/>
                     <p:commandButton id="btnUnverify" actionListener="#{yhManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{yhManagedBean.doUnCfm}"  update=":formList"/>                   
                     <p:commandButton id="btnCreate" action="#{yhManagedBean.create('yhNew')}" icon="ui-icon-plus" value="新增" 
