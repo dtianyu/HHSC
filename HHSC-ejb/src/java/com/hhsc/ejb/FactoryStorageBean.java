@@ -81,10 +81,11 @@ public class FactoryStorageBean extends SuperEJB<FactoryStorage> {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
                     throw new RuntimeException("找不到来源单号");
                 }
-                if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
-                    throw new RuntimeException("可入库数量不足!");
-                }
+                //允许大于计划数
+                //if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
+                //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
+                //    throw new RuntimeException("可入库数量不足!");
+                //}
                 factoryOrderDetail.setInqty(factoryOrderDetail.getInqty().add(detail.getQty()));
                 getEntityManager().merge(factoryOrderDetail);
             }

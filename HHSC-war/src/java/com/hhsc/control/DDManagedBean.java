@@ -5,6 +5,7 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.birt.FactoryOrderBIRT;
 import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
@@ -15,12 +16,14 @@ import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.DDModel;
 import com.hhsc.web.SuperMultiBean;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -178,6 +181,34 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     }
 
     @Override
+    public void print() throws Exception{
+
+        if (currentEntity == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("JNDIName", "java:global/HHSC/HHSC-ejb/FactoryOrderBean!com.hhsc.ejb.FactoryOrderBean");
+        //设置报表名称
+        String reportName = reportPath + "factoryorder.rptdesign";
+        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportOutputFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportOutputFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportOutputFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+    }
+
+    @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
@@ -194,6 +225,12 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
                 this.model.getFilterFields().put("salesstatus", queryState);
             }
         }
+    }
+
+    @Override
+    protected void reportInitAndConfig() {
+        super.reportInitAndConfig();
+        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, FactoryOrderBIRT.class.getClassLoader());
     }
 
     @Override

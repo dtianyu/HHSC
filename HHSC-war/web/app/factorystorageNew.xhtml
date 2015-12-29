@@ -78,21 +78,21 @@
                         <p:column styleClass="Wid30">
                             <p:inputText value="#{factoryStorageManagedBean.currentDetail.itemno}" title="Itemno" readonly="true"/>  
                         </p:column>
-                        <p:column styleClass="Wid20"><p:outputLabel value="可入库量" for="allowqty"/></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="计划数量" for="planqty"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="allowqty" value="#{factoryStorageManagedBean.currentDetail.allowqty}" title="allowqty" readonly="true"/>                                         
+                            <p:inputText id="planqty" value="#{factoryStorageManagedBean.currentDetail.planqty}" title="planqty" readonly="true"/>                                         
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="可入库量" for="allowqty"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="allowqty" value="#{factoryStorageManagedBean.currentDetail.allowqty}" title="allowqty" readonly="true"/>                                         
+                        </p:column>                    
                         <p:column styleClass="Wid20"><p:outputLabel value="入库数量" for="qty"/></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="qty" value="#{factoryStorageManagedBean.currentDetail.qty}" title="Qty"
-                                         required="true" requiredMessage="入库数量不可空白" validatorMessage="入库数量不能大于可入库数量">
-                                <f:validateDoubleRange minimum="1" maximum="#{factoryStorageManagedBean.currentDetail.allowqty}"/>
+                                         required="true" requiredMessage="入库数量不可空白">
                             </p:inputText>
-                        </p:column>
-                        <p:column></p:column>
-                        <p:column>
                         </p:column>
                     </p:row>
                 </p:panelGrid>

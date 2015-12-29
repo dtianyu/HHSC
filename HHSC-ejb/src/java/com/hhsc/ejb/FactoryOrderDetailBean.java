@@ -8,10 +8,8 @@ package com.hhsc.ejb;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.lightshell.comm.SuperEJB;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

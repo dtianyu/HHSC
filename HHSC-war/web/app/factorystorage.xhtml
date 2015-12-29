@@ -14,9 +14,9 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="花号" for="designid" />
-                    <p:inputText id="designid" value="#{factoryStorageManagedBean.designid}" title="花号" />
-                    <h:outputLabel value="订单状态" for="state" />
+                    <h:outputLabel value="入库单号" for="formid" />
+                    <p:inputText id="formid" value="#{factoryStorageManagedBean.queryFormId}" title="单号" />
+                    <h:outputLabel value="单据状态" for="state" />
                     <p:selectOneMenu id="state" value="#{factoryStorageManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
                         <f:selectItem itemLabel="未提交" itemValue="N"/>

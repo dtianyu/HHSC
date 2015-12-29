@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryStorageDetail.findById", query = "SELECT f FROM FactoryStorageDetail f WHERE f.id = :id"),
     @NamedQuery(name = "FactoryStorageDetail.findByPId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.pid = :pid"),
     @NamedQuery(name = "FactoryStorageDetail.findByPformId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.pformid = :pformid"),
-    @NamedQuery(name = "FactoryStorageDetail.findBySid", query = "SELECT f FROM FactoryStorageDetail f WHERE f.sid = :sid"),
+    @NamedQuery(name = "FactoryStorageDetail.findBySId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.sid = :sid"),
     @NamedQuery(name = "FactoryStorageDetail.findBySformId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.sformid = :sformid"),
     @NamedQuery(name = "FactoryStorageDetail.findByDesignId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.designid = :designid"),
     @NamedQuery(name = "FactoryStorageDetail.findByItemno", query = "SELECT f FROM FactoryStorageDetail f WHERE f.itemno = :itemno"),
@@ -74,10 +74,30 @@ public class FactoryStorageDetail extends BaseDetailEntity {
     @Column(name = "sn")
     private String sn;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "qty")
-    private BigDecimal qty;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "planqty")
+    private BigDecimal planqty;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "allowqty")
     private BigDecimal allowqty;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "qty")
+    private BigDecimal qty;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "goodqty")
+    protected BigDecimal goodqty;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "defectqty")
+    private BigDecimal defectqty;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "badqty")
+    private BigDecimal badqty;
 
     public FactoryStorageDetail() {
     }
@@ -194,6 +214,62 @@ public class FactoryStorageDetail extends BaseDetailEntity {
     @Override
     public String toString() {
         return "com.hhsc.ejb.FactoryStorageDetail[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the planqty
+     */
+    public BigDecimal getPlanqty() {
+        return planqty;
+    }
+
+    /**
+     * @param planqty the planqty to set
+     */
+    public void setPlanqty(BigDecimal planqty) {
+        this.planqty = planqty;
+    }
+
+    /**
+     * @return the goodqty
+     */
+    public BigDecimal getGoodqty() {
+        return goodqty;
+    }
+
+    /**
+     * @param goodqty the goodqty to set
+     */
+    public void setGoodqty(BigDecimal goodqty) {
+        this.goodqty = goodqty;
+    }
+
+    /**
+     * @return the defectqty
+     */
+    public BigDecimal getDefectqty() {
+        return defectqty;
+    }
+
+    /**
+     * @param defectqty the defectqty to set
+     */
+    public void setDefectqty(BigDecimal defectqty) {
+        this.defectqty = defectqty;
+    }
+
+    /**
+     * @return the badqty
+     */
+    public BigDecimal getBadqty() {
+        return badqty;
+    }
+
+    /**
+     * @param badqty the badqty to set
+     */
+    public void setBadqty(BigDecimal badqty) {
+        this.badqty = badqty;
     }
 
 }

@@ -15,8 +15,10 @@
                     <p:button id="btnReturn" value="返回" outcome="dd" icon="ui-icon-arrowreturn-1-w"  />                    
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" action="#{ddManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
+                    <p:commandButton id="btnVerify" value="提交" action="#{ddManagedBean.verify()}" icon="ui-icon-locked"
                                      rendered="#{ddManagedBean.doCfm}" process="@this" update="formView"/>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{ddManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{ddManagedBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>
             <p:tabView id="tabView" styleClass="tabView">
@@ -298,6 +300,12 @@
                             </f:facet>
                             <h:outputText value="#{item.jhqty}"/>
                         </p:column>
+                        <p:column styleClass="TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="入库数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inqty}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="单位"/>
@@ -306,7 +314,11 @@
                         </p:column>
                     </p:dataTable>
                 </p:tab>
-            </p:tabView>>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
         </h:form>
 
     </ui:define>

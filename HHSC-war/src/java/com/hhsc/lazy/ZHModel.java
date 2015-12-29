@@ -24,7 +24,8 @@ public class ZHModel extends BaseLazyModel<FactoryOrder> {
 
     @Override
     public List<FactoryOrder> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        this.filterFields.put("yhstatus", "V");
+        this.filterFields.put("jhstatus", "V");
+        this.filterFields.put("psstatus", "V");
         this.sortFields.put("zhstatus", "ASC");
         this.sortFields.put("id", "DESC");
         return super.load(first, pageSize, sortField, sortOrder, filters);

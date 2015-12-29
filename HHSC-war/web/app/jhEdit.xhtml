@@ -62,10 +62,6 @@
                             </p:calendar>
                         </p:column>                       
                         <p:column styleClass="Wid40">
-                            <p:commandButton id="passPS" value="确定" actionListener="#{jhManagedBean.passPS(true)}" icon="ui-icon-locked" 
-                                             process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
-                            <p:commandButton id="cancelPS" value="取消" actionListener="#{jhManagedBean.passPS(false)}" icon="ui-icon-unlocked" 
-                                             process="@this" update="formEdit:psdeldate,formEdit:psstatus"/>
                         </p:column>
                         <p:column><h:outputText id="psstatus" value="#{jhManagedBean.currentEntity.psstatus}"/></p:column>
                     </p:row>

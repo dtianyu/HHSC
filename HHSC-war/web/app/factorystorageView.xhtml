@@ -63,7 +63,13 @@
                             <h:outputText value="面料"/>
                         </f:facet>
                         <h:outputText value="#{item.itemno}"/>
-                    </p:column>  
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="计划数量"/>
+                        </f:facet>
+                        <h:outputText value="#{item.planqty}"/>
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="可入库量"/>

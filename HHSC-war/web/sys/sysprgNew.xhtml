@@ -19,7 +19,7 @@
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelNew" header="系统功能－新增">
-                <p:panelGrid id="plgNew" columns="4" columnClasses="Widw20,Wid40,Wid20,Wid20" styleClass="plgNew Wid100">
+                <p:panelGrid id="plgNew" columns="4" columnClasses="Widw20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100">
                     <p:outputLabel value="功能" for="name" />
                     <p:inputText id="name" value="#{sysprgManagedBean.newEntity.name}" title="Name" 
                                  required="true" requiredMessage="功能名称不可空白"/>
@@ -52,7 +52,7 @@
                     <p:inputText id="nolead" value="#{sysprgManagedBean.newEntity.nolead}" title="nolead" 
                                  rendered="#{sysprgManagedBean.newEntity.noauto}" required="true" requiredMessage="编号前缀不可空白" validatorMessage="编号前缀最少一位最多四位">
                         <f:validateLength minimum="1" maximum="4"/>
-                    </p:inputText>  
+                    </p:inputText>
                     <p:outputLabel value="自动编号" for="noauto" />
                     <p:inputSwitch id="noauto" value="#{sysprgManagedBean.newEntity.noauto}" 
                                    required="true">
@@ -62,10 +62,12 @@
                                    rendered="#{sysprgManagedBean.newEntity.noauto}" />
                     <p:inputText id="noformat" value="#{sysprgManagedBean.newEntity.noformat}" 
                                  rendered="#{sysprgManagedBean.newEntity.noauto}" required="true" requiredMessage="编号格式不可空白"/>
+                    <p:outputLabel value="打印" for="doprt" />
+                    <p:inputSwitch id="doprt" value="#{sysprgManagedBean.newEntity.doprt}" required="true"/>
                     <p:outputLabel value="流号长度" for="noseqlen" 
                                    rendered="#{sysprgManagedBean.newEntity.noauto}" />
-                    <p:inputText id="noseqlen" value="#{sysprgManagedBean.newEntity.noseqlen}" 
-                                 rendered="#{sysprgManagedBean.newEntity.noauto}" required="true" requiredMessage="流号长度不可空白"/> 
+                    <p:spinner id="noseqlen" value="#{sysprgManagedBean.newEntity.noseqlen}" 
+                               rendered="#{sysprgManagedBean.newEntity.noauto}" required="true" requiredMessage="流号长度不可空白"/> 
                 </p:panelGrid>
             </p:panel>
         </h:form>

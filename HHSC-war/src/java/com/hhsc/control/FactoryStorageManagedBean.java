@@ -37,8 +37,6 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
 
-    protected String designid;
-
     public FactoryStorageManagedBean() {
         super(FactoryStorage.class, FactoryStorageDetail.class);
     }
@@ -53,8 +51,12 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     public void createDetail() {
         super.createDetail();
         this.newDetail.setSeq(getMaxSeq(this.detailList));
-        this.newDetail.setQty(BigDecimal.ZERO);
+        this.newDetail.setPlanqty(BigDecimal.ZERO);
         this.newDetail.setAllowqty(BigDecimal.ZERO);
+        this.newDetail.setQty(BigDecimal.ZERO);
+        this.newDetail.setGoodqty(BigDecimal.ZERO);
+        this.newDetail.setDefectqty(BigDecimal.ZERO);
+        this.newDetail.setBadqty(BigDecimal.ZERO);
         this.setCurrentDetail(newDetail);
     }
 
@@ -93,10 +95,11 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
                         return false;
                     } else {
-                        if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) == -1) {
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
-                            return false;
-                        }
+                        //允许大于计划数
+                        //if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) == -1) {
+                        //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
+                        //    return false;
+                        //}
                     }
                 }
             }
@@ -108,10 +111,10 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
                         return false;
                     } else {
-                        if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) == -1) {
-                            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
-                            return false;
-                        }
+                        //if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) == -1) {
+                        //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
+                        //    return false;
+                        //}
                     }
                 }
             }
@@ -143,7 +146,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
                         return false;
                     }
                 } catch (Exception e) {
-                    throw new Exception(e.getMessage());
+                    throw e;
                 }
             }
         }
@@ -164,12 +167,12 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
                         return false;
                     }
-                    if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
-                        return false;
-                    }
+                    //if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
+                    //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
+                    //    return false;
+                    //}
                 } catch (Exception e) {
-                    throw new Exception(e.getMessage());
+                    throw e;
                 }
             }
             return true;
@@ -186,6 +189,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             this.currentDetail.setDesignid(entity.getDesignid());
             this.currentDetail.setItemno(entity.getItemno());
             this.currentDetail.setColorid(entity.getColorid());
+            this.currentDetail.setPlanqty(entity.getJhqty());
             this.currentDetail.setAllowqty(entity.getJhqty().subtract(entity.getInqty()));
             this.currentDetail.setQty(entity.getJhqty().subtract(entity.getInqty()));
         }
@@ -201,6 +205,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             this.newDetail.setDesignid(entity.getDesignid());
             this.newDetail.setItemno(entity.getItemno());
             this.newDetail.setColorid(entity.getColorid());
+            this.newDetail.setPlanqty(entity.getJhqty());
             this.newDetail.setAllowqty(entity.getJhqty().subtract(entity.getInqty()));
             this.newDetail.setQty(entity.getJhqty().subtract(entity.getInqty()));
         }
@@ -225,11 +230,11 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("formdateEnd", queryDateEnd);
             }
-            if (getDesignid() != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("designid", getDesignid());
+            if (queryFormId != null && !"".equals(queryFormId)) {
+                this.model.getFilterFields().put("formid", queryFormId);
             }
-            if (designid != null && !"ALL".equals(designid)) {
-                this.model.getFilterFields().put("status", designid);
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("status", queryState);
             }
         }
     }
@@ -240,20 +245,6 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             this.model.getFilterFields().clear();
             this.model.getFilterFields().put("status", "N");
         }
-    }
-
-    /**
-     * @return the designid
-     */
-    public String getDesignid() {
-        return designid;
-    }
-
-    /**
-     * @param designid the designid to set
-     */
-    public void setDesignid(String designid) {
-        this.designid = designid;
     }
 
 }

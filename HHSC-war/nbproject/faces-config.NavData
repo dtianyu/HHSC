@@ -7,15 +7,15 @@
         <Node id="sys/resetPwd.xhtml" x="400" y="1350" zoom="true"/>
         <Node id="df/factoryorderdetailSelect.xhtml" x="1650" y="900" zoom="true"/>
         <Node id="app/ddView.xhtml" x="1650" y="750" zoom="true"/>
-        <Node id="sys/sysgrantmoduleEdit.xhtml" x="150" y="1350" zoom="true"/>
-        <Node id="app/jhView.xhtml" x="2150" y="450" zoom="true"/>
         <Node id="app/yhNew.xhtml" x="900" y="1200" zoom="true"/>
+        <Node id="app/jhView.xhtml" x="2150" y="450" zoom="true"/>
+        <Node id="sys/sysgrantmoduleEdit.xhtml" x="150" y="1350" zoom="true"/>
         <Node id="sys/sysmodule.xhtml" x="400" y="750" zoom="true"/>
         <Node id="app/psView.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="app/ddEdit.xhtml" x="1400" y="600" zoom="true"/>
         <Node id="app/jhEdit.xhtml" x="1400" y="750" zoom="true"/>
-        <Node id="sys/sysgrantmodule.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="sys/sysprg.xhtml" x="2650" y="150" zoom="true"/>
+        <Node id="sys/sysgrantmodule.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="app/psEdit.xhtml" x="400" y="900" zoom="true"/>
         <Node id="app/ckNew.xhtml" x="150" y="750" zoom="true"/>
         <Node id="app/cpEdit.xhtml" x="150" y="1050" zoom="true"/>
@@ -41,8 +41,8 @@
         <Node id="sys/systemuserView.xhtml" x="150" y="1200" zoom="true"/>
         <Node id="sys/sysmoduleView.xhtml" x="900" y="600" zoom="true"/>
         <Node id="app/jh.xhtml" x="2150" y="150" zoom="true"/>
-        <Node id="404.xhtml" x="400" y="1050" zoom="true"/>
         <Node id="app/factorystorageView.xhtml" x="1150" y="1200" zoom="true"/>
+        <Node id="404.xhtml" x="400" y="1050" zoom="true"/>
         <Node id="sys/sysmoduleNew.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="app/hgEdit.xhtml" x="1150" y="750" zoom="true"/>
         <Node id="app/zhView.xhtml" x="650" y="600" zoom="true"/>
@@ -53,21 +53,21 @@
         <Node id="base/warehouseEdit.xhtml" x="2650" y="300" zoom="true"/>
         <Node id="app/zhEdit.xhtml" x="650" y="1350" zoom="true"/>
         <Node id="sys/systemuserNew.xhtml" x="1650" y="600" zoom="true"/>
-        <Node id="base/warehouseNew.xhtml" x="2150" y="600" zoom="true"/>
         <Node id="app/hg.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="base/warehouseNew.xhtml" x="2150" y="600" zoom="true"/>
         <Node id="app/cpNew.xhtml" x="650" y="150" zoom="true"/>
         <Node id="app/ckEdit.xhtml" x="150" y="600" zoom="true"/>
         <Node id="home.xhtml" x="650" y="1050" zoom="true"/>
         <Node id="app/ckView.xhtml" x="650" y="450" zoom="true"/>
         <Node id="sys/sysprgEdit.xhtml" x="1150" y="150" zoom="true"/>
-        <Node id="app/dd.xhtml" x="1150" y="900" zoom="true"/>
         <Node id="sys/sysprgView.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="app/dd.xhtml" x="1150" y="900" zoom="true"/>
         <Node id="error.xhtml" x="1650" y="450" zoom="true"/>
-        <Node id="app/ck.xhtml" x="150" y="300" zoom="true"/>
         <Node id="app/yh.xhtml" x="400" y="1500" zoom="true"/>
+        <Node id="app/ck.xhtml" x="150" y="300" zoom="true"/>
         <Node id="app/zbView.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="app/ddNew.xhtml" x="900" y="450" zoom="true"/>
         <Node id="app/yhEdit.xhtml" x="150" y="1650" zoom="true"/>
+        <Node id="app/ddNew.xhtml" x="900" y="450" zoom="true"/>
         <Node id="base/itemcategoryView.xhtml" x="1400" y="900" zoom="true"/>
         <Node id="base/warehouse.xhtml" x="1900" y="750" zoom="true"/>
         <Node id="app/cpView.xhtml" x="400" y="600" zoom="true"/>
@@ -75,8 +75,8 @@
         <Node id="app/ps.xhtml" x="400" y="150" zoom="true"/>
         <Node id="base/itemcategoryNew.xhtml" x="1400" y="450" zoom="true"/>
         <Node id="sys/sysgrantprgView.xhtml" x="2400" y="150" zoom="true"/>
-        <Node id="sys/sysmoduleEdit.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="sys/systemuserEdit.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="sys/sysmoduleEdit.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="base/itemdesignEdit.xhtml" x="150" y="1500" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>

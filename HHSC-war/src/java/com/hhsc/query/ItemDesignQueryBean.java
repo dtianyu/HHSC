@@ -8,6 +8,7 @@ package com.hhsc.query;
 import com.hhsc.ejb.ItemDesignBean;
 import com.hhsc.entity.ItemDesign;
 import com.hhsc.lazy.ItemDesignModel;
+import com.hhsc.web.SuperQueryBean;
 import com.hhsc.web.SuperSingleBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +20,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "itemDesignQueryBean")
 @ViewScoped
-public class ItemDesignQueryBean extends SuperSingleBean<ItemDesign> {
+public class ItemDesignQueryBean extends SuperQueryBean<ItemDesign> {
 
     @EJB
     private ItemDesignBean itemDesignBean;

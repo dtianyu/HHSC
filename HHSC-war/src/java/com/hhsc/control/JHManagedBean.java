@@ -179,8 +179,8 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && currentSysprg != null && currentEntity.getJhstatus() != null && currentEntity.getYhstatus() != null) {
-            if ("V".equals(currentEntity.getYhstatus())) {
+        if (currentEntity != null && currentSysprg != null && currentEntity.getJhstatus() != null && currentEntity.getPsstatus() != null) {
+            if ("V".equals(currentEntity.getPsstatus())) {
                 this.doEdit = currentSysprg.getDoedit() && false;
                 this.doDel = currentSysprg.getDodel() && false;
                 this.doCfm = false;

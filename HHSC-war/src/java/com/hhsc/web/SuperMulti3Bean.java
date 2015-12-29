@@ -68,12 +68,17 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
         FacesContext fc = FacesContext.getCurrentInstance();
         appDataPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
         appImgPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
+        reportPath = fc.getExternalContext().getInitParameter("com.hhsc.web.reportpath");
+        reportOutputFormat = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputformat");
+        reportOutputPath = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
+        reportViewContext = fc.getExternalContext().getInitParameter("com.hhsc.web.reportviewcontext");
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
         if (currentSysprg != null) {
             this.doAdd = currentSysprg.getDoadd();
+            this.doPrt = currentSysprg.getDoprt();
         }
         super.construct();
     }
@@ -109,34 +114,6 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
     }
 
     @Override
-    public String edit(String path) {
-        if (currentEntity != null) {
-            setDetailList(this.detailEJB.findByPId(currentEntity.getId()));
-            if (this.detailList == null) {
-                if (this.detailList == null) {
-                    this.detailList = new ArrayList<>();
-                }
-            }
-            setDetailList2(this.detailEJB2.findByPId(currentEntity.getId()));
-            if (this.detailList2 == null) {
-                if (this.detailList2 == null) {
-                    this.detailList2 = new ArrayList<>();
-                }
-            }
-            setDetailList3(this.detailEJB3.findByPId(currentEntity.getId()));
-            if (this.detailList3 == null) {
-                if (this.detailList3 == null) {
-                    this.detailList3 = new ArrayList<>();
-                }
-            }
-            return path;
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择编辑数据！"));
-            return "";
-        }
-    }
-
-    @Override
     public String getAppDataPath() {
         return this.appDataPath;
     }
@@ -149,6 +126,16 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
     @Override
     public String getPersistenceUnitName() {
         return this.persistenceUnitName;
+    }
+
+    @Override
+    public void print() throws Exception {
+
+    }
+
+    @Override
+    public void preview() throws Exception {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(this.reportViewPath);
     }
 
     @Override
@@ -228,28 +215,6 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
             }
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
-        }
-    }
-
-    @Override
-    public String view(String path) {
-        if (currentEntity != null) {
-            setDetailList(this.detailEJB.findByPId(currentEntity.getId()));
-            if (this.detailList == null) {
-                this.detailList = new ArrayList<>();
-            }
-            setDetailList2(this.detailEJB2.findByPId(currentEntity.getId()));
-            if (this.detailList2 == null) {
-                this.detailList2 = new ArrayList<>();
-            }
-            setDetailList3(this.detailEJB3.findByPId(currentEntity.getId()));
-            if (this.detailList3 == null) {
-                this.detailList3 = new ArrayList<>();
-            }
-            return path;
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择查看数据！"));
-            return "";
         }
     }
 

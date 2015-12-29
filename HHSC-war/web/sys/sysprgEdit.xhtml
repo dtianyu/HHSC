@@ -19,7 +19,7 @@
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelEdit" header="系统功能－修改">
-                <p:panelGrid id="plgEdit" columns="4" columnClasses="Widw20,Wid40,Wid20,Wid20" styleClass="plgEdit Wid100">
+                <p:panelGrid id="plgEdit" columns="4" columnClasses="Widw20,Wid30,Wid20,Wid30" styleClass="plgEdit Wid100">
                     <p:outputLabel value="功能" for="name" />
                     <p:inputText id="name" value="#{sysprgManagedBean.currentEntity.name}" title="Name" 
                                  required="true" requiredMessage="功能名称不可空白"/>
@@ -60,9 +60,11 @@
                     <p:outputLabel value="编号格式" for="noformat" rendered="#{sysprgManagedBean.currentEntity.noauto}" />
                     <p:inputText id="noformat" value="#{sysprgManagedBean.currentEntity.noformat}" 
                                  rendered="#{sysprgManagedBean.currentEntity.noauto}" required="true" requiredMessage="编号格式不可空白"/>
+                    <p:outputLabel value="打印" for="doprt" />
+                    <p:inputSwitch id="doprt" value="#{sysprgManagedBean.currentEntity.doprt}" required="true"/>
                     <p:outputLabel value="流号长度" for="noseqlen" rendered="#{sysprgManagedBean.currentEntity.noauto}" />
-                    <p:inputText id="noseqlen" value="#{sysprgManagedBean.currentEntity.noseqlen}" 
-                                 rendered="#{sysprgManagedBean.currentEntity.noauto}" required="true" requiredMessage="流号长度不可空白"/>
+                    <p:spinner id="noseqlen" value="#{sysprgManagedBean.currentEntity.noseqlen}" 
+                               rendered="#{sysprgManagedBean.currentEntity.noauto}" required="true" requiredMessage="流号长度不可空白"/>
                 </p:panelGrid>
             </p:panel>
         </h:form>

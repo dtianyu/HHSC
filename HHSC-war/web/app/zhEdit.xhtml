@@ -31,19 +31,19 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="蒸化数量" for="zhqty" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="zhqty" value="#{zhManagedBean.currentEntity.zhqty}" title="zhqty" 
-                                         required="true" requiredMessage="蒸化数量不能为空"/>
+                                         />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="进布压力" for="jbyl" /></p:column>
                         <p:column>
                             <p:inputText id="jbyl" value="#{zhManagedBean.currentEntity.jbyl}" title="Jbyl" 
-                                         required="true" requiredMessage="进布压力不能为空"/>
+                                         />
                         </p:column>
                         <p:column><p:outputLabel value="衬布" for="cb" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="cb" value="#{zhManagedBean.currentEntity.cb}" title="Cb" 
-                                             required="true" requiredMessage="衬布不能为空">
+                                             >
                                 <f:selectItem itemLabel="无" itemValue="无"/>
                                 <f:selectItem itemLabel="棉布" itemValue="棉布"/>
                                 <f:selectItem itemLabel="化纤" itemValue="化纤"/>
@@ -55,7 +55,7 @@
                         <p:column><p:outputLabel value="蒸化设备" for="zhsb"/></p:column>
                         <p:column>
                             <p:selectOneMenu id="zhsb" value="#{zhManagedBean.currentEntity.zhsb}" title="Zhsb" 
-                                             required="true" requiredMessage="蒸化设备不能为空">
+                                             >
                                 <f:selectItem itemLabel="1号设备" itemValue="1号设备"/>
                                 <f:selectItem itemLabel="2号设备" itemValue="2号设备"/>
                                 <f:selectItem itemLabel="3号设备" itemValue="3号设备"/>
@@ -74,24 +74,24 @@
                         <p:column><p:outputLabel value="蒸化次数" for="zhcs" /></p:column>
                         <p:column>
                             <p:inputText id="zhcs" value="#{zhManagedBean.currentEntity.zhcs}" title="Zhcs" 
-                                         required="true" requiredMessage="蒸化次数不能为空"/>  
+                                         />  
                         </p:column>
                         <p:column><p:outputLabel value="蒸化压力" for="zhyl" /></p:column>
                         <p:column>
                             <p:inputText id="zhyl" value="#{zhManagedBean.currentEntity.zhyl}" title="Zhyl" 
-                                         required="true" requiredMessage="蒸化压力不能为空"/>    
+                                         />    
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="蒸化温度" for="zhwd" /></p:column>
                         <p:column>
                             <p:inputText id="zhwd" value="#{zhManagedBean.currentEntity.zhwd}" title="Zhwd" 
-                                         required="true" requiredMessage="蒸化温度不能为空"/>
+                                         />
                         </p:column>
                         <p:column><p:outputLabel value="蒸化湿度" for="zhsd" /></p:column>
                         <p:column>
                             <p:inputText id="zhsd" value="#{zhManagedBean.currentEntity.zhsd}" title="Zhsd" 
-                                         required="true" requiredMessage="蒸化湿度不能为空"/>
+                                         />
                         </p:column>
                     </p:row>
                     <p:row>
