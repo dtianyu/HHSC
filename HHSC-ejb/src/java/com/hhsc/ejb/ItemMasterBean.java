@@ -5,12 +5,10 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.ItemMaster;
-import com.lightshell.comm.SuperEJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -18,18 +16,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class ItemMasterBean extends SuperEJB<ItemMaster> {
-
-    @PersistenceContext(unitName = "HHSC-ejbPU")
-    private EntityManager em;
+public class ItemMasterBean extends SuperBean<ItemMaster> {
 
     public ItemMasterBean() {
         super(ItemMaster.class);
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return em;
     }
 
 }

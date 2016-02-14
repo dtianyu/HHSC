@@ -9,7 +9,6 @@ import com.hhsc.ejb.ItemDesignBean;
 import com.hhsc.entity.ItemDesign;
 import com.hhsc.lazy.ItemDesignModel;
 import com.hhsc.web.SuperQueryBean;
-import com.hhsc.web.SuperSingleBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

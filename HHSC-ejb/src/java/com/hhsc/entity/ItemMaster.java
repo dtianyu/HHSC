@@ -7,12 +7,17 @@ package com.hhsc.entity;
 
 import com.lightshell.comm.BaseEntityWithOperate;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,13 +32,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ItemMaster.getRowCount", query = "SELECT COUNT(i) FROM ItemMaster i"),
     @NamedQuery(name = "ItemMaster.findAll", query = "SELECT i FROM ItemMaster i"),
+    @NamedQuery(name = "ItemMaster.findById", query = "SELECT i FROM ItemMaster i WHERE i.id = :id"),
     @NamedQuery(name = "ItemMaster.findByItemno", query = "SELECT i FROM ItemMaster i WHERE i.itemno = :itemno"),
-    @NamedQuery(name = "ItemMaster.findByItemdesc", query = "SELECT i FROM ItemMaster i WHERE i.itemdesc = :itemdesc"),
-    @NamedQuery(name = "ItemMaster.findByItemspec", query = "SELECT i FROM ItemMaster i WHERE i.itemspec = :itemspec"),
-    @NamedQuery(name = "ItemMaster.findByItemproperty", query = "SELECT i FROM ItemMaster i WHERE i.itemproperty = :itemproperty"),
-    @NamedQuery(name = "ItemMaster.findByCategoryid", query = "SELECT i FROM ItemMaster i WHERE i.categoryid = :categoryid")})
-public class ItemMaster extends BaseEntityWithOperate{
+    @NamedQuery(name = "ItemMaster.findByCategoryId", query = "SELECT i FROM ItemMaster i WHERE i.categoryid.id = :categoryid")})
+public class ItemMaster extends BaseEntityWithOperate {
 
+    @JoinColumn(name = "categoryid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ItemCategory categoryid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -47,10 +53,19 @@ public class ItemMaster extends BaseEntityWithOperate{
     @Size(max = 100)
     @Column(name = "itemspec")
     private String itemspec;
-    @Size(max = 45)
-    @Column(name = "itemproperty")
-    private String itemproperty;
-    @Size(max = 45)
+    @Size(max = 10)
+    @Column(name = "simplecode")
+    private String simplecode;
+    @Size(max = 2)
+    @Column(name = "proptype")
+    private String proptype;
+    @Size(max = 2)
+    @Column(name = "maketype")
+    private String maketype;
+    @Size(max = 8)
+    @Column(name = "pptype")
+    private String pptype;
+    @Size(max = 100)
     @Column(name = "itemmake")
     private String itemmake;
     @Size(max = 45)
@@ -65,8 +80,16 @@ public class ItemMaster extends BaseEntityWithOperate{
     @Size(max = 45)
     @Column(name = "itemwidth")
     private String itemwidth;
-    @Column(name = "categoryid")
-    private Integer categoryid;
+    @Column(name = "opendate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date opendate;
+    @Size(max = 45)
+    @Column(name = "opensize")
+    private String opensize;
+    @Column(name = "sampleperiod")
+    private Integer sampleperiod;
+    @Column(name = "deliveryperiod")
+    private Integer deliveryperiod;
     @Size(max = 45)
     @Column(name = "brand")
     private String brand;
@@ -78,35 +101,64 @@ public class ItemMaster extends BaseEntityWithOperate{
     private String sn;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "unittype")
+    private String unittype;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "unit")
     private String unit;
+    @Size(max = 10)
+    @Column(name = "unit2")
+    private String unit2;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "unitexch")
+    private BigDecimal unitexch;
+    @Size(max = 10)
+    @Column(name = "unitsales")
+    private String unitsales;
+    @Size(max = 10)
+    @Column(name = "unitpurchase")
+    private String unitpurchase;
     @Column(name = "stdcost")
     private BigDecimal stdcost;
     @Column(name = "purprice")
     private BigDecimal purprice;
-    @Column(name = "idx")
-    private Integer idx;
+    @Column(name = "purmin")
+    private BigDecimal purmin;
+    @Column(name = "purmax")
+    private BigDecimal purmax;
+    @Column(name = "invmin")
+    private BigDecimal invmin;
+    @Column(name = "invmax")
+    private BigDecimal invmax;
     @Size(max = 45)
-    @Column(name = "logo1")
-    private String logo1;
-    @Size(max = 45)
-    @Column(name = "logo2")
-    private String logo2;
+    @Column(name = "barcode")
+    private String barcode;
+    @Size(max = 100)
+    @Column(name = "img1")
+    private String img1;
+    @Size(max = 100)
+    @Column(name = "img2")
+    private String img2;
     @Size(max = 100)
     @Column(name = "remark")
     private String remark;
-    
 
     public ItemMaster() {
+        this.invmax = BigDecimal.ZERO;
+        this.invmin = BigDecimal.ZERO;
+        this.purmax = BigDecimal.ZERO;
+        this.purmin = BigDecimal.ZERO;
     }
 
-    public ItemMaster(String itemno, String itemdesc, String unit, String status) {
-        this.itemno = itemno;
-        this.itemdesc = itemdesc;
-        this.unit = unit;
-        this.status = status;
+    public ItemCategory getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(ItemCategory categoryid) {
+        this.categoryid = categoryid;
     }
 
     public String getItemno() {
@@ -133,12 +185,36 @@ public class ItemMaster extends BaseEntityWithOperate{
         this.itemspec = itemspec;
     }
 
-    public String getItemproperty() {
-        return itemproperty;
+    public String getSimplecode() {
+        return simplecode;
     }
 
-    public void setItemproperty(String itemproperty) {
-        this.itemproperty = itemproperty;
+    public void setSimplecode(String simplecode) {
+        this.simplecode = simplecode;
+    }
+
+    public String getProptype() {
+        return proptype;
+    }
+
+    public void setProptype(String proptype) {
+        this.proptype = proptype;
+    }
+
+    public String getMaketype() {
+        return maketype;
+    }
+
+    public void setMaketype(String maketype) {
+        this.maketype = maketype;
+    }
+
+    public String getPptype() {
+        return pptype;
+    }
+
+    public void setPptype(String pptype) {
+        this.pptype = pptype;
     }
 
     public String getItemmake() {
@@ -181,12 +257,36 @@ public class ItemMaster extends BaseEntityWithOperate{
         this.itemwidth = itemwidth;
     }
 
-    public Integer getCategoryid() {
-        return categoryid;
+    public Date getOpendate() {
+        return opendate;
     }
 
-    public void setCategoryid(Integer categoryid) {
-        this.categoryid = categoryid;
+    public void setOpendate(Date opendate) {
+        this.opendate = opendate;
+    }
+
+    public String getOpensize() {
+        return opensize;
+    }
+
+    public void setOpensize(String opensize) {
+        this.opensize = opensize;
+    }
+
+    public Integer getSampleperiod() {
+        return sampleperiod;
+    }
+
+    public void setSampleperiod(Integer sampleperiod) {
+        this.sampleperiod = sampleperiod;
+    }
+
+    public Integer getDeliveryperiod() {
+        return deliveryperiod;
+    }
+
+    public void setDeliveryperiod(Integer deliveryperiod) {
+        this.deliveryperiod = deliveryperiod;
     }
 
     public String getBrand() {
@@ -213,12 +313,52 @@ public class ItemMaster extends BaseEntityWithOperate{
         this.sn = sn;
     }
 
+    public String getUnittype() {
+        return unittype;
+    }
+
+    public void setUnittype(String unittype) {
+        this.unittype = unittype;
+    }
+
     public String getUnit() {
         return unit;
     }
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public String getUnit2() {
+        return unit2;
+    }
+
+    public void setUnit2(String unit2) {
+        this.unit2 = unit2;
+    }
+
+    public BigDecimal getUnitexch() {
+        return unitexch;
+    }
+
+    public void setUnitexch(BigDecimal unitexch) {
+        this.unitexch = unitexch;
+    }
+
+    public String getUnitsales() {
+        return unitsales;
+    }
+
+    public void setUnitsales(String unitsales) {
+        this.unitsales = unitsales;
+    }
+
+    public String getUnitpurchase() {
+        return unitpurchase;
+    }
+
+    public void setUnitpurchase(String unitpurchase) {
+        this.unitpurchase = unitpurchase;
     }
 
     public BigDecimal getStdcost() {
@@ -237,28 +377,60 @@ public class ItemMaster extends BaseEntityWithOperate{
         this.purprice = purprice;
     }
 
-    public Integer getIdx() {
-        return idx;
+    public BigDecimal getPurmin() {
+        return purmin;
     }
 
-    public void setIdx(Integer idx) {
-        this.idx = idx;
+    public void setPurmin(BigDecimal purmin) {
+        this.purmin = purmin;
     }
 
-    public String getLogo1() {
-        return logo1;
+    public BigDecimal getPurmax() {
+        return purmax;
     }
 
-    public void setLogo1(String logo1) {
-        this.logo1 = logo1;
+    public void setPurmax(BigDecimal purmax) {
+        this.purmax = purmax;
     }
 
-    public String getLogo2() {
-        return logo2;
+    public BigDecimal getInvmin() {
+        return invmin;
     }
 
-    public void setLogo2(String logo2) {
-        this.logo2 = logo2;
+    public void setInvmin(BigDecimal invmin) {
+        this.invmin = invmin;
+    }
+
+    public BigDecimal getInvmax() {
+        return invmax;
+    }
+
+    public void setInvmax(BigDecimal invmax) {
+        this.invmax = invmax;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getImg1() {
+        return img1;
+    }
+
+    public void setImg1(String img1) {
+        this.img1 = img1;
+    }
+
+    public String getImg2() {
+        return img2;
+    }
+
+    public void setImg2(String img2) {
+        this.img2 = img2;
     }
 
     public String getRemark() {
@@ -272,18 +444,20 @@ public class ItemMaster extends BaseEntityWithOperate{
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (itemno != null ? itemno.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ItemMaster)) {
             return false;
         }
         ItemMaster other = (ItemMaster) object;
-        if ((this.itemno == null && other.itemno != null) || (this.itemno != null && !this.itemno.equals(other.itemno))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        if (!this.itemno.equals(other.itemno)) {
             return false;
         }
         return true;
@@ -291,7 +465,7 @@ public class ItemMaster extends BaseEntityWithOperate{
 
     @Override
     public String toString() {
-        return "com.hhsc.entity.ItemMaster[ itemno=" + itemno + " ]";
+        return "com.hhsc.entity.ItemMaster[ id=" + id + " ]";
     }
-    
+
 }

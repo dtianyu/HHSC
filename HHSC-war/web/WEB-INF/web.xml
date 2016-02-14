@@ -15,7 +15,7 @@
     <context-param>
         <param-name>com.hhsc.web.reportoutputformat</param-name>
         <param-value>pdf</param-value>
-    </context-param>  
+    </context-param>
     <context-param>
         <param-name>com.hhsc.web.reportoutputpath</param-name>
         <param-value>//Users//kevindong//GitHub//HHSC//HHSC-war//web//birt//output//</param-value>

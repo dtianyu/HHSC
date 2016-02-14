@@ -9,6 +9,8 @@ import com.lightshell.comm.BaseEntityWithOperate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,10 +29,23 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sysprg.getRowCount", query = "SELECT COUNT(s) FROM Sysprg s"),
     @NamedQuery(name = "Sysprg.findAll", query = "SELECT s FROM Sysprg s ORDER BY s.sortid"),
     @NamedQuery(name = "Sysprg.findById", query = "SELECT s FROM Sysprg s WHERE s.id = :id"),
-    @NamedQuery(name = "Sysprg.findByModuleId", query = "SELECT s FROM Sysprg s WHERE s.moduleid = :moduleid ORDER BY s.sortid"),
+    @NamedQuery(name = "Sysprg.findByModuleId", query = "SELECT s FROM Sysprg s WHERE s.sysmodule.id = :moduleid ORDER BY s.sortid"),
     @NamedQuery(name = "Sysprg.findByAPI", query = "SELECT s FROM Sysprg s WHERE s.api = :api "),
     @NamedQuery(name = "Sysprg.findByStatus", query = "SELECT s FROM Sysprg s WHERE s.status = :status")})
 public class Sysprg extends BaseEntityWithOperate {
+
+    @JoinColumn(name = "moduleid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Sysmodule sysmodule;
+    @Size(max = 100)
+    @Column(name = "rptdesign")
+    private String rptdesign;
+    @Size(max = 200)
+    @Column(name = "rptjndi")
+    private String rptjndi;
+    @Size(max = 10)
+    @Column(name = "rptformat")
+    protected String rptformat;
 
     @Basic(optional = false)
     @NotNull
@@ -42,10 +57,6 @@ public class Sysprg extends BaseEntityWithOperate {
     @Size(min = 1, max = 400)
     @Column(name = "api")
     private String api;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "moduleid")
-    private int moduleid;
     @Column(name = "sortid")
     private Integer sortid;
     @Basic(optional = false)
@@ -105,28 +116,6 @@ public class Sysprg extends BaseEntityWithOperate {
     public Sysprg() {
     }
 
-    public Sysprg(Integer id) {
-        this.id = id;
-    }
-
-    public Sysprg(Integer id, String name, String api, int moduleid, boolean noauto, boolean doadd, boolean doedit, boolean dodel, boolean doprt, boolean dopriv, boolean docfm, boolean douncfm, boolean doaudit, boolean dounaudit, String status) {
-        this.id = id;
-        this.name = name;
-        this.api = api;
-        this.moduleid = moduleid;
-        this.noauto = noauto;
-        this.doadd = doadd;
-        this.doedit = doedit;
-        this.dodel = dodel;
-        this.doprt = doprt;
-        this.dopriv = dopriv;
-        this.docfm = docfm;
-        this.douncfm = douncfm;
-        this.doaudit = doaudit;
-        this.dounaudit = dounaudit;
-        this.status = status;
-    }
-
     public String getName() {
         return name;
     }
@@ -141,14 +130,6 @@ public class Sysprg extends BaseEntityWithOperate {
 
     public void setApi(String api) {
         this.api = api;
-    }
-
-    public int getModuleid() {
-        return moduleid;
-    }
-
-    public void setModuleid(int moduleid) {
-        this.moduleid = moduleid;
     }
 
     public Integer getSortid() {
@@ -302,6 +283,62 @@ public class Sysprg extends BaseEntityWithOperate {
     @Override
     public String toString() {
         return "com.hhsc.entity.Sysprg[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the sysmodule
+     */
+    public Sysmodule getSysmodule() {
+        return sysmodule;
+    }
+
+    /**
+     * @param sysmodule the sysmodule to set
+     */
+    public void setSysmodule(Sysmodule sysmodule) {
+        this.sysmodule = sysmodule;
+    }
+
+    /**
+     * @return the rptdesign
+     */
+    public String getRptdesign() {
+        return rptdesign;
+    }
+
+    /**
+     * @param rptdesign the rptdesign to set
+     */
+    public void setRptdesign(String rptdesign) {
+        this.rptdesign = rptdesign;
+    }
+
+    /**
+     * @return the rptjndi
+     */
+    public String getRptjndi() {
+        return rptjndi;
+    }
+
+    /**
+     * @param rptjndi the rptjndi to set
+     */
+    public void setRptjndi(String rptjndi) {
+        this.rptjndi = rptjndi;
+    }
+
+    /**
+     * @return the rptformat
+     */
+    public String getRptformat() {
+        return rptformat;
+    }
+
+    /**
+     * @param rptformat the rptformat to set
+     */
+    public void setRptformat(String rptformat) {
+        this.rptformat = rptformat;
     }
 
 }

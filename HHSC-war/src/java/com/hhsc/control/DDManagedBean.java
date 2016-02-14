@@ -5,7 +5,7 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.birt.FactoryOrderBIRT;
+import com.hhsc.rpt.FactoryOrderBIRT;
 import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
@@ -93,10 +93,10 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.currentSysprg != null) {
+        if (this.newEntity != null && this.getCurrentSysprg() != null) {
             String formid = "";
-            if (this.currentSysprg.getNoauto()) {
-                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.currentSysprg.getNolead(), this.currentSysprg.getNoformat(), this.currentSysprg.getNoseqlen());
+            if (this.getCurrentSysprg().getNoauto()) {
+                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
             }
             this.newEntity.setFormid(formid);
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
@@ -243,7 +243,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && currentSysprg != null && currentEntity.getSalesstatus() != null && currentEntity.getJhstatus() != null) {
+        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getSalesstatus() != null && currentEntity.getJhstatus() != null) {
             if ("V".equals(currentEntity.getJhstatus())) {
                 this.doEdit = false;
                 this.doDel = false;
@@ -252,15 +252,15 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
             } else {
                 switch (currentEntity.getSalesstatus()) {
                     case "V":
-                        this.doEdit = currentSysprg.getDoedit() && false;
-                        this.doDel = currentSysprg.getDodel() && false;
+                        this.doEdit = getCurrentSysprg().getDoedit() && false;
+                        this.doDel = getCurrentSysprg().getDodel() && false;
                         this.doCfm = false;
-                        this.doUnCfm = currentSysprg.getDouncfm() && true;
+                        this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
                         break;
                     default:
-                        this.doEdit = currentSysprg.getDoedit() && true;
-                        this.doDel = currentSysprg.getDodel() && true;
-                        this.doCfm = currentSysprg.getDocfm() && true;
+                        this.doEdit = getCurrentSysprg().getDoedit() && true;
+                        this.doDel = getCurrentSysprg().getDodel() && true;
+                        this.doCfm = getCurrentSysprg().getDocfm() && true;
                         this.doUnCfm = false;
                 }
             }

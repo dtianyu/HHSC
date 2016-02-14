@@ -34,8 +34,6 @@ public class FactoryStorageBean extends SuperEJB<FactoryStorage> {
     private FactoryStorageDetailBean factoryStorageDetailBean;
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
-    @Resource
-    protected EJBContext ejbContext;
 
     public FactoryStorageBean() {
         super(FactoryStorage.class);

@@ -97,6 +97,26 @@
             <from-outcome>cpView</from-outcome>
             <to-view-id>/app/cpView.xhtml</to-view-id>
             <redirect/>
+        </navigation-case> 
+        <navigation-case>
+            <from-outcome>customer</from-outcome>
+            <to-view-id>/app/sd/customer.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
+        <navigation-case>
+            <from-outcome>customerNew</from-outcome>
+            <to-view-id>/app/sd/customerNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>customerEdit</from-outcome>
+            <to-view-id>/app/sd/customerEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>customerView</from-outcome>
+            <to-view-id>/app/sd/customerView.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>  
         <navigation-case>
             <from-outcome>dd</from-outcome>
@@ -155,42 +175,42 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>itemcategory</from-outcome>
-            <to-view-id>/base/itemcategory.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemcategory.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemcategoryNew</from-outcome>
-            <to-view-id>/base/itemcategoryNew.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemcategoryNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemcategoryEdit</from-outcome>
-            <to-view-id>/base/itemcategoryEdit.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemcategoryEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemcategoryView</from-outcome>
-            <to-view-id>/base/itemcategoryView.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemcategoryView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemdesign</from-outcome>
-            <to-view-id>/base/itemdesign.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemdesign.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemdesignNew</from-outcome>
-            <to-view-id>/base/itemdesignNew.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemdesignNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemdesignEdit</from-outcome>
-            <to-view-id>/base/itemdesignEdit.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemdesignEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemdesignView</from-outcome>
-            <to-view-id>/base/itemdesignView.xhtml</to-view-id>
+            <to-view-id>/app/mm/itemdesignView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -325,22 +345,22 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>warehouse</from-outcome>
-            <to-view-id>/base/warehouse.xhtml</to-view-id>
+            <to-view-id>/app/mm/warehouse.xhtml</to-view-id>
             <redirect/>
         </navigation-case>  
         <navigation-case>
             <from-outcome>warehouseNew</from-outcome>
-            <to-view-id>/base/warehouseNew.xhtml</to-view-id>
+            <to-view-id>/app/mm/warehouseNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>        
         <navigation-case>
             <from-outcome>warehouseEdit</from-outcome>
-            <to-view-id>/base/warehouseEdit.xhtml</to-view-id>
+            <to-view-id>/app/mm/warehouseEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>warehouseView</from-outcome>
-            <to-view-id>/base/warehouseView.xhtml</to-view-id>
+            <to-view-id>/app/mm/warehouseView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -400,12 +420,12 @@
         </navigation-case>                          
         <navigation-case>
             <from-outcome>factoryorderdetailSelect</from-outcome>
-            <to-view-id>/df/factoryorderdetailSelect.xhtml</to-view-id>
+            <to-view-id>/app/df/factoryorderdetailSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case> 
         <navigation-case>
             <from-outcome>itemdesignSelect</from-outcome>
-            <to-view-id>/df/itemdesignSelect.xhtml</to-view-id>
+            <to-view-id>/app/df/itemdesignSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>                                  
     </navigation-rule>

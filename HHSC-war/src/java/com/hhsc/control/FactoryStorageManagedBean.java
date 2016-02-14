@@ -62,10 +62,10 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.currentSysprg != null) {
+        if (this.newEntity != null && this.getCurrentSysprg() != null) {
             String formid = "";
-            if (this.currentSysprg.getNoauto()) {
-                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.currentSysprg.getNolead(), this.currentSysprg.getNoformat(), this.currentSysprg.getNoseqlen());
+            if (this.getCurrentSysprg().getNoauto()) {
+                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
             }
             this.newEntity.setFormid(formid);
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {

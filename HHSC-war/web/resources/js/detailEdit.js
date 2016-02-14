@@ -7,32 +7,34 @@
 
 $(document).ready(function () {
 
-    var btnConfirmDetail = document.getElementById("formNew:btnSaveDetail");
+    var btnConfirmDetail ;
+     btnConfirmDetail = document.getElementById("formNew:btnSaveDetail");
     if (btnConfirmDetail !== undefined && btnConfirmDetail !== null) {
         btnConfirmDetail.disabled = true;
         $(btnConfirmDetail).addClass('ui-state-disabled');
     }
-    var btnConfirmDetail = document.getElementById("formEdit:btnSaveDetail");
+    btnConfirmDetail = document.getElementById("formEdit:btnSaveDetail");
     if (btnConfirmDetail !== undefined && btnConfirmDetail !== null) {
         btnConfirmDetail.disabled = true;
         $(btnConfirmDetail).addClass('ui-state-disabled');
     }
-    var btnConfirmDetail = document.getElementById("formEdit:tabView:btnSaveDetail");
+    btnConfirmDetail = document.getElementById("formEdit:tabView:btnSaveDetail");
     if (btnConfirmDetail !== undefined && btnConfirmDetail !== null) {
         btnConfirmDetail.disabled = true;
         $(btnConfirmDetail).addClass('ui-state-disabled');
     }
-    var btnDeleteDetail = document.getElementById("formNew:btnDeleteDetail");
+    var btnDeleteDetail ;
+    btnDeleteDetail = document.getElementById("formNew:btnDeleteDetail");
     if (btnDeleteDetail !== undefined && btnDeleteDetail !== null) {
         btnDeleteDetail.disabled = true;
         $(btnDeleteDetail).addClass('ui-state-disabled');
     }
-    var btnDeleteDetail = document.getElementById("formEdit:btnDeleteDetail");
+    btnDeleteDetail = document.getElementById("formEdit:btnDeleteDetail");
     if (btnDeleteDetail !== undefined && btnDeleteDetail !== null) {
         btnDeleteDetail.disabled = true;
         $(btnDeleteDetail).addClass('ui-state-disabled');
     }    
-    var btnDeleteDetail = document.getElementById("formEdit:tabView:btnDeleteDetail");
+    btnDeleteDetail = document.getElementById("formEdit:tabView:btnDeleteDetail");
     if (btnDeleteDetail !== undefined && btnDeleteDetail !== null) {
         btnDeleteDetail.disabled = true;
         $(btnDeleteDetail).addClass('ui-state-disabled');

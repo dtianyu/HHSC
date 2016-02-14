@@ -107,7 +107,7 @@ public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDet
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && currentSysprg != null && currentEntity.getYhstatus() != null && currentEntity.getZhstatus() != null) {
+        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getYhstatus() != null && currentEntity.getZhstatus() != null) {
             if ("V".equals(currentEntity.getZhstatus())) {
                 this.doEdit = false;
                 this.doDel = false;
@@ -116,15 +116,15 @@ public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDet
             } else {
                 switch (currentEntity.getYhstatus()) {
                     case "V":
-                        this.doEdit = currentSysprg.getDoedit() && false;
-                        this.doDel = currentSysprg.getDodel() && false;
+                        this.doEdit = getCurrentSysprg().getDoedit() && false;
+                        this.doDel = getCurrentSysprg().getDodel() && false;
                         this.doCfm = false;
-                        this.doUnCfm = currentSysprg.getDouncfm() && true;
+                        this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
                         break;
                     default:
-                        this.doEdit = currentSysprg.getDoedit() && true;
-                        this.doDel = currentSysprg.getDodel() && true;
-                        this.doCfm = currentSysprg.getDocfm() && true;
+                        this.doEdit = getCurrentSysprg().getDoedit() && true;
+                        this.doDel = getCurrentSysprg().getDodel() && true;
+                        this.doCfm = getCurrentSysprg().getDocfm() && true;
                         this.doUnCfm = false;
                 }
             }

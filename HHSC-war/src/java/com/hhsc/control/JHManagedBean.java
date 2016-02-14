@@ -179,24 +179,24 @@ public class JHManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && currentSysprg != null && currentEntity.getJhstatus() != null && currentEntity.getPsstatus() != null) {
+        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getJhstatus() != null && currentEntity.getPsstatus() != null) {
             if ("V".equals(currentEntity.getPsstatus())) {
-                this.doEdit = currentSysprg.getDoedit() && false;
-                this.doDel = currentSysprg.getDodel() && false;
+                this.doEdit = getCurrentSysprg().getDoedit() && false;
+                this.doDel = getCurrentSysprg().getDodel() && false;
                 this.doCfm = false;
-                this.doUnCfm = currentSysprg.getDouncfm() && false;
+                this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
             } else {
                 switch (currentEntity.getJhstatus()) {
                     case "V":
-                        this.doEdit = currentSysprg.getDoedit() && false;
-                        this.doDel = currentSysprg.getDodel() && false;
+                        this.doEdit = getCurrentSysprg().getDoedit() && false;
+                        this.doDel = getCurrentSysprg().getDodel() && false;
                         this.doCfm = false;
-                        this.doUnCfm = currentSysprg.getDouncfm() && true;
+                        this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
                         break;
                     default:
-                        this.doEdit = currentSysprg.getDoedit() && true;
-                        this.doDel = currentSysprg.getDodel() && true;
-                        this.doCfm = currentSysprg.getDocfm() && true;
+                        this.doEdit = getCurrentSysprg().getDoedit() && true;
+                        this.doDel = getCurrentSysprg().getDodel() && true;
+                        this.doCfm = getCurrentSysprg().getDocfm() && true;
                         this.doUnCfm = false;
                         break;
                 }

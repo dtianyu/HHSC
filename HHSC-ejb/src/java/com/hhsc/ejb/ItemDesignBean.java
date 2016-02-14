@@ -5,12 +5,13 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.ItemDesign;
-import com.lightshell.comm.SuperEJB;
+import com.lightshell.comm.BaseLib;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -18,18 +19,34 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class ItemDesignBean extends SuperEJB<ItemDesign> {
-
-    @PersistenceContext(unitName = "HHSC-ejbPU")
-    private EntityManager em;
+public class ItemDesignBean extends SuperBean<ItemDesign> {
 
     public ItemDesignBean() {
         super(ItemDesign.class);
     }
 
     @Override
-    public EntityManager getEntityManager() {
-        return em;
+    public String getFormId(Date day, String code, String format, int len) {
+        String maxid, newid;
+        int id;
+        if (day != null && code != null && format != null && len > 0) {
+            String d = BaseLib.formatDate(format, day);
+            int c = code.length();
+            int f = d.length();
+            Query query = getEntityManager().createNativeQuery("select max(designid) from  " + className
+                    + " where substring(designid," + 1 + "," + (c + f) + ")='" + (code + d) + "'");
+            if (query.getSingleResult() != null) {
+                maxid = query.getSingleResult().toString();
+                int m = maxid.length();
+                id = Integer.parseInt(maxid.substring(m - len, m)) + 1;
+                newid = code + d + String.format("%0" + len + "d", id);
+            } else {
+                newid = code + d + String.format("%0" + len + "d", 1);
+            }
+            return newid;
+        } else {
+            return "";
+        }
     }
 
 }

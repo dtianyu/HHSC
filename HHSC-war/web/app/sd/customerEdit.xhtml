@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="customer" icon="ui-icon-arrowreturn-1-w"  />                          
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.update()}" icon="ui-icon-disk" 
+                                     process="@this,plgEdit,:formEdit:tabView:plgEdit" update="plgEdit,:formEdit:tabView:plgEdit,:formEdit:tabView:tableList"/>                                
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelEdit" header="客户登记－修改">
+                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户来源" for="src" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="src" value="#{customerManagedBean.currentEntity.src}" title="Src"
+                                             required="true" requiredMessage="来源不能为空.">
+                                <f:selectItem itemLabel="展会" itemValue="1"/>
+                                <f:selectItem itemLabel="客户介绍" itemValue="2"/>
+                                <f:selectItem itemLabel="业务开发" itemValue="3"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户类别" for="grade" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="grade" value="#{customerManagedBean.currentEntity.grade}" title="Grade"
+                                             required="true" requiredMessage="类别不能为空.">
+                                <f:selectItem itemLabel="客户" itemValue="C"/>
+                                <f:selectItem itemLabel="供应商" itemValue="V"/>
+                                <f:selectItem itemLabel="客户+供应商" itemValue="C+V"/>
+                            </p:selectOneMenu>
+                        </p:column> 
+                    </p:row>  
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户编号" for="customerno" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="customerno" value="#{customerManagedBean.currentEntity.customerno}" title="Customerno" 
+                                         required="true" requiredMessage="编号不能为空."/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户简称" for="customer" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="customer" value="#{customerManagedBean.currentEntity.customer}" title="Customer" 
+                                         required="true" requiredMessage="简称不能为空."/>
+                        </p:column> 
+                    </p:row>        
+                    <p:row>
+                        <p:column><p:outputLabel value="客户全称" for="fullname" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="fullname" value="#{customerManagedBean.currentEntity.fullname}" title="Fullname" 
+                                         required="true" requiredMessage="全称不能为空"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="注册地" for="regaddress" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="regaddress" value="#{customerManagedBean.currentEntity.regaddress}" title="regaddress" 
+                                         required="true" requiredMessage="地址不能为空"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基本信息">
+                    <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><p:outputLabel value="公司规模" for="description"/></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="description" value="#{customerManagedBean.currentEntity.description}" title="Description" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="经营产品" for="industry"/></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="industry" value="#{customerManagedBean.currentEntity.industry}" title="Industry" />  
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="开票信息" for="taxid"/></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="taxid" value="#{customerManagedBean.currentEntity.taxid}" title="Taxid" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="公司电话" for="tel" /></p:column>
+                            <p:column>
+                                <p:inputText id="tel" value="#{customerManagedBean.currentEntity.tel}" title="Tel" />
+                            </p:column>
+                            <p:column><p:outputLabel value="公司传真" for="fax" /></p:column>
+                            <p:column>
+                                <p:inputText id="fax" value="#{customerManagedBean.currentEntity.fax}" title="Fax" />
+                            </p:column> 
+                        </p:row> 
+                        <p:row>
+                            <p:column><p:outputLabel value="法人代表" for="boss" /></p:column>
+                            <p:column>
+                                <p:inputText id="boss" value="#{customerManagedBean.currentEntity.boss}" title="Boss" />
+                            </p:column>
+                            <p:column><p:outputLabel value="联系人" for="contacter" /></p:column>
+                            <p:column>
+                                <p:inputText id="contacter" value="#{customerManagedBean.currentEntity.contacter}" title="Contacter" />
+                            </p:column> 
+                        </p:row> 
+                        <p:row>
+                            <p:column><p:outputLabel value="联系电话" for="tel2" /></p:column>
+                            <p:column>
+                                <p:inputText id="tel2" value="#{customerManagedBean.currentEntity.tel2}" title="Tel2" />
+                            </p:column>
+                            <p:column><p:outputLabel value="联系传真" for="fax2" /></p:column>
+                            <p:column>
+                                <p:inputText id="fax2" value="#{customerManagedBean.currentEntity.fax2}" title="Fax2" />
+                            </p:column> 
+                        </p:row> 
+                        <p:row>
+                            <p:column><p:outputLabel value="国家" for="country" /></p:column>
+                            <p:column>
+                                <p:inputText id="country" value="#{customerManagedBean.currentEntity.country}" title="Country" />
+                            </p:column>
+                            <p:column><p:outputLabel value="地区" for="area" /></p:column>
+                            <p:column>
+                                <p:inputText id="area" value="#{customerManagedBean.currentEntity.area}" title="Area" />
+                            </p:column> 
+                        </p:row> 
+                        <p:row>
+                            <p:column><p:outputLabel value="城市" for="city" /></p:column>
+                            <p:column>
+                                <p:inputText id="city" value="#{customerManagedBean.currentEntity.city}" title="City" />
+                            </p:column>
+                            <p:column><p:outputLabel value="邮编" for="zipcode" /></p:column>
+                            <p:column>
+                                <p:inputText id="zipcode" value="#{customerManagedBean.currentEntity.zipcode}" title="Zipcode" />
+                            </p:column> 
+                        </p:row> 
+                        <p:row>
+                            <p:column><p:outputLabel value="网址" for="weburl" /></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="weburl" value="#{customerManagedBean.currentEntity.weburl}" title="Weburl" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="remark" value="#{customerManagedBean.currentEntity.remark}" title="Remark" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab> 
+                <p:tab title="联系人员">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{customerManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                             process="@this" update=":formEdit:tabView:plgEditDetail"/>
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{customerManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             process="@this" update=":formEdit:tabView:plgEditDetail,:formEdit:tabView:tableList"/>  
+                        </f:facet>
+                        <f:facet name="right">                        
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{customerManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             process="@this,:formEdit:tabView:plgEditDetail" update=":formEdit:tabView:plgEditDetail,:formEdit:tabView:tableList" />                                
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgEditDetail" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100">
+                            <p:column><p:outputLabel value="联系人" for="detailcontacter" /></p:column>
+                            <p:column>
+                                <p:inputText id="detailcontacter" value="#{customerManagedBean.currentDetail.contacter}" title="contacter" 
+                                             required="true" requiredMessage="联系人不能为空"  />
+                            </p:column>
+                            <p:column><p:outputLabel value="电话" for="detailtel" /></p:column>
+                            <p:column>
+                                <p:inputText id="detailtel" value="#{customerManagedBean.currentDetail.tel}" title="tel"/>
+                            </p:column>  
+                            <p:column><p:outputLabel value="传真" for="detailfax" /></p:column>
+                            <p:column>
+                                <p:inputText id="detailfax" value="#{customerManagedBean.currentDetail.fax}" title="fax"/>
+                            </p:column>
+                            <p:column><p:outputLabel value="手机" for="detailmobile" /></p:column>
+                            <p:column>
+                                <p:inputText id="detailmobile" value="#{customerManagedBean.currentDetail.mobile}" title="mobile"/>
+                            </p:column> 
+                            <p:column><p:outputLabel value="邮箱" for="detailmail" /></p:column>
+                            <p:column>
+                                <p:inputText id="detailmail" value="#{customerManagedBean.currentDetail.mail}" title="mail"/>
+                            </p:column> 
+                        </p:panelGrid>
+                        <p:dataTable id="tableList" value="#{customerManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{customerManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update=":formEdit:tabView:plgEditDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgEditDetail" oncomplete="" />
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="联系人"/>
+                                </f:facet>
+                                <h:outputText value="#{item.contacter}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="电话"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tel}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="传真"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fax}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="手机"/>
+                                </f:facet>
+                                <h:outputText value="#{item.mobile}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="邮箱"/>
+                                </f:facet>
+                                <h:outputText value="#{item.mail}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

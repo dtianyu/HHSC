@@ -76,9 +76,9 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
-        if (currentSysprg != null) {
-            this.doAdd = currentSysprg.getDoadd();
-            this.doPrt = currentSysprg.getDoprt();
+        if (getCurrentSysprg() != null) {
+            this.doAdd = getCurrentSysprg().getDoadd();
+            this.doPrt = getCurrentSysprg().getDoprt();
         }
         super.construct();
     }
@@ -150,18 +150,18 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && currentSysprg != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "V":
-                    this.doEdit = currentSysprg.getDoedit() && false;
-                    this.doDel = currentSysprg.getDodel() && false;
+                    this.doEdit = getCurrentSysprg().getDoedit() && false;
+                    this.doDel = getCurrentSysprg().getDodel() && false;
                     this.doCfm = false;
-                    this.doUnCfm = currentSysprg.getDouncfm() && true;
+                    this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = currentSysprg.getDoedit() && true;
-                    this.doDel = currentSysprg.getDodel() && true;
-                    this.doCfm = currentSysprg.getDocfm() && true;
+                    this.doEdit = getCurrentSysprg().getDoedit() && true;
+                    this.doDel = getCurrentSysprg().getDodel() && true;
+                    this.doCfm = getCurrentSysprg().getDocfm() && true;
                     this.doUnCfm = false;
             }
         } else {
@@ -230,6 +230,13 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
      */
     public void setUserManagedBean(UserManagedBean userManagedBean) {
         this.userManagedBean = userManagedBean;
+    }
+
+    /**
+     * @return the currentSysprg
+     */
+    public Sysprg getCurrentSysprg() {
+        return currentSysprg;
     }
 
 }

@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemCategory.findByStatus", query = "SELECT i FROM ItemCategory i WHERE i.status = :status")})
 public class ItemCategory extends BaseEntityWithOperate {
 
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "categoryid")
     protected String categoryid;
     @Basic(optional = false)
@@ -39,8 +41,19 @@ public class ItemCategory extends BaseEntityWithOperate {
     @Size(min = 1, max = 20)
     @Column(name = "name")
     private String name;
-    @Column(name = "itemcount")
-    private Integer itemcount;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "proptype")
+    private String proptype;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "maketype")
+    private String maketype;
+    @Size(max = 8)
+    @Column(name = "pptype")
+    private String pptype;
     @Size(max = 100)
     @Column(name = "remark")
     private String remark;
@@ -54,14 +67,6 @@ public class ItemCategory extends BaseEntityWithOperate {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getItemcount() {
-        return itemcount;
-    }
-
-    public void setItemcount(Integer itemcount) {
-        this.itemcount = itemcount;
     }
 
     public String getRemark() {
@@ -89,6 +94,9 @@ public class ItemCategory extends BaseEntityWithOperate {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
+        if (!this.categoryid.equals(other.categoryid)) {
+            return false;
+        }
         return true;
     }
 
@@ -109,6 +117,30 @@ public class ItemCategory extends BaseEntityWithOperate {
      */
     public void setCategoryid(String categoryid) {
         this.categoryid = categoryid;
+    }
+
+    public String getProptype() {
+        return proptype;
+    }
+
+    public void setProptype(String proptype) {
+        this.proptype = proptype;
+    }
+
+    public String getMaketype() {
+        return maketype;
+    }
+
+    public void setMaketype(String maketype) {
+        this.maketype = maketype;
+    }
+
+    public String getPptype() {
+        return pptype;
+    }
+
+    public void setPptype(String pptype) {
+        this.pptype = pptype;
     }
 
 }

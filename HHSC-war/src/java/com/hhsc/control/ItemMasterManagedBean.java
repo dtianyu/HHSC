@@ -5,7 +5,11 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.ejb.ItemCategoryBean;
+import com.hhsc.ejb.ItemMakeTypeBean;
 import com.hhsc.ejb.ItemMasterBean;
+import com.hhsc.ejb.ItemPPTypeBean;
+import com.hhsc.ejb.ItemUnitTypeBean;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.lazy.ItemMasterModel;
 import com.hhsc.web.SuperSingleBean;
@@ -22,6 +26,11 @@ import javax.faces.bean.SessionScoped;
 public class ItemMasterManagedBean extends SuperSingleBean<ItemMaster> {
 
     @EJB
+    private ItemCategoryBean itemCategoryBean;
+    @EJB
+    private ItemUnitTypeBean itemUnitTypeBean;
+
+    @EJB
     private ItemMasterBean itemMasterBean;
 
     public ItemMasterManagedBean() {
@@ -32,9 +41,7 @@ public class ItemMasterManagedBean extends SuperSingleBean<ItemMaster> {
     public void init() {
         this.superEJB = itemMasterBean;
         setModel(new ItemMasterModel(itemMasterBean));
-        super.init(); 
+        super.init();
     }
-    
-    
 
 }
