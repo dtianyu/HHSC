@@ -55,7 +55,8 @@
                                          required="true" readonly="true"/>
                             <p:commandButton actionListener="#{factoryStorageManagedBean.openDialog('factoryorderdetailSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{factoryStorageManagedBean.handleDialogReturnWhenDetailNew}" update="plgEditDetail" />
+                                <p:ajax event="dialogReturn" listener="#{factoryStorageManagedBean.handleDialogReturnWhenDetailNew}" 
+                                        update="plgEditDetail" />
                             </p:commandButton>
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="流转序号"/></p:column>

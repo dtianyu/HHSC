@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="itemmaster" icon="ui-icon-arrowreturn-1-w"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="提交" action="#{itemMasterManagedBean.verify()}" icon="ui-icon-locked" 
+                                     rendered="#{itemMasterManagedBean.doCfm}" update="toolbar"/>
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelEdit" header="面料登记－查看">
+                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="类别"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="itemcategory" value="#{itemMasterManagedBean.currentEntity.itemcategory.name}" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="面料编号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="itemno" value="#{itemMasterManagedBean.currentEntity.itemno}" title="Itemno"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="面料名称"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="itemdesc" value="#{itemMasterManagedBean.currentEntity.itemdesc}" title="Itemdesc"/> 
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="单位"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="unit" value="#{itemMasterManagedBean.currentEntity.unit}" title="Unit"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="面料规格"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemspec" value="#{itemMasterManagedBean.currentEntity.itemspec}" title="Itemspec" />
+                        </p:column>  
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="成分"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="itemmake" value="#{itemMasterManagedBean.currentEntity.itemmake}" title="Itemmake" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="纱线描述"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemyarncount" value="#{itemMasterManagedBean.currentEntity.itemyarncount}" title="Itemyarncount" />
+                        </p:column>
+                        <p:column><h:outputText value="匹样周期"/></p:column>
+                        <p:column>
+                            <h:outputText id="sampleperiod" value="#{itemMasterManagedBean.currentEntity.sampleperiod}" title="Sampleperiod" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="门幅" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemwidth" value="#{itemMasterManagedBean.currentEntity.itemwidth}" title="Itemwidth" />
+                        </p:column>
+                        <p:column><h:outputText value="大货周期"/></p:column>
+                        <p:column>
+                            <h:outputText id="deliveryperiod" value="#{itemMasterManagedBean.currentEntity.deliveryperiod}" title="Deliveryperiod" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="克重"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemweight" value="#{itemMasterManagedBean.currentEntity.itemweight}" title="Itemweight" />
+                        </p:column>
+                        <p:column><h:outputText value="密度"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemdensity" value="#{itemMasterManagedBean.currentEntity.itemdensity}" title="Itemdensity" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="登记人"/></p:column>
+                        <p:column>
+                            <h:outputText id="creator" value="#{itemMasterManagedBean.currentEntity.creator}" title="Creator" />
+                        </p:column>
+                        <p:column><h:outputText value="登记日期"/></p:column>
+                        <p:column>
+                            <h:outputText id="credate" value="#{itemMasterManagedBean.currentEntity.credate}" title="Credate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="成分信息">
+                    <p:panel id="panelDetail">
+                        <p:dataTable id="tableList" value="#{itemMasterManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{itemMasterManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="" oncomplete="" />
+                            <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.seq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid90">
+                                <f:facet name="header">
+                                    <h:outputText value="成分"/>
+                                </f:facet>
+                                <h:outputText value="#{item.make}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab> 
+                <p:tab title="供应商品号">
+                    <p:panel id="panelDetail2">
+                        <p:dataTable id="tableList2" value="#{itemMasterManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{itemMasterManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="" oncomplete="" />
+                            <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.seq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="供应商"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendor.vendor}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="供应商品号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendoritemno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid50">
+                                <f:facet name="header">
+                                    <h:outputText value="供应商品名"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendoritemdesc}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

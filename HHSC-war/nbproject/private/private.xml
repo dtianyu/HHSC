@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/query/ItemDesignQueryBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/query/CustomerQueryBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/CustomerManagedBean.java</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/mm/itemmasterEdit.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/WEB-INF/faces-config.xml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/sd/salesorderNew.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/mm/itemmasterNew.xhtml</file>
         </group>
     </open-files>
 </project-private>

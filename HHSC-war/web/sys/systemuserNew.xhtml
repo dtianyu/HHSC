@@ -45,7 +45,14 @@
                     <h:outputText value="确认密码"  style="text-align: right;"/>
                     <p:password id="pwd2" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90"  feedback="false"/>
                     <h:outputText value=""/>
-                </h:panelGrid>
+                    <p:outputLabel value="部门" for="deptid" />
+                    <p:selectOneMenu id="deptid" value="#{systemUserManagedBean.newEntity.dept}" 
+                                     converter="departmentConverter">
+                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                        <f:selectItems value="#{systemUserManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
+                    </p:selectOneMenu>
+                    <h:outputText value=""/>  
+                </h:panelGrid  >
             </p:panel>
         </h:form>
     </ui:define>

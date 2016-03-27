@@ -18,6 +18,10 @@
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" action="#{itemCategoryManagedBean.edit('itemcategoryEdit')}" icon="ui-icon-pencil" value="编辑" 
                                      rendered="#{itemCategoryManagedBean.doEdit}" />                                                     
+                    <p:commandButton id="btnDelete" actionListener="#{itemCategoryManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                                     rendered="#{itemCategoryManagedBean.doDel}" update=":formList">
+                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnUnverify" actionListener="#{itemCategoryManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{itemCategoryManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{itemCategoryManagedBean.create('itemcategoryNew')}" icon="ui-icon-plus" value="新增"
@@ -37,7 +41,7 @@
                     <f:facet name="header">
                         <h:outputText value="编号"/>
                     </f:facet>
-                    <h:outputText value="#{item.categoryid}"/>
+                    <h:outputText value="#{item.category}"/>
                 </p:column>
                 <p:column styleClass="Wid50">
                     <f:facet name="header">

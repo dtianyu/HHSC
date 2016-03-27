@@ -5,12 +5,12 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.VendorItem;
-import com.lightshell.comm.SuperEJB;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -18,18 +18,22 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class VendorItemBean extends SuperEJB<VendorItem> {
-
-    @PersistenceContext(unitName = "HHSC-ejbPU")
-    private EntityManager em;
+public class VendorItemBean extends SuperBean<VendorItem> {
 
     public VendorItemBean() {
         super(VendorItem.class);
     }
 
-    @Override
-    public EntityManager getEntityManager() {
-        return em;
+    public List<VendorItem> findByItemId(Object id) {
+        Query query = getEntityManager().createNamedQuery("VendorItem.findByItemId");
+        query.setParameter("itemid", id);
+        return query.getResultList();
+    }
+
+    public List<VendorItem> findByItemno(String itemno) {
+        Query query = getEntityManager().createNamedQuery("VendorItem.findByItemno");
+        query.setParameter("itemno", itemno);
+        return query.getResultList();
     }
 
 }

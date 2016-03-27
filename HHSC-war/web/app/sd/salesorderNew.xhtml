@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formNew">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="salesorder" icon="ui-icon-arrowreturn-1-w"  />                          
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{salesOrderManagedBean.persist()}" icon="ui-icon-disk" 
+                                     process="@this,plgHead,:formNew:tabView:plgBase" 
+                                     update="plgHead,:formNew:tabView:plgBase,:formNew:tabView:plgDetail,:formNew:tabView:detailList"/>                                
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="销售合同－新增">
+                <p:panelGrid id="plgHead" styleClass="plgNew Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="合同编号" for="formid" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="formid" value="#{salesOrderManagedBean.newEntity.formid}" title="Formid"
+                                         required="true" requiredMessage="合同编号不能为空" disabled="#{salesOrderManagedBean.currentSysprg.noauto}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="合同日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{salesOrderManagedBean.newEntity.formdate}" title="Formdate" 
+                                        required="true" requiredMessage="日期不能为空">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="合同类型" for="ordertype" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="ordertype" value="#{salesOrderManagedBean.newEntity.ordertype}" title="Ordertype" 
+                                             required="true" requiredMessage="合同类型不能为空">
+                                <f:selectItem itemLabel="外销" itemValue="外销" />  
+                                <f:selectItem itemLabel="经销" itemValue="经销" />  
+                                <f:selectItem itemLabel="加工" itemValue="加工" />  
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><p:outputLabel value="客户" for="customer" /></p:column>
+                        <p:column>
+                            <p:inputText id="customer" value="#{salesOrderManagedBean.newEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
+                                         required="true" requiredMessage="客户不能为空" disabled="true"/>
+                            <p:commandButton id="btnSelect" actionListener="#{salesOrderManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCustomerWhenNew}" 
+                                        update="plgHead,:formNew:tabView:plgBase" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="deptid" value="#{salesOrderManagedBean.newEntity.dept}" title="Deptid" 
+                                             converter="departmentConverter"  required="true" requiredMessage="部门不能为空">
+                                <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                <f:selectItems value="#{salesOrderManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><p:outputLabel value="业务员" for="salesman" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="salesman" value="#{salesOrderManagedBean.newEntity.salesman}" 
+                                             converter="systemUserConverter" required="true" requiredMessage="业务员不能为空">
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{salesOrderManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="币别" for="currency" /></p:column>
+                        <p:column>
+                            <p:inputText id="currency" value="#{salesOrderManagedBean.newEntity.currency}" title="Currency" 
+                                         required="true" requiredMessage="币别不可空白"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="汇率" for="exchange" /></p:column>
+                        <p:column>
+                            <p:inputText id="exchange" value="#{salesOrderManagedBean.newEntity.exchange}" title="Exchange" 
+                                         required="true" requiredMessage="汇率不可空白"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="税别" for="taxtype" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="taxtype" value="#{salesOrderManagedBean.newEntity.taxtype}" title="Taxtype" 
+                                             required="true" requiredMessage="税别不可空白">
+                                <f:selectItem itemLabel="内含" itemValue="0" />  
+                                <f:selectItem itemLabel="外加" itemValue="1" />  
+                                <f:selectItem itemLabel="零税" itemValue="2" />
+                                <f:selectItem itemLabel="免税" itemValue="3" /> 
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="税率" for="taxrate"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="taxrate" value="#{salesOrderManagedBean.newEntity.taxrate}" title="taxrate" 
+                                         required="true" requiredMessage="税率不可空白"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="收款条件" for="payment" /></p:column>
+                        <p:column>
+                            <p:inputText id="payment" value="#{salesOrderManagedBean.newEntity.payment}" title="Payment" />
+                        </p:column>
+                        <p:column><p:outputLabel value="客户单号" for="refno" /></p:column>
+                        <p:column>
+                            <p:inputText id="refno" value="#{salesOrderManagedBean.newEntity.refno}" title="Refno" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgNew Wid100">
+                            <p:row> 
+                                <p:column styleClass="Wid20"><p:outputLabel value="华卉花号" for="itemmaster" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="itemdesign" value="#{salesOrderManagedBean.newEntity.itemmaster.itemno}"  styleClass="inputWithButton"
+                                                 required="true" requiredMessage="华卉花号不可空白" disabled="true"/>
+                                    <p:commandButton id="btnItemDesign" actionListener="#{salesOrderManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenNew}" 
+                                                update="plgBase" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                                    <p:graphicImage value="/resources/upload/img/#{salesOrderManagedBean.newEntity.itemimg}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="成品规格" for="itemdesignspec" /></p:column>
+                                <p:column>
+                                    <p:inputText id="itemdesignspec"  value="#{salesOrderManagedBean.newEntity.itemspec}" title="itemdesignspec" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="客户花号" for="customeritemno" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="customeritemno" value="#{salesOrderManagedBean.newEntity.customeritemno}" title="Customeritemno" />
+                                </p:column>
+                            </p:row>                 
+                            <p:row>
+                                <p:column><p:outputLabel value="套数" for="designsets" /></p:column>
+                                <p:column>
+                                    <p:inputText id="designsets" value="#{salesOrderManagedBean.newEntity.designsets}" title="Designsets" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="版费单价" for="designprice" /></p:column>
+                                <p:column>
+                                    <p:inputText id="designprice" value="#{salesOrderManagedBean.newEntity.designprice}" title="Designprice" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="合计版费" for="totaldesign" /></p:column>
+                                <p:column>
+                                    <p:inputText id="totaldesign" value="#{salesOrderManagedBean.newEntity.totaldesign}" title="totaldesign" 
+                                                 disabled="true"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="测试要求" for="testremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="testremark" value="#{salesOrderManagedBean.newEntity.testremark}" title="Testremark" styleClass="Wid100"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="成品要求" for="productremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="productremark" value="#{salesOrderManagedBean.newEntity.productremark}" title="Productremark" styleClass="Wid100"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="包装要求" for="packremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="packremark" value="#{salesOrderManagedBean.newEntity.packremark}" title="Packremark" styleClass="Wid100"/>  
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="出货方式" for="shpadd" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="shpadd" value="#{salesOrderManagedBean.newEntity.shpadd}" title="Shpadd" styleClass="Wid100"/> 
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="箱麦" for="shipmarks" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="shipmarks" value="#{salesOrderManagedBean.newEntity.shipmarks}" title="Shipmarks" styleClass="Wid100"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="合同明细">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{salesOrderManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                             update="plgDetail" process="@this" />
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{salesOrderManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             update="plgDetail,formNew:tabView:detailList," process="@this" />  
+                        </f:facet>
+                        <f:facet name="right">                        
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{salesOrderManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             update="plgDetail,formNew:tabView:detailList" process="@this,plgDetail"/>                                
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgNew Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="客户色号" for="customercolorno" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="customercolorno" value="#{salesOrderManagedBean.currentDetail.customercolorno}" title="Customercolorno" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="华卉色号" for="colorno" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="colorno" value="#{salesOrderManagedBean.currentDetail.colorno}" title="Colorno" 
+                                                 required="true" requiredMessage="华卉色号不能为空"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="面料编号" for="itemmaster" /></p:column>
+                                <p:column>
+                                    <p:inputText id="itemmaster" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemno}" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="面料编号不能为空" disabled="true"/>
+                                    <p:commandButton id="btnItemMaster" actionListener="#{salesOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenDetailNew}" 
+                                                update="itemmaster,itemyarncount,itemmake,itemwidth" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column><h:outputText value="纱线描述"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemyarncount" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemyarncount}" title="itemyarncount" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="成分"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemmake" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
+                                </p:column>
+                                <p:column><h:outputText value="门幅"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemwidth" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemwidth}" title="itemwidth" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="数量" for="qty" /></p:column>
+                                <p:column>
+                                    <p:inputText id="qty" value="#{salesOrderManagedBean.currentDetail.qty}" title="Qty" 
+                                                 required="true" requiredMessage="数量不能为空"/>
+                                </p:column>
+                                <p:column><p:outputLabel value="投料数量" for="issqty" /></p:column>
+                                <p:column>
+                                    <p:inputText id="issqty" value="#{salesOrderManagedBean.currentDetail.issqty}" title="Issqty" 
+                                                 required="true" requiredMessage="投料量不能为空"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="单价" for="price" /></p:column>
+                                <p:column>
+                                    <p:inputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price" 
+                                                 required="true" requiredMessage="单价不能为空"/>
+                                </p:column>
+                                <p:column><p:outputLabel value="预计交期" for="deliverydate" /></p:column>
+                                <p:column>
+                                    <p:calendar id="deliverydate" value="#{salesOrderManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
+                                                pattern="yyyy/MM/dd" required="true" requiredMessage="预计交期不能为空">
+                                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                                    </p:calendar>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <p:dataTable id="detailList" value="#{salesOrderManagedBean.detailList}" var="item" styleClass="tableList"
+                                     selectionMode="single" selection="#{salesOrderManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update=":formNew:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect"  update=":formNew:tabView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="客户色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.customercolorno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="华卉色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.colorno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="面料编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemmaster.itemno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="品名"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemmaster.itemdesc}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="投料数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.issqty}(米)"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="单价"/>
+                                </f:facet>
+                                <h:outputText value="#{item.price}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -9,6 +9,8 @@ import com.lightshell.comm.BaseDetailEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,20 +26,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "customeritem")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "CustomerItem.getRowCount", query = "SELECT COUNT(c) FROM CustomerItem c"),
     @NamedQuery(name = "CustomerItem.findAll", query = "SELECT c FROM CustomerItem c"),
     @NamedQuery(name = "CustomerItem.findById", query = "SELECT c FROM CustomerItem c WHERE c.id = :id"),
     @NamedQuery(name = "CustomerItem.findByPId", query = "SELECT c FROM CustomerItem c WHERE c.pid = :pid"),
-    @NamedQuery(name = "CustomerItem.findByCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.customerno = :customerno"),
+    @NamedQuery(name = "CustomerItem.findByCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.customer.customerno = :customerno"),
     @NamedQuery(name = "CustomerItem.findByItemId", query = "SELECT c FROM CustomerItem c WHERE c.itemid = :itemid"),
     @NamedQuery(name = "CustomerItem.findByItemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno"),
+    @NamedQuery(name = "CustomerItem.findByItemnoAndCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customer.customerno=:customerno"),
     @NamedQuery(name = "CustomerItem.findByCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.customeritemno = :customeritemno")})
 public class CustomerItem extends BaseDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "customerno")
-    private String customerno;
+    @JoinColumn(name = "customerno", referencedColumnName = "customerno")
+    @ManyToOne(optional = false)
+    private Customer customer;
     @Basic(optional = false)
     @NotNull
     @Column(name = "itemid")
@@ -62,12 +64,12 @@ public class CustomerItem extends BaseDetailEntity {
     public CustomerItem() {
     }
 
-    public String getCustomerno() {
-        return customerno;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerno(String customerno) {
-        this.customerno = customerno;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public int getItemid() {
@@ -127,7 +129,7 @@ public class CustomerItem extends BaseDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        if (!this.customerno.equals(other.customerno)) {
+        if (!this.customer.equals(other.customer)) {
             return false;
         }
         return this.seq == other.seq;

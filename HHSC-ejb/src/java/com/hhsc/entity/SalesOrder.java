@@ -6,10 +6,13 @@
 package com.hhsc.entity;
 
 import com.lightshell.comm.BaseEntityWithOperate;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,61 +31,165 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SalesOrder.getRowCount", query = "SELECT COUNT(s) FROM SalesOrder s"),
-    @NamedQuery(name = "SalesOrder.findAll", query = "SELECT s FROM SalesOrder s ORDER BY s.status,s.orderid DESC"),
+    @NamedQuery(name = "SalesOrder.findAll", query = "SELECT s FROM SalesOrder s"),
     @NamedQuery(name = "SalesOrder.findById", query = "SELECT s FROM SalesOrder s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrder.findByOrderId", query = "SELECT s FROM SalesOrder s WHERE s.orderid = :orderid"),
-    @NamedQuery(name = "SalesOrder.findByOrderdate", query = "SELECT s FROM SalesOrder s WHERE s.orderdate = :orderdate"),
-    @NamedQuery(name = "SalesOrder.findByCustomerId", query = "SELECT s FROM SalesOrder s WHERE s.customerid = :customerid"),
+    @NamedQuery(name = "SalesOrder.findByFormid", query = "SELECT s FROM SalesOrder s WHERE s.formid = :formid"),
+    @NamedQuery(name = "SalesOrder.findByFormdate", query = "SELECT s FROM SalesOrder s WHERE s.formdate = :formdate"),
     @NamedQuery(name = "SalesOrder.findByOrdertype", query = "SELECT s FROM SalesOrder s WHERE s.ordertype = :ordertype"),
+    @NamedQuery(name = "SalesOrder.findByCustomerId", query = "SELECT s FROM SalesOrder s WHERE s.customer.id = :customerid"),
+    @NamedQuery(name = "SalesOrder.findByDeptId", query = "SELECT s FROM SalesOrder s WHERE s.dept.id = :deptid"),
+    @NamedQuery(name = "SalesOrder.findBySalesmanId", query = "SELECT s FROM SalesOrder s WHERE s.salesman.id = :salesmanid"),
+    @NamedQuery(name = "SalesOrder.findByItemId", query = "SELECT s FROM SalesOrder s WHERE s.itemmaster.id = :itemid"),
+    @NamedQuery(name = "SalesOrder.findByItemno", query = "SELECT s FROM SalesOrder s WHERE s.itemno = :itemno"),
+    @NamedQuery(name = "SalesOrder.findByCustomeritemno", query = "SELECT s FROM SalesOrder s WHERE s.customeritemno = :customeritemno"),
+    @NamedQuery(name = "SalesOrder.findByTaxtype", query = "SELECT s FROM SalesOrder s WHERE s.taxtype = :taxtype"),
+    @NamedQuery(name = "SalesOrder.findByTaxkind", query = "SELECT s FROM SalesOrder s WHERE s.taxkind = :taxkind"),
+    @NamedQuery(name = "SalesOrder.findByTaxrate", query = "SELECT s FROM SalesOrder s WHERE s.taxrate = :taxrate"),
+    @NamedQuery(name = "SalesOrder.findByTradetype", query = "SELECT s FROM SalesOrder s WHERE s.tradetype = :tradetype"),
+    @NamedQuery(name = "SalesOrder.findByTradename", query = "SELECT s FROM SalesOrder s WHERE s.tradename = :tradename"),
+    @NamedQuery(name = "SalesOrder.findByPaymentid", query = "SELECT s FROM SalesOrder s WHERE s.paymentid = :paymentid"),
+    @NamedQuery(name = "SalesOrder.findByPayment", query = "SELECT s FROM SalesOrder s WHERE s.payment = :payment"),
+    @NamedQuery(name = "SalesOrder.findByRefno", query = "SELECT s FROM SalesOrder s WHERE s.refno = :refno"),
     @NamedQuery(name = "SalesOrder.findByStatus", query = "SELECT s FROM SalesOrder s WHERE s.status = :status")})
 public class SalesOrder extends BaseEntityWithOperate {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "orderid")
-    private String orderid;
+    @Column(name = "formid")
+    private String formid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "orderdate")
+    @Column(name = "formdate")
     @Temporal(TemporalType.DATE)
-    private Date orderdate;
+    private Date formdate;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "customerid")
-    private int customerid;
-    @Size(max = 45)
+    @Size(min = 1, max = 2)
     @Column(name = "ordertype")
     private String ordertype;
+
+    @JoinColumn(name = "customerid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Customer customer;
+    @JoinColumn(name = "deptid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Department dept;
+    @JoinColumn(name = "salerid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private SystemUser salesman;
+    @JoinColumn(name = "itemid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ItemMaster itemmaster;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "itemno")
+    private String itemno;
+    @Size(max = 100)
+    @Column(name = "itemspec")
+    protected String itemspec;
+    @Size(max = 100)
+    @Column(name = "itemimg")
+    private String itemimg;
+    @Size(max = 45)
+    @Column(name = "customeritemno")
+    private String customeritemno;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "currency")
+    private String currency;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "exchange")
+    private BigDecimal exchange;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2)
+    @Column(name = "taxtype")
+    private String taxtype;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "taxkind")
+    private String taxkind;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "taxrate")
+    private BigDecimal taxrate;
+    @Size(max = 10)
+    @Column(name = "tradetype")
+    private String tradetype;
+    @Size(max = 45)
+    @Column(name = "tradename")
+    private String tradename;
+    @Column(name = "paymentid")
+    private Integer paymentid;
+    @Size(max = 45)
+    @Column(name = "payment")
+    private String payment;
+    @Size(max = 45)
+    @Column(name = "refno")
+    private String refno;
+    @Column(name = "designsets")
+    private Integer designsets;
+    @Column(name = "designprice")
+    private BigDecimal designprice;
+    @Column(name = "totaldesign")
+    private BigDecimal totaldesign;
+    @Column(name = "totalnotaxs")
+    private BigDecimal totalnotaxs;
+    @Column(name = "totaltaxs")
+    private BigDecimal totaltaxs;
+    @Column(name = "totalamts")
+    private BigDecimal totalamts;
+    @Size(max = 10)
+    @Column(name = "shiptype")
+    private String shiptype;
     @Size(max = 200)
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "shpadd")
+    private String shpadd;
+    @Size(max = 200)
+    @Column(name = "shipmarks")
+    private String shipmarks;
+    @Column(name = "freight")
+    private BigDecimal freight;
+    @Column(name = "insurance")
+    private BigDecimal insurance;
+    @Column(name = "othercharges")
+    private BigDecimal othercharges;
+    @Size(max = 200)
+    @Column(name = "salesremark")
+    private String salesremark;
+    @Size(max = 200)
+    @Column(name = "testremark")
+    private String testremark;
+    @Size(max = 200)
+    @Column(name = "productremark")
+    private String productremark;
+    @Size(max = 200)
+    @Column(name = "packremark")
+    private String packremark;
 
     public SalesOrder() {
     }
 
-    public String getOrderid() {
-        return orderid;
+    public String getFormid() {
+        return formid;
     }
 
-    public void setOrderid(String orderid) {
-        this.orderid = orderid;
+    public void setFormid(String formid) {
+        this.formid = formid;
     }
 
-    public Date getOrderdate() {
-        return orderdate;
+    public Date getFormdate() {
+        return formdate;
     }
 
-    public void setOrderdate(Date orderdate) {
-        this.orderdate = orderdate;
-    }
-
-    public int getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
+    public void setFormdate(Date formdate) {
+        this.formdate = formdate;
     }
 
     public String getOrdertype() {
@@ -93,12 +200,268 @@ public class SalesOrder extends BaseEntityWithOperate {
         this.ordertype = ordertype;
     }
 
-    public String getRemark() {
-        return remark;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Department getDept() {
+        return dept;
+    }
+
+    public void setDept(Department dept) {
+        this.dept = dept;
+    }
+
+    public SystemUser getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(SystemUser salesman) {
+        this.salesman = salesman;
+    }
+
+    public ItemMaster getItemmaster() {
+        return itemmaster;
+    }
+
+    public void setItemmaster(ItemMaster itemmaster) {
+        this.itemmaster = itemmaster;
+    }
+
+    public String getItemno() {
+        return itemno;
+    }
+
+    public void setItemno(String itemno) {
+        this.itemno = itemno;
+    }
+
+    public String getItemimg() {
+        return itemimg;
+    }
+
+    public void setItemimg(String itemimg) {
+        this.itemimg = itemimg;
+    }
+
+    public String getCustomeritemno() {
+        return customeritemno;
+    }
+
+    public void setCustomeritemno(String customeritemno) {
+        this.customeritemno = customeritemno;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public BigDecimal getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(BigDecimal exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getTaxtype() {
+        return taxtype;
+    }
+
+    public void setTaxtype(String taxtype) {
+        this.taxtype = taxtype;
+    }
+
+    public String getTaxkind() {
+        return taxkind;
+    }
+
+    public void setTaxkind(String taxkind) {
+        this.taxkind = taxkind;
+    }
+
+    public BigDecimal getTaxrate() {
+        return taxrate;
+    }
+
+    public void setTaxrate(BigDecimal taxrate) {
+        this.taxrate = taxrate;
+    }
+
+    public String getTradetype() {
+        return tradetype;
+    }
+
+    public void setTradetype(String tradetype) {
+        this.tradetype = tradetype;
+    }
+
+    public String getTradename() {
+        return tradename;
+    }
+
+    public void setTradename(String tradename) {
+        this.tradename = tradename;
+    }
+
+    public Integer getPaymentid() {
+        return paymentid;
+    }
+
+    public void setPaymentid(Integer paymentid) {
+        this.paymentid = paymentid;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getRefno() {
+        return refno;
+    }
+
+    public void setRefno(String refno) {
+        this.refno = refno;
+    }
+
+    public Integer getDesignsets() {
+        return designsets;
+    }
+
+    public void setDesignsets(Integer designsets) {
+        this.designsets = designsets;
+    }
+
+    public BigDecimal getDesignprice() {
+        return designprice;
+    }
+
+    public void setDesignprice(BigDecimal designprice) {
+        this.designprice = designprice;
+    }
+
+    public BigDecimal getTotaldesign() {
+        return totaldesign;
+    }
+
+    public void setTotaldesign(BigDecimal totaldesign) {
+        this.totaldesign = totaldesign;
+    }
+
+    public BigDecimal getTotalnotaxs() {
+        return totalnotaxs;
+    }
+
+    public void setTotalnotaxs(BigDecimal totalnotaxs) {
+        this.totalnotaxs = totalnotaxs;
+    }
+
+    public BigDecimal getTotaltaxs() {
+        return totaltaxs;
+    }
+
+    public void setTotaltaxs(BigDecimal totaltaxs) {
+        this.totaltaxs = totaltaxs;
+    }
+
+    public BigDecimal getTotalamts() {
+        return totalamts;
+    }
+
+    public void setTotalamts(BigDecimal totalamts) {
+        this.totalamts = totalamts;
+    }
+
+    public String getShiptype() {
+        return shiptype;
+    }
+
+    public void setShiptype(String shiptype) {
+        this.shiptype = shiptype;
+    }
+
+    public String getShpadd() {
+        return shpadd;
+    }
+
+    public void setShpadd(String shpadd) {
+        this.shpadd = shpadd;
+    }
+
+    public String getShipmarks() {
+        return shipmarks;
+    }
+
+    public void setShipmarks(String shipmarks) {
+        this.shipmarks = shipmarks;
+    }
+
+    public BigDecimal getFreight() {
+        return freight;
+    }
+
+    public void setFreight(BigDecimal freight) {
+        this.freight = freight;
+    }
+
+    public BigDecimal getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(BigDecimal insurance) {
+        this.insurance = insurance;
+    }
+
+    public BigDecimal getOthercharges() {
+        return othercharges;
+    }
+
+    public void setOthercharges(BigDecimal othercharges) {
+        this.othercharges = othercharges;
+    }
+
+    public String getSalesremark() {
+        return salesremark;
+    }
+
+    public void setSalesremark(String salesremark) {
+        this.salesremark = salesremark;
+    }
+
+    public String getTestremark() {
+        return testremark;
+    }
+
+    public void setTestremark(String testremark) {
+        this.testremark = testremark;
+    }
+
+    public String getProductremark() {
+        return productremark;
+    }
+
+    public void setProductremark(String productremark) {
+        this.productremark = productremark;
+    }
+
+    public String getPackremark() {
+        return packremark;
+    }
+
+    public void setPackremark(String packremark) {
+        this.packremark = packremark;
     }
 
     @Override
@@ -124,6 +487,20 @@ public class SalesOrder extends BaseEntityWithOperate {
     @Override
     public String toString() {
         return "com.hhsc.entity.SalesOrder[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the itemspec
+     */
+    public String getItemspec() {
+        return itemspec;
+    }
+
+    /**
+     * @param itemspec the itemspec to set
+     */
+    public void setItemspec(String itemspec) {
+        this.itemspec = itemspec;
     }
 
 }

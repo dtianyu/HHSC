@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -55,6 +57,9 @@ public class SystemUser extends BaseEntityWithOperate {
     @Size(min = 1, max = 32)
     @Column(name = "password")
     private String password;
+    @JoinColumn(name = "deptid", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    protected Department dept;
     @Column(name = "superuser")
     private Boolean superuser;
     @Column(name = "failure")
@@ -178,6 +183,20 @@ public class SystemUser extends BaseEntityWithOperate {
     @Override
     public String toString() {
         return "com.hhsc.entity.SystemUser[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the dept
+     */
+    public Department getDept() {
+        return dept;
+    }
+
+    /**
+     * @param dept the dept to set
+     */
+    public void setDept(Department dept) {
+        this.dept = dept;
     }
 
 }

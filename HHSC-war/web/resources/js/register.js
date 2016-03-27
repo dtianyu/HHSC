@@ -17,13 +17,13 @@ var waiting = function () {
 var waitingTime = {
     wait: 30,
     waiting: function (btn) {
-        _this = this;
+        var _this = this;
         if (_this.wait < 0) {
             $(btn).removeAttr("disabled");
             $(btn).find('span').text('获取验证码');
             _this.wait = 30;
         } else {
-            var _this = this;
+            _this = this;
             $(btn).attr("disabled", true);
             $(btn).find('span').text('等待' + _this.wait + '秒');
             _this.wait--;

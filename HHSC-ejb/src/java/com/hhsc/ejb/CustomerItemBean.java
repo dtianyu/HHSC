@@ -36,4 +36,15 @@ public class CustomerItemBean extends SuperBean<CustomerItem> {
         return query.getResultList();
     }
 
+    public CustomerItem findByItemnoAndCustomerno(String itemno, String customerno) {
+        Query query = getEntityManager().createNamedQuery("CustomerItem.findByItemnoAndCustomerno");
+        query.setParameter("itemno", itemno);
+        query.setParameter("customerno", customerno);
+        try {
+            return (CustomerItem) query.getSingleResult();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
 }

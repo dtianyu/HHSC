@@ -116,7 +116,7 @@ public class CustomerContacter extends BaseDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return (this.seq == other.seq);
+        return (this.pid == other.pid && this.seq == other.seq);
     }
 
     @Override

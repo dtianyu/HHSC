@@ -21,7 +21,7 @@
             <p:panel id="panelEdit" header="物料大类－修改">
                 <p:panelGrid id="plgEdit" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgEdit Wid100">
                     <h:outputText value="大类"/>
-                    <h:outputText value="#{itemCategoryManagedBean.currentEntity.categoryid}" title="Categoryid"/>
+                    <h:outputText value="#{itemCategoryManagedBean.currentEntity.category}" title="Categoryid"/>
                     <p:outputLabel value="名称" for="name" />
                     <p:inputText id="name" value="#{itemCategoryManagedBean.currentEntity.name}" title="Name"
                                  required="true" requiredMessage="名称不能空白."/>

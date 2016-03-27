@@ -5,18 +5,30 @@
  */
 package com.hhsc.lazy;
 
-import com.hhsc.entity.ItemDesign;
+import com.hhsc.entity.ItemMaster;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
+import java.util.List;
+import java.util.Map;
+import org.primefaces.model.SortOrder;
 
 /**
  *
  * @author kevindong
  */
-public class ItemDesignModel extends BaseLazyModel<ItemDesign> {
+public class ItemDesignModel extends BaseLazyModel<ItemMaster> {
 
     public ItemDesignModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
+        
     }
 
+    @Override
+    public List<ItemMaster> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        this.sortFields.put("status", "ASC");       
+        this.sortFields.put("id", "DESC");
+        this.filterFields.put("itemcategory.category", "200");
+        return super.load(first, pageSize, sortField, sortOrder, filters); 
+    }
+      
 }

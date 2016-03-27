@@ -20,54 +20,97 @@
                                      process="@this,plgNew" update="plgNew,tableList"/>
                 </f:facet>
             </p:toolbar>  
-            <p:panel id="panelNew" header="花号维护－新增">
-                <h:panelGrid id="plgNew" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100 Responsive">
-                    <p:outputLabel value="大类" for="categoryid" />
-                    <p:selectOneMenu id="categoryid" value="#{itemDesignManagedBean.newEntity.itemcategory}" title="categoryid" 
-                                     converter="itemCategoryConverter" required="true" requiredMessage="大类不能空白">
-                        <f:selectItem itemLabel="Select One" itemValue=""/>
-                        <f:selectItems value="#{itemDesignManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="花号" for="designid" rendered="#{itemDesignManagedBean.currentSysprg.noauto==false}"/>
-                    <p:inputText id="designid" value="#{itemDesignManagedBean.newEntity.designid}" title="Designid" 
-                                 required="true" requiredMessage="花号不能空白" rendered="#{itemDesignManagedBean.currentSysprg.noauto==false}"/>
-                    <p:outputLabel value="名称" for="name" />
-                    <p:inputText id="name" value="#{itemDesignManagedBean.newEntity.name}" title="Name" 
-                                 required="true" requiredMessage="花号不能空白"/>
-                    <p:outputLabel value="备注" for="remark" />
-                    <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark" />
-                    <p:outputLabel value="图片" for="filename" />                   
-                    <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.newEntity.filename}"/>
-                </h:panelGrid>
+            <p:panel id="panelNew" header="花号登记－新增">
+                <p:panelGrid id="plgNew" styleClass="plgNew Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="类别" for="itemcategory" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="itemcategory" value="#{itemDesignManagedBean.newEntity.itemcategory}" title="categoryid" 
+                                             converter="itemCategoryConverter" required="true" requiredMessage="大类不能空白">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItems value="#{itemDesignManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="花号" for="designid"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="designid" value="#{itemDesignManagedBean.newEntity.itemno}" title="Designid" 
+                                         required="true" requiredMessage="花号不能空白" disabled="#{itemDesignManagedBean.currentSysprg.noauto}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="名称" for="name" /></p:column>
+                        <p:column>
+                            <p:inputText id="name" value="#{itemDesignManagedBean.newEntity.itemdesc}" title="Name" 
+                                         required="true" requiredMessage="花号不能空白"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="单位" for="unit" /></p:column>
+                        <p:column>
+                            <p:inputText id="unit" value="#{itemDesignManagedBean.newEntity.unit}" title="unit" 
+                                         required="true" requiredMessage="单位不能空白"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec" />
+                        </p:column>
+                        <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                        <p:column>
+                            <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="图片" for="filename" /></p:column>         
+                        <p:column styleClass="Wid30">            
+                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.newEntity.img1}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"></p:column>
+                        <p:column styleClass="Wid30">
+
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
             <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{itemDesignManagedBean.createDetail()}" icon="ui-icon-plus" 
                                      oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
-                                     update=":formNew:plgEditDetail" process="@this" />
+                                     process="@this" update=":formNew:plgEditDetail"/>
                     <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{itemDesignManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                      oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                     update="tableList,plgEditDetail" process="@this" />  
+                                     process="@this" update="tableList,plgEditDetail"/>  
                 </f:facet>
                 <f:facet name="right">                        
                     <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{itemDesignManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                      onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                     update="tableList,plgEditDetail" process="@this,plgEditDetail"/>                                
+                                     process="@this,plgEditDetail" update="tableList,plgEditDetail"/>                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelDetail">
-                <p:panelGrid id="plgEditDetail" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100">
-                    <p:column><p:outputLabel value="客户" for="customerno" /></p:column>
-                    <p:column>
-                        <p:inputText id="customerno" value="#{itemDesignManagedBean.currentDetail.customerno}" title="customerno" 
-                                     required="true" requiredMessage="客户不能为空"  />
-                        
-                    </p:column>
-                    <p:column><p:outputLabel value="客户花号" for="customeritemno" /></p:column>
-                    <p:column>
-                        <p:inputText id="customeritemno" value="#{itemDesignManagedBean.currentDetail.customeritemno}" title="qty" 
-                                     required="true" requiredMessage="客户花号不能为空"/>
-                    </p:column>                          
+                <p:panelGrid id="plgEditDetail" styleClass="plgNew Wid100">
+                    <p:row>
+                        <p:column><p:outputLabel value="客户" for="customerno" /></p:column>
+                        <p:column>
+                            <p:inputText id="customerno" value="#{itemDesignManagedBean.currentDetail.customer.customer}" title="customerno"  styleClass="inputWithButton"
+                                         required="true" requiredMessage="客户不能为空" disabled="true"/>
+                            <p:commandButton id="btnSelect" actionListener="#{itemDesignManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenDetailEdit}" 
+                                        update="customerno" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="客户花号" for="customeritemno" /></p:column>
+                        <p:column>
+                            <p:inputText id="customeritemno" value="#{itemDesignManagedBean.currentDetail.customeritemno}" title="customeritemno" 
+                                         required="true" requiredMessage="客户花号不能为空"/>
+                        </p:column>  
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="花号说明" for="customeritemdesc" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="customeritemdesc" value="#{itemDesignManagedBean.currentDetail.customeritemdesc}" title="customeritemdesc" />
+                        </p:column> 
+                    </p:row>
                 </p:panelGrid>
                 <p:dataTable id="tableList" value="#{itemDesignManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                              selectionMode="single" selection="#{itemDesignManagedBean.currentDetail}" rowKey="#{item.seq}" >

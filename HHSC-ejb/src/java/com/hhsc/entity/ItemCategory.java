@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemCategory.getRowCount", query = "SELECT COUNT(i) FROM ItemCategory i"),
     @NamedQuery(name = "ItemCategory.findAll", query = "SELECT i FROM ItemCategory i ORDER BY i.status,i.id DESC "),
     @NamedQuery(name = "ItemCategory.findById", query = "SELECT i FROM ItemCategory i WHERE i.id = :id"),
+    @NamedQuery(name = "ItemCategory.findByCategory", query = "SELECT i FROM ItemCategory i WHERE i.category = :category"),
     @NamedQuery(name = "ItemCategory.findByName", query = "SELECT i FROM ItemCategory i WHERE i.name = :name"),
     @NamedQuery(name = "ItemCategory.findByStatus", query = "SELECT i FROM ItemCategory i WHERE i.status = :status")})
 public class ItemCategory extends BaseEntityWithOperate {
@@ -34,8 +35,8 @@ public class ItemCategory extends BaseEntityWithOperate {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "categoryid")
-    protected String categoryid;
+    @Column(name = "category")
+    protected String category;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -94,7 +95,7 @@ public class ItemCategory extends BaseEntityWithOperate {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        if (!this.categoryid.equals(other.categoryid)) {
+        if (!this.category.equals(other.category)) {
             return false;
         }
         return true;
@@ -106,17 +107,17 @@ public class ItemCategory extends BaseEntityWithOperate {
     }
 
     /**
-     * @return the categoryid
+     * @return the category
      */
-    public String getCategoryid() {
-        return categoryid;
+    public String getCategory() {
+        return category;
     }
 
     /**
-     * @param categoryid the categoryid to set
+     * @param category the category to set
      */
-    public void setCategoryid(String categoryid) {
-        this.categoryid = categoryid;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getProptype() {

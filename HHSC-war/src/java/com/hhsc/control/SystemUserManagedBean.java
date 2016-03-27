@@ -5,14 +5,17 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.ejb.DepartmentBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.GraphicCode;
 import com.hhsc.ejb.SystemUserBean;
+import com.hhsc.entity.Department;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SystemUserModel;
 import com.hhsc.web.SuperSingleBean;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -33,6 +36,9 @@ import org.primefaces.model.StreamedContent;
 public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
 
     @EJB
+    private DepartmentBean departmentBean;
+
+    @EJB
     private SystemUserBean systemUserBean;
     private GraphicCode graphicCode;
     private String mobile;
@@ -45,6 +51,8 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
     private StreamedContent graphicContent;
     private String graphicString;
     private int count;//验证码发送次数
+
+    protected List<Department> deptList;
 
     public SystemUserManagedBean() {
         super(SystemUser.class);
@@ -86,17 +94,15 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
 
     @Override
     protected boolean doBeforeUpdate() throws Exception {
-        if(currentEntity!=null &&  this.pwd!=null && !"".equals(this.pwd)){
+        if (currentEntity != null && this.pwd != null && !"".equals(this.pwd)) {
             try {
                 currentEntity.setPassword(BaseLib.securityMD5(pwd));
             } catch (UnsupportedEncodingException ex) {
                 throw ex;
             }
         }
-        return super.doBeforeUpdate(); 
+        return super.doBeforeUpdate();
     }
-    
-    
 
     @Override
     public String edit(String path) {
@@ -111,6 +117,7 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
     public void init() {
         setSuperEJB(systemUserBean);
         setModel(new SystemUserModel(systemUserBean));
+        deptList = departmentBean.findAll();
         try {
             graphicCode = new GraphicCode();
             graphicCode.build();
@@ -242,6 +249,20 @@ public class SystemUserManagedBean extends SuperSingleBean<SystemUser> {
      */
     public String getGraphicString() {
         return graphicString;
+    }
+
+    /**
+     * @return the deptList
+     */
+    public List<Department> getDeptList() {
+        return deptList;
+    }
+
+    /**
+     * @param deptList the deptList to set
+     */
+    public void setDeptList(List<Department> deptList) {
+        this.deptList = deptList;
     }
 
 }

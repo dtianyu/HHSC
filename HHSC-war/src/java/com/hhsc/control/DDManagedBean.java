@@ -5,13 +5,13 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.rpt.FactoryOrderBIRT;
+import com.hhsc.rpt.FactoryOrderReport;
 import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
-import com.hhsc.entity.ItemDesign;
+import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.DDModel;
 import com.hhsc.web.SuperMultiBean;
@@ -139,18 +139,18 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     public void handleDialogReturnWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
-            ItemDesign entity = (ItemDesign) event.getObject();
-            this.currentEntity.setDesignid(entity.getDesignid());
-            this.currentEntity.setOrderimg(entity.getFilename());
+            ItemMaster entity = (ItemMaster) event.getObject();
+            this.currentEntity.setDesignid(entity.getItemno());
+            this.currentEntity.setOrderimg(entity.getImg1());
         }
     }
 
     @Override
     public void handleDialogReturnWhenNew(SelectEvent event) {
         if (event.getObject() != null) {
-            ItemDesign entity = (ItemDesign) event.getObject();
-            this.newEntity.setDesignid(entity.getDesignid());
-            this.newEntity.setOrderimg(entity.getFilename());
+            ItemMaster entity = (ItemMaster) event.getObject();
+            this.newEntity.setDesignid(entity.getItemno());
+            this.newEntity.setOrderimg(entity.getImg1());
         }
     }
 
@@ -230,7 +230,7 @@ public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDeta
     @Override
     protected void reportInitAndConfig() {
         super.reportInitAndConfig();
-        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, FactoryOrderBIRT.class.getClassLoader());
+        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, FactoryOrderReport.class.getClassLoader());
     }
 
     @Override

@@ -143,8 +143,14 @@ public class Customer extends BaseEntityWithOperate {
     @Size(min = 1, max = 10)
     @Column(name = "tradetype")
     private String tradetype;
+    @Size(max = 45)
+    @Column(name = "tradename")
+    protected String tradename;
     @Column(name = "paymentid")
     private Integer paymentid;
+    @Size(max = 45)
+    @Column(name = "payment")
+    protected String payment;
     @Size(max = 10)
     @Column(name = "shipadd")
     private String shipadd;
@@ -489,6 +495,34 @@ public class Customer extends BaseEntityWithOperate {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    /**
+     * @return the tradename
+     */
+    public String getTradename() {
+        return tradename;
+    }
+
+    /**
+     * @param tradename the tradename to set
+     */
+    public void setTradename(String tradename) {
+        this.tradename = tradename;
+    }
+
+    /**
+     * @return the payment
+     */
+    public String getPayment() {
+        return payment;
+    }
+
+    /**
+     * @param payment the payment to set
+     */
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
 }

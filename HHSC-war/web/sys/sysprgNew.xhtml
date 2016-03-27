@@ -15,7 +15,7 @@
                     <p:button id="btnReturn" value="返回" outcome="sysprg" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" value="保存" action="#{sysprgManagedBean.persist('sysprg')}" icon="ui-icon-disk"  update="plgNew"/>
+                    <p:commandButton id="btnPersist" value="保存" action="#{sysprgManagedBean.persist()}" icon="ui-icon-disk"  update="plgNew"/>
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelNew" header="系统功能－新增">
@@ -31,11 +31,11 @@
                     <p:outputLabel value="修改" for="doedit" />
                     <p:inputSwitch id="doedit" value="#{sysprgManagedBean.newEntity.doedit}" required="true" />
                     <p:outputLabel value="模块" for="moduleid" />
-                    <p:selectOneMenu id="moduleid" value="#{sysprgManagedBean.newEntity.moduleid}" title="Moduleid" 
-                                     required="true" requiredMessage="所属模块不可空白">
+                    <p:selectOneMenu id="moduleid" value="#{sysprgManagedBean.newEntity.sysmodule}" title="Moduleid" 
+                                     required="true" requiredMessage="所属模块不可空白" converter="sysmoduleConverter">
                         <!-- TODO: update below reference to list of available items-->
                         <f:selectItem itemLabel="Select One" itemValue="" />  
-                        <f:selectItems value="#{sysprgManagedBean.sysmoduleList}" var="m" itemLabel="#{m.name}" itemValue="#{m.id}"/>
+                        <f:selectItems value="#{sysprgManagedBean.sysmoduleList}" var="m" itemLabel="#{m.name}" itemValue="#{m}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="删除" for="dodel" />
                     <p:inputSwitch id="dodel" value="#{sysprgManagedBean.newEntity.dodel}" required="true"/>
@@ -61,13 +61,24 @@
                     <p:outputLabel value="编号格式" for="noformat" 
                                    rendered="#{sysprgManagedBean.newEntity.noauto}" />
                     <p:inputText id="noformat" value="#{sysprgManagedBean.newEntity.noformat}" 
-                                 rendered="#{sysprgManagedBean.newEntity.noauto}" required="true" requiredMessage="编号格式不可空白"/>
+                                 rendered="#{sysprgManagedBean.newEntity.noauto}"/>
                     <p:outputLabel value="打印" for="doprt" />
                     <p:inputSwitch id="doprt" value="#{sysprgManagedBean.newEntity.doprt}" required="true"/>
                     <p:outputLabel value="流号长度" for="noseqlen" 
                                    rendered="#{sysprgManagedBean.newEntity.noauto}" />
                     <p:spinner id="noseqlen" value="#{sysprgManagedBean.newEntity.noseqlen}" 
                                rendered="#{sysprgManagedBean.newEntity.noauto}" required="true" requiredMessage="流号长度不可空白"/> 
+                    <p:outputLabel value="报表文件" for="rptdesign" />
+                    <p:inputText id="rptdesign" value="#{sysprgManagedBean.newEntity.rptdesign}" title="rptdesign"/> 
+                    <p:outputLabel value="报表JNDI" for="rptjndi" />
+                    <p:inputText id="rptjndi" value="#{sysprgManagedBean.newEntity.rptjndi}" title="rptjndi"/>
+                    <p:outputLabel value="报表格式" for="rptformat" />
+                    <p:selectOneMenu id="rptformat" value="#{sysprgManagedBean.newEntity.rptformat}" title="rptformat">
+                        <f:selectItem itemLabel="PDF" itemValue="pdf" />  
+                        <f:selectItem itemLabel="HTML" itemValue="html" />  
+                        <f:selectItem itemLabel="WORD" itemValue="word" />  
+                        <f:selectItem itemLabel="EXCEL" itemValue="xls" />
+                    </p:selectOneMenu> 
                 </p:panelGrid>
             </p:panel>
         </h:form>

@@ -68,6 +68,32 @@
                 <p:tab title="基本信息">
                     <p:panelGrid id="plgView" styleClass="plgView Wid100">
                         <p:row>
+                            <p:column styleClass="Wid20"><h:outputText value="税别"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <p:selectOneMenu id="taxtype" value="#{customerManagedBean.currentEntity.taxtype}" title="Taxtype"  disabled="true"
+                                                 required="true" requiredMessage="税别不可空白">
+                                    <f:selectItem itemLabel="内含" itemValue="0" />  
+                                    <f:selectItem itemLabel="外加" itemValue="1" />  
+                                    <f:selectItem itemLabel="零税" itemValue="2" />
+                                    <f:selectItem itemLabel="免税" itemValue="4" /> 
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column styleClass="Wid20"><h:outputText value="税率"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <h:outputText id="taxrate" value="#{customerManagedBean.currentEntity.taxrate}" title="taxrate" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="交易币别"/></p:column>
+                            <p:column>
+                                <h:outputText id="currency" value="#{customerManagedBean.currentEntity.currency}" title="currency" />
+                            </p:column>
+                            <p:column><h:outputText value="收款条件"/></p:column>
+                            <p:column>
+                                <h:outputText id="payment" value="#{salesOrderManagedBean.currentEntity.payment}" title="Payment" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
                             <p:column styleClass="Wid20"><h:outputText value="公司规模"/></p:column>
                             <p:column colspan="3">
                                 <h:outputText id="description" value="#{customerManagedBean.currentEntity.description}" title="Description" />

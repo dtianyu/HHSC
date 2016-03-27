@@ -19,31 +19,75 @@
                                      rendered="#{itemDesignManagedBean.doCfm}" update="toolbar"/>
                 </f:facet>
             </p:toolbar>  
-            <p:panel id="panelView" header="花号维护－查看">
-                <h:panelGrid id="plgView" columns="2" columnClasses="Wid20,Wid80" styleClass="plgView Wid100">
-                    <h:outputText value="花号"/>
-                    <h:outputText id="designid" value="#{itemDesignManagedBean.currentEntity.designid}" title="Designid" />
-                    <h:outputText value="备注"/>
-                    <h:outputText id="remark" value="#{itemDesignManagedBean.currentEntity.remark}" title="Remark" /> 
-                    <h:outputText value="图片"/>                   
-                    <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.currentEntity.filename}"/>
-                </h:panelGrid>
+            <p:panel id="panelView" header="花号登记－查看">
+                <p:panelGrid id="plgView" styleClass="plgView Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="类别"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText value="#{itemDesignManagedBean.currentEntity.itemcategory.name}" title="categoryid" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="花号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText value="#{itemDesignManagedBean.currentEntity.itemno}" title="Designid" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="名称"/></p:column>
+                        <p:column>
+                            <h:outputText id="name" value="#{itemDesignManagedBean.currentEntity.itemdesc}" title="Name" />
+                        </p:column>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{itemDesignManagedBean.currentEntity.unit}" title="unit" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="规格" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{itemDesignManagedBean.currentEntity.itemspec}" title="itemspec" />
+                        </p:column>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column>
+                            <h:outputText id="remark" value="#{itemDesignManagedBean.currentEntity.remark}" title="Remark" /> 
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="图片"/></p:column>                   
+                        <p:column styleClass="Wid30">
+                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.currentEntity.img1}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"></p:column>
+                        <p:column styleClass="Wid30">
+
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
             <p:dataTable id="tableList" value="#{itemDesignManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                          selectionMode="single" selection="#{itemDesignManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                <p:ajax event="rowSelect"  update="" oncomplete="" />
-                <p:ajax event="rowUnselect"  update="" oncomplete="" />
-                <p:column>
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        <h:outputText value="客户"/>
+                        <h:outputText value="客户编号"/>
                     </f:facet>
-                    <h:outputText value="#{item.customerno}"/>
+                    <h:outputText value="#{item.customer.customerno}"/>
                 </p:column>
-                <p:column>
+                <p:column styleClass="Wid30">
+                    <f:facet name="header">
+                        <h:outputText value="客户名称"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customer.customer}"/>
+                </p:column>
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="客户花号"/>
                     </f:facet>
                     <h:outputText value="#{item.customeritemno}"/>
+                </p:column>
+                <p:column styleClass="Wid30">
+                    <f:facet name="header">
+                        <h:outputText value="花号说明"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customeritemdesc}"/>
                 </p:column>
             </p:dataTable>
         </h:form>

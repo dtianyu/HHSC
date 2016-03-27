@@ -9,6 +9,7 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.ItemCategory;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +21,16 @@ public class ItemCategoryBean extends SuperBean<ItemCategory> {
 
     public ItemCategoryBean() {
         super(ItemCategory.class);
+    }
+
+    public ItemCategory findByCategory(String value) {
+        Query query = this.getEntityManager().createNamedQuery("ItemCategory.findByCategory");
+        query.setParameter("category", value);
+        try {
+            return (ItemCategory) query.getSingleResult();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
 }

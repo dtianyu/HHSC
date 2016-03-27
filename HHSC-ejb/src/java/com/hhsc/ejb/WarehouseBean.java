@@ -5,8 +5,8 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.Warehouse;
-import com.lightshell.comm.SuperEJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -18,18 +18,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class WarehouseBean extends SuperEJB<Warehouse> {
-
-    @PersistenceContext(unitName = "HHSC-ejbPU")
-    private EntityManager em;
+public class WarehouseBean extends SuperBean<Warehouse> {
 
     public WarehouseBean() {
         super(Warehouse.class);
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return em;
     }
 
 }

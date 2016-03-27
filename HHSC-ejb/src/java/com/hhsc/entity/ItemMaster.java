@@ -34,12 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemMaster.findAll", query = "SELECT i FROM ItemMaster i"),
     @NamedQuery(name = "ItemMaster.findById", query = "SELECT i FROM ItemMaster i WHERE i.id = :id"),
     @NamedQuery(name = "ItemMaster.findByItemno", query = "SELECT i FROM ItemMaster i WHERE i.itemno = :itemno"),
-    @NamedQuery(name = "ItemMaster.findByCategoryId", query = "SELECT i FROM ItemMaster i WHERE i.categoryid.id = :categoryid")})
+    @NamedQuery(name = "ItemMaster.findByCategoryId", query = "SELECT i FROM ItemMaster i WHERE i.itemcategory.id = :categoryid")})
 public class ItemMaster extends BaseEntityWithOperate {
 
     @JoinColumn(name = "categoryid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private ItemCategory categoryid;
+    private ItemCategory itemcategory;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -65,6 +65,11 @@ public class ItemMaster extends BaseEntityWithOperate {
     @Size(max = 8)
     @Column(name = "pptype")
     private String pptype;
+    @Size(max = 10)
+    @Column(name = "purkind")
+    protected String purkind;
+    @Column(name = "qcpass")
+    protected boolean qcpass;
     @Size(max = 100)
     @Column(name = "itemmake")
     private String itemmake;
@@ -153,12 +158,12 @@ public class ItemMaster extends BaseEntityWithOperate {
         this.purmin = BigDecimal.ZERO;
     }
 
-    public ItemCategory getCategoryid() {
-        return categoryid;
+    public ItemCategory getItemcategory() {
+        return itemcategory;
     }
 
-    public void setCategoryid(ItemCategory categoryid) {
-        this.categoryid = categoryid;
+    public void setItemcategory(ItemCategory itemcategory) {
+        this.itemcategory = itemcategory;
     }
 
     public String getItemno() {
@@ -466,6 +471,34 @@ public class ItemMaster extends BaseEntityWithOperate {
     @Override
     public String toString() {
         return "com.hhsc.entity.ItemMaster[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the purkind
+     */
+    public String getPurkind() {
+        return purkind;
+    }
+
+    /**
+     * @param purkind the purkind to set
+     */
+    public void setPurkind(String purkind) {
+        this.purkind = purkind;
+    }
+
+    /**
+     * @return the qcpass
+     */
+    public boolean isQcpass() {
+        return qcpass;
+    }
+
+    /**
+     * @param qcpass the qcpass to set
+     */
+    public void setQcpass(boolean qcpass) {
+        this.qcpass = qcpass;
     }
 
 }

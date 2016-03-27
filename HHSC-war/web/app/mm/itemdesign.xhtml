@@ -10,6 +10,17 @@
 
         <h:form id="formList">
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="花号" for="designid" />
+                    <p:inputText id="designid" value="#{itemDesignManagedBean.queryFormId}" title="花号" />
+                    <h:outputLabel value="名称" for="name" />
+                    <p:inputText id="name" value="#{itemDesignManagedBean.queryName}" title="名称" />
+                </p:panelGrid>
+            </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{itemDesignManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
@@ -26,6 +37,10 @@
                                      rendered="#{itemDesignManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{itemDesignManagedBean.create('itemdesignNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{itemDesignManagedBean.doAdd}"/> 
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{itemDesignManagedBean.reset()}"  icon="ui-icon-refresh"  
+                                     update=":formList"/> 
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{itemDesignManagedBean.query()}"  icon="ui-icon-search"  
+                                     update=":formList"/>
                 </f:facet>
             </p:toolbar>               
             <p:dataTable value="#{itemDesignManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
@@ -41,13 +56,13 @@
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
-                    <h:outputText value="#{item.designid}"/>
+                    <h:outputText value="#{item.itemno}"/>
                 </p:column>
                 <p:column styleClass="Ｗid30">
                     <f:facet name="header">
                         <h:outputText value="名称"/>
                     </f:facet>
-                    <h:outputText value="#{item.name}"/>
+                    <h:outputText value="#{item.itemdesc}"/>
                 </p:column>
                 <p:column styleClass="Ｗid20">
                     <f:facet name="header">

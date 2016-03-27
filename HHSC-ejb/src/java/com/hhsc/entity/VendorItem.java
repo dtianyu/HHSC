@@ -6,13 +6,11 @@
 package com.hhsc.entity;
 
 import com.lightshell.comm.BaseDetailEntity;
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,21 +26,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "vendoritem")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "VendorItem.getRowCount", query = "SELECT COUNT(v) FROM VendorItem v"),
     @NamedQuery(name = "VendorItem.findAll", query = "SELECT v FROM VendorItem v"),
     @NamedQuery(name = "VendorItem.findById", query = "SELECT v FROM VendorItem v WHERE v.id = :id"),
     @NamedQuery(name = "VendorItem.findByPId", query = "SELECT v FROM VendorItem v WHERE v.pid = :pid"),
-    @NamedQuery(name = "VendorItem.findByVendorno", query = "SELECT v FROM VendorItem v WHERE v.vendorno = :vendorno"),
-    @NamedQuery(name = "VendorItem.findBySeq", query = "SELECT v FROM VendorItem v WHERE v.seq = :seq"),
+    @NamedQuery(name = "VendorItem.findByVendorno", query = "SELECT v FROM VendorItem v WHERE v.vendor.vendorno = :vendorno"),
     @NamedQuery(name = "VendorItem.findByItemId", query = "SELECT v FROM VendorItem v WHERE v.itemid = :itemid"),
     @NamedQuery(name = "VendorItem.findByItemno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno"),
     @NamedQuery(name = "VendorItem.findByVendoritemno", query = "SELECT v FROM VendorItem v WHERE v.vendoritemno = :vendoritemno")})
 public class VendorItem extends BaseDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "vendorno")
-    private String vendorno;
+    @JoinColumn(name = "vendorno",referencedColumnName="vendorno")
+    @ManyToOne(optional=true)
+    private Vendor vendor;
     @Basic(optional = false)
     @NotNull
     @Column(name = "itemid")
@@ -67,12 +63,12 @@ public class VendorItem extends BaseDetailEntity {
     public VendorItem() {
     }
 
-    public String getVendorno() {
-        return vendorno;
+    public Vendor getVendor() {
+        return vendor;
     }
 
-    public void setVendorno(String vendorno) {
-        this.vendorno = vendorno;
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
     }
 
     public int getItemid() {
@@ -132,7 +128,10 @@ public class VendorItem extends BaseDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return true;
+        if (!this.vendor.equals(other.vendor)) {
+            return false;
+        }
+        return (this.seq == other.seq);
     }
 
     @Override

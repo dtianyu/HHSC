@@ -20,9 +20,9 @@
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelView" header="物料大类－查看">
-                <h:panelGrid id="plgView" columns="2" columnClasses="Wid20,Wid80" styleClass="plgView Wid100">
+                <p:panelGrid id="plgView" columns="2" columnClasses="Wid20,Wid80" styleClass="plgView Wid100">
                     <h:outputText value="大类"/>
-                    <h:outputText value="#{itemCategoryManagedBean.currentEntity.categoryid}" title="Categoryid"/>
+                    <h:outputText value="#{itemCategoryManagedBean.currentEntity.category}" title="Categoryid"/>
                     <h:outputText value="名称"/>
                     <h:outputText value="#{itemCategoryManagedBean.currentEntity.name}" title="Name"/>
                     <h:outputText value="属性"/>
@@ -47,7 +47,7 @@
                     <h:outputText value="#{itemCategoryManagedBean.currentEntity.credate}" title="Credate">
                         <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
                     </h:outputText>
-                </h:panelGrid>
+                </p:panelGrid>
             </p:panel>
         </h:form>
 

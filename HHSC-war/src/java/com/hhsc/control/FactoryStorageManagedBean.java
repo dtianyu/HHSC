@@ -50,14 +50,12 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
     @Override
     public void createDetail() {
         super.createDetail();
-        this.newDetail.setSeq(getMaxSeq(this.detailList));
         this.newDetail.setPlanqty(BigDecimal.ZERO);
         this.newDetail.setAllowqty(BigDecimal.ZERO);
         this.newDetail.setQty(BigDecimal.ZERO);
         this.newDetail.setGoodqty(BigDecimal.ZERO);
         this.newDetail.setDefectqty(BigDecimal.ZERO);
         this.newDetail.setBadqty(BigDecimal.ZERO);
-        this.setCurrentDetail(newDetail);
     }
 
     @Override

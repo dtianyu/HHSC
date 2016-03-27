@@ -46,7 +46,7 @@
                         <p:column><p:outputLabel value="客户编号" for="customerno" /></p:column>
                         <p:column>
                             <p:inputText id="customerno" value="#{customerManagedBean.newEntity.customerno}" title="Customerno" 
-                                         required="true" requiredMessage="编号不能为空."/>
+                                         required="true" requiredMessage="编号不能为空." disabled="#{customerManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                         <p:column><p:outputLabel value="客户简称" for="customer" /></p:column>
                         <p:column>
@@ -74,6 +74,33 @@
                 <p:tab title="基本信息">
                     <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
                         <p:row>
+                            <p:column styleClass="Wid20"><p:outputLabel value="税别" for="taxtype" /></p:column>
+                            <p:column styleClass="Wid30">
+                                <p:selectOneMenu id="taxtype" value="#{customerManagedBean.newEntity.taxtype}" title="Taxtype" 
+                                                 required="true" requiredMessage="税别不可空白">
+                                    <f:selectItem itemLabel="内含" itemValue="0" />  
+                                    <f:selectItem itemLabel="外加" itemValue="1" />  
+                                    <f:selectItem itemLabel="零税" itemValue="2" />
+                                    <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column styleClass="Wid20"><p:outputLabel value="税率" for="taxrate"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <p:inputText id="taxrate" value="#{customerManagedBean.newEntity.taxrate}" title="taxrate" 
+                                             required="true" requiredMessage="税率不可空白"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="交易币别" for="currency"/></p:column>
+                            <p:column>
+                                <p:inputText id="currency" value="#{customerManagedBean.newEntity.currency}" title="currency" />
+                            </p:column>
+                            <p:column><p:outputLabel value="收款条件" for="payment" /></p:column>
+                            <p:column>
+                                <p:inputText id="payment" value="#{customerManagedBean.newEntity.payment}" title="Payment" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
                             <p:column><p:outputLabel value="公司规模" for="description"/></p:column>
                             <p:column colspan="3">
                                 <p:inputText id="description" value="#{customerManagedBean.newEntity.description}" title="Description" />
@@ -92,12 +119,12 @@
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column styleClass="Wid20"><p:outputLabel value="公司电话" for="tel" /></p:column>
-                            <p:column styleClass="Wid30">
+                            <p:column><p:outputLabel value="公司电话" for="tel" /></p:column>
+                            <p:column>
                                 <p:inputText id="tel" value="#{customerManagedBean.newEntity.tel}" title="Tel" />
                             </p:column>
-                            <p:column styleClass="Wid20"><p:outputLabel value="公司传真" for="fax" /></p:column>
-                            <p:column styleClass="Wid30">
+                            <p:column><p:outputLabel value="公司传真" for="fax" /></p:column>
+                            <p:column>
                                 <p:inputText id="fax" value="#{customerManagedBean.newEntity.fax}" title="Fax" />
                             </p:column> 
                         </p:row> 

@@ -5,8 +5,8 @@
  */
 package com.hhsc.query;
 
-import com.hhsc.ejb.ItemDesignBean;
-import com.hhsc.entity.ItemDesign;
+import com.hhsc.ejb.ItemMasterBean;
+import com.hhsc.entity.ItemMaster;
 import com.hhsc.lazy.ItemDesignModel;
 import com.hhsc.web.SuperQueryBean;
 import javax.ejb.EJB;
@@ -19,21 +19,21 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "itemDesignQueryBean")
 @ViewScoped
-public class ItemDesignQueryBean extends SuperQueryBean<ItemDesign> {
+public class ItemDesignQueryBean extends SuperQueryBean<ItemMaster> {
 
     @EJB
-    private ItemDesignBean itemDesignBean;
+    private ItemMasterBean itemMasterBean;
 
     protected String designid;
 
     public ItemDesignQueryBean() {
-        super(ItemDesign.class);
+        super(ItemMaster.class);
     }
 
     @Override
     public void init() {
-        setSuperEJB(itemDesignBean);
-        setModel(new ItemDesignModel(itemDesignBean));
+        setSuperEJB(itemMasterBean);
+        setModel(new ItemDesignModel(itemMasterBean));
         super.init();
     }
 
@@ -41,7 +41,7 @@ public class ItemDesignQueryBean extends SuperQueryBean<ItemDesign> {
     public void query() {
         if (this.model != null) {
             if (this.designid != null && !"".equals(this.designid)) {
-                this.model.getFilterFields().put("designid", this.designid);
+                this.model.getFilterFields().put("itemno", this.designid);
             }
         }
     }

@@ -5,6 +5,12 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
+import com.hhsc.entity.SalesOrder;
+import com.hhsc.entity.SalesOrderDetail;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -14,8 +20,37 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class SalesOrderBean {
+public class SalesOrderBean extends SuperBean<SalesOrder> {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB
+    private SalesOrderDetailBean salesOrderDetailBean;
+
+    protected List<SalesOrderDetail> detailList;
+
+    public SalesOrderBean() {
+        super(SalesOrder.class);
+    }
+
+    @Override
+    public void setDetail(Object value) {
+        setDetailList(salesOrderDetailBean.findByPId(value));
+        if (getDetailList() == null) {
+            setDetailList(new ArrayList<>());
+        }
+    }
+
+    /**
+     * @return the detailList
+     */
+    public List<SalesOrderDetail> getDetailList() {
+        return detailList;
+    }
+
+    /**
+     * @param detailList the detailList to set
+     */
+    public void setDetailList(List<SalesOrderDetail> detailList) {
+        this.detailList = detailList;
+    }
+
 }

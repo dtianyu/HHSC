@@ -5,6 +5,7 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.lightshell.comm.SuperEJB;
@@ -22,10 +23,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class FactoryOrderBean extends SuperEJB<FactoryOrder> {
+public class FactoryOrderBean extends SuperBean<FactoryOrder> {
 
-    @PersistenceContext(unitName = "HHSC-ejbPU")
-    private EntityManager em;
     @EJB
     private FactoryOrderDetailBean factoryOrderDetailBean;
 
@@ -33,11 +32,6 @@ public class FactoryOrderBean extends SuperEJB<FactoryOrder> {
 
     public FactoryOrderBean() {
         super(FactoryOrder.class);
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return em;
     }
 
     @Override

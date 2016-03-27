@@ -8,27 +8,28 @@ package com.hhsc.rpt;
 import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
+import com.lightshell.comm.SuperMultiReportBean;
 import java.util.List;
 
 /**
  *
  * @author kevindong
  */
-public class FactoryOrderBIRT extends ConnectEJB<FactoryOrderBean, FactoryOrder> {
+public class FactoryOrderReport extends SuperMultiReportBean<FactoryOrderBean, FactoryOrder, FactoryOrderDetail> {
 
-    public FactoryOrderBIRT() {
+    public FactoryOrderReport() {
 
     }
 
     @Override
-    public FactoryOrder getData(int value) throws Exception {
-        FactoryOrder entity = (FactoryOrder) superEJB.findById(value);
-        return entity;
-    }
-
     public List<FactoryOrderDetail> getDetail(int value) throws Exception {
         superEJB.setDetail((Object) value);
         return superEJB.getDetailList();
+    }
+
+    @Override
+    public FactoryOrder getEntity(int i) throws Exception {
+        return superEJB.findById(i);
     }
 
 }

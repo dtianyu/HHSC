@@ -31,38 +31,6 @@ li{
 .Wid90 input.inputWithButton,.Wid100 input.inputWithButton{
     width: 80%;
 }
-/*
-#top{
-    margin-bottom: 10px;
-}
-
-#topInfo{
-
-}
-
-#topNav{
-}
-
-#container{
-    min-height: 760px;
-    padding-bottom: 70px;
-}
-
-#leftSlide{
-    margin-right: 10px;
-}
-
-#rightContent{
-
-}
-
-#bottom{
-    margin: auto;
-    height: 55px; 
-    background-color: #f5f5f5;   
-    border-top:  #1995dc solid 5px;
-    text-align: center;
-}*/
 
 .topToolbar{
     margin-bottom: 10px;
@@ -94,6 +62,7 @@ li{
 
 .plgNew .Wid30 img,.plgEdit .Wid30 img,.plgView .Wid30 img,
 .plgNew .Wid40 img,.plgEdit .Wid40 img,.plgView .Wid40 img,
+.plgNew .Wid50 img,.plgEdit .Wid50 img,.plgView .Wid50 img,
 .ui-datagrid-column .plgView img{
     max-width: 270px;
     height: 180px;

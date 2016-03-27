@@ -50,6 +50,18 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
     }
 
     @Override
+    protected boolean doBeforePersist() throws Exception {
+        if (this.newEntity != null && this.getCurrentSysprg() != null) {
+            if (this.getCurrentSysprg().getNoauto()) {
+                String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "customerno");
+                this.newEntity.setCustomerno(formid);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void init() {
         this.superEJB = customerBean;
         this.detailEJB = customerContacterBean;
