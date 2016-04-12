@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="itemrequest" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{purchaseDraftManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchaseDraftManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{purchaseDraftManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchaseDraftManagedBean.hasNext}"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{purchaseDraftManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{purchaseDraftManagedBean.doCfm}" process="@this" update="formView"/>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseDraftManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchaseDraftManagedBean.doPrt}"/>                                
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="采购草稿维护">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100"> 
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="请购单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{purchaseDraftManagedBean.currentEntity.pformid}-#{purchaseDraftManagedBean.currentEntity.seq}" title="Formid" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="请购日期" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{purchaseDraftManagedBean.currentEntity.purchaserequest.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="请购部门" /></p:column>
+                        <p:column>
+                            <h:outputText id="deptid" value="#{purchaseDraftManagedBean.currentEntity.purchaserequest.dept.dept}" />
+                        </p:column>
+                        <p:column><h:outputText value="请购人员" /></p:column>
+                        <p:column>
+                            <h:outputText id="userid" value="#{purchaseDraftManagedBean.currentEntity.purchaserequest.systemuser.username}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="花号" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemdesign" value="#{purchaseDraftManagedBean.currentEntity.designno}"/>
+                        </p:column>
+                        <p:column><h:outputText value="请购类别" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="purtype" value="#{purchaseDraftManagedBean.currentEntity.purtype}" title="purtype" 
+                                             required="true" requiredMessage="请购类别不能为空" disabled="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="成品" itemValue="100" />
+                                <f:selectItem itemLabel="印花" itemValue="200" />
+                                <f:selectItem itemLabel="白坯" itemValue="300" />
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="成品规格"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="designspec" value="#{purchaseDraftManagedBean.currentEntity.designspec}" title="designspec" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="请购明细">
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="品号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemmaster" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemno}"  />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="品名"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemdesc}" title="itemdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="客户"/></p:column>
+                                <p:column>
+                                    <h:outputText id="customer" value="#{purchaseDraftManagedBean.currentEntity.customer.customer}" title="customer"/>
+                                </p:column>
+                                <p:column><h:outputText value="客户花号"/></p:column>
+                                <p:column>
+                                    <h:outputText id="customeritemno" value="#{purchaseDraftManagedBean.currentEntity.customeritemno}" title="customeritemno"  />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="华卉色号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="colorno" value="#{purchaseDraftManagedBean.currentEntity.colorno}" title="Colorno" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="customercolorno" value="#{purchaseDraftManagedBean.currentEntity.customercolorno}" title="Customercolorno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="币别" /></p:column>
+                                <p:column>
+                                    <h:outputText id="currency" value="#{purchaseDraftManagedBean.currentEntity.currency}" title="Currency" />
+                                </p:column>
+                                <p:column><h:outputText value="汇率"/></p:column>
+                                <p:column>
+                                    <h:outputText id="exchange" value="#{purchaseDraftManagedBean.currentEntity.exchange}" title="Exchange" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="税别"/></p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="taxtype" value="#{purchaseDraftManagedBean.currentEntity.taxtype}" title="Taxtype" 
+                                                     required="true" requiredMessage="税别不可空白" disabled="true">
+                                        <f:selectItem itemLabel="内含" itemValue="0" />  
+                                        <f:selectItem itemLabel="外加" itemValue="1" />  
+                                        <f:selectItem itemLabel="零税" itemValue="2" />
+                                        <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="税率"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="taxrate" value="#{purchaseDraftManagedBean.currentEntity.taxrate}" title="taxrate" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="采购数量"/></p:column>
+                                <p:column>
+                                    <h:outputText id="purqty" value="#{purchaseDraftManagedBean.currentEntity.purqty}" title="Qty" />
+                                </p:column>
+                                <p:column><h:outputText value="请购数量"/></p:column>
+                                <p:column>
+                                    <h:outputText id="qty" value="#{purchaseDraftManagedBean.currentEntity.qty}" title="Qty" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="单价"/></p:column>
+                                <p:column>
+                                    <h:outputText id="price" value="#{purchaseDraftManagedBean.currentEntity.price}" title="Price" />
+                                </p:column>
+                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column>
+                                    <h:outputText id="unit" value="#{purchaseDraftManagedBean.currentEntity.unit}" title="Unit" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="面料交期" /></p:column>
+                                <p:column>
+                                    <h:outputText id="requestdate" value="#{purchaseDraftManagedBean.currentEntity.requestdate}" title="Requestdate">
+                                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column><h:outputText value="订单交期" /></p:column>
+                                <p:column>
+                                    <h:outputText id="deliverydate" value="#{purchaseDraftManagedBean.currentEntity.deliverydate}" title="Deliverydate">
+                                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="品号资料">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgDetail Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="品号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemmaster2" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemno}"  />
+                                </p:column>
+                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                                    <p:graphicImage value="/resources/upload/img/#{purchaseDraftManagedBean.currentEntity.itemmaster.img1}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="品名"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc2" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemdesc}" title="itemdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="成分"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemmake" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemmake}" title="itemmake" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="纱线描述"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemyarncount" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemyarncount}" title="itemyarncount" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="克重"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemweight" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemweight}" title="itemweight" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="门幅"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemwidth" value="#{purchaseDraftManagedBean.currentEntity.itemmaster.itemwidth}" title="itemwidth" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

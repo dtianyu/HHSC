@@ -69,6 +69,18 @@
 
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="登记人" for="creator" /></p:column>
+                        <p:column>
+                            <h:outputText id="creator" value="#{itemDesignManagedBean.currentEntity.creator}" title="Creator" />
+                        </p:column>
+                        <p:column><p:outputLabel value="登记日期" for="credate" /></p:column>
+                        <p:column>
+                            <h:outputText id="credate" value="#{itemDesignManagedBean.currentEntity.credate}" title="Credate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="detailToolbar" styleClass="detailToolbar">

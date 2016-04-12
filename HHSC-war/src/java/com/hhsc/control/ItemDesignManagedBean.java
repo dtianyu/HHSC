@@ -41,6 +41,8 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
     private CustomerItemBean customerItemBean;
 
     protected List<ItemCategory> itemCategoryList;
+    protected String queryItemspec;
+    protected String queryItemmake;
 
     public ItemDesignManagedBean() {
         super(ItemMaster.class, CustomerItem.class);
@@ -68,6 +70,7 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
     public void createDetail() {
         super.createDetail();
         newDetail.setCustomeritemno("");
+        setCurrentDetail(newDetail);
     }
 
     @Override
@@ -226,6 +229,12 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
             if (queryName != null && !"".equals(queryName)) {
                 this.model.getFilterFields().put("itemdesc", queryName);
             }
+            if (queryItemmake != null && !"".equals(queryItemmake)) {
+                this.model.getFilterFields().put("itemmake", queryItemmake);
+            }
+            if (queryItemspec != null && !"".equals(queryItemspec)) {
+                this.model.getFilterFields().put("itemspec", queryItemspec);
+            }
         }
     }
 
@@ -283,6 +292,34 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
      */
     public List<ItemCategory> getItemCategoryList() {
         return itemCategoryList;
+    }
+
+    /**
+     * @return the queryItemspec
+     */
+    public String getQueryItemspec() {
+        return queryItemspec;
+    }
+
+    /**
+     * @param queryItemspec the queryItemspec to set
+     */
+    public void setQueryItemspec(String queryItemspec) {
+        this.queryItemspec = queryItemspec;
+    }
+
+    /**
+     * @return the queryItemmake
+     */
+    public String getQueryItemmake() {
+        return queryItemmake;
+    }
+
+    /**
+     * @param queryItemmake the queryItemmake to set
+     */
+    public void setQueryItemmake(String queryItemmake) {
+        this.queryItemmake = queryItemmake;
     }
 
 }

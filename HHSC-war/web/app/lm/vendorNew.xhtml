@@ -17,11 +17,11 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{vendorManagedBean.persist()}" icon="ui-icon-disk" 
-                                     process="@this,plgNew,:formNew:tabView:plgNew" update="plgNew,:formNew:tabView:plgNew"/>                                
+                                     process="@this,plgHead,:formNew:tabView:plgBase" update="plgHead,:formNew:tabView:plgBase"/>                                
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelNew" header="厂商登记－新增">
-                <p:panelGrid id="plgNew" styleClass="plgNew Wid100">  
+            <p:panel id="panelHead" header="厂商登记－新增">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">  
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="厂商编号" for="vendorno" /></p:column>
                         <p:column styleClass="Wid30">
@@ -52,7 +52,7 @@
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab title="基本信息">
-                    <p:panelGrid id="plgNew" styleClass="plgNew Wid100">
+                    <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
                         <p:row>
                             <p:column styleClass="Wid20"><p:outputLabel value="税别" for="taxtype" /></p:column>
                             <p:column styleClass="Wid30">

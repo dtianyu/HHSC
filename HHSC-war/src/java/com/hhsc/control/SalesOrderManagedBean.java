@@ -10,6 +10,7 @@ import com.hhsc.ejb.DepartmentBean;
 import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
+import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerItem;
 import com.hhsc.entity.Department;
@@ -20,6 +21,8 @@ import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SalesOrderModel;
 import com.hhsc.rpt.SalesOrderReport;
 import com.hhsc.web.SuperMultiBean;
+import com.lightshell.comm.BaseLib;
+import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -79,9 +82,9 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         this.newEntity.setDesignsets(0);
         this.newEntity.setDesignprice(BigDecimal.ZERO);
         this.newEntity.setTotaldesign(BigDecimal.ZERO);
-        this.newEntity.setTotalnotaxs(BigDecimal.ZERO);
-        this.newEntity.setTotaltaxs(BigDecimal.ZERO);
-        this.newEntity.setTotalamts(BigDecimal.ZERO);      
+        this.newEntity.setTotalextax(BigDecimal.ZERO);
+        this.newEntity.setTotaltaxes(BigDecimal.ZERO);
+        this.newEntity.setTotalamts(BigDecimal.ZERO);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         this.newDetail.setQuotedprice(BigDecimal.ZERO);
         this.newDetail.setDiscount(BigDecimal.valueOf(100));
         this.newDetail.setAmts(BigDecimal.ZERO);
-        this.newDetail.setNotaxs(BigDecimal.ZERO);
+        this.newDetail.setExtax(BigDecimal.ZERO);
         this.newDetail.setTaxes(BigDecimal.ZERO);
         this.newDetail.setDeliverydate(this.getDate());
         this.setCurrentDetail(newDetail);
@@ -114,7 +117,7 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
                     detail.setPformid(formid);
                 }
             }
-            return true; 
+            return true;
         }
         return false;
     }
@@ -138,9 +141,47 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
     }
 
     @Override
+    protected boolean doBeforeUnverify() throws Exception {
+        //需要加入还原条件
+        return super.doBeforeUnverify();
+    }
+
+    @Override
+    protected boolean doBeforeVerify() throws Exception {
+        if (currentEntity == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            return false;
+        }
+        if (this.detailList == null || this.detailList.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有订单明细!"));
+            return false;
+        }
+        return super.doBeforeVerify();
+    }
+
+    @Override
     public void doConfirmDetail() {
-         this.currentDetail.setAmts(this.currentDetail.getQty().multiply(this.currentDetail.getPrice()));
-         super.doConfirmDetail();
+        this.currentDetail.setAmts(this.currentDetail.getQty().multiply(this.currentDetail.getPrice()));
+        Tax t = BaseLib.getTaxes(this.currentEntity.getTaxtype(), this.currentEntity.getTaxkind(), this.currentEntity.getTaxrate(), this.currentDetail.getAmts(), 2);
+        this.currentDetail.setExtax(t.getExtax());
+        this.currentDetail.setTaxes(t.getTaxes());
+        super.doConfirmDetail();
+    }
+
+    public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            Currency entity = (Currency) event.getObject();
+            this.currentEntity.setCurrency(entity.getCurrency());
+            this.currentEntity.setExchange(entity.getExchange());
+        }
+    }
+
+    public void handleDialogReturnCurrencyWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            Currency entity = (Currency) event.getObject();
+            this.newEntity.setCurrency(entity.getCurrency());
+            this.newEntity.setExchange(entity.getExchange());
+        }
     }
 
     public void handleDialogReturnCustomerWhenEdit(SelectEvent event) {

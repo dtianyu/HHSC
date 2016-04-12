@@ -43,7 +43,7 @@
                     </f:facet>
                     <h:outputText value="#{item.userid}"/>
                 </p:column>  
-                <p:column styleClass="Wid20 Responsive">
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="姓名"/>
                     </f:facet>
@@ -57,11 +57,9 @@
                 </p:column>  
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        <h:outputText value="最新登录"/>
+                        <h:outputText value="部门"/>
                     </f:facet>
-                    <h:outputText value="#{item.lastlogin}">
-                        <f:convertDateTime pattern="yyyy/MM/dd hh:mm"/>
-                    </h:outputText>
+                    <h:outputText value="#{item.dept.dept}"/>
                 </p:column> 
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

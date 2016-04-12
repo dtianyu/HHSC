@@ -37,17 +37,19 @@ import org.primefaces.event.SelectEvent;
 public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake, VendorItem> {
 
     @EJB
-    private ItemCategoryBean itemCategoryBean;
+    protected ItemCategoryBean itemCategoryBean;
     @EJB
-    private ItemUnitTypeBean itemUnitTypeBean;
+    protected ItemUnitTypeBean itemUnitTypeBean;
     @EJB
-    private ItemMasterBean itemMasterBean;
+    protected ItemMasterBean itemMasterBean;
     @EJB
-    private ItemMakeBean itemMakeBean;
+    protected ItemMakeBean itemMakeBean;
     @EJB
-    private VendorItemBean vendorItemBean;
+    protected VendorItemBean vendorItemBean;
 
     protected List<ItemCategory> itemCategoryList;
+    protected String queryItemspec;
+    protected String queryItemmake;
 
     public ItemMasterManagedBean() {
         super(ItemMaster.class, ItemMake.class, VendorItem.class);
@@ -75,12 +77,14 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
     public void createDetail() {
         super.createDetail();
         this.newDetail.setItemno("");
+        setCurrentDetail(newDetail);
     }
 
     @Override
     public void createDetail2() {
         super.createDetail2();
         this.newDetail2.setItemno("");
+        setCurrentDetail2(newDetail2);
     }
 
     @Override
@@ -90,50 +94,27 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             if (this.getCurrentSysprg().getNoauto()) {
                 String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
-                if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                    for (ItemMake detail : this.addedDetailList) {
-                        detail.setItemno(formid);
-                        sb.append(detail.getMake()).append(";");
-                    }
+            }
+            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
+                for (ItemMake detail : this.addedDetailList) {
+                    detail.setItemno(newEntity.getItemno());
+                    sb.append(detail.getMake()).append(";");
                 }
-                if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                    for (ItemMake detail : this.editedDetailList) {
-                        detail.setItemno(formid);
-                        sb.append(detail.getMake()).append(";");
-                    }
+            }
+            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
+                for (ItemMake detail : this.editedDetailList) {
+                    detail.setItemno(newEntity.getItemno());
+                    sb.append(detail.getMake()).append(";");
                 }
-                if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
-                    for (VendorItem detail : this.addedDetailList2) {
-                        detail.setItemno(formid);
-                    }
+            }
+            if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
+                for (VendorItem detail : this.addedDetailList2) {
+                    detail.setItemno(newEntity.getItemno());
                 }
-                if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
-                    for (VendorItem detail : this.editedDetailList2) {
-                        detail.setItemno(formid);
-                    }
-                }
-            } else {
-                if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                    for (ItemMake detail : this.addedDetailList) {
-                        detail.setItemno(newEntity.getItemno());
-                        sb.append(detail.getMake()).append(";");
-                    }
-                }
-                if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                    for (ItemMake detail : this.editedDetailList) {
-                        detail.setItemno(newEntity.getItemno());
-                        sb.append(detail.getMake()).append(";");
-                    }
-                }
-                if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
-                    for (VendorItem detail : this.addedDetailList2) {
-                        detail.setItemno(newEntity.getItemno());
-                    }
-                }
-                if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
-                    for (VendorItem detail : this.editedDetailList2) {
-                        detail.setItemno(newEntity.getItemno());
-                    }
+            }
+            if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
+                for (VendorItem detail : this.editedDetailList2) {
+                    detail.setItemno(newEntity.getItemno());
                 }
             }
             this.newEntity.setItemmake(sb.toString());
@@ -202,15 +183,6 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             Vendor entity = (Vendor) event.getObject();
             this.currentDetail2.setPid(entity.getId());
             this.currentDetail2.setVendor(entity);
-        }
-    }
-
-    @Override
-    public void handleDialogReturnWhenDetail2New(SelectEvent event) {
-        if (event.getObject() != null) {
-            Vendor entity = (Vendor) event.getObject();
-            this.newDetail2.setPid(entity.getId());
-            this.newDetail2.setVendor(entity);
         }
     }
 
@@ -304,6 +276,12 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             if (queryName != null && !"".equals(queryName)) {
                 this.model.getFilterFields().put("itemdesc", queryName);
             }
+            if (queryItemmake != null && !"".equals(queryItemmake)) {
+                this.model.getFilterFields().put("itemmake", queryItemmake);
+            }
+            if (queryItemspec != null && !"".equals(queryItemspec)) {
+                this.model.getFilterFields().put("itemspec", queryItemspec);
+            }
         }
     }
 
@@ -386,6 +364,34 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
      */
     public List<ItemCategory> getItemCategoryList() {
         return itemCategoryList;
+    }
+
+    /**
+     * @return the queryItemspec
+     */
+    public String getQueryItemspec() {
+        return queryItemspec;
+    }
+
+    /**
+     * @param queryItemspec the queryItemspec to set
+     */
+    public void setQueryItemspec(String queryItemspec) {
+        this.queryItemspec = queryItemspec;
+    }
+
+    /**
+     * @return the queryItemmake
+     */
+    public String getQueryItemmake() {
+        return queryItemmake;
+    }
+
+    /**
+     * @param queryItemmake the queryItemmake to set
+     */
+    public void setQueryItemmake(String queryItemmake) {
+        this.queryItemmake = queryItemmake;
     }
 
 }

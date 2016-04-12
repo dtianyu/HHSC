@@ -200,37 +200,37 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>factorystorage</from-outcome>
-            <to-view-id>/app/factorystorage.xhtml</to-view-id>
+            <to-view-id>/app/mm/factorystorage.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>factorystorageNew</from-outcome>
-            <to-view-id>/app/factorystorageNew.xhtml</to-view-id>
+            <to-view-id>/app/mm/factorystorageNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>factorystorageEdit</from-outcome>
-            <to-view-id>/app/factorystorageEdit.xhtml</to-view-id>
+            <to-view-id>/app/mm/factorystorageEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>factorystorageView</from-outcome>
-            <to-view-id>/app/factorystorageView.xhtml</to-view-id>
+            <to-view-id>/app/mm/factorystorageView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>hg</from-outcome>
-            <to-view-id>/app/hg.xhtml</to-view-id>
+            <to-view-id>/app/pp/hg.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>hgEdit</from-outcome>
-            <to-view-id>/app/hgEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/hgEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>hgView</from-outcome>
-            <to-view-id>/app/hgView.xhtml</to-view-id>
+            <to-view-id>/app/pp/hgView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -273,7 +273,46 @@
             <to-view-id>/app/mm/itemdesignView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        <!--面料维护 Start-->
+        <navigation-case>
+            <from-outcome>itemfinished</from-outcome>
+            <to-view-id>/app/mm/itemfinished.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedNew</from-outcome>
+            <to-view-id>/app/mm/itemfinishedNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedEdit</from-outcome>
+            <to-view-id>/app/mm/itemfinishedEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedView</from-outcome>
+            <to-view-id>/app/mm/itemfinishedView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedrequest</from-outcome>
+            <to-view-id>/app/lm/itemfinishedrequest.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedrequestNew</from-outcome>
+            <to-view-id>/app/lm/itemfinishedrequestNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedrequestEdit</from-outcome>
+            <to-view-id>/app/lm/itemfinishedrequestEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemfinishedrequestView</from-outcome>
+            <to-view-id>/app/lm/itemfinishedrequestView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemmaster</from-outcome>
             <to-view-id>/app/mm/itemmaster.xhtml</to-view-id>
@@ -293,63 +332,115 @@
             <from-outcome>itemmasterView</from-outcome>
             <to-view-id>/app/mm/itemmasterView.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>                  
+        <navigation-case>
+            <from-outcome>itemmasterrequest</from-outcome>
+            <to-view-id>/app/lm/itemmasterrequest.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
-        <!--面料维护 End-->
+        <navigation-case>
+            <from-outcome>itemmasterrequestNew</from-outcome>
+            <to-view-id>/app/lm/itemmasterrequestNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemmasterrequestEdit</from-outcome>
+            <to-view-id>/app/lm/itemmasterrequestEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemmasterrequestView</from-outcome>
+            <to-view-id>/app/lm/itemmasterrequestView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemrequest</from-outcome>
+            <to-view-id>/app/lm/itemrequest.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemrequestView</from-outcome>
+            <to-view-id>/app/lm/itemrequestView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>jh</from-outcome>
-            <to-view-id>/app/jh.xhtml</to-view-id>
+            <to-view-id>/app/pp/jh.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>jhEdit</from-outcome>
-            <to-view-id>/app/jhEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/jhEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>jhView</from-outcome>
-            <to-view-id>/app/jhView.xhtml</to-view-id>
+            <to-view-id>/app/pp/jhView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!--请购维护 Start-->    
+        <navigation-case>
+            <from-outcome>purchasedraft</from-outcome>
+            <to-view-id>/app/lm/purchasedraft.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>purchasedraftEdit</from-outcome>
+            <to-view-id>/app/lm/purchasedraftEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchasedraftView</from-outcome>
+            <to-view-id>/app/lm/purchasedraftView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case><!--请购维护 End-->
+         <navigation-case>
+            <from-outcome>purchaseinit</from-outcome>
+            <to-view-id>/app/lm/purchaseinit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!--采购维护 Start-->    
+        <navigation-case>
             <from-outcome>purchaseorder</from-outcome>
-            <to-view-id>/lm/purchaseorder.xhtml</to-view-id>
+            <to-view-id>/app/lm/purchaseorder.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>purchaseorderNew</from-outcome>
-            <to-view-id>/lm/purchaseorderNew.xhtml</to-view-id>
+            <to-view-id>/app/lm/purchaseorderNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>purchaseorderEdit</from-outcome>
-            <to-view-id>/lm/purchaseorderEdit.xhtml</to-view-id>
+            <to-view-id>/app/lm/purchaseorderEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>purchaseorderView</from-outcome>
-            <to-view-id>/lm/purchaseorderView.xhtml</to-view-id>
+            <to-view-id>/app/lm/purchaseorderView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case><!--采购维护 End--> 
         <navigation-case>
             <from-outcome>ps</from-outcome>
-            <to-view-id>/app/ps.xhtml</to-view-id>
+            <to-view-id>/app/pp/ps.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>psEdit</from-outcome>
-            <to-view-id>/app/psEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/psEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>psView</from-outcome>
-            <to-view-id>/app/psView.xhtml</to-view-id>
+            <to-view-id>/app/pp/psView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <!--订单维护 Start-->
         <navigation-case>
             <from-outcome>salesorder</from-outcome>
             <to-view-id>/app/sd/salesorder.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>  
+        </navigation-case>
         <navigation-case>
             <from-outcome>salesorderNew</from-outcome>
             <to-view-id>/app/sd/salesorderNew.xhtml</to-view-id>
@@ -364,7 +455,7 @@
             <from-outcome>salesorderView</from-outcome>
             <to-view-id>/app/sd/salesorderView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case><!--订单维护 End-->
         <navigation-case>
             <from-outcome>sysmodule</from-outcome>
             <to-view-id>/sys/sysmodule.xhtml</to-view-id>
@@ -527,60 +618,60 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>yh</from-outcome>
-            <to-view-id>/app/yh.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>yhNew</from-outcome>
-            <to-view-id>/app/yhNew.xhtml</to-view-id>
+            <to-view-id>/app/pp/yh.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>yhEdit</from-outcome>
-            <to-view-id>/app/yhEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/yhEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>yhView</from-outcome>
-            <to-view-id>/app/yhView.xhtml</to-view-id>
+            <to-view-id>/app/pp/yhView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>zb</from-outcome>
-            <to-view-id>/app/zb.xhtml</to-view-id>
+            <to-view-id>/app/pp/zb.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>zbEdit</from-outcome>
-            <to-view-id>/app/zbEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/zbEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>zbView</from-outcome>
-            <to-view-id>/app/zbView.xhtml</to-view-id>
+            <to-view-id>/app/pp/zbView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>    
         <navigation-case>
             <from-outcome>zh</from-outcome>
-            <to-view-id>/app/zh.xhtml</to-view-id>
+            <to-view-id>/app/pp/zh.xhtml</to-view-id>
             <redirect/>
         </navigation-case>      
         <navigation-case>
             <from-outcome>zhNew</from-outcome>
-            <to-view-id>/app/zhNew.xhtml</to-view-id>
+            <to-view-id>/app/pp/zhNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>zhEdit</from-outcome>
-            <to-view-id>/app/zhEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/zhEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>zhView</from-outcome>
-            <to-view-id>/app/zhView.xhtml</to-view-id>
+            <to-view-id>/app/pp/zhView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        <!--模态开窗 Start-->  
+        <!--模态开窗 Start-->
+        <navigation-case>
+            <from-outcome>currencySelect</from-outcome>
+            <to-view-id>/app/df/currencySelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>   
         <navigation-case>
             <from-outcome>customerSelect</from-outcome>
             <to-view-id>/app/df/customerSelect.xhtml</to-view-id>
@@ -597,6 +688,11 @@
             <redirect/>
         </navigation-case> 
         <navigation-case>
+            <from-outcome>itemfinishedSelect</from-outcome>
+            <to-view-id>/app/df/itemfinishedSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>itemmasterSelect</from-outcome>
             <to-view-id>/app/df/itemmasterSelect.xhtml</to-view-id>
             <redirect/>
@@ -610,7 +706,6 @@
             <from-outcome>vendorSelect</from-outcome>
             <to-view-id>/app/df/vendorSelect.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
-        <!--模态开窗 End-->                                   
-    </navigation-rule>
+        </navigation-case><!--模态开窗 End-->          
+    </navigation-rule>                                
 </faces-config>

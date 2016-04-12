@@ -177,12 +177,12 @@
                 </structure>
                 <structure>
                     <property name="position">28</property>
-                    <property name="name">totalnotaxs</property>
+                    <property name="name">totalextax</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
                     <property name="position">29</property>
-                    <property name="name">totaltaxs</property>
+                    <property name="name">totaltaxes</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
@@ -359,10 +359,10 @@
                     <property name="columnName">totaldesign</property>
                 </structure>
                 <structure>
-                    <property name="columnName">totalnotaxs</property>
+                    <property name="columnName">totalextax</property>
                 </structure>
                 <structure>
-                    <property name="columnName">totaltaxs</property>
+                    <property name="columnName">totaltaxes</property>
                 </structure>
                 <structure>
                     <property name="columnName">totalamts</property>
@@ -558,12 +558,12 @@
                     </structure>
                     <structure>
                         <property name="position">28</property>
-                        <property name="name">totalnotaxs</property>
+                        <property name="name">totalextax</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
                         <property name="position">29</property>
-                        <property name="name">totaltaxs</property>
+                        <property name="name">totaltaxes</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
@@ -692,8 +692,8 @@ if(currentRow < 6 || currentRow < list.size()){
 		dataSetRow["designprice"] = master.getDesignprice();
 		dataSetRow["designsets"] = master.getDesignsets();
 		dataSetRow["totaldesign"] = master.getTotaldesign();
-		dataSetRow["totalnotaxs"] = master.getTotalnotaxs();
-		dataSetRow["totaltaxs"] = master.getTotaltaxs();
+		dataSetRow["totalextax"] = master.getTotalextax();
+		dataSetRow["totaltaxes"] = master.getTotaltaxes();
 		dataSetRow["totalamts"] = master.getTotalamts();		
 		dataSetRow["seq"] = list.get(currentRow).getSeq();	
 		dataSetRow["customercolorno"] = list.get(currentRow).getCustomercolorno();
@@ -1508,9 +1508,9 @@ return false;]]></method>
                     <cell id="323">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="324">
+                        <data id="326">
                             <property name="whiteSpace">nowrap</property>
-                            <property name="resultSetColumn">itemyarncount</property>
+                            <property name="resultSetColumn">itemmake</property>
                         </data>
                     </cell>
                     <cell id="327">
@@ -1586,9 +1586,9 @@ return false;]]></method>
                     <cell id="447">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="326">
+                        <data id="324">
                             <property name="whiteSpace">nowrap</property>
-                            <property name="resultSetColumn">itemmake</property>
+                            <property name="resultSetColumn">itemyarncount</property>
                         </data>
                     </cell>
                     <cell id="448">

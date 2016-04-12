@@ -95,6 +95,7 @@ public abstract class SuperMultiBean<T extends BaseEntityWithOperate, V extends 
                 Logger.getLogger(SuperMultiBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        setCurrentEntity(newEntity);
     }
 
     @Override

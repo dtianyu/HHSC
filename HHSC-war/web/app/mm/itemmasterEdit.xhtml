@@ -25,36 +25,36 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="类别" for="itemcategory" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:selectOneMenu id="itemcategory" value="#{itemMasterManagedBean.currentEntity.itemcategory}" 
-                                             converter="itemCategoryConverter" required="true" requiredMessage="类别不能空白">
+                                             converter="itemCategoryConverter" required="true" requiredMessage="请输入类别">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{itemMasterManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
                             </p:selectOneMenu>
                         </p:column>
-                        <p:column styleClass="Wid20"><p:outputLabel value="面料编号" for="itemno" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="编号" for="itemno" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="itemno" value="#{itemMasterManagedBean.currentEntity.itemno}" title="Itemno" 
-                                         required="true" requiredMessage="面料编号不能空白" disabled="#{itemMasterManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入编号" disabled="#{itemMasterManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="面料名称" for="itemdesc" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="名称" for="itemdesc" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="itemdesc" value="#{itemMasterManagedBean.currentEntity.itemdesc}" title="Itemdesc" 
-                                         required="true" requiredMessage="面料名称不能空白"/> 
+                                         required="true" requiredMessage="请输入名称"/> 
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="单位" for="unit" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="unit" value="#{itemMasterManagedBean.currentEntity.unit}" title="Unit" styleClass="inputWithButton" 
-                                         required="true" requiredMessage="单位不能空白"/>
-                              <p:commandButton id="btnUnit" actionListener="#{itemMasterManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
-                                                     process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemMasterManagedBean.handleDialogReturnWhenEdit}" 
-                                                update="unit" />
+                                         required="true" requiredMessage="请输入单位"/>
+                            <p:commandButton id="btnUnit" actionListener="#{itemMasterManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemMasterManagedBean.handleDialogReturnWhenEdit}" 
+                                        update="unit" />
                             </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="面料规格" for="itemspec" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="规格" for="itemspec" /></p:column>
                         <p:column colspan="3">
                             <p:inputText id="itemspec" value="#{itemMasterManagedBean.currentEntity.itemspec}" title="Itemspec" />
                         </p:column>  
@@ -128,7 +128,7 @@
                         <p:panelGrid id="plgEditDetail" columns="2" columnClasses="Wid20,Wid80" styleClass="plgEdit Wid100">
                             <p:outputLabel value="成分" for="make" />
                             <p:inputText id="make" value="#{itemMasterManagedBean.currentDetail.make}" title="make"  
-                                         required="true" requiredMessage="成分不能空白" />
+                                         required="true" requiredMessage="请输入成分" />
                         </p:panelGrid>
                         <p:dataTable id="tableList" value="#{itemMasterManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                                      selectionMode="single" selection="#{itemMasterManagedBean.currentDetail}" rowKey="#{item.seq}" >
@@ -171,7 +171,7 @@
                                 <p:column><p:outputLabel value="供应商" for="vendorno" /></p:column>
                                 <p:column>
                                     <p:inputText id="vendorno" value="#{itemMasterManagedBean.currentDetail2.vendor.vendor}" title="vendorno"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="厂商不能为空" disabled="true"/>
+                                                 required="true" requiredMessage="请输入供应商" disabled="true"/>
                                     <p:commandButton id="btnSelect" actionListener="#{itemMasterManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterManagedBean.handleDialogReturnWhenDetail2Edit}" 
@@ -181,7 +181,7 @@
                                 <p:column><p:outputLabel value="供应商品号" for="vendoritemno" /></p:column>
                                 <p:column>
                                     <p:inputText id="vendoritemno" value="#{itemMasterManagedBean.currentDetail2.vendoritemno}" title="vendoritemno" 
-                                                 required="true" requiredMessage="供应商品号不能为空"/>
+                                                 required="true" requiredMessage="请输入供应商品号"/>
                                 </p:column>  
                             </p:row>
                             <p:row>

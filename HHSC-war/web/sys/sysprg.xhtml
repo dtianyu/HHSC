@@ -39,7 +39,7 @@
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Ｗid30">
+                <p:column styleClass="Ｗid20">
                     <f:facet name="header">
                         <h:outputText value="功能名称"/>
                     </f:facet>
@@ -50,6 +50,12 @@
                         <h:outputText value="路径"/>
                     </f:facet>
                     <h:outputText value="#{item.api}"/>
+                </p:column>
+                 <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="编号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nolead}"/>
                 </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">

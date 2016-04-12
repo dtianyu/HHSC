@@ -111,6 +111,7 @@ public abstract class SuperMulti3Bean<T extends BaseEntityWithOperate, V extends
                 Logger.getLogger(SuperMulti3Bean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        setCurrentEntity(newEntity);
     }
 
     @Override

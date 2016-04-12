@@ -26,12 +26,12 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="合同编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{salesOrderManagedBean.currentEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="合同编号不能为空" disabled="#{salesOrderManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入合同编号" disabled="#{salesOrderManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="合同日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:calendar id="formdate" value="#{salesOrderManagedBean.currentEntity.formdate}" title="Formdate" 
-                                        required="true" requiredMessage="日期不能为空">
+                                        required="true" requiredMessage="请输入合同日期">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
                         </p:column>
@@ -40,7 +40,7 @@
                         <p:column><p:outputLabel value="合同类型" for="ordertype" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="ordertype" value="#{salesOrderManagedBean.currentEntity.ordertype}" title="Ordertype" 
-                                             required="true" requiredMessage="合同类型不能为空">
+                                             required="true" requiredMessage="请输入合同类型">
                                 <f:selectItem itemLabel="外销" itemValue="外销" />  
                                 <f:selectItem itemLabel="经销" itemValue="经销" />  
                                 <f:selectItem itemLabel="加工" itemValue="加工" />  
@@ -49,7 +49,7 @@
                         <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                         <p:column>
                             <p:inputText id="customer" value="#{salesOrderManagedBean.currentEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
-                                         required="true" requiredMessage="客户不能为空" disabled="true"/>
+                                         required="true" requiredMessage="请输入客户" disabled="true"/>
                             <p:commandButton id="btnSelect" actionListener="#{salesOrderManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCustomerWhenEdit}" 
@@ -61,7 +61,7 @@
                         <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="deptid" value="#{salesOrderManagedBean.currentEntity.dept}" title="Deptid" 
-                                             converter="departmentConverter"  required="true" requiredMessage="部门不能为空">
+                                             converter="departmentConverter"  required="true" requiredMessage="请输入部门">
                                 <f:selectItem itemLabel="Select One" itemValue="" /> 
                                 <f:selectItems value="#{salesOrderManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
                             </p:selectOneMenu>
@@ -69,7 +69,7 @@
                         <p:column><p:outputLabel value="业务员" for="salesman" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="salesman" value="#{salesOrderManagedBean.currentEntity.salesman}" 
-                                             converter="systemUserConverter" required="true" requiredMessage="业务员不能为空">
+                                             converter="systemUserConverter" required="true" requiredMessage="请输入业务员">
                                 <f:selectItem itemLabel="Select One" itemValue="" />  
                                 <f:selectItems value="#{salesOrderManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
                             </p:selectOneMenu>
@@ -78,30 +78,34 @@
                     <p:row>
                         <p:column><p:outputLabel value="币别" for="currency" /></p:column>
                         <p:column>
-                            <p:inputText id="currency" value="#{salesOrderManagedBean.currentEntity.currency}" title="Currency" 
-                                         required="true" requiredMessage="币别不可空白"/>
+                            <p:inputText id="currency" value="#{salesOrderManagedBean.currentEntity.currency}" title="Currency" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入币别"/>
+                            <p:commandButton id="btnCurrencySelect" actionListener="#{salesOrderManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCurrencyWhenEdit}" 
+                                        update="plgHead" />
+                            </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="汇率" for="exchange" /></p:column>
                         <p:column>
                             <p:inputText id="exchange" value="#{salesOrderManagedBean.currentEntity.exchange}" title="Exchange" 
-                                         required="true" requiredMessage="汇率不可空白"/>
+                                         required="true" requiredMessage="请输入汇率"/>
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="税别" for="taxtype" /></p:column>
+                        <p:column><h:outputText value="税别"/></p:column>
                         <p:column>
                             <p:selectOneMenu id="taxtype" value="#{salesOrderManagedBean.currentEntity.taxtype}" title="Taxtype" 
-                                             required="true" requiredMessage="税别不可空白">
+                                             required="true" requiredMessage="请输入税别" disabled="true">
                                 <f:selectItem itemLabel="内含" itemValue="0" />  
                                 <f:selectItem itemLabel="外加" itemValue="1" />  
                                 <f:selectItem itemLabel="零税" itemValue="2" />
                                 <f:selectItem itemLabel="免税" itemValue="3" /> 
                             </p:selectOneMenu>
                         </p:column>
-                        <p:column styleClass="Wid20"><p:outputLabel value="税率" for="taxrate"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="税率" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="taxrate" value="#{salesOrderManagedBean.currentEntity.taxrate}" title="taxrate" 
-                                         required="true" requiredMessage="税率不可空白"/>
+                            <h:outputText id="taxrate" value="#{salesOrderManagedBean.currentEntity.taxrate}" title="taxrate" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -124,7 +128,7 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉花号" for="itemmaster" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="itemdesign" value="#{salesOrderManagedBean.currentEntity.itemmaster.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="华卉花号不可空白" disabled="true"/>
+                                                 required="true" requiredMessage="请输入华卉花号" disabled="true"/>
                                     <p:commandButton id="btnItemDesign" actionListener="#{salesOrderManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenEdit}" 
@@ -204,15 +208,15 @@
                         <f:facet name="left">
                             <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{salesOrderManagedBean.createDetail()}" icon="ui-icon-plus" 
                                              oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
-                                             update="plgDetail" process="@this" />
+                                             process="@this" update="plgDetail" />
                             <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{salesOrderManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             update="plgDetail,formEdit:tabView:detailList," process="@this" />  
+                                             process="@this" update="plgDetail,formEdit:tabView:detailList,"/>  
                         </f:facet>
                         <f:facet name="right">                        
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{salesOrderManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             update="plgDetail,formEdit:tabView:detailList" process="@this,plgDetail"/>                                
+                                             process="@this,plgDetail,formEdit:plgHead" update="plgDetail,formEdit:tabView:detailList"/>                                
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail">
@@ -225,14 +229,14 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉色号" for="colorno" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="colorno" value="#{salesOrderManagedBean.currentDetail.colorno}" title="Colorno" 
-                                                 required="true" requiredMessage="华卉色号不能为空"/>
+                                                 required="true" requiredMessage="请输入华卉色号"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="面料编号" for="itemmaster" /></p:column>
                                 <p:column>
                                     <p:inputText id="itemmaster" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemno}" styleClass="inputWithButton"
-                                                 required="true" requiredMessage="面料编号不能为空" disabled="true"/>
+                                                 required="true" requiredMessage="请输入面料编号" disabled="true"/>
                                     <p:commandButton id="btnItemMaster" actionListener="#{salesOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenDetailNew}" 
@@ -258,24 +262,24 @@
                                 <p:column><p:outputLabel value="数量" for="qty" /></p:column>
                                 <p:column>
                                     <p:inputText id="qty" value="#{salesOrderManagedBean.currentDetail.qty}" title="Qty" 
-                                                 required="true" requiredMessage="数量不能为空"/>
+                                                 required="true" requiredMessage="请输入数量"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="投料数量" for="issqty" /></p:column>
                                 <p:column>
                                     <p:inputText id="issqty" value="#{salesOrderManagedBean.currentDetail.issqty}" title="Issqty" 
-                                                 required="true" requiredMessage="投料量不能为空"/>
+                                                 required="true" requiredMessage="请输入投料数量"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="单价" for="price" /></p:column>
                                 <p:column>
                                     <p:inputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price" 
-                                                 required="true" requiredMessage="单价不能为空"/>
+                                                 required="true" requiredMessage="请输入单价"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="预计交期" for="deliverydate" /></p:column>
                                 <p:column>
                                     <p:calendar id="deliverydate" value="#{salesOrderManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
-                                                pattern="yyyy/MM/dd" required="true" requiredMessage="预计交期不能为空">
+                                                pattern="yyyy/MM/dd" required="true" requiredMessage="请输入预计交期">
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </p:calendar>
                                 </p:column>

@@ -36,4 +36,14 @@ public class VendorItemBean extends SuperBean<VendorItem> {
         return query.getResultList();
     }
 
+    public VendorItem findByItemnoAndVendorno(String itemno, String vendorno) {
+        Query query = getEntityManager().createNamedQuery("VendorItem.findByItemnoAndVendorno");
+        query.setParameter("itemno", itemno);
+        query.setParameter("vendorno", vendorno);
+        try {
+            return (VendorItem) query.getSingleResult();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
 }

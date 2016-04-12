@@ -39,12 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrder.findByCustomerId", query = "SELECT s FROM SalesOrder s WHERE s.customer.id = :customerid"),
     @NamedQuery(name = "SalesOrder.findByDeptId", query = "SELECT s FROM SalesOrder s WHERE s.dept.id = :deptid"),
     @NamedQuery(name = "SalesOrder.findBySalesmanId", query = "SELECT s FROM SalesOrder s WHERE s.salesman.id = :salesmanid"),
-    @NamedQuery(name = "SalesOrder.findByItemId", query = "SELECT s FROM SalesOrder s WHERE s.itemmaster.id = :itemid"),
+    @NamedQuery(name = "SalesOrder.findByItemId", query = "SELECT s FROM SalesOrder s WHERE s.itemmaster.id = :itemmasterid"),
     @NamedQuery(name = "SalesOrder.findByItemno", query = "SELECT s FROM SalesOrder s WHERE s.itemno = :itemno"),
     @NamedQuery(name = "SalesOrder.findByCustomeritemno", query = "SELECT s FROM SalesOrder s WHERE s.customeritemno = :customeritemno"),
-    @NamedQuery(name = "SalesOrder.findByTaxtype", query = "SELECT s FROM SalesOrder s WHERE s.taxtype = :taxtype"),
-    @NamedQuery(name = "SalesOrder.findByTaxkind", query = "SELECT s FROM SalesOrder s WHERE s.taxkind = :taxkind"),
-    @NamedQuery(name = "SalesOrder.findByTaxrate", query = "SELECT s FROM SalesOrder s WHERE s.taxrate = :taxrate"),
     @NamedQuery(name = "SalesOrder.findByTradetype", query = "SELECT s FROM SalesOrder s WHERE s.tradetype = :tradetype"),
     @NamedQuery(name = "SalesOrder.findByTradename", query = "SELECT s FROM SalesOrder s WHERE s.tradename = :tradename"),
     @NamedQuery(name = "SalesOrder.findByPaymentid", query = "SELECT s FROM SalesOrder s WHERE s.paymentid = :paymentid"),
@@ -68,7 +65,9 @@ public class SalesOrder extends BaseEntityWithOperate {
     @Size(min = 1, max = 2)
     @Column(name = "ordertype")
     private String ordertype;
-
+    @Size(max = 10)
+    @Column(name = "orderkind")
+    protected String orderkind;
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Customer customer;
@@ -139,10 +138,10 @@ public class SalesOrder extends BaseEntityWithOperate {
     private BigDecimal designprice;
     @Column(name = "totaldesign")
     private BigDecimal totaldesign;
-    @Column(name = "totalnotaxs")
-    private BigDecimal totalnotaxs;
-    @Column(name = "totaltaxs")
-    private BigDecimal totaltaxs;
+    @Column(name = "totalextax")
+    private BigDecimal totalextax;
+    @Column(name = "totaltaxes")
+    private BigDecimal totaltaxes;
     @Column(name = "totalamts")
     private BigDecimal totalamts;
     @Size(max = 10)
@@ -360,20 +359,20 @@ public class SalesOrder extends BaseEntityWithOperate {
         this.totaldesign = totaldesign;
     }
 
-    public BigDecimal getTotalnotaxs() {
-        return totalnotaxs;
+    public BigDecimal getTotalextax() {
+        return totalextax;
     }
 
-    public void setTotalnotaxs(BigDecimal totalnotaxs) {
-        this.totalnotaxs = totalnotaxs;
+    public void setTotalextax(BigDecimal totalextax) {
+        this.totalextax = totalextax;
     }
 
-    public BigDecimal getTotaltaxs() {
-        return totaltaxs;
+    public BigDecimal getTotaltaxes() {
+        return totaltaxes;
     }
 
-    public void setTotaltaxs(BigDecimal totaltaxs) {
-        this.totaltaxs = totaltaxs;
+    public void setTotaltaxes(BigDecimal totaltaxes) {
+        this.totaltaxes = totaltaxes;
     }
 
     public BigDecimal getTotalamts() {
@@ -501,6 +500,20 @@ public class SalesOrder extends BaseEntityWithOperate {
      */
     public void setItemspec(String itemspec) {
         this.itemspec = itemspec;
+    }
+
+    /**
+     * @return the orderkind
+     */
+    public String getOrderkind() {
+        return orderkind;
+    }
+
+    /**
+     * @param orderkind the orderkind to set
+     */
+    public void setOrderkind(String orderkind) {
+        this.orderkind = orderkind;
     }
 
 }

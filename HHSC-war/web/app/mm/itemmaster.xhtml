@@ -14,10 +14,14 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="面料编号" for="itemno" />
-                    <p:inputText id="itemno" value="#{itemMasterManagedBean.queryFormId}" title="花号" />
-                    <h:outputLabel value="名称" for="name" />
-                    <p:inputText id="name" value="#{itemMasterManagedBean.queryName}" title="名称" />
+                    <h:outputLabel value="面料编号" for="queryFormId" />
+                    <p:inputText id="queryFormId" value="#{itemMasterManagedBean.queryFormId}" title="花号" />
+                    <h:outputLabel value="名称" for="queryName" />
+                    <p:inputText id="queryName" value="#{itemMasterManagedBean.queryName}" title="名称" />
+                    <h:outputLabel value="成分" for="queryItemmake" />
+                    <p:inputText id="queryItemmake" value="#{itemMasterManagedBean.queryItemmake}" title="成分" />
+                    <h:outputLabel value="规格" for="queryItemspec" />
+                    <p:inputText id="queryItemspec" value="#{itemMasterManagedBean.queryItemspec}" title="规格" />
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
@@ -53,7 +57,7 @@
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        <h:outputText value="面料编号"/>
+                        <h:outputText value="编号"/>
                     </f:facet>
                     <h:outputText value="#{item.itemno}"/>
                 </p:column>

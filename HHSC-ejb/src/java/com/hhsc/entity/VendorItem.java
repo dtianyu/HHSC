@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "VendorItem.findByVendorno", query = "SELECT v FROM VendorItem v WHERE v.vendor.vendorno = :vendorno"),
     @NamedQuery(name = "VendorItem.findByItemId", query = "SELECT v FROM VendorItem v WHERE v.itemid = :itemid"),
     @NamedQuery(name = "VendorItem.findByItemno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno"),
+    @NamedQuery(name = "VendorItem.findByItemnoAndVendorno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno AND v.vendor.vendorno = :vendorno"),
     @NamedQuery(name = "VendorItem.findByVendoritemno", query = "SELECT v FROM VendorItem v WHERE v.vendoritemno = :vendoritemno")})
 public class VendorItem extends BaseDetailEntity {
 

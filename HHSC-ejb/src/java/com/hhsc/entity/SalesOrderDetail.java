@@ -32,12 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s"),
     @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid"),
+    @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid ORDER BY s.seq"),
     @NamedQuery(name = "SalesOrderDetail.findByPformid", query = "SELECT s FROM SalesOrderDetail s WHERE s.pformid = :pformid"),
-    @NamedQuery(name = "SalesOrderDetail.findBySeq", query = "SELECT s FROM SalesOrderDetail s WHERE s.seq = :seq"),
     @NamedQuery(name = "SalesOrderDetail.findByColorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.colorno = :colorno"),
     @NamedQuery(name = "SalesOrderDetail.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.customercolorno = :customercolorno"),
-    @NamedQuery(name = "SalesOrderDetail.findByItemId", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemmaster.id = :itemid"),
+    @NamedQuery(name = "SalesOrderDetail.findByItemId", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemmaster.id = :itemmasterid"),
     @NamedQuery(name = "SalesOrderDetail.findByItemno", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemno = :itemno"),
     @NamedQuery(name = "SalesOrderDetail.findByDeliverydate", query = "SELECT s FROM SalesOrderDetail s WHERE s.deliverydate = :deliverydate")})
 public class SalesOrderDetail extends BaseDetailEntity {
@@ -93,8 +92,8 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @NotNull
     @Column(name = "amts")
     private BigDecimal amts;
-    @Column(name = "notaxs")
-    private BigDecimal notaxs;
+    @Column(name = "extax")
+    private BigDecimal extax;
     @Column(name = "taxes")
     private BigDecimal taxes;
     @Basic(optional = false)
@@ -112,6 +111,17 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
+    @Size(max = 2)
+    @Column(name = "status")
+    protected String status;
+    @Size(max = 100)
+    @Column(name = "relapi")
+    protected String relapi;
+    @Size(max = 20)
+    @Column(name = "relformid")
+    protected String relformid;
+    @Column(name = "relseq")
+    protected Integer relseq;
 
     public SalesOrderDetail() {
     }
@@ -228,12 +238,12 @@ public class SalesOrderDetail extends BaseDetailEntity {
         this.amts = amts;
     }
 
-    public BigDecimal getNotaxs() {
-        return notaxs;
+    public BigDecimal getExtax() {
+        return extax;
     }
 
-    public void setNotaxs(BigDecimal notaxs) {
-        this.notaxs = notaxs;
+    public void setExtax(BigDecimal extax) {
+        this.extax = extax;
     }
 
     public BigDecimal getTaxes() {
@@ -299,6 +309,62 @@ public class SalesOrderDetail extends BaseDetailEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.SalesOrderDetail[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the relapi
+     */
+    public String getRelapi() {
+        return relapi;
+    }
+
+    /**
+     * @param relapi the relapi to set
+     */
+    public void setRelapi(String relapi) {
+        this.relapi = relapi;
+    }
+
+    /**
+     * @return the relformid
+     */
+    public String getRelformid() {
+        return relformid;
+    }
+
+    /**
+     * @param relformid the relformid to set
+     */
+    public void setRelformid(String relformid) {
+        this.relformid = relformid;
+    }
+
+    /**
+     * @return the relseq
+     */
+    public Integer getRelseq() {
+        return relseq;
+    }
+
+    /**
+     * @param relseq the relseq to set
+     */
+    public void setRelseq(Integer relseq) {
+        this.relseq = relseq;
     }
 
 }

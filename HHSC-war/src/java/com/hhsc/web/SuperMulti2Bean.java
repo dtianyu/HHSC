@@ -103,6 +103,7 @@ public abstract class SuperMulti2Bean<T extends BaseEntityWithOperate, V extends
                 Logger.getLogger(SuperMulti2Bean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        setCurrentEntity(newEntity);
     }
 
     @Override
