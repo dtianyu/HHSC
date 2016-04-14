@@ -7,6 +7,7 @@ package com.hhsc.control;
 
 import com.hhsc.ejb.CustomerItemBean;
 import com.hhsc.ejb.DepartmentBean;
+import com.hhsc.ejb.PurchaseRequestBean;
 import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SystemUserBean;
@@ -17,6 +18,9 @@ import com.hhsc.entity.Department;
 import com.hhsc.entity.SalesOrder;
 import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.ItemMaster;
+import com.hhsc.entity.PurchaseRequest;
+import com.hhsc.entity.PurchaseRequestDetail;
+import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SalesOrderModel;
 import com.hhsc.rpt.SalesOrderReport;
@@ -24,6 +28,7 @@ import com.hhsc.web.SuperMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
@@ -44,6 +49,9 @@ import org.primefaces.event.SelectEvent;
 public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrderDetail> {
 
     @EJB
+    private PurchaseRequestBean purchaseRequestBean;
+
+    @EJB
     private DepartmentBean departmentBean;
     @EJB
     private CustomerItemBean customerItemBean;
@@ -56,10 +64,12 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
     private SystemUserBean systemUserBean;
 
     private List<SystemUser> systemUserList;
-    protected List<Department> deptList;
+    private List<Department> deptList;
 
-    protected String queryCustomerno;
-    protected String queryItemno;
+    private Boolean doTransfer;
+
+    private String queryCustomerno;
+    private String queryItemno;
 
     /**
      * Creates a new instance of SalesOrderManagedBean
@@ -96,6 +106,7 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         this.newDetail.setExtax(BigDecimal.ZERO);
         this.newDetail.setTaxes(BigDecimal.ZERO);
         this.newDetail.setDeliverydate(this.getDate());
+        this.newDetail.setStatus("00");
         this.setCurrentDetail(newDetail);
     }
 
@@ -370,6 +381,118 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         }
     }
 
+    @Override
+    protected void setToolBar() {
+        super.setToolBar();
+        if (currentEntity != null && "V".equals(currentEntity.getStatus())) {
+            this.doTransfer = true;
+        } else {
+            this.doTransfer = false;
+        }
+        if (currentEntity != null && "T".equals(currentEntity.getStatus())) {
+            this.doDel = false;
+        }
+    }
+
+    public void transferToPurchaseRequest(String purtype) {
+
+        if (currentEntity == null || this.detailList.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可抛转数据"));
+            return;
+        }
+        Sysprg purchaserequestSysprg = null;
+        switch (purtype) {
+            case "100":
+            case "200":
+                purchaserequestSysprg = sysprgBean.findByAPI("itemfinishedrequest");
+                break;
+            case "300":
+                purchaserequestSysprg = sysprgBean.findByAPI("itemmasterrequest");
+                break;
+        }
+        if (purchaserequestSysprg == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购作业设定错误"));
+            return;
+        }
+        if (!purchaserequestSysprg.getNoauto()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购单不是自动编号"));
+            return;
+        }
+        if (this.userManagedBean.getCurrentUser().getDept() == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购人部门未设定"));
+            return;
+        }
+        String formid = purchaseRequestBean.getFormId(getDate(), purchaserequestSysprg.getNolead(), purchaserequestSysprg.getNoformat(), purchaserequestSysprg.getNoseqlen());
+        if (formid == null || "".equals(formid)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购单无法自动编号"));
+            return;
+        }
+        try {
+            PurchaseRequest p = new PurchaseRequest();
+            p.setFormid(formid);
+            p.setFormdate(getDate());
+            p.setDept(this.userManagedBean.getCurrentUser().getDept());
+            p.setSystemuser(this.userManagedBean.getCurrentUser());
+            p.setPurtype(purtype);
+            p.setRemark("订单抛转");
+            p.setStatus("N");
+            p.setCreator(this.userManagedBean.getCurrentUser().getUserid());
+            p.setCredateToNow();
+
+            List<PurchaseRequestDetail> requestList = new ArrayList<>();
+            int seq = 1;
+            for (SalesOrderDetail entity : this.detailList) {
+                PurchaseRequestDetail d = new PurchaseRequestDetail();
+                d.setSeq(seq);
+                d.setPurtype(purtype);
+                d.setAbroad(false);
+                if ("100".equals(purtype)) {
+                    d.setItemdesign(currentEntity.getItemmaster());
+                    d.setDesignno(currentEntity.getItemno());
+                    d.setDesignspec(currentEntity.getItemspec());
+                    d.setCustomeritemno(currentEntity.getCustomeritemno());
+                }
+                d.setItemmaster(entity.getItemmaster());
+                d.setItemno(entity.getItemno());
+                d.setColorno(entity.getColorno());
+                d.setCustomer(currentEntity.getCustomer());
+                d.setCustomercolorno(entity.getCustomercolorno());
+                if ("300".equals(purtype)) {
+                    d.setQty(entity.getIssqty());
+                } else {
+                    d.setQty(entity.getQty());
+                }
+                d.setUnit(entity.getUnit());
+                d.setPurqty(BigDecimal.ZERO);
+                d.setPrice(BigDecimal.ZERO);
+                d.setAmts(BigDecimal.ZERO);
+                d.setCurrency("RMB");
+                d.setExchange(BigDecimal.ONE);
+                d.setTaxtype("0");
+                d.setTaxkind("VAT17");
+                d.setTaxrate(BigDecimal.valueOf(17));
+                d.setExtax(BigDecimal.ZERO);
+                d.setTaxes(BigDecimal.ZERO);
+                d.setRequestdate(getDate());
+                d.setDeliverydate(entity.getDeliverydate());
+                d.setStatus("N");
+                d.setSrcapi(this.currentSysprg.getApi());
+                d.setSrcformid(currentEntity.getFormid());
+                d.setSrcseq(entity.getSeq());
+                requestList.add(d);
+                entity.setStatus("20");
+                seq++;
+            }
+            currentEntity.setStatus("T");
+            purchaseRequestBean.persist(p);//先保存,因为需要得到Id
+            salesOrderBean.transferToPurchaseRequest(currentEntity, detailList, p, requestList);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "抛转请购单成功"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "抛转请购单失败"));
+        }
+
+    }
+
     /**
      * @return the systemUserList
      */
@@ -424,6 +547,20 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
      */
     public void setDeptList(List<Department> deptList) {
         this.deptList = deptList;
+    }
+
+    /**
+     * @return the doTransfer
+     */
+    public Boolean getDoTransfer() {
+        return doTransfer;
+    }
+
+    /**
+     * @param doTransfer the doTransfer to set
+     */
+    public void setDoTransfer(Boolean doTransfer) {
+        this.doTransfer = doTransfer;
     }
 
 }

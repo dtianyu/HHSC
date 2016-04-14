@@ -179,8 +179,8 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                 p.setStatus("N");
                 p.setCreator(this.userManagedBean.getCurrentUser().getUserid());
                 p.setCredateToNow();
-                purchaseBean.persist(p);
-                List<PurchaseOrderDetail> detailList = new ArrayList<>();
+                
+                List<PurchaseOrderDetail> purchaseList = new ArrayList<>();
                 int seq = 1;
                 for (PurchaseDraft entity : entityList) {
                     PurchaseOrderDetail d = new PurchaseOrderDetail();
@@ -209,11 +209,13 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                     d.setSrcapi(this.currentSysprg.getApi());
                     d.setSrcformid(entity.getPformid());
                     d.setSrcseq(entity.getSeq());
-                    detailList.add(d);
+                    purchaseList.add(d);
                     entity.setStatus("V");
                     seq++;
                 }
-                purchaseBean.initPurchase(p, detailList);
+                
+                purchaseBean.persist(p);
+                purchaseBean.initPurchase(p, purchaseList);
                 for (PurchaseDraft entity : entityList) {
                     superEJB.verify(entity);
                 }

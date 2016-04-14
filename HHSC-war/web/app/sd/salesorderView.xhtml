@@ -15,6 +15,14 @@
                     <p:button id="btnReturn" value="返回" outcome="salesorder" icon="ui-icon-arrowreturn-1-w"  />                          
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnTrans1" value="成品请购" action="#{salesOrderManagedBean.transferToPurchaseRequest('100')}" icon="ui-icon-locked"
+                                     rendered="#{salesOrderManagedBean.doTransfer}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="确定吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnTrans2" value="白坯请购" action="#{salesOrderManagedBean.transferToPurchaseRequest('300')}" icon="ui-icon-locked"
+                                     rendered="#{salesOrderManagedBean.doTransfer}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="确定吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnVerify" value="审核" action="#{salesOrderManagedBean.verify()}" icon="ui-icon-locked"
                                      rendered="#{salesOrderManagedBean.doCfm}" process="@this" update="formView"/>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
@@ -285,6 +293,10 @@
                     </p:panel>
                 </p:tab>
             </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
         </h:form>
 
     </ui:define>

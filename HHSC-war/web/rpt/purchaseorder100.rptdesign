@@ -1521,7 +1521,7 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="303">
-                            <text-property name="text">门幅／克重</text-property>
+                            <text-property name="text">门幅/克重</text-property>
                         </label>
                     </cell>
                     <cell id="304">

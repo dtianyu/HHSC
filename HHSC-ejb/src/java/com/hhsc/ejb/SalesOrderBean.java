@@ -6,6 +6,8 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
+import com.hhsc.entity.PurchaseRequest;
+import com.hhsc.entity.PurchaseRequestDetail;
 import com.hhsc.entity.SalesOrder;
 import com.hhsc.entity.SalesOrderDetail;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 /**
  *
@@ -21,6 +25,9 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class SalesOrderBean extends SuperBean<SalesOrder> {
+
+    @EJB
+    private PurchaseRequestBean purchaseRequestBean;
 
     @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
@@ -36,6 +43,17 @@ public class SalesOrderBean extends SuperBean<SalesOrder> {
         setDetailList(salesOrderDetailBean.findByPId(value));
         if (getDetailList() == null) {
             setDetailList(new ArrayList<>());
+        }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void transferToPurchaseRequest(SalesOrder s, List<SalesOrderDetail> detailList, PurchaseRequest p, List<PurchaseRequestDetail> requestList) {
+        try {
+            purchaseRequestBean.initRequest(p, requestList);
+            salesOrderDetailBean.update(detailList);
+            update(s);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

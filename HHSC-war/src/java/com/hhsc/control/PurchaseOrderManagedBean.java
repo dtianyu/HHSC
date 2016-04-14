@@ -92,6 +92,7 @@ public class PurchaseOrderManagedBean extends SuperMultiBean<PurchaseOrder, Purc
         newDetail.setExtax(BigDecimal.ZERO);
         newDetail.setTaxes(BigDecimal.ZERO);
         newDetail.setDeliverydate(this.getDate());
+        newDetail.setStatus("00");
         setCurrentDetail(newDetail);
     }
 
