@@ -5,9 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
-import java.util.Date;
-import javax.persistence.Basic;
+import com.lightshell.comm.FormEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,9 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,18 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseRequest.findByPurtype", query = "SELECT p FROM PurchaseRequest p WHERE p.purtype = :purtype"),
     @NamedQuery(name = "PurchaseRequest.findByPurkind", query = "SELECT p FROM PurchaseRequest p WHERE p.purkind = :purkind"),
     @NamedQuery(name = "PurchaseRequest.findByStatus", query = "SELECT p FROM PurchaseRequest p WHERE p.status = :status")})
-public class PurchaseRequest extends BaseEntityWithOperate {
+public class PurchaseRequest extends FormEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "formid")
-    private String formid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "formdate")
-    @Temporal(TemporalType.DATE)
-    private Date formdate;
     @JoinColumn(name = "deptid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Department dept;
@@ -68,22 +53,6 @@ public class PurchaseRequest extends BaseEntityWithOperate {
     private String remark;
 
     public PurchaseRequest() {
-    }
-
-    public String getFormid() {
-        return formid;
-    }
-
-    public void setFormid(String formid) {
-        this.formid = formid;
-    }
-
-    public Date getFormdate() {
-        return formdate;
-    }
-
-    public void setFormdate(Date formdate) {
-        this.formdate = formdate;
     }
 
     public Department getDept() {

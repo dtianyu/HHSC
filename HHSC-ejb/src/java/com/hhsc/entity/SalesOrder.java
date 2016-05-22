@@ -5,9 +5,8 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.FormEntity;
 import java.math.BigDecimal;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -48,18 +45,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrder.findByPayment", query = "SELECT s FROM SalesOrder s WHERE s.payment = :payment"),
     @NamedQuery(name = "SalesOrder.findByRefno", query = "SELECT s FROM SalesOrder s WHERE s.refno = :refno"),
     @NamedQuery(name = "SalesOrder.findByStatus", query = "SELECT s FROM SalesOrder s WHERE s.status = :status")})
-public class SalesOrder extends BaseEntityWithOperate {
+public class SalesOrder extends FormEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "formid")
-    private String formid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "formdate")
-    @Temporal(TemporalType.DATE)
-    private Date formdate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -173,22 +160,6 @@ public class SalesOrder extends BaseEntityWithOperate {
     private String packremark;
 
     public SalesOrder() {
-    }
-
-    public String getFormid() {
-        return formid;
-    }
-
-    public void setFormid(String formid) {
-        this.formid = formid;
-    }
-
-    public Date getFormdate() {
-        return formdate;
-    }
-
-    public void setFormdate(Date formdate) {
-        this.formdate = formdate;
     }
 
     public String getOrdertype() {

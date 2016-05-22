@@ -10,7 +10,7 @@ import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.ZBModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "zbManagedBean")
 @SessionScoped
-public class ZBManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
+public class ZBManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;

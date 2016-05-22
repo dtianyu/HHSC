@@ -9,6 +9,7 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.PurchaseOrderDetail;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,10 +17,21 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class PurchaseOrderDetailBean extends SuperBean<PurchaseOrderDetail>{
-    
-    public PurchaseOrderDetailBean(){
+public class PurchaseOrderDetailBean extends SuperBean<PurchaseOrderDetail> {
+
+    public PurchaseOrderDetailBean() {
         super(PurchaseOrderDetail.class);
     }
-    
+
+    public PurchaseOrderDetail findByFormidAndSeq(String formid, int seq) {
+        Query query = getEntityManager().createNamedQuery("PurchaseOrderDetail.findByFormidAndSeq");
+        query.setParameter("formid", formid);
+        query.setParameter("seq", seq);
+        try {
+            return (PurchaseOrderDetail) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

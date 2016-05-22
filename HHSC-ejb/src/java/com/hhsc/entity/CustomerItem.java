@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.SuperDetailEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CustomerItem.findByItemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno"),
     @NamedQuery(name = "CustomerItem.findByItemnoAndCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customer.customerno=:customerno"),
     @NamedQuery(name = "CustomerItem.findByCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.customeritemno = :customeritemno")})
-public class CustomerItem extends BaseDetailEntity {
+public class CustomerItem extends SuperDetailEntity {
 
     @JoinColumn(name = "customerno", referencedColumnName = "customerno")
     @ManyToOne(optional = false)

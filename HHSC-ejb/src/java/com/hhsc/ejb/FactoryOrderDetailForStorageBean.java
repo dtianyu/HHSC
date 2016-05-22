@@ -5,15 +5,13 @@
  */
 package com.hhsc.ejb;
 
+import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.FactoryOrderDetailForStorage;
-import com.lightshell.comm.SuperEJB;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,18 +20,10 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class FactoryOrderDetailForStorageBean extends SuperEJB<FactoryOrderDetailForStorage> {
-
-    @PersistenceContext(unitName = "HHSC-ejbPU")
-    private EntityManager em;
+public class FactoryOrderDetailForStorageBean extends SuperBean<FactoryOrderDetailForStorage> {
 
     public FactoryOrderDetailForStorageBean() {
         super(FactoryOrderDetailForStorage.class);
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return em;
     }
 
     @Override
@@ -47,35 +37,13 @@ public class FactoryOrderDetailForStorageBean extends SuperEJB<FactoryOrderDetai
         sb.append("SELECT COUNT(e) FROM FactoryOrderDetailForStorage e WHERE ((e.jhqty - e.inqty) > 0)  ");
         sb.append(" AND (e.factoryOrder.ckstatus='N') ");
         if (filters != null) {
-            for (Map.Entry<String, Object> e : filters.entrySet()) {
-                if (e.getValue().getClass() == String.class) {
-                    sb.append(" AND e.").append(e.getKey()).append(" LIKE :").append(e.getKey());
-                } else if (e.getValue().getClass() == Date.class && e.getKey().endsWith("Begin")) {
-                    sb.append(" AND e.").append(e.getKey().substring(0, e.getKey().indexOf("Begin"))).append(" >= :").append(e.getKey());
-                } else if (e.getValue().getClass() == Date.class && e.getKey().endsWith("End")) {
-                    sb.append(" AND e.").append(e.getKey().substring(0, e.getKey().indexOf("End"))).append(" <= :").append(e.getKey());
-                } else if (e.getKey().contains(".")) {
-                    sb.append(" AND e.").append(e.getKey()).append(" = :").append(e.getKey().substring(0, e.getKey().indexOf(".")));
-                } else {
-                    sb.append(" AND e.").append(e.getKey()).append(" = :").append(e.getKey());
-                }
-            }
+            this.setQueryFilter(sb, filters);
         }
         //生成SQL
         Query query = getEntityManager().createQuery(sb.toString());
         //参数赋值
         if (filters != null) {
-            for (Map.Entry<String, Object> e : filters.entrySet()) {
-                if ((e.getKey().contains(".")) && (e.getValue().getClass() == String.class)) {
-                    query.setParameter(e.getKey().substring(0, e.getKey().indexOf(".")), "%" + e.getValue() + "%");
-                } else if ((!e.getKey().contains(".")) && (e.getValue().getClass() == String.class)) {
-                    query.setParameter(e.getKey(), "%" + e.getValue() + "%");
-                } else if ((e.getKey().contains(".")) && (e.getValue().getClass() != String.class)) {
-                    query.setParameter(e.getKey().substring(0, e.getKey().indexOf(".")), e.getValue());
-                } else {
-                    query.setParameter(e.getKey(), e.getValue());
-                }
-            }
+            this.setQueryParam(query, filters);
         }
         return Integer.parseInt(query.getSingleResult().toString());
     }
@@ -86,19 +54,7 @@ public class FactoryOrderDetailForStorageBean extends SuperEJB<FactoryOrderDetai
         sb.append("SELECT e FROM FactoryOrderDetailForStorage e WHERE ((e.jhqty - e.inqty) > 0)  ");
         sb.append(" AND e.factoryOrder.ckstatus='N' ");
         if (filters != null) {
-            for (Map.Entry<String, Object> e : filters.entrySet()) {
-                if (e.getValue().getClass() == String.class) {
-                    sb.append(" AND e.").append(e.getKey()).append(" LIKE :").append(e.getKey());
-                } else if (e.getValue().getClass() == Date.class && e.getKey().endsWith("Begin")) {
-                    sb.append(" AND e.").append(e.getKey().substring(0, e.getKey().indexOf("Begin"))).append(" >= :").append(e.getKey());
-                } else if (e.getValue().getClass() == Date.class && e.getKey().endsWith("End")) {
-                    sb.append(" AND e.").append(e.getKey().substring(0, e.getKey().indexOf("End"))).append(" <= :").append(e.getKey());
-                } else if (e.getKey().contains(".")) {
-                    sb.append(" AND e.").append(e.getKey()).append(" = :").append(e.getKey().substring(0, e.getKey().indexOf(".")));
-                } else {
-                    sb.append(" AND e.").append(e.getKey()).append(" = :").append(e.getKey());
-                }
-            }
+            this.setQueryFilter(sb, filters);
         }
         if ((orderBy != null) && (orderBy.size() > 0)) {
             sb.append(" ORDER BY ");
@@ -111,17 +67,7 @@ public class FactoryOrderDetailForStorageBean extends SuperEJB<FactoryOrderDetai
         Query query = getEntityManager().createQuery(sb.toString()).setFirstResult(first).setMaxResults(pageSize);
         //参数赋值
         if (filters != null) {
-            for (Map.Entry<String, Object> e : filters.entrySet()) {
-                if ((e.getKey().contains(".")) && (e.getValue().getClass() == String.class)) {
-                    query.setParameter(e.getKey().substring(0, e.getKey().indexOf(".")), "%" + e.getValue() + "%");
-                } else if ((!e.getKey().contains(".")) && (e.getValue().getClass() == String.class)) {
-                    query.setParameter(e.getKey(), "%" + e.getValue() + "%");
-                } else if ((e.getKey().contains(".")) && (e.getValue().getClass() != String.class)) {
-                    query.setParameter(e.getKey().substring(0, e.getKey().indexOf(".")), e.getValue());
-                } else {
-                    query.setParameter(e.getKey(), e.getValue());
-                }
-            }
+            this.setQueryParam(query, filters);
         }
         return query.getResultList();
     }

@@ -10,6 +10,7 @@ import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.BaseEntity;
 import com.lightshell.comm.SuperSingleManagedBean;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -31,6 +32,8 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     protected String appDataPath;
     protected String appImgPath;
     protected Sysprg currentSysprg;
+
+    protected Map<String, String[]> params;//页面传参
 
     /**
      * @param entityClass

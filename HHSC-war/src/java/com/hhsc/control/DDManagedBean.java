@@ -14,7 +14,7 @@ import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.DDModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +33,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "ddManagedBean")
 @SessionScoped
-public class DDManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
+public class DDManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;

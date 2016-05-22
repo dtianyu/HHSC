@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseRequestDetail.findAll", query = "SELECT p FROM PurchaseRequestDetail p"),
     @NamedQuery(name = "PurchaseRequestDetail.findById", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.id = :id"),
     @NamedQuery(name = "PurchaseRequestDetail.findByPId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.pid = :pid"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByPformid", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.pformid = :pformid"),
     @NamedQuery(name = "PurchaseRequestDetail.findByPurtype", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purtype = :purtype"),
     @NamedQuery(name = "PurchaseRequestDetail.findByPurkind", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purkind = :purkind"),
     @NamedQuery(name = "PurchaseRequestDetail.findByAbroad", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.abroad = :abroad"),
@@ -41,13 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseRequestDetail.findByItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemno = :itemno"),
     @NamedQuery(name = "PurchaseRequestDetail.findByCustomerId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.customer.id = :customerid"),
     @NamedQuery(name = "PurchaseRequestDetail.findByVendorId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.vendor.id = :vendorid")})
-public class PurchaseRequestDetail extends BaseDetailEntity {
+public class PurchaseRequestDetail extends FormDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "pformid")
-    private String pformid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -226,14 +220,6 @@ public class PurchaseRequestDetail extends BaseDetailEntity {
     private Date cfmdate;
 
     public PurchaseRequestDetail() {
-    }
-
-    public String getPformid() {
-        return pformid;
-    }
-
-    public void setPformid(String pformid) {
-        this.pformid = pformid;
     }
 
     public String getPurtype() {

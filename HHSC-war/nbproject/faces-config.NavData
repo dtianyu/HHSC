@@ -13,24 +13,24 @@
         <Node id="sys/sysgrantmoduleEdit.xhtml" x="2650" y="300" zoom="true"/>
         <Node id="sys/sysmodule.xhtml" x="1150" y="750" zoom="true"/>
         <Node id="app/sd/salesorder.xhtml" x="650" y="1950" zoom="true"/>
-        <Node id="sys/sysgrantmodule.xhtml" x="2900" y="750" zoom="true"/>
-        <Node id="app/sd/salesorderView.xhtml" x="900" y="1500" zoom="true"/>
-        <Node id="sys/sysprg.xhtml" x="2400" y="150" zoom="true"/>
         <Node id="app/sd/salesorderEdit.xhtml" x="2400" y="600" zoom="true"/>
+        <Node id="sys/sysgrantmodule.xhtml" x="2900" y="750" zoom="true"/>
+        <Node id="sys/sysprg.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="app/sd/salesorderView.xhtml" x="900" y="1500" zoom="true"/>
         <Node id="app/sd/customerEdit.xhtml" x="1150" y="300" zoom="true"/>
-        <Node id="app/ckNew.xhtml" x="650" y="750" zoom="true"/>
         <Node id="app/sd/salesorderNew.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="app/ckNew.xhtml" x="650" y="750" zoom="true"/>
         <Node id="app/df/factoryorderdetailSelect.xhtml" x="2400" y="750" zoom="true"/>
         <Node id="app/cpEdit.xhtml" x="1650" y="750" zoom="true"/>
         <Node id="app/mm/warehouseNew.xhtml" x="3650" y="150" zoom="true"/>
         <Node id="sys/sysgrantprg.xhtml" x="1900" y="450" zoom="true"/>
         <Node id="app/mm/itemdesignNew.xhtml" x="3400" y="450" zoom="true"/>
         <Node id="*" x="2900" y="150" zoom="false"/>
-        <Node id="sys/sysgrantprgEdit.xhtml" x="150" y="600" zoom="true"/>
         <Node id="app/mm/itemdesignEdit.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="sys/sysgrantprgEdit.xhtml" x="150" y="600" zoom="true"/>
         <Node id="sys/systemuser.xhtml" x="1900" y="150" zoom="true"/>
-        <Node id="resetPwd.xhtml" x="650" y="1800" zoom="true"/>
         <Node id="app/mm/warehouseView.xhtml" x="2150" y="1050" zoom="true"/>
+        <Node id="resetPwd.xhtml" x="650" y="1800" zoom="true"/>
         <Node id="sys/sysgrantmoduleNew.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="app/mm/unitEdit.xhtml" x="650" y="1650" zoom="true"/>
         <Node id="login.xhtml" x="1150" y="1350" zoom="true"/>
@@ -42,12 +42,12 @@
         <Node id="app/mm/itemcategoryEdit.xhtml" x="650" y="600" zoom="true"/>
         <Node id="sys/sysmoduleView.xhtml" x="1900" y="1050" zoom="true"/>
         <Node id="sys/systemuserView.xhtml" x="1150" y="1500" zoom="true"/>
-        <Node id="app/sd/customerNew.xhtml" x="650" y="1500" zoom="true"/>
         <Node id="app/lm/vendor.xhtml" x="1900" y="600" zoom="true"/>
+        <Node id="app/sd/customerNew.xhtml" x="650" y="1500" zoom="true"/>
         <Node id="404.xhtml" x="2650" y="900" zoom="true"/>
+        <Node id="app/df/customerSelect.xhtml" x="1400" y="1500" zoom="true"/>
         <Node id="sys/sysmoduleNew.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="app/df/itemmasterSelect.xhtml" x="900" y="1050" zoom="true"/>
-        <Node id="app/df/customerSelect.xhtml" x="1400" y="1500" zoom="true"/>
         <Node id="app/df/unitSelect.xhtml" x="1900" y="1200" zoom="true"/>
         <Node id="app/sd/customer.xhtml" x="400" y="300" zoom="true"/>
         <Node id="app/lm/vendorEdit.xhtml" x="150" y="1500" zoom="true"/>
@@ -66,11 +66,11 @@
         <Node id="app/ckView.xhtml" x="2650" y="600" zoom="true"/>
         <Node id="app/sys/department.xhtml" x="3900" y="150" zoom="true"/>
         <Node id="app/sys/departmentView.xhtml" x="1400" y="1050" zoom="true"/>
-        <Node id="app/mm/unit.xhtml" x="2150" y="600" zoom="true"/>
         <Node id="sys/sysprgEdit.xhtml" x="400" y="750" zoom="true"/>
-        <Node id="app/mm/unitNew.xhtml" x="650" y="900" zoom="true"/>
-        <Node id="sys/sysprgView.xhtml" x="400" y="1650" zoom="true"/>
+        <Node id="app/mm/unit.xhtml" x="2150" y="600" zoom="true"/>
         <Node id="app/mm/warehouse.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="sys/sysprgView.xhtml" x="400" y="1650" zoom="true"/>
+        <Node id="app/mm/unitNew.xhtml" x="650" y="900" zoom="true"/>
         <Node id="app/sys/departmentEdit.xhtml" x="400" y="600" zoom="true"/>
         <Node id="error.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="app/ck.xhtml" x="650" y="1050" zoom="true"/>
@@ -83,8 +83,8 @@
         <Node id="sys/sysgrantprgNew.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="app/df/itemdesignSelect.xhtml" x="3400" y="150" zoom="true"/>
         <Node id="sys/sysgrantprgView.xhtml" x="2400" y="300" zoom="true"/>
-        <Node id="sys/systemuserEdit.xhtml" x="900" y="900" zoom="true"/>
         <Node id="sys/sysmoduleEdit.xhtml" x="2150" y="750" zoom="true"/>
+        <Node id="sys/systemuserEdit.xhtml" x="900" y="900" zoom="true"/>
         <Node id="app/mm/itemdesignView.xhtml" x="150" y="2250" zoom="true"/>
         <Node id="app/mm/itemcategory.xhtml" x="2650" y="150" zoom="true"/>
         <Node id="app/mm/itemdesign.xhtml" x="1650" y="1050" zoom="true"/>

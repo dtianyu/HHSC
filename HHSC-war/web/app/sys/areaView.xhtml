@@ -13,9 +13,15 @@
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="area" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{areaManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{areaManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{areaManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{areaManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" actionListener="#{areaManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
+                    <p:commandButton id="btnVerify" actionListener="#{areaManagedBean.verify()}" icon="ui-icon-locked" value="审核" 
                                      rendered="#{areaManagedBean.doCfm}" update="toolbar,plgHead"/>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{areaManagedBean.print()}" icon="ui-icon-print"
                                      rendered="#{areaManagedBean.doPrt}"/>

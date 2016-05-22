@@ -27,7 +27,7 @@ import org.primefaces.event.SelectEvent;
  *
  * @author kevindong
  */
-@ManagedBean
+@ManagedBean(name="purchaseDraftManagedBean")
 @SessionScoped
 public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
 
@@ -101,7 +101,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(queryFormId)) {
-                this.model.getFilterFields().put("pformid", queryFormId);
+                this.model.getFilterFields().put("purchaserequest.formid", queryFormId);
             }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("purchaserequest.formdateBegin", queryDateBegin);

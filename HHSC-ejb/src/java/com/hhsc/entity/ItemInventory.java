@@ -5,15 +5,14 @@
  */
 package com.hhsc.entity;
 
-import java.io.Serializable;
+import com.lightshell.comm.SuperEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,38 +30,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "iteminventory")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "ItemInventory.getRowCount", query = "SELECT COUNT(i) FROM ItemInventory i"),
     @NamedQuery(name = "ItemInventory.findAll", query = "SELECT i FROM ItemInventory i"),
+    @NamedQuery(name = "ItemInventory.findItemInventory", query = "SELECT i FROM ItemInventory i where i.itemmaster.itemno = :itemno AND i.colorno = :colorno AND i.brand = :brand AND i.batch = :batch AND i.sn = :sn AND i.warehouse.warehouseno = :warehouseno"),
+    @NamedQuery(name = "ItemInventory.findItemInventories", query = "SELECT i FROM ItemInventory i where i.itemmaster.itemno = :itemno AND i.colorno = :colorno AND i.brand = :brand AND i.batch = :batch AND i.sn = :sn"),
     @NamedQuery(name = "ItemInventory.findById", query = "SELECT i FROM ItemInventory i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemInventory.findByItemno", query = "SELECT i FROM ItemInventory i WHERE i.itemno = :itemno"),
-    @NamedQuery(name = "ItemInventory.findByWarehouse", query = "SELECT i FROM ItemInventory i WHERE i.warehouse = :warehouse"),
+    @NamedQuery(name = "ItemInventory.findByItemno", query = "SELECT i FROM ItemInventory i WHERE i.itemmaster.itemno = :itemno"),
+    @NamedQuery(name = "ItemInventory.findByColorno", query = "SELECT i FROM ItemInventory i WHERE i.colorno = :colorno"),
     @NamedQuery(name = "ItemInventory.findByBrand", query = "SELECT i FROM ItemInventory i WHERE i.brand = :brand"),
     @NamedQuery(name = "ItemInventory.findByBatch", query = "SELECT i FROM ItemInventory i WHERE i.batch = :batch"),
     @NamedQuery(name = "ItemInventory.findBySn", query = "SELECT i FROM ItemInventory i WHERE i.sn = :sn"),
-    @NamedQuery(name = "ItemInventory.findByQty", query = "SELECT i FROM ItemInventory i WHERE i.qty = :qty"),
-    @NamedQuery(name = "ItemInventory.findByPreqty", query = "SELECT i FROM ItemInventory i WHERE i.preqty = :preqty"),
+    @NamedQuery(name = "ItemInventory.findByWarehouseno", query = "SELECT i FROM ItemInventory i WHERE i.warehouse.warehouseno = :warehouseno"),
     @NamedQuery(name = "ItemInventory.findByLocation", query = "SELECT i FROM ItemInventory i WHERE i.location = :location"),
     @NamedQuery(name = "ItemInventory.findByObjectkind", query = "SELECT i FROM ItemInventory i WHERE i.objectkind = :objectkind"),
-    @NamedQuery(name = "ItemInventory.findByObjectid", query = "SELECT i FROM ItemInventory i WHERE i.objectid = :objectid"),
-    @NamedQuery(name = "ItemInventory.findByIndate", query = "SELECT i FROM ItemInventory i WHERE i.indate = :indate"),
-    @NamedQuery(name = "ItemInventory.findByOutdate", query = "SELECT i FROM ItemInventory i WHERE i.outdate = :outdate"),
+    @NamedQuery(name = "ItemInventory.findByObjectId", query = "SELECT i FROM ItemInventory i WHERE i.objectid = :objectid"),
     @NamedQuery(name = "ItemInventory.findByStatus", query = "SELECT i FROM ItemInventory i WHERE i.status = :status")})
-public class ItemInventory implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "itemno")
-    private String itemno;
+public class ItemInventory extends SuperEntity {
+
+    @JoinColumn(name = "itemno", referencedColumnName = "itemno")
+    @ManyToOne(optional = false)
+    protected ItemMaster itemmaster;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "warehouse")
-    private String warehouse;
+    @Column(name = "colorno")
+    protected String colorno;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -78,6 +70,10 @@ public class ItemInventory implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "sn")
     private String sn;
+
+    @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
+    private Warehouse warehouse;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -102,70 +98,16 @@ public class ItemInventory implements Serializable {
     @Column(name = "outdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date outdate;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 20)
-    @Column(name = "creator")
-    private String creator;
-    @Column(name = "credate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date credate;
-    @Size(max = 20)
-    @Column(name = "optuser")
-    private String optuser;
-    @Column(name = "optdate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date optdate;
-    @Size(max = 20)
-    @Column(name = "cfmuser")
-    private String cfmuser;
-    @Column(name = "cfmdate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date cfmdate;
 
     public ItemInventory() {
+        this.status = "N";
     }
 
-    public ItemInventory(Integer id) {
-        this.id = id;
-    }
-
-    public ItemInventory(Integer id, String itemno, String warehouse, String brand, String batch, String sn, BigDecimal qty, BigDecimal preqty, String status) {
-        this.id = id;
-        this.itemno = itemno;
-        this.warehouse = warehouse;
-        this.brand = brand;
-        this.batch = batch;
-        this.sn = sn;
-        this.qty = qty;
-        this.preqty = preqty;
-        this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getItemno() {
-        return itemno;
-    }
-
-    public void setItemno(String itemno) {
-        this.itemno = itemno;
-    }
-
-    public String getWarehouse() {
+    public Warehouse getWarehouse() {
         return warehouse;
     }
 
-    public void setWarehouse(String warehouse) {
+    public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
 
@@ -249,62 +191,6 @@ public class ItemInventory implements Serializable {
         this.outdate = outdate;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    public Date getCredate() {
-        return credate;
-    }
-
-    public void setCredate(Date credate) {
-        this.credate = credate;
-    }
-
-    public String getOptuser() {
-        return optuser;
-    }
-
-    public void setOptuser(String optuser) {
-        this.optuser = optuser;
-    }
-
-    public Date getOptdate() {
-        return optdate;
-    }
-
-    public void setOptdate(Date optdate) {
-        this.optdate = optdate;
-    }
-
-    public String getCfmuser() {
-        return cfmuser;
-    }
-
-    public void setCfmuser(String cfmuser) {
-        this.cfmuser = cfmuser;
-    }
-
-    public Date getCfmdate() {
-        return cfmdate;
-    }
-
-    public void setCfmdate(Date cfmdate) {
-        this.cfmdate = cfmdate;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -319,15 +205,43 @@ public class ItemInventory implements Serializable {
             return false;
         }
         ItemInventory other = (ItemInventory) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return this.itemmaster.getItemno().equals(other.itemmaster.getItemno())
+                && this.colorno.equals(other.colorno) && this.brand.equals(other.brand)
+                && this.batch.equals(other.batch) && this.sn.equals(other.sn)
+                && this.warehouse.getWarehouseno().equals(other.warehouse.getWarehouseno());
     }
 
     @Override
     public String toString() {
         return "com.hhsc.entity.ItemInventory[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the colorno
+     */
+    public String getColorno() {
+        return colorno;
+    }
+
+    /**
+     * @param colorno the colorno to set
+     */
+    public void setColorno(String colorno) {
+        this.colorno = colorno;
+    }
+
+    /**
+     * @return the itemmaster
+     */
+    public ItemMaster getItemmaster() {
+        return itemmaster;
+    }
+
+    /**
+     * @param itemmaster the itemmaster to set
+     */
+    public void setItemmaster(ItemMaster itemmaster) {
+        this.itemmaster = itemmaster;
+    }
+
 }

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="purchasestorage" icon="ui-icon-arrowreturn-1-w"  />                    
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{purchaseStorageManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchaseStorageManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{purchaseStorageManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchaseStorageManagedBean.hasNext}"/> 
+                    <p:commandButton id="btnUnverify" value="取消"  actionListener="#{purchaseStorageManagedBean.unverify()}" icon="ui-icon-unlocked"
+                                     rendered="#{purchaseStorageManagedBean.doUnCfm}"  process="@this" update="formView"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{purchaseStorageManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{purchaseStorageManagedBean.doCfm}" process="@this" update="formView"/>                    
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseStorageManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchaseStorageManagedBean.doPrt}"/> 
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="验收入库－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="验收单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{purchaseStorageManagedBean.currentEntity.purchaseAcceptance.formid}-#{purchaseStorageManagedBean.currentEntity.seq}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="验收日期" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="acceptdate" value="#{purchaseStorageManagedBean.currentEntity.acceptdate}" title="Acceptdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="供应商"/></p:column>
+                        <p:column>
+                            <h:outputText id="vendor" value="#{purchaseStorageManagedBean.currentEntity.purchaseAcceptance.vendor.vendor}"/>
+                        </p:column>
+                        <p:column><h:outputText value="验收部门"/></p:column>
+                        <p:column>
+                            <h:outputText id="dept" value="#{purchaseStorageManagedBean.currentEntity.dept.dept}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="来源单号"/></p:column>
+                        <p:column>
+                            <h:outputText id="srcformid" value="#{purchaseStorageManagedBean.currentEntity.srcformid}-#{purchaseStorageManagedBean.currentEntity.srcseq}" title="Srcformid" />
+                        </p:column>
+                        <p:column><h:outputText value="验收员"/></p:column>
+                        <p:column>
+                            <h:outputText id="acceptuser" value="#{purchaseStorageManagedBean.currentEntity.acceptuser.username}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="品号" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemmaster" value="#{purchaseStorageManagedBean.currentEntity.itemmaster.itemno}" />
+                        </p:column>
+                        <p:column><h:outputText value="品名" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemdesc" value="#{purchaseStorageManagedBean.currentEntity.itemmaster.itemdesc}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="色号" /></p:column>
+                        <p:column>
+                            <h:outputText id="colorno" value="#{purchaseStorageManagedBean.currentEntity.colorno}" title="Colorno" />
+                        </p:column>
+                        <p:column><h:outputText value="规格" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{purchaseStorageManagedBean.currentEntity.itemmaster.itemspec}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="批次" /></p:column>
+                        <p:column>
+                            <h:outputText id="batch" value="#{purchaseStorageManagedBean.currentEntity.batch}" title="Batch" />
+                        </p:column>
+                        <p:column><h:outputText value="仓库"/></p:column>
+                        <p:column>
+                            <h:outputText id="warehouse" value="#{purchaseStorageManagedBean.currentEntity.warehouse.name}" title="warehouse" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="点收数量" /></p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{purchaseStorageManagedBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column><h:outputText value="合格数量"/></p:column>
+                        <p:column>
+                            <h:outputText id="qcqty" value="#{purchaseStorageManagedBean.currentEntity.qcqty}" title="qcqty" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{purchaseStorageManagedBean.currentEntity.unit}" title="Unit" />
+                        </p:column>
+                        <p:column><h:outputText value="不合格量" /></p:column>
+                        <p:column>
+                            <h:outputText id="badqty" value="#{purchaseStorageManagedBean.currentEntity.badqty}" title="Badqty" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="验收类别"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="purtype" value="#{purchaseStorageManagedBean.currentEntity.purtype}" title="Purtype" 
+                                             required="true" requiredMessage="请输入验收类别" disabled="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="成品" itemValue="100" />
+                                <f:selectItem itemLabel="印花" itemValue="200" />
+                                <f:selectItem itemLabel="白坯" itemValue="300" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="多余数量" /></p:column>
+                        <p:column>
+                            <h:outputText id="addqty" value="#{purchaseStorageManagedBean.currentEntity.addqty}" title="Addqty"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

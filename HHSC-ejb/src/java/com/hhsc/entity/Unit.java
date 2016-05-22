@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Unit.findByUnit", query = "SELECT u FROM Unit u WHERE u.unit = :unit"),
     @NamedQuery(name = "Unit.findByEnunit", query = "SELECT u FROM Unit u WHERE u.enunit = :enunit"),
     @NamedQuery(name = "Unit.findByStatus", query = "SELECT u FROM Unit u WHERE u.status = :status")})
-public class Unit extends BaseEntityWithOperate {
+public class Unit extends SuperEntity {
 
     @Basic(optional = false)
     @NotNull

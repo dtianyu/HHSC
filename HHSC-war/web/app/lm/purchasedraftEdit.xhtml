@@ -31,7 +31,7 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="请购单号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="formid" value="#{purchaseDraftManagedBean.currentEntity.pformid}-#{purchaseDraftManagedBean.currentEntity.seq}" title="Formid" />
+                            <h:outputText id="formid" value="#{purchaseDraftManagedBean.currentEntity.purchaserequest.formid}-#{purchaseDraftManagedBean.currentEntity.seq}" title="Formid" />
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="请购日期" /></p:column>
                         <p:column styleClass="Wid30">
@@ -116,7 +116,7 @@
                                     <p:commandButton id="btnSelectVendor" actionListener="#{purchaseDraftManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{purchaseDraftManagedBean.handleDialogReturnVendorWhenEdit}" 
-                                                update="vendor" oncomplete="findVendorItem()"/>
+                                                update="vendor" oncomplete="findVendorItem();"/>
                                     </p:commandButton>
                                     <p:remoteCommand id="findVendorItem" name="findVendorItem" actionListener="#{purchaseDraftManagedBean.findVendorItem()}" 
                                                      process="@this" update=":formEdit:tabView:plgDetail"/>

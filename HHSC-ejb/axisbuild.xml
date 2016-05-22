@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="HHSCService" basedir="." default="generateService"> 
+    <property name="dist.dir" value="dist" /> 
+    <property name="dist.dir.classes" value="${dist.dir}/classes" /> 
+    <property name="dist.dir.lib" value="${dist.dir}/lib" />
+    <property name="AXIS2_HOME" value="/usr/local/axis2-1.7.1"/> 
+    <path id="build.class.path"> 
+        <fileset dir="${AXIS2_HOME}/lib"> 
+            <include name="*.jar" /> 
+        </fileset> 
+    </path> 
+    <target name="generateService" depends=""> 
+        <copy file="src/services.xml" tofile="${dist.dir.classes}/META-INF/services.xml" 
+              overwrite="true" /> 
+        <javac srcdir="src/java/" destdir="${dist.dir.classes}" 
+               includes="com/hhsc/service/*" includeantruntime="on" > 
+            <classpath refid="build.class.path" /> 
+        </javac> 
+        <jar basedir="${dist.dir.classes}" destfile="${dist.dir}/HHSCService.aar" /> 
+    </target> 
+</project> 

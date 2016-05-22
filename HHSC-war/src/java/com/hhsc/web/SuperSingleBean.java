@@ -5,7 +5,7 @@
  */
 package com.hhsc.web;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
  * @author KevinDong
  * @param <T>
  */
-public abstract class SuperSingleBean<T extends BaseEntityWithOperate> extends SuperSingleManagedBean<T> {
+public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingleManagedBean<T> {
 
     @EJB
     protected SysprgBean sysprgBean;

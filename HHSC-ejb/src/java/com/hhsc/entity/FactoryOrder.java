@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.FormEntity;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -38,20 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryOrder.findByZbstatus", query = "SELECT s FROM FactoryOrder s WHERE s.zbstatus = :zbstatus ORDER BY s.zbstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findByPsstatus", query = "SELECT s FROM FactoryOrder s WHERE s.psstatus = :psstatus ORDER BY s.psstatus,s.id DESC"),
     @NamedQuery(name = "FactoryOrder.findByStatus", query = "SELECT s FROM FactoryOrder s WHERE s.status = :status ORDER BY s.salesstatus,s.id DESC")})
-public class FactoryOrder extends BaseEntityWithOperate {
+public class FactoryOrder extends FormEntity {
 
     @JoinColumn(name = "salesman", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private SystemUser salesman;
 
-    @Size(max = 45)
-    @Column(name = "formid")
-    private String formid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "formdate")
-    @Temporal(TemporalType.DATE)
-    private Date formdate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "orderqty")
@@ -408,22 +400,6 @@ public class FactoryOrder extends BaseEntityWithOperate {
 
     public FactoryOrder(Integer id) {
         this.id = id;
-    }
-
-    public String getFormid() {
-        return formid;
-    }
-
-    public void setFormid(String formid) {
-        this.formid = formid;
-    }
-
-    public Date getFormdate() {
-        return formdate;
-    }
-
-    public void setFormdate(Date formdate) {
-        this.formdate = formdate;
     }
 
     public String getDesignid() {

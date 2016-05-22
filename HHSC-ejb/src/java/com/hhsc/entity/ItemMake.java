@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.SuperDetailEntity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,8 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemMake.findById", query = "SELECT i FROM ItemMake i WHERE i.id = :id"),
     @NamedQuery(name = "ItemMake.findByPId", query = "SELECT i FROM ItemMake i WHERE i.pid = :pid"),
     @NamedQuery(name = "ItemMake.findByItemno", query = "SELECT i FROM ItemMake i WHERE i.itemno = :itemno")})
-public class ItemMake extends BaseDetailEntity {
+public class ItemMake extends SuperDetailEntity {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "pid")
+    protected int pid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -91,5 +95,6 @@ public class ItemMake extends BaseDetailEntity {
     public String toString() {
         return "com.hhsc.entity.ItemMake[ id=" + id + " ]";
     }
+
 
 }

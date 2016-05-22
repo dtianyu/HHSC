@@ -24,7 +24,7 @@ import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SalesOrderModel;
 import com.hhsc.rpt.SalesOrderReport;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
@@ -46,7 +46,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "salesOrderManagedBean")
 @SessionScoped
-public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrderDetail> {
+public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderDetail> {
 
     @EJB
     private PurchaseRequestBean purchaseRequestBean;
@@ -95,6 +95,7 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         this.newEntity.setTotalextax(BigDecimal.ZERO);
         this.newEntity.setTotaltaxes(BigDecimal.ZERO);
         this.newEntity.setTotalamts(BigDecimal.ZERO);
+        this.setCurrentEntity(this.newEntity);
     }
 
     @Override
@@ -108,66 +109,6 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         this.newDetail.setDeliverydate(this.getDate());
         this.newDetail.setStatus("00");
         this.setCurrentDetail(newDetail);
-    }
-
-    @Override
-    protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            String formid = "";
-            if (this.getCurrentSysprg().getNoauto()) {
-                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
-            }
-            this.newEntity.setFormid(formid);
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (SalesOrderDetail detail : this.addedDetailList) {
-                    detail.setPformid(formid);
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (SalesOrderDetail detail : this.editedDetailList) {
-                    detail.setPformid(formid);
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean doBeforeUpdate() throws Exception {
-        if (this.currentEntity != null) {
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (SalesOrderDetail detail : this.addedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (SalesOrderDetail detail : this.editedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
-                }
-            }
-            return super.doBeforeUpdate();
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean doBeforeUnverify() throws Exception {
-        //需要加入还原条件
-        return super.doBeforeUnverify();
-    }
-
-    @Override
-    protected boolean doBeforeVerify() throws Exception {
-        if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
-            return false;
-        }
-        if (this.detailList == null || this.detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有订单明细!"));
-            return false;
-        }
-        return super.doBeforeVerify();
     }
 
     @Override
@@ -324,6 +265,7 @@ public class SalesOrderManagedBean extends SuperMultiBean<SalesOrder, SalesOrder
         //设置报表参数
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
+        params.put("formid", currentEntity.getFormid());
         params.put("JNDIName", this.currentSysprg.getRptjndi());
         //设置报表名称
         String reportFormat;

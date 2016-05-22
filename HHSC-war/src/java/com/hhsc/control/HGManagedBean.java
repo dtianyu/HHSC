@@ -10,6 +10,7 @@ import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.HGModel;
+import com.hhsc.web.FormMultiBean;
 import com.hhsc.web.SuperMultiBean;
 import com.lightshell.comm.BaseLib;
 import javax.ejb.EJB;
@@ -24,7 +25,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "hgManagedBean")
 @SessionScoped
-public class HGManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
+public class HGManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;

@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -33,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseOrderDetail.findAll", query = "SELECT p FROM PurchaseOrderDetail p"),
     @NamedQuery(name = "PurchaseOrderDetail.findById", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.id = :id"),
     @NamedQuery(name = "PurchaseOrderDetail.findByPId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid ORDER BY p.seq"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByPformid", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pformid = :pformid"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByItemId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.itemmaster.id = :itemmasterid"),
+    @NamedQuery(name = "PurchaseOrderDetail.findByFormidAndSeq", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :formid AND p.seq = :seq"),
     @NamedQuery(name = "PurchaseOrderDetail.findByItemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.itemno = :itemno"),
     @NamedQuery(name = "PurchaseOrderDetail.findByColorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.colorno = :colorno"),
     @NamedQuery(name = "PurchaseOrderDetail.findByCustomerId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customerid = :customerid"),
@@ -43,13 +42,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseOrderDetail.findByVendoritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.vendoritemno = :vendoritemno"),
     @NamedQuery(name = "PurchaseOrderDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.vendorcolorno = :vendorcolorno"),
     @NamedQuery(name = "PurchaseOrderDetail.findByDeliverydate", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.deliverydate = :deliverydate")})
-public class PurchaseOrderDetail extends BaseDetailEntity {
+public class PurchaseOrderDetail extends FormDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "pformid")
-    private String pformid;
     @JoinColumn(name = "itemid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ItemMaster itemmaster;
@@ -118,6 +112,10 @@ public class PurchaseOrderDetail extends BaseDetailEntity {
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "inqty")
+    protected BigDecimal inqty;
     @Size(max = 2)
     @Column(name = "status")
     private String status;
@@ -139,14 +137,7 @@ public class PurchaseOrderDetail extends BaseDetailEntity {
     private Integer relseq;
 
     public PurchaseOrderDetail() {
-    }
 
-    public String getPformid() {
-        return pformid;
-    }
-
-    public void setPformid(String pformid) {
-        this.pformid = pformid;
     }
 
     public ItemMaster getItemmaster() {
@@ -396,6 +387,20 @@ public class PurchaseOrderDetail extends BaseDetailEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.PurchaseOrderDetail[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the inqty
+     */
+    public BigDecimal getInqty() {
+        return inqty;
+    }
+
+    /**
+     * @param inqty the inqty to set
+     */
+    public void setInqty(BigDecimal inqty) {
+        this.inqty = inqty;
     }
 
 }

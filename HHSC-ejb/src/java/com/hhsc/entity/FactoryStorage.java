@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.FormEntity;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,18 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryStorage.findByFormdate", query = "SELECT f FROM FactoryStorage f WHERE f.formdate = :formdate"),
     @NamedQuery(name = "FactoryStorage.findByDeptid", query = "SELECT f FROM FactoryStorage f WHERE f.deptid = :deptid"),
     @NamedQuery(name = "FactoryStorage.findByStatus", query = "SELECT f FROM FactoryStorage f WHERE f.status = :status")})
-public class FactoryStorage extends BaseEntityWithOperate {
+public class FactoryStorage extends FormEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "formid")
-    private String formid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "formdate")
-    @Temporal(TemporalType.DATE)
-    private Date formdate;
     @Column(name = "deptid")
     private Integer deptid;
 
@@ -60,22 +50,6 @@ public class FactoryStorage extends BaseEntityWithOperate {
         this.formid = formid;
         this.formdate = formdate;
         this.status = status;
-    }
-
-    public String getFormid() {
-        return formid;
-    }
-
-    public void setFormid(String formid) {
-        this.formid = formid;
-    }
-
-    public Date getFormdate() {
-        return formdate;
-    }
-
-    public void setFormdate(Date formdate) {
-        this.formdate = formdate;
     }
 
     public Integer getDeptid() {

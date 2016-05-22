@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,20 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryStorageDetail.findAll", query = "SELECT f FROM FactoryStorageDetail f"),
     @NamedQuery(name = "FactoryStorageDetail.findById", query = "SELECT f FROM FactoryStorageDetail f WHERE f.id = :id"),
     @NamedQuery(name = "FactoryStorageDetail.findByPId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.pid = :pid"),
-    @NamedQuery(name = "FactoryStorageDetail.findByPformId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.pformid = :pformid"),
     @NamedQuery(name = "FactoryStorageDetail.findBySId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.sid = :sid"),
     @NamedQuery(name = "FactoryStorageDetail.findBySformId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.sformid = :sformid"),
     @NamedQuery(name = "FactoryStorageDetail.findByDesignId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.designid = :designid"),
     @NamedQuery(name = "FactoryStorageDetail.findByItemno", query = "SELECT f FROM FactoryStorageDetail f WHERE f.itemno = :itemno"),
     @NamedQuery(name = "FactoryStorageDetail.findByColorId", query = "SELECT f FROM FactoryStorageDetail f WHERE f.colorid = :colorid"),
     @NamedQuery(name = "FactoryStorageDetail.findBySn", query = "SELECT f FROM FactoryStorageDetail f WHERE f.sn = :sn")})
-public class FactoryStorageDetail extends BaseDetailEntity {
+public class FactoryStorageDetail extends FormDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "pformid")
-    private String pformid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "sid")
@@ -100,14 +94,6 @@ public class FactoryStorageDetail extends BaseDetailEntity {
     private BigDecimal badqty;
 
     public FactoryStorageDetail() {
-    }
-
-    public String getPformid() {
-        return pformid;
-    }
-
-    public void setPformid(String pformid) {
-        this.pformid = pformid;
     }
 
     public int getSid() {

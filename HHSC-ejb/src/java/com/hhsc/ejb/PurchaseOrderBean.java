@@ -33,9 +33,9 @@ public class PurchaseOrderBean extends SuperBean<PurchaseOrder> {
 
     public void initPurchase(PurchaseOrder p, List<PurchaseOrderDetail> detailList) {
         try {
+            getEntityManager().persist(p);
             for (PurchaseOrderDetail d : detailList) {
-                d.setPid(p.getId());
-                d.setPformid(p.getFormid());
+                d.setPid(p.getFormid());
                 purchaseDetailBean.persist(d);
             }
         } catch (Exception e) {

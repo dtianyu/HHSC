@@ -35,7 +35,7 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
     @EJB
     private PurchaseDraftBean purchaseDraftBean;
     @EJB
-    private PurchaseOrderBean purchaseBean;
+    private PurchaseOrderBean purchaseOrderBean;
 
     private Sysprg purchaseorderSysprg;
 
@@ -144,7 +144,7 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
     public void verify() {
         try {
             if (doBeforeVerify()) {
-                String formid = purchaseBean.getFormId(getDate(), purchaseorderSysprg.getNolead(), purchaseorderSysprg.getNoformat(), purchaseorderSysprg.getNoseqlen());
+                String formid = purchaseOrderBean.getFormId(getDate(), purchaseorderSysprg.getNolead(), purchaseorderSysprg.getNoformat(), purchaseorderSysprg.getNoseqlen());
                 if (formid == null || "".equals(formid)) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "采购单无法自动编号"));
                     return;
@@ -179,7 +179,7 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                 p.setStatus("N");
                 p.setCreator(this.userManagedBean.getCurrentUser().getUserid());
                 p.setCredateToNow();
-                
+
                 List<PurchaseOrderDetail> purchaseList = new ArrayList<>();
                 int seq = 1;
                 for (PurchaseDraft entity : entityList) {
@@ -205,17 +205,17 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                     d.setDeliverytime(entity.getDeliverytime());
                     d.setDeliveryadd(entity.getDeliveryadd());
                     d.setRemark(entity.getRemark());
+                    d.setInqty(BigDecimal.ZERO);
                     d.setStatus("00");
                     d.setSrcapi(this.currentSysprg.getApi());
-                    d.setSrcformid(entity.getPformid());
+                    d.setSrcformid(entity.getPurchaserequest().getFormid());
                     d.setSrcseq(entity.getSeq());
                     purchaseList.add(d);
                     entity.setStatus("V");
                     seq++;
                 }
-                
-                purchaseBean.persist(p);
-                purchaseBean.initPurchase(p, purchaseList);
+
+                purchaseOrderBean.initPurchase(p, purchaseList);
                 for (PurchaseDraft entity : entityList) {
                     superEJB.verify(entity);
                 }

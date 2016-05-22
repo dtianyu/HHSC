@@ -12,7 +12,8 @@ import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.entity.PrintDetail;
 import com.hhsc.lazy.YHModel;
-import com.hhsc.web.SuperMulti2Bean;
+import com.hhsc.web.FormMulti2Bean;
+import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "yhManagedBean")
 @SessionScoped
-public class YHManagedBean extends SuperMulti2Bean<FactoryOrder, FactoryOrderDetail, PrintDetail> {
+public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDetail, PrintDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;

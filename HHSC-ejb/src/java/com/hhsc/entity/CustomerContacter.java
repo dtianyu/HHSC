@@ -5,13 +5,10 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.SuperDetailEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CustomerContacter.findAll", query = "SELECT c FROM CustomerContacter c"),
     @NamedQuery(name = "CustomerContacter.findById", query = "SELECT c FROM CustomerContacter c WHERE c.id = :id"),
     @NamedQuery(name = "CustomerContacter.findByPId", query = "SELECT c FROM CustomerContacter c WHERE c.pid = :pid")})
-public class CustomerContacter extends BaseDetailEntity {
+public class CustomerContacter extends SuperDetailEntity {
 
     @Basic(optional = false)
     @NotNull

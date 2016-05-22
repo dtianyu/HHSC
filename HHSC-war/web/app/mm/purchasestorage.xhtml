@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="单号" for="formid" />
+                    <p:inputText id="formid" value="#{purchaseStorageManagedBean.queryFormId}" title="单号" />
+                    <h:outputLabel value="状态" for="state" />
+                    <p:selectOneMenu id="state" value="#{purchaseStorageManagedBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="点收" itemValue="30"/>
+                        <f:selectItem itemLabel="验收" itemValue="40"/>
+                        <f:selectItem itemLabel="审核" itemValue="50"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="验收日期" for="daybegin" />
+                    <p:calendar id="daybegin" value="#{purchaseStorageManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="截止日期" for="dayend" />
+                    <p:calendar id="dayend" value="#{purchaseStorageManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{purchaseStorageManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{purchaseStorageManagedBean.view('purchasestorageView')}"  icon="ui-icon-document"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnEdit" value="编辑" action="#{purchaseStorageManagedBean.edit('purchasestorageEdit')}" icon="ui-icon-pencil"
+                                     rendered="#{purchaseStorageManagedBean.doEdit}"/>                                                     
+                    <p:commandButton id="btnDelete" value="删除"  actionListener="#{purchaseStorageManagedBean.delete()}" icon="ui-icon-trash"
+                                     rendered="#{purchaseStorageManagedBean.doDel}" update=":formList">
+                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                    </p:commandButton>                   
+                    <p:commandButton id="btnCreate" value="新增" action="#{purchaseStorageManagedBean.create('purchasestorageNew')}" icon="ui-icon-plus"
+                                     rendered="#{purchaseStorageManagedBean.doAdd}"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseStorageManagedBean.reset()}"  icon="ui-icon-refresh"  
+                                     update=":formList"/> 
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{purchaseStorageManagedBean.query()}"  icon="ui-icon-search"  
+                                     update=":formList"/>
+                </f:facet>
+            </p:toolbar> 
+            <p:dataTable value="#{purchaseStorageManagedBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+                         selectionMode="single" selection="#{purchaseStorageManagedBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    验收入库维护
+                </f:facet>
+                <p:ajax event="rowSelect"  update=":formList:toolbar" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="验收单号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.purchaseAcceptance.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="验收日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.acceptdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="供应商"/>
+                    </f:facet>
+                    <h:outputText value="#{item.purchaseAcceptance.vendor.vendor}"/>
+                </p:column>           
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="品号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemno}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="色号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.colorno}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="合格数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qcqty}"/>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="仓库"/>
+                    </f:facet>
+                    <h:outputText value="#{item.warehouse.name}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="状态"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

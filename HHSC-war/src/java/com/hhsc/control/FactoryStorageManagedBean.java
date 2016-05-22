@@ -13,7 +13,7 @@ import com.hhsc.entity.FactoryOrderDetailForStorage;
 import com.hhsc.entity.FactoryStorage;
 import com.hhsc.entity.FactoryStorageDetail;
 import com.hhsc.lazy.FactoryStorageModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -28,7 +28,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "factoryStorageManagedBean")
 @SessionScoped
-public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, FactoryStorageDetail> {
+public class FactoryStorageManagedBean extends FormMultiBean<FactoryStorage, FactoryStorageDetail> {
 
     @EJB
     private FactoryStorageBean factoryStorageBean;
@@ -68,12 +68,12 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             this.newEntity.setFormid(formid);
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
                 for (FactoryStorageDetail detail : this.addedDetailList) {
-                    detail.setPformid(formid);
+                    detail.setPid(formid);
                 }
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
                 for (FactoryStorageDetail detail : this.editedDetailList) {
-                    detail.setPformid(formid);
+                    detail.setPid(formid);
                 }
             }
             return true;
@@ -87,7 +87,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             FactoryOrderDetail factoryOrderDetail;
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
                 for (FactoryStorageDetail detail : this.addedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
+                    detail.setPid(this.currentEntity.getFormid());
                     factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
                     if (factoryOrderDetail == null) {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
@@ -103,7 +103,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
                 for (FactoryStorageDetail detail : this.editedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
+                    detail.setPid(this.currentEntity.getFormid());
                     factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
                     if (factoryOrderDetail == null) {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
@@ -186,7 +186,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             this.currentDetail.setSseq(entity.getSeq());
             this.currentDetail.setDesignid(entity.getDesignid());
             this.currentDetail.setItemno(entity.getItemno());
-            this.currentDetail.setColorid(entity.getColorid());
+            this.currentDetail.setColorid(entity.getColorno());
             this.currentDetail.setPlanqty(entity.getJhqty());
             this.currentDetail.setAllowqty(entity.getJhqty().subtract(entity.getInqty()));
             this.currentDetail.setQty(entity.getJhqty().subtract(entity.getInqty()));
@@ -202,7 +202,7 @@ public class FactoryStorageManagedBean extends SuperMultiBean<FactoryStorage, Fa
             this.newDetail.setSseq(entity.getSeq());
             this.newDetail.setDesignid(entity.getDesignid());
             this.newDetail.setItemno(entity.getItemno());
-            this.newDetail.setColorid(entity.getColorid());
+            this.newDetail.setColorid(entity.getColorno());
             this.newDetail.setPlanqty(entity.getJhqty());
             this.newDetail.setAllowqty(entity.getJhqty().subtract(entity.getInqty()));
             this.newDetail.setQty(entity.getJhqty().subtract(entity.getInqty()));

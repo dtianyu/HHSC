@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Customer.findByDeptId", query = "SELECT c FROM Customer c WHERE c.deptid = :deptid"),
     @NamedQuery(name = "Customer.findByPricingtype", query = "SELECT c FROM Customer c WHERE c.pricingtype = :pricingtype"),
     @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
-public class Customer extends BaseEntityWithOperate {
+public class Customer extends SuperEntity {
 
     @Size(max = 200)
     @Column(name = "remark")

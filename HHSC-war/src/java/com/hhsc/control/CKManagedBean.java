@@ -10,7 +10,7 @@ import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.CKModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "ckManagedBean")
 @SessionScoped
-public class CKManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
+public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;

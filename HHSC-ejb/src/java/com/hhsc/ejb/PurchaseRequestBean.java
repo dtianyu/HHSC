@@ -34,8 +34,7 @@ public class PurchaseRequestBean extends SuperBean<PurchaseRequest> {
     public void initRequest(PurchaseRequest p, List<PurchaseRequestDetail> detailList) {
         try {
             for (PurchaseRequestDetail d : detailList) {
-                d.setPid(p.getId());
-                d.setPformid(p.getFormid());
+                d.setPid(p.getFormid());
                 purchaseRequestDetailBean.persist(d);
             }
         } catch (Exception e) {

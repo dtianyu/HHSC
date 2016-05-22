@@ -33,6 +33,19 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
+        <scalar-parameter name="formid" id="606">
+            <property name="hidden">true</property>
+            <text-property name="promptText">单号</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
     </parameters>
     <data-sources>
         <script-data-source name="scriptDS" id="225"/>
@@ -718,7 +731,7 @@ ejbClient = new PurchaseOrderReport();
 ejbClient.setEJB(params["JNDIName"]);
 
 master = ejbClient.getEntity(params["id"]);
-list = ejbClient.getDetail(params["id"]);
+list = ejbClient.getDetail(params["formid"]);
 
 currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[

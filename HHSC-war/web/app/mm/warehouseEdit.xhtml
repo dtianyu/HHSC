@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../WEB-INF/template.xhtml"
+                template="./../../WEB-INF/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
@@ -9,23 +9,24 @@
     <ui:define name="content">
 
         <h:form id="formEdit">
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />  
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
 
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="warehouse" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:button id="btnReturn" value="返回" outcome="warehouse" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" action="#{warehouseManagedBean.update('warehouse')}" icon="ui-icon-disk"  update="plgEdit"/>
+                    <p:commandButton id="btnSave" value="保存" action="#{warehouseManagedBean.update()}" icon="ui-icon-disk"
+                                     update="plgHead"/>
                 </f:facet>
-            </p:toolbar>  
-            <p:panel id="panelEdit" header="仓库信息－修改">
-                <p:panelGrid id="plgEdit" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgEdit Wid100">
-                    <p:outputLabel value="库号编号" for="warehouseid" />
-                    <p:inputText id="warehouseid" value="#{warehouseManagedBean.currentEntity.warehouseid}" title="Warehouseid"
+            </p:toolbar>
+            <p:panel id="panelHead" header="仓库信息－修改">
+                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgEdit Wid100">
+                    <p:outputLabel value="库号编号" for="warehouseno" />
+                    <p:inputText id="warehouseno" value="#{warehouseManagedBean.currentEntity.warehouseno}" title="Warehouseno"
                                  required="true" requiredMessage="库号不可空白"/>
                     <p:outputLabel value="仓库名称" for="name" />
-                    <p:inputText id="name" value="#{warehouseManagedBean.currentEntity.name}" title="Name" 
+                    <p:inputText id="name" value="#{warehouseManagedBean.currentEntity.name}" title="Name"
                                  required="true" requiredMessage="仓库名称不可空白"/>
                     <p:outputLabel value="记录成本" for="hascost" />
                     <p:selectBooleanCheckbox id="hascost" value="#{warehouseManagedBean.currentEntity.hascost}"

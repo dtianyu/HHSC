@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,20 +27,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Warehouse.getRowCount", query = "SELECT COUNT(w) FROM Warehouse w"),
     @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w"),
     @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
-    @NamedQuery(name = "Warehouse.findByWarehouseId", query = "SELECT w FROM Warehouse w WHERE w.warehouseid = :warehouseid"),
+    @NamedQuery(name = "Warehouse.findByWarehouseno", query = "SELECT w FROM Warehouse w WHERE w.warehouseno = :warehouseno"),
     @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name"),
     @NamedQuery(name = "Warehouse.findByHascost", query = "SELECT w FROM Warehouse w WHERE w.hascost = :hascost"),
     @NamedQuery(name = "Warehouse.findBySysId", query = "SELECT w FROM Warehouse w WHERE w.sysid = :sysid"),
     @NamedQuery(name = "Warehouse.findByAreaId", query = "SELECT w FROM Warehouse w WHERE w.areaid = :areaid"),
     @NamedQuery(name = "Warehouse.findByManagerId", query = "SELECT w FROM Warehouse w WHERE w.managerid = :managerid"),
     @NamedQuery(name = "Warehouse.findByStatus", query = "SELECT w FROM Warehouse w WHERE w.status = :status")})
-public class Warehouse extends BaseEntityWithOperate {
+public class Warehouse extends SuperEntity {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "warehouseid")
-    private String warehouseid;
+    @Column(name = "warehouseno")
+    private String warehouseno;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -67,12 +67,12 @@ public class Warehouse extends BaseEntityWithOperate {
         this.hascost = false;
     }
 
-    public String getWarehouseid() {
-        return warehouseid;
+    public String getWarehouseno() {
+        return warehouseno;
     }
 
-    public void setWarehouseid(String warehouseid) {
-        this.warehouseid = warehouseid;
+    public void setWarehouseno(String warehouseno) {
+        this.warehouseno = warehouseno;
     }
 
     public String getName() {

@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryOrderDetailForStorage.findById", query = "SELECT f FROM FactoryOrderDetailForStorage f WHERE f.id = :id"),
     @NamedQuery(name = "FactoryOrderDetailForStorage.findByPId", query = "SELECT f FROM FactoryOrderDetailForStorage f WHERE f.factoryOrder.id = :pid"),
     @NamedQuery(name = "FactoryOrderDetailForStorage.findByDesignId", query = "SELECT f FROM FactoryOrderDetailForStorage f WHERE f.designid = :designid"),
-    @NamedQuery(name = "FactoryOrderDetailForStorage.findByColorId", query = "SELECT f FROM FactoryOrderDetailForStorage f WHERE f.colorid = :colorid")})
+    @NamedQuery(name = "FactoryOrderDetailForStorage.findByColorno", query = "SELECT f FROM FactoryOrderDetailForStorage f WHERE f.colorno = :color")})
 public class FactoryOrderDetailForStorage extends BaseEntity {
 
     @JoinColumn(name = "pid", referencedColumnName = "id")
@@ -58,7 +58,7 @@ public class FactoryOrderDetailForStorage extends BaseEntity {
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "colorid")
-    protected String colorid;
+    protected String colorno;
     @Size(max = 45)
     @Column(name = "factoryspec")
     protected String factoryspec;
@@ -174,10 +174,10 @@ public class FactoryOrderDetailForStorage extends BaseEntity {
     }
 
     /**
-     * @return the colorid
+     * @return the colorno
      */
-    public String getColorid() {
-        return colorid;
+    public String getColorno() {
+        return colorno;
     }
 
     /**

@@ -378,7 +378,26 @@
             <to-view-id>/app/pp/jhView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        <!--请购维护 Start-->    
+        <navigation-case>
+            <from-outcome>purchaseacceptance</from-outcome>
+            <to-view-id>/app/mm/purchaseacceptance.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchaseacceptanceNew</from-outcome>
+            <to-view-id>/app/mm/purchaseacceptanceNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchaseacceptanceEdit</from-outcome>
+            <to-view-id>/app/mm/purchaseacceptanceEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchaseacceptanceView</from-outcome>
+            <to-view-id>/app/mm/purchaseacceptanceView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
         <navigation-case>
             <from-outcome>purchasedraft</from-outcome>
             <to-view-id>/app/lm/purchasedraft.xhtml</to-view-id>
@@ -394,7 +413,7 @@
             <to-view-id>/app/lm/purchasedraftView.xhtml</to-view-id>
             <redirect/>
         </navigation-case><!--请购维护 End-->
-         <navigation-case>
+        <navigation-case>
             <from-outcome>purchaseinit</from-outcome>
             <to-view-id>/app/lm/purchaseinit.xhtml</to-view-id>
             <redirect/>
@@ -420,6 +439,21 @@
             <to-view-id>/app/lm/purchaseorderView.xhtml</to-view-id>
             <redirect/>
         </navigation-case><!--采购维护 End--> 
+        <navigation-case>
+            <from-outcome>purchasestorage</from-outcome>
+            <to-view-id>/app/mm/purchasestorage.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchasestorageEdit</from-outcome>
+            <to-view-id>/app/mm/purchasestorageEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchasestorageView</from-outcome>
+            <to-view-id>/app/mm/purchasestorageView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>ps</from-outcome>
             <to-view-id>/app/pp/ps.xhtml</to-view-id>
@@ -555,7 +589,27 @@
             <from-outcome>systemuserView</from-outcome>
             <to-view-id>/sys/systemuserView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>             
+        </navigation-case>           
+        <navigation-case>
+            <from-outcome>transactiontype</from-outcome>
+            <to-view-id>/app/sys/transactiontype.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>transactiontypeNew</from-outcome>
+            <to-view-id>/app/sys/transactiontypeNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>transactiontypeEdit</from-outcome>
+            <to-view-id>/app/sys/transactiontypeEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>transactiontypeView</from-outcome>
+            <to-view-id>/app/sys/transactiontypeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
         <navigation-case>
             <from-outcome>unit</from-outcome>
             <to-view-id>/app/mm/unit.xhtml</to-view-id>
@@ -676,7 +730,12 @@
             <from-outcome>customerSelect</from-outcome>
             <to-view-id>/app/df/customerSelect.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>                        
+        </navigation-case>   
+        <navigation-case>
+            <from-outcome>deptSelect</from-outcome>
+            <to-view-id>/app/df/deptSelect</to-view-id>
+            <redirect/>
+        </navigation-case>                                                
         <navigation-case>
             <from-outcome>factoryorderdetailSelect</from-outcome>
             <to-view-id>/app/df/factoryorderdetailSelect.xhtml</to-view-id>
@@ -698,6 +757,16 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>purchaseorderdetailSelect</from-outcome>
+            <to-view-id>/app/df/purchaseorderdetailSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysuserSelect</from-outcome>
+            <to-view-id>/app/df/sysuserSelect</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>unitSelect</from-outcome>
             <to-view-id>/app/df/unitSelect.xhtml</to-view-id>
             <redirect/>
@@ -705,6 +774,11 @@
         <navigation-case>
             <from-outcome>vendorSelect</from-outcome>
             <to-view-id>/app/df/vendorSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>warehouseSelect</from-outcome>
+            <to-view-id>/app/df/warehouseSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case><!--模态开窗 End-->          
     </navigation-rule>                                

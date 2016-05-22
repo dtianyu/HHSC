@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseDraft.getRowCount", query = "SELECT COUNT(p) FROM PurchaseDraft p"),
     @NamedQuery(name = "PurchaseDraft.findAll", query = "SELECT p FROM PurchaseDraft p"),
     @NamedQuery(name = "PurchaseDraft.findById", query = "SELECT p FROM PurchaseDraft p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseDraft.findByPId", query = "SELECT p FROM PurchaseDraft p WHERE p.purchaserequest.id = :purchaserequestid"),
-    @NamedQuery(name = "PurchaseDraft.findByPformid", query = "SELECT p FROM PurchaseDraft p WHERE p.pformid = :pformid"),
+    @NamedQuery(name = "PurchaseDraft.findByPId", query = "SELECT p FROM PurchaseDraft p WHERE p.purchaserequest.formid = :pid"),
     @NamedQuery(name = "PurchaseDraft.findByPurtype", query = "SELECT p FROM PurchaseDraft p WHERE p.purtype = :purtype"),
     @NamedQuery(name = "PurchaseDraft.findByPurkind", query = "SELECT p FROM PurchaseDraft p WHERE p.purkind = :purkind"),
     @NamedQuery(name = "PurchaseDraft.findByAbroad", query = "SELECT p FROM PurchaseDraft p WHERE p.abroad = :abroad"),
@@ -44,20 +43,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseDraft.findByCustomerId", query = "SELECT p FROM PurchaseDraft p WHERE p.customer.id = :customerid"),
     @NamedQuery(name = "PurchaseDraft.findByVendorId", query = "SELECT p FROM PurchaseDraft p WHERE p.vendor.id = :vendorid AND p.status='N' "),
     @NamedQuery(name = "PurchaseDraft.findByVendorIdAndItemno", query = "SELECT p FROM PurchaseDraft p WHERE p.vendor.id = :vendorid AND p.itemno=:itemno AND p.status='N' ")})
-public class PurchaseDraft extends BaseEntityWithOperate {
+public class PurchaseDraft extends SuperEntity {
 
-    @JoinColumn(name = "pid", referencedColumnName = "id")
+    @JoinColumn(name = "pid", referencedColumnName = "formid")
     @ManyToOne(optional = false)
     private PurchaseRequest purchaserequest;
     @Basic(optional = false)
     @NotNull
     @Column(name = "seq")
     private int seq;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "pformid")
-    private String pformid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -209,14 +203,6 @@ public class PurchaseDraft extends BaseEntityWithOperate {
     private String relformid;
 
     public PurchaseDraft() {
-    }
-
-    public String getPformid() {
-        return pformid;
-    }
-
-    public void setPformid(String pformid) {
-        this.pformid = pformid;
     }
 
     public String getPurtype() {

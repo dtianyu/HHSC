@@ -18,8 +18,8 @@ import java.util.List;
 public class PurchaseOrderReport extends SuperMultiReportBean<PurchaseOrderBean, PurchaseOrder, PurchaseOrderDetail> {
 
     @Override
-    public List<PurchaseOrderDetail> getDetail(int i) throws Exception {
-        superEJB.setDetail((Object) i);
+    public List<PurchaseOrderDetail> getDetail(Object i) throws Exception {
+        superEJB.setDetail(i);
         return superEJB.getDetailList();
     }
 

@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FactoryOrderDetail.findByPId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.pid = :pid"),
     @NamedQuery(name = "FactoryOrderDetail.findByDesignId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.designid = :designid"),
     @NamedQuery(name = "FactoryOrderDetail.findByColorId", query = "SELECT f FROM FactoryOrderDetail f WHERE f.colorid = :colorid")})
-public class FactoryOrderDetail extends BaseDetailEntity {
+public class FactoryOrderDetail extends FormDetailEntity {
 
     @Size(max = 20)
     @Column(name = "pformid")

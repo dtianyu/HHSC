@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PrintDetail.findById", query = "SELECT p FROM PrintDetail p WHERE p.id = :id"),
     @NamedQuery(name = "PrintDetail.findByPId", query = "SELECT p FROM PrintDetail p WHERE p.pid = :pid"),
     @NamedQuery(name = "PrintDetail.findByDeptid", query = "SELECT p FROM PrintDetail p WHERE p.deptid = :deptid")})
-public class PrintDetail extends BaseDetailEntity {
+public class PrintDetail extends FormDetailEntity {
    
     @Basic(optional = false)
     @NotNull

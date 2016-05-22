@@ -13,7 +13,13 @@
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="vendor" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="vendor" icon="ui-icon-arrowreturn-1-w"  />     
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{vendorManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{vendorManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{vendorManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{vendorManagedBean.hasNext}"/> 
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{vendorManagedBean.update()}" icon="ui-icon-disk" 

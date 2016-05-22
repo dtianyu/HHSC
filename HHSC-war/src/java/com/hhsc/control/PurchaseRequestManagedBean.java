@@ -21,7 +21,7 @@ import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.ItemMasterRequestModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -37,7 +37,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean
 @SessionScoped
-public class PurchaseRequestManagedBean extends SuperMultiBean<PurchaseRequest, PurchaseRequestDetail> {
+public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, PurchaseRequestDetail> {
 
     @EJB
     protected CustomerItemBean customerItemBean;
@@ -69,6 +69,7 @@ public class PurchaseRequestManagedBean extends SuperMultiBean<PurchaseRequest, 
         this.newEntity.setFormdate(getDate());
         this.newEntity.setSystemuser(this.userManagedBean.getCurrentUser());
         this.newEntity.setDept(this.userManagedBean.getCurrentUser().getDept());
+        this.setCurrentEntity(newEntity);
     }
 
     @Override
@@ -95,54 +96,6 @@ public class PurchaseRequestManagedBean extends SuperMultiBean<PurchaseRequest, 
     }
 
     @Override
-    protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            if (this.getCurrentSysprg().getNoauto()) {
-                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
-                this.newEntity.setFormid(formid);
-            }
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (PurchaseRequestDetail detail : this.addedDetailList) {
-                    detail.setPformid(newEntity.getFormid());
-                    detail.setPurtype(newEntity.getPurtype());
-                    detail.setPurqty(detail.getQty());
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (PurchaseRequestDetail detail : this.editedDetailList) {
-                    detail.setPformid(newEntity.getFormid());
-                    detail.setPurtype(newEntity.getPurtype());
-                    detail.setPurqty(detail.getQty());
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean doBeforeUpdate() throws Exception {
-        if (this.currentEntity != null) {
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (PurchaseRequestDetail detail : this.addedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
-                    detail.setPurtype(this.currentEntity.getPurtype());
-                    detail.setPurqty(detail.getQty());
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (PurchaseRequestDetail detail : this.editedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
-                    detail.setPurtype(this.currentEntity.getPurtype());
-                    detail.setPurqty(detail.getQty());
-                }
-            }
-            return super.doBeforeUpdate();
-        }
-        return false;
-    }
-
-    @Override
     protected boolean doBeforeUnverify() throws Exception {
         if (currentEntity == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
@@ -151,7 +104,7 @@ public class PurchaseRequestManagedBean extends SuperMultiBean<PurchaseRequest, 
         if (this.detailList != null) {
             detailList.clear();
         }
-        this.detailList = this.detailEJB.findByPId(currentEntity.getId());
+        this.detailList = this.detailEJB.findByPId(currentEntity.getFormid());
         if (this.detailList == null || this.detailList.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有请购明细!"));
             return false;
@@ -189,7 +142,7 @@ public class PurchaseRequestManagedBean extends SuperMultiBean<PurchaseRequest, 
     }
 
     public void findCustomerItem() {
-        if (currentDetail.getDesignno()!= null && currentDetail.getCustomer() != null) {
+        if (currentDetail.getDesignno() != null && currentDetail.getCustomer() != null) {
             CustomerItem entity = customerItemBean.findByItemnoAndCustomerno(currentDetail.getDesignno(), currentDetail.getCustomer().getCustomerno());
             if (entity != null) {
                 this.currentDetail.setCustomeritemno(entity.getCustomeritemno());

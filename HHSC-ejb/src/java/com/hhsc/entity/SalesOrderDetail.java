@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseDetailEntity;
+import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -33,19 +33,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s"),
     @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id"),
     @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid ORDER BY s.seq"),
-    @NamedQuery(name = "SalesOrderDetail.findByPformid", query = "SELECT s FROM SalesOrderDetail s WHERE s.pformid = :pformid"),
     @NamedQuery(name = "SalesOrderDetail.findByColorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.colorno = :colorno"),
     @NamedQuery(name = "SalesOrderDetail.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.customercolorno = :customercolorno"),
     @NamedQuery(name = "SalesOrderDetail.findByItemId", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemmaster.id = :itemmasterid"),
     @NamedQuery(name = "SalesOrderDetail.findByItemno", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemno = :itemno"),
     @NamedQuery(name = "SalesOrderDetail.findByDeliverydate", query = "SELECT s FROM SalesOrderDetail s WHERE s.deliverydate = :deliverydate")})
-public class SalesOrderDetail extends BaseDetailEntity {
+public class SalesOrderDetail extends FormDetailEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "pformid")
-    private String pformid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -124,14 +118,6 @@ public class SalesOrderDetail extends BaseDetailEntity {
     protected Integer relseq;
 
     public SalesOrderDetail() {
-    }
-
-    public String getPformid() {
-        return pformid;
-    }
-
-    public void setPformid(String pformid) {
-        this.pformid = pformid;
     }
 
     public String getColorno() {

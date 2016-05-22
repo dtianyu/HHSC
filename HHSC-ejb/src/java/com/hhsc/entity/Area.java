@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Area.findByLvl", query = "SELECT a FROM Area a WHERE a.lvl = :lvl"),
     @NamedQuery(name = "Area.findByName", query = "SELECT a FROM Area a WHERE a.name = :name"),
     @NamedQuery(name = "Area.findByStatus", query = "SELECT a FROM Area a WHERE a.status = :status")})
-public class Area extends BaseEntityWithOperate {
+public class Area extends SuperEntity {
 
     @Column(name = "lvl")
     private Integer lvl;

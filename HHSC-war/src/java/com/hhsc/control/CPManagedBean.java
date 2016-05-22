@@ -10,7 +10,7 @@ import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.lazy.CPModel;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "cpManagedBean")
 @SessionScoped
-public class CPManagedBean extends SuperMultiBean<FactoryOrder, FactoryOrderDetail> {
+public class CPManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
 
     @EJB
     private FactoryOrderBean factoryOrderBean;

@@ -22,8 +22,8 @@ public class FactoryOrderReport extends SuperMultiReportBean<FactoryOrderBean, F
     }
 
     @Override
-    public List<FactoryOrderDetail> getDetail(int value) throws Exception {
-        superEJB.setDetail((Object) value);
+    public List<FactoryOrderDetail> getDetail(Object value) throws Exception {
+        superEJB.setDetail(value);
         return superEJB.getDetailList();
     }
 

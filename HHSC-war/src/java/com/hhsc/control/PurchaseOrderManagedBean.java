@@ -20,7 +20,7 @@ import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.PurchaseOrderModel;
 import com.hhsc.rpt.PurchaseOrderReport;
-import com.hhsc.web.SuperMultiBean;
+import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "purchaseOrderManagedBean")
 @SessionScoped
-public class PurchaseOrderManagedBean extends SuperMultiBean<PurchaseOrder, PurchaseOrderDetail> {
+public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, PurchaseOrderDetail> {
 
     @EJB
     protected DepartmentBean departmentBean;
@@ -92,48 +92,9 @@ public class PurchaseOrderManagedBean extends SuperMultiBean<PurchaseOrder, Purc
         newDetail.setExtax(BigDecimal.ZERO);
         newDetail.setTaxes(BigDecimal.ZERO);
         newDetail.setDeliverydate(this.getDate());
+        newDetail.setInqty(BigDecimal.ZERO);
         newDetail.setStatus("00");
         setCurrentDetail(newDetail);
-    }
-
-    @Override
-    protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            if (this.getCurrentSysprg().getNoauto()) {
-                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
-                this.newEntity.setFormid(formid);
-            }
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (PurchaseOrderDetail detail : this.addedDetailList) {
-                    detail.setPformid(newEntity.getFormid());
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (PurchaseOrderDetail detail : this.editedDetailList) {
-                    detail.setPformid(newEntity.getFormid());
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    protected boolean doBeforeUpdate() throws Exception {
-        if (this.currentEntity != null) {
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (PurchaseOrderDetail detail : this.addedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (PurchaseOrderDetail detail : this.editedDetailList) {
-                    detail.setPformid(this.currentEntity.getFormid());
-                }
-            }
-            return super.doBeforeUpdate();
-        }
-        return false;
     }
 
     @Override
@@ -282,6 +243,7 @@ public class PurchaseOrderManagedBean extends SuperMultiBean<PurchaseOrder, Purc
         //设置报表参数
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
+        params.put("formid", currentEntity.getFormid());
         params.put("JNDIName", this.currentSysprg.getRptjndi());
         //设置报表名称
         String reportFormat;

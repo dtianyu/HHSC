@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.BaseEntityWithOperate;
+import com.lightshell.comm.SuperEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemMaster.findById", query = "SELECT i FROM ItemMaster i WHERE i.id = :id"),
     @NamedQuery(name = "ItemMaster.findByItemno", query = "SELECT i FROM ItemMaster i WHERE i.itemno = :itemno"),
     @NamedQuery(name = "ItemMaster.findByCategoryId", query = "SELECT i FROM ItemMaster i WHERE i.itemcategory.id = :categoryid")})
-public class ItemMaster extends BaseEntityWithOperate {
+public class ItemMaster extends SuperEntity {
 
     @JoinColumn(name = "categoryid", referencedColumnName = "id")
     @ManyToOne(optional = false)

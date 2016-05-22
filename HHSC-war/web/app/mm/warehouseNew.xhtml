@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../WEB-INF/template.xhtml"
+                template="./../../WEB-INF/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
@@ -15,20 +15,21 @@
                     <p:button id="btnReturn" value="返回" outcome="warehouse" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" value="保存" action="#{warehouseManagedBean.persist('warehouse')}" icon="ui-icon-disk"  update="plgNew"/>
+                    <p:commandButton id="btnPersist" value="保存" action="#{warehouseManagedBean.persist()}" icon="ui-icon-disk" 
+                                     update="plgHead"/>
                 </f:facet>
             </p:toolbar>  
-            <p:panel id="panelNew" header="仓库信息－新增">
-                <p:panelGrid id="plgNew" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100 Responsive">
-                    <p:outputLabel value="库号编号" for="warehouseid" />
-                    <p:inputText id="warehouseid" value="#{warehouseManagedBean.newEntity.warehouseid}" title="Warehouseid"
-                                 required="true" requiredMessage="库号不可空白"/>
+            <p:panel id="panelHead" header="仓库信息－新增">
+                <p:panelGrid id="plgHead" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100">
+                    <p:outputLabel value="库号编号" for="warehouseno" />
+                    <p:inputText id="warehouseno" value="#{warehouseManagedBean.newEntity.warehouseno}" title="Warehouseno"
+                                 required="true" requiredMessage="请输入库号编号"/>
                     <p:outputLabel value="名称名称" for="name" />
                     <p:inputText id="name" value="#{warehouseManagedBean.newEntity.name}" title="Name" 
-                                 required="true" requiredMessage="仓库名称不可空白"/>
+                                 required="true" requiredMessage="请输入仓库名称"/>
                     <p:outputLabel value="记录成本" for="hascost" />
                     <p:selectBooleanCheckbox id="hascost" value="#{warehouseManagedBean.newEntity.hascost}"
-                                             required="true" requiredMessage="记录成本不可空白"/>
+                                             required="true" requiredMessage="请输入记录成本"/>
                     <p:outputLabel value="位置" for="location" />
                     <p:inputText id="location" value="#{warehouseManagedBean.newEntity.location}" title="Location" />
                 </p:panelGrid>
