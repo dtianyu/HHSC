@@ -30,7 +30,7 @@
                             <p:commandButton id="btnSelectVendor" actionListener="#{purchaseAcceptanceManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{purchaseAcceptanceManagedBean.handleDialogReturnWhenNew}" 
-                                        update="vendor" />
+                                        update="vendor,btnSelectVendor" />
                             </p:commandButton>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="收货部门" for="deptid" /></p:column>
@@ -39,7 +39,7 @@
                                          styleClass="inputWithButton" required="true" requiredMessage="请输入部门"  readonly="true"/>
                             <p:commandButton id="btnSelectDept" actionListener="#{purchaseAcceptanceManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{purchaseAcceptanceManagedBean.handleDialogReturnWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{purchaseAcceptanceManagedBean.handleDialogReturnDeptWhenNew}" 
                                         update="deptid" />
                             </p:commandButton>
                         </p:column>
@@ -188,7 +188,7 @@
                 </p:dataTable>
             </p:panel>
             <p:blockUI id="blockUI" block="formNew" trigger="btnSave">
-                <p:graphicImage value="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>
 

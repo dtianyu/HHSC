@@ -9,6 +9,7 @@ import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.PurchaseAcceptanceBean;
 import com.hhsc.ejb.PurchaseAcceptanceDetailBean;
 import com.hhsc.ejb.PurchaseOrderDetailBean;
+import com.hhsc.entity.Department;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.PurchaseAcceptance;
 import com.hhsc.entity.PurchaseAcceptanceDetail;
@@ -30,7 +31,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -81,41 +81,45 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
     }
 
     @Override
-    protected boolean doBeforeVerify() throws Exception {
-        if (currentEntity != null) {
-            if (detailList != null) {
-                detailList.clear();
+    protected boolean doBeforeUnverify() throws Exception {
+        if (!super.doBeforeUnverify()) {
+            return false;
+        }//超类中有重新加载明细资料
+        for (PurchaseAcceptanceDetail detail : detailList) {
+            if (detail.getStatus().equals("50")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", detail.getItemno() + "已入库不可取消"));
+                return false;
             }
-            PurchaseOrderDetail p;
-            detailList = purchaseAcceptanceDetailBean.findByPId(currentEntity.getFormid());
-            for (PurchaseAcceptanceDetail detail : detailList) {
-                p = purchaseOrderDetailBean.findByFormidAndSeq(detail.getSrcformid(), detail.getSrcseq());
-                if ((p == null) || (p.getQty().subtract(p.getInqty()).compareTo(detail.getQty()) == -1)) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "可点收量不足"));
-                    return false;
-                }
+            ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
+            if ((i == null) || (i.getPreqty().compareTo(detail.getQty()) == -1)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "库存可还原量不足"));
+                return false;
             }
         }
-        return super.doBeforeVerify();
+        return true;
     }
 
     @Override
-    protected boolean doBeforeUnverify() throws Exception {
-        if (currentEntity != null) {
-            if (detailList != null) {
-                detailList.clear();
-            }
-            ItemInventory i;
-            detailList = purchaseAcceptanceDetailBean.findByPId(currentEntity.getFormid());
-            for (PurchaseAcceptanceDetail detail : detailList) {
-                i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
-                if ((i == null) || (i.getPreqty().compareTo(detail.getQty()) == -1)) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "库存可还原量不足"));
-                    return false;
-                }
+    protected boolean doBeforeVerify() throws Exception {
+        if (!super.doBeforeVerify()) {
+            return false;
+        }//超类中有重新加载明细资料
+        if (detailList == null || detailList.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有点收明细"));
+            return false;
+        }
+        PurchaseOrderDetail p;
+        for (PurchaseAcceptanceDetail detail : detailList) {
+            p = purchaseOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
+            if ((p == null) || p.getStatus().equals("AC") || p.getStatus().endsWith("MC")){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "采购明细状态错误"));
+                return false;
+            } else if ((p.getQty().subtract(p.getInqty()).compareTo(detail.getQty()) == -1)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "可点收量不足"));
+                return false;
             }
         }
-        return super.doBeforeUnverify();
+        return true;
     }
 
     @Override
@@ -140,6 +144,12 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         //返回供应商
         if (event.getObject() != null) {
             this.newEntity.setVendor((Vendor) event.getObject());
+            if (detailList != null) {
+                detailList.clear();
+            }
+            this.addedDetailList.clear();
+            this.editedDetailList.clear();
+            this.deletedDetailList.clear();
         }
     }
 
@@ -148,6 +158,26 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         //返回供应商
         if (event.getObject() != null) {
             this.currentEntity.setVendor((Vendor) event.getObject());
+            if (detailList != null) {
+                detailList.clear();
+            }
+            this.addedDetailList.clear();
+            this.editedDetailList.clear();
+            this.deletedDetailList.clear();
+        }
+    }
+
+    public void handleDialogReturnDeptWhenNew(SelectEvent event) {
+        //返回部门
+        if (event.getObject() != null) {
+            this.newEntity.setDept((Department) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnDeptWhenEdit(SelectEvent event) {
+        //返回部门
+        if (event.getObject() != null) {
+            this.currentEntity.setDept((Department) event.getObject());
         }
     }
 
@@ -209,17 +239,11 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         switch (view) {
             case "purchaseorderdetailSelect":
                 if (currentEntity != null && currentEntity.getVendor() != null && currentEntity.getWarehouse() != null) {
-                    Map<String, Object> options = new HashMap<>();
-                    options.put("modal", true);
                     Map<String, List<String>> params = new HashMap<>();
                     List<String> vendorno = new ArrayList<>();
                     vendorno.add(currentEntity.getVendor().getVendorno());
                     params.put("vendorno", vendorno);
-                    try {
-                        RequestContext.getCurrentInstance().openDialog(view, options, params);
-                    } catch (Exception e) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
-                    }
+                    openDialog(view, params);
                 } else if (currentEntity.getVendor() == null) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入供应商"));
                 } else if (currentEntity.getWarehouse() == null) {

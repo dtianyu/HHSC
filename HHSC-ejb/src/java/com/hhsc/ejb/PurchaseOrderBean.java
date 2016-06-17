@@ -23,7 +23,7 @@ import javax.ejb.LocalBean;
 public class PurchaseOrderBean extends SuperBean<PurchaseOrder> {
 
     @EJB
-    private PurchaseOrderDetailBean purchaseDetailBean;
+    private PurchaseOrderDetailBean purchaseOrderDetailBean;
 
     protected List<PurchaseOrderDetail> detailList;
 
@@ -36,7 +36,7 @@ public class PurchaseOrderBean extends SuperBean<PurchaseOrder> {
             getEntityManager().persist(p);
             for (PurchaseOrderDetail d : detailList) {
                 d.setPid(p.getFormid());
-                purchaseDetailBean.persist(d);
+                purchaseOrderDetailBean.persist(d);
             }
         } catch (Exception e) {
             this.delete(p);
@@ -46,9 +46,39 @@ public class PurchaseOrderBean extends SuperBean<PurchaseOrder> {
 
     @Override
     public void setDetail(Object value) {
-        setDetailList(purchaseDetailBean.findByPId(value));
+        setDetailList(purchaseOrderDetailBean.findByPId(value));
         if (getDetailList() == null) {
             setDetailList(new ArrayList<>());
+        }
+    }
+
+    @Override
+    public PurchaseOrder unverify(PurchaseOrder entity) {
+        try {
+            PurchaseOrder e = this.getEntityManager().merge(entity);
+            detailList = purchaseOrderDetailBean.findByPId(e.getFormid());
+            for (PurchaseOrderDetail detail : this.detailList) {
+                detail.setStatus("00");
+            }
+            purchaseOrderDetailBean.update(detailList);
+            return e;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.toString());
+        }
+    }
+
+    @Override
+    public PurchaseOrder verify(PurchaseOrder entity) {
+        try {
+            PurchaseOrder e = this.getEntityManager().merge(entity);
+            detailList = purchaseOrderDetailBean.findByPId(e.getFormid());
+            for (PurchaseOrderDetail detail : this.detailList) {
+                detail.setStatus("10");
+            }
+            purchaseOrderDetailBean.update(detailList);
+            return e;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.toString());
         }
     }
 

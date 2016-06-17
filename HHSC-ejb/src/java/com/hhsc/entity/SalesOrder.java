@@ -132,11 +132,11 @@ public class SalesOrder extends FormEntity {
     @Column(name = "totalamts")
     private BigDecimal totalamts;
     @Size(max = 10)
-    @Column(name = "shiptype")
-    private String shiptype;
+    @Column(name = "deliverytype")
+    private String deliverytype;
     @Size(max = 200)
-    @Column(name = "shpadd")
-    private String shpadd;
+    @Column(name = "shipadd")
+    private String shipadd;
     @Size(max = 200)
     @Column(name = "shipmarks")
     private String shipmarks;
@@ -354,20 +354,20 @@ public class SalesOrder extends FormEntity {
         this.totalamts = totalamts;
     }
 
-    public String getShiptype() {
-        return shiptype;
+    public String getDeliverytype() {
+        return deliverytype;
     }
 
-    public void setShiptype(String shiptype) {
-        this.shiptype = shiptype;
+    public void setDeliverytype(String deliverytype) {
+        this.deliverytype = deliverytype;
     }
 
-    public String getShpadd() {
-        return shpadd;
+    public String getShipadd() {
+        return shipadd;
     }
 
-    public void setShpadd(String shpadd) {
-        this.shpadd = shpadd;
+    public void setShipadd(String shipadd) {
+        this.shipadd = shipadd;
     }
 
     public String getShipmarks() {

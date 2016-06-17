@@ -62,34 +62,34 @@
                         </p:column>
                     </p:row>
                 </p:panelGrid>
+                <p:dataTable id="tableList" value="#{itemDesignManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                             selectionMode="single" selection="#{itemDesignManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                    <p:column styleClass="Wid20">
+                        <f:facet name="header">
+                            <h:outputText value="客户编号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.customer.customerno}"/>
+                    </p:column>
+                    <p:column styleClass="Wid30">
+                        <f:facet name="header">
+                            <h:outputText value="客户名称"/>
+                        </f:facet>
+                        <h:outputText value="#{item.customer.customer}"/>
+                    </p:column>
+                    <p:column styleClass="Wid20">
+                        <f:facet name="header">
+                            <h:outputText value="客户花号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.customeritemno}"/>
+                    </p:column>
+                    <p:column styleClass="Wid30">
+                        <f:facet name="header">
+                            <h:outputText value="花号说明"/>
+                        </f:facet>
+                        <h:outputText value="#{item.customeritemdesc}"/>
+                    </p:column>
+                </p:dataTable>
             </p:panel>
-            <p:dataTable id="tableList" value="#{itemDesignManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
-                         selectionMode="single" selection="#{itemDesignManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                <p:column styleClass="Wid20">
-                    <f:facet name="header">
-                        <h:outputText value="客户编号"/>
-                    </f:facet>
-                    <h:outputText value="#{item.customer.customerno}"/>
-                </p:column>
-                <p:column styleClass="Wid30">
-                    <f:facet name="header">
-                        <h:outputText value="客户名称"/>
-                    </f:facet>
-                    <h:outputText value="#{item.customer.customer}"/>
-                </p:column>
-                <p:column styleClass="Wid20">
-                    <f:facet name="header">
-                        <h:outputText value="客户花号"/>
-                    </f:facet>
-                    <h:outputText value="#{item.customeritemno}"/>
-                </p:column>
-                <p:column styleClass="Wid30">
-                    <f:facet name="header">
-                        <h:outputText value="花号说明"/>
-                    </f:facet>
-                    <h:outputText value="#{item.customeritemdesc}"/>
-                </p:column>
-            </p:dataTable>
         </h:form>
 
     </ui:define>

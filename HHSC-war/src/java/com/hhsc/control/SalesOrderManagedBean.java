@@ -6,11 +6,9 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.CustomerItemBean;
-import com.hhsc.ejb.DepartmentBean;
 import com.hhsc.ejb.PurchaseRequestBean;
 import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
-import com.hhsc.ejb.SystemUserBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerItem;
@@ -52,19 +50,13 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     private PurchaseRequestBean purchaseRequestBean;
 
     @EJB
-    private DepartmentBean departmentBean;
-    @EJB
     private CustomerItemBean customerItemBean;
 
     @EJB
     private SalesOrderBean salesOrderBean;
+
     @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
-    @EJB
-    private SystemUserBean systemUserBean;
-
-    private List<SystemUser> systemUserList;
-    private List<Department> deptList;
 
     private Boolean doTransfer;
 
@@ -84,7 +76,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         this.newEntity.setFormdate(getDate());
         this.newEntity.setSalesman(this.userManagedBean.getCurrentUser());
         this.newEntity.setDept(this.userManagedBean.getCurrentUser().getDept());
-        this.newEntity.setCurrency("RMB");
+        this.newEntity.setCurrency("CNY");
         this.newEntity.setExchange(BigDecimal.ONE);
         this.newEntity.setTaxtype("0");
         this.newEntity.setTaxkind("VAT17");
@@ -166,6 +158,30 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         }
     }
 
+    public void handleDialogReturnDeptWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            currentEntity.setDept((Department) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnDeptWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            newEntity.setDept((Department) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnSalesmanWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            currentEntity.setSalesman((SystemUser) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnSalesmanWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            newEntity.setSalesman((SystemUser) event.getObject());
+        }
+    }
+
     @Override
     public void handleDialogReturnWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
@@ -174,14 +190,6 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             this.currentEntity.setItemno(entity.getItemno());
             this.currentEntity.setItemspec(entity.getItemspec());
             this.currentEntity.setItemimg(entity.getImg1());
-            if (currentEntity.getCustomer() != null) {
-                CustomerItem o = customerItemBean.findByItemnoAndCustomerno(entity.getItemno(), currentEntity.getCustomer().getCustomerno());
-                if (o != null) {
-                    this.currentEntity.setCustomeritemno(o.getCustomeritemno());
-                } else {
-                    this.currentEntity.setCustomeritemno("");
-                }
-            }
         }
     }
 
@@ -193,13 +201,16 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             this.newEntity.setItemno(entity.getItemno());
             this.newEntity.setItemspec(entity.getItemspec());
             this.newEntity.setItemimg(entity.getImg1());
-            if (newEntity.getCustomer() != null) {
-                CustomerItem o = customerItemBean.findByItemnoAndCustomerno(entity.getItemno(), newEntity.getCustomer().getCustomerno());
-                if (o != null) {
-                    this.newEntity.setCustomeritemno(o.getCustomeritemno());
-                } else {
-                    this.newEntity.setCustomeritemno("");
-                }
+        }
+    }
+
+    public void findCustomerItem() {
+        if (currentEntity.getItemno() != null && currentEntity.getCustomer() != null) {
+            CustomerItem o = customerItemBean.findByItemnoAndCustomerno(currentEntity.getItemno(), currentEntity.getCustomer().getCustomerno());
+            if (o != null) {
+                this.newEntity.setCustomeritemno(o.getCustomeritemno());
+            } else {
+                this.newEntity.setCustomeritemno("");
             }
         }
     }
@@ -250,8 +261,6 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         setDetailEJB(salesOrderDetailBean);
         setModel(new SalesOrderModel(salesOrderBean, userManagedBean));
         getModel().getFilterFields().put("status", "N");
-        setSystemUserList(systemUserBean.findAll());
-        setDeptList(departmentBean.findAll());
         super.init();
     }
 
@@ -332,7 +341,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             this.doTransfer = false;
         }
         if (currentEntity != null && "T".equals(currentEntity.getStatus())) {
+            this.doEdit = false;
             this.doDel = false;
+            this.doCfm =false;
+            this.doUnCfm =false;
         }
     }
 
@@ -428,25 +440,12 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             currentEntity.setStatus("T");
             purchaseRequestBean.persist(p);//先保存,因为需要得到Id
             salesOrderBean.transferToPurchaseRequest(currentEntity, detailList, p, requestList);
+            setToolBar();//重设工具栏
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "抛转请购单成功"));
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "抛转请购单失败"));
         }
 
-    }
-
-    /**
-     * @return the systemUserList
-     */
-    public List<SystemUser> getSystemUserList() {
-        return systemUserList;
-    }
-
-    /**
-     * @param systemUserList the systemUserList to set
-     */
-    public void setSystemUserList(List<SystemUser> systemUserList) {
-        this.systemUserList = systemUserList;
     }
 
     /**
@@ -475,20 +474,6 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
      */
     public void setQueryItemno(String queryItemno) {
         this.queryItemno = queryItemno;
-    }
-
-    /**
-     * @return the deptList
-     */
-    public List<Department> getDeptList() {
-        return deptList;
-    }
-
-    /**
-     * @param deptList the deptList to set
-     */
-    public void setDeptList(List<Department> deptList) {
-        this.deptList = deptList;
     }
 
     /**

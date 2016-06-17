@@ -39,15 +39,15 @@
                     <p:commandButton id="btnView" value="查看" action="#{purchaseDraftManagedBean.view('itemrequestView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{purchaseDraftManagedBean.edit('itemrequestEdit')}" icon="ui-icon-pencil" value="编辑" 
+                    <p:commandButton id="btnEdit" value="编辑" action="#{purchaseDraftManagedBean.edit('itemrequestEdit')}" icon="ui-icon-pencil"
                                      rendered="#{purchaseDraftManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{purchaseDraftManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{purchaseDraftManagedBean.delete()}" icon="ui-icon-trash" 
                                      rendered="#{purchaseDraftManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{purchaseDraftManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{purchaseDraftManagedBean.unverify()}" icon="ui-icon-unlocked" 
                                      rendered="#{purchaseDraftManagedBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" action="#{purchaseDraftManagedBean.create('itemrequestNew')}" icon="ui-icon-plus" value="新增"
+                    <p:commandButton id="btnCreate" value="新增" action="#{purchaseDraftManagedBean.create('itemrequestNew')}" icon="ui-icon-plus"
                                      rendered="#{purchaseDraftManagedBean.doAdd}"/>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseDraftManagedBean.reset()}"  icon="ui-icon-refresh"  
                                      update=":formList"/> 
@@ -125,6 +125,9 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

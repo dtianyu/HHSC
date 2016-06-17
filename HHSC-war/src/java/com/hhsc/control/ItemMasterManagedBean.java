@@ -98,13 +98,11 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
                 for (ItemMake detail : this.addedDetailList) {
                     detail.setItemno(newEntity.getItemno());
-                    sb.append(detail.getMake()).append(";");
                 }
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
                 for (ItemMake detail : this.editedDetailList) {
                     detail.setItemno(newEntity.getItemno());
-                    sb.append(detail.getMake()).append(";");
                 }
             }
             if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
@@ -115,6 +113,11 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
                 for (VendorItem detail : this.editedDetailList2) {
                     detail.setItemno(newEntity.getItemno());
+                }
+            }
+            if (this.detailList != null && !this.detailList.isEmpty()) {
+                for (ItemMake detail : this.detailList) {
+                    sb.append(detail.getMake()).append(";");
                 }
             }
             this.newEntity.setItemmake(sb.toString());
@@ -131,14 +134,12 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
                 for (ItemMake detail : this.addedDetailList) {
                     detail.setPid(this.currentEntity.getId());
                     detail.setItemno(this.currentEntity.getItemno());
-                    sb.append(detail.getMake()).append(";");
                 }
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
                 for (ItemMake detail : this.editedDetailList) {
                     detail.setPid(this.currentEntity.getId());
                     detail.setItemno(this.currentEntity.getItemno());
-                    sb.append(detail.getMake()).append(";");
                 }
             }
             if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
@@ -151,6 +152,11 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
                 for (VendorItem detail : this.editedDetailList2) {
                     detail.setItemid(this.currentEntity.getId());
                     detail.setItemno(this.currentEntity.getItemno());
+                }
+            }
+            if (this.detailList != null && !this.detailList.isEmpty()) {
+                for (ItemMake detail : this.detailList) {
+                    sb.append(detail.getMake()).append(";");
                 }
             }
             this.currentEntity.setItemmake(sb.toString());

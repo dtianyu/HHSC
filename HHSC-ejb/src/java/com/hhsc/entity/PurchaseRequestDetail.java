@@ -8,6 +8,7 @@ package com.hhsc.entity;
 import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -535,7 +536,7 @@ public class PurchaseRequestDetail extends FormDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return (this.pid == other.pid && this.seq == other.seq);
+        return (Objects.equals(this.pid, other.pid) && (this.seq == other.seq));
     }
 
     @Override

@@ -9,12 +9,13 @@ import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.PurchaseStorageBean;
 import com.hhsc.entity.Department;
 import com.hhsc.entity.ItemInventory;
-import com.hhsc.entity.PurchaseAcceptanceDetail;
 import com.hhsc.entity.PurchaseStorage;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.PurchaseStorageModel;
 import com.hhsc.web.SuperSingleBean;
+import com.lightshell.comm.BaseLib;
+import com.lightshell.comm.Tax;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -45,15 +46,23 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
         if (!super.doBeforeUpdate()) {
             return false;
         }
-        if (currentEntity.getQty().compareTo(currentEntity.getQcqty().add(currentEntity.getBadqty())) == -1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "验收数量不可大于点收数量"));
+        if (currentEntity.getQty().compareTo(currentEntity.getQcqty().add(currentEntity.getBadqty())) != 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "验收数量不等于点收数量"));
             return false;
         }
+        this.currentEntity.setStatus("40");//验收中状态
+        //按合格数量重算金额
+        this.currentEntity.setAmts(this.currentEntity.getQcqty().multiply(this.currentEntity.getPrice()));
+        //按重算金额计算税额
+        Tax t = BaseLib.getTaxes(this.currentEntity.getTaxtype(), this.currentEntity.getTaxkind(), this.currentEntity.getTaxrate(), this.currentEntity.getAmts(), 2);
+        this.currentEntity.setExtax(t.getExtax());
+        this.currentEntity.setTaxes(t.getTaxes());
         return true;
     }
 
     @Override
     protected boolean doBeforeUnverify() throws Exception {
+        //因为判断明细状态所以不能调用超类方法
         if (currentEntity == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
             return false;
@@ -74,6 +83,7 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
 
     @Override
     protected boolean doBeforeVerify() throws Exception {
+        //因为判断明细状态所以不能调用超类方法
         if (currentEntity == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
             return false;

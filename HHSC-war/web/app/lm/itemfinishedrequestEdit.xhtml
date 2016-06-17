@@ -11,15 +11,15 @@
         <h:form id="formEdit">
             <h:outputScript name="detailEdit.js" library="js" /> 
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />     
-            <p:commandButton id="btnPrev" value="向前" actionListener="#{itemFinishedRequestManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
-                             process="@this" update="formEdit" 
-                             rendered="#{itemFinishedRequestManagedBean.hasPrev}"/> 
-            <p:commandButton id="btnNext" value="向后" actionListener="#{itemFinishedRequestManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
-                             process="@this" update="formEdit" 
-                             rendered="#{itemFinishedRequestManagedBean.hasNext}"/> 
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="itemfinishedrequest" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{itemFinishedRequestManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{itemFinishedRequestManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{itemFinishedRequestManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{itemFinishedRequestManagedBean.hasNext}"/> 
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{itemFinishedRequestManagedBean.update()}" icon="ui-icon-disk" 
@@ -32,7 +32,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="请购单号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{itemFinishedRequestManagedBean.currentEntity.formid}" title="Formid" 
-                                         required="true" requiredMessage="请输入请购单号" disabled="#{itemFinishedRequestManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入请购单号" readonly="#{itemFinishedRequestManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="请购日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
@@ -45,19 +45,23 @@
                     <p:row>
                         <p:column><p:outputLabel value="请购部门" for="deptid" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="deptid" value="#{itemFinishedRequestManagedBean.currentEntity.dept}" title="Deptid" 
-                                             converter="departmentConverter"  required="true" requiredMessage="请输入请购部门">
-                                <f:selectItem itemLabel="Select One" itemValue="" /> 
-                                <f:selectItems value="#{itemFinishedRequestManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="deptid" value="#{itemFinishedRequestManagedBean.currentEntity.dept.dept}" title="Deptid" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入部门" readonly="true"/>
+                            <p:commandButton id="btnSelectDept" actionListener="#{itemFinishedRequestManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemFinishedRequestManagedBean.handleDialogReturnDeptWhenEdit}" 
+                                        update="deptid" />
+                            </p:commandButton>
                         </p:column>
-                        <p:column><p:outputLabel value="请购人员" for="userid" /></p:column>
+                        <p:column><p:outputLabel value="请购人员" for="buyerid" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="userid" value="#{itemFinishedRequestManagedBean.currentEntity.systemuser}" 
-                                             converter="systemUserConverter" required="true" requiredMessage="请输入请购人员">
-                                <f:selectItem itemLabel="Select One" itemValue="" />  
-                                <f:selectItems value="#{itemFinishedRequestManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="buyerid" value="#{itemFinishedRequestManagedBean.currentEntity.systemuser.username}" title="Buyer" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入请购人员" readonly="true"/>
+                            <p:commandButton id="btnSelectSalesman" actionListener="#{itemFinishedRequestManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemFinishedRequestManagedBean.handleDialogReturnBuyerWhenEdit}" 
+                                        update="buyerid" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>

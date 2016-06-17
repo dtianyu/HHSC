@@ -27,22 +27,22 @@ import org.primefaces.event.SelectEvent;
  *
  * @author kevindong
  */
-@ManagedBean(name="purchaseDraftManagedBean")
+@ManagedBean(name = "purchaseDraftManagedBean")
 @SessionScoped
 public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
-
+    
     @EJB
     private VendorItemBean vendorItemBean;
-
+    
     @EJB
     private PurchaseDraftBean purchaseDraftBean;
-
+    
     protected String queryItemno;
-
+    
     public PurchaseDraftManagedBean() {
         super(PurchaseDraft.class);
     }
-
+    
     @Override
     protected boolean doBeforeUpdate() throws Exception {
         if (this.currentEntity.getVendor() == null) {
@@ -63,7 +63,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
         this.currentEntity.setTaxes(t.getTaxes());
         return super.doBeforeUpdate();
     }
-
+    
     public void findVendorItem() {
         if (currentEntity.getItemno() != null && currentEntity.getVendor() != null) {
             VendorItem entity = vendorItemBean.findByItemnoAndVendorno(currentEntity.getItemno(), currentEntity.getVendor().getVendorno());
@@ -72,7 +72,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             }
         }
     }
-
+    
     public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             Currency entity = (Currency) event.getObject();
@@ -85,9 +85,14 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
         if (event.getObject() != null) {
             Vendor entity = (Vendor) event.getObject();
             this.currentEntity.setVendor(entity);
+            this.currentEntity.setCurrency(entity.getCurrency());
+            this.currentEntity.setTaxtype(entity.getTaxtype());
+            this.currentEntity.setTaxkind(entity.getTaxkind());
+            this.currentEntity.setTaxrate(entity.getTaxrate());
+            this.currentEntity.setPayment(entity.getPayment());
         }
     }
-
+    
     @Override
     public void init() {
         this.superEJB = purchaseDraftBean;
@@ -95,7 +100,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
         this.model.getFilterFields().put("status", "N");
         super.init();
     }
-
+    
     @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
@@ -120,7 +125,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             }
         }
     }
-
+    
     @Override
     public void reset() {
         super.reset();
@@ -140,5 +145,5 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
     public void setQueryItemno(String queryItemno) {
         this.queryItemno = queryItemno;
     }
-
+    
 }

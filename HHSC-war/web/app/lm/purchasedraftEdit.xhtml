@@ -112,14 +112,14 @@
                                 <p:column><p:outputLabel value="供应商" for="vendor" /></p:column>
                                 <p:column>
                                     <p:inputText id="vendor" value="#{purchaseDraftManagedBean.currentEntity.vendor.vendor}" title="vendor"  
-                                                 styleClass="inputWithButton" disabled="true"/>
+                                                 styleClass="inputWithButton" readonly="true"/>
                                     <p:commandButton id="btnSelectVendor" actionListener="#{purchaseDraftManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{purchaseDraftManagedBean.handleDialogReturnVendorWhenEdit}" 
-                                                update="vendor" oncomplete="findVendorItem();"/>
+                                                update="plgDetail" oncomplete="findVendorItem();"/>
                                     </p:commandButton>
                                     <p:remoteCommand id="findVendorItem" name="findVendorItem" actionListener="#{purchaseDraftManagedBean.findVendorItem()}" 
-                                                     process="@this" update=":formEdit:tabView:plgDetail"/>
+                                                     process="@this" update="plgDetail"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="供应商品号" for="vendoritemno" /></p:column>
                                 <p:column>
@@ -187,9 +187,9 @@
                                     <p:inputText id="price" value="#{purchaseDraftManagedBean.currentEntity.price}" title="Price" 
                                                  required="true" requiredMessage="请输入单价"/>
                                 </p:column>
-                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column><p:outputLabel value="单位"/></p:column>
                                 <p:column>
-                                    <h:outputText id="unit" value="#{purchaseDraftManagedBean.currentEntity.unit}" title="Unit" />
+                                    <p:inputText id="unit" value="#{purchaseDraftManagedBean.currentEntity.unit}" title="Unit" />
                                 </p:column>
                             </p:row>
                             <p:row>

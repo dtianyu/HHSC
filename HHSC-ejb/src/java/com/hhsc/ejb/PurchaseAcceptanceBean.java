@@ -25,11 +25,11 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
 
-@EJB
-private PurchaseOrderDetailBean purchaseOrderDetailBean;
+    @EJB
+    private PurchaseOrderDetailBean purchaseOrderDetailBean;
 
-@EJB
-private ItemInventoryBean itemInventoryBean;
+    @EJB
+    private ItemInventoryBean itemInventoryBean;
 
     @EJB
     private PurchaseAcceptanceDetailBean purchaseAcceptanceDetailBean;
@@ -65,7 +65,7 @@ private ItemInventoryBean itemInventoryBean;
                 i.setQty(BigDecimal.ZERO);
                 inventoryList.add(i);
                 detail.setStatus("20");
-                p = purchaseOrderDetailBean.findByFormidAndSeq(detail.getSrcformid(), detail.getSrcseq());
+                p = purchaseOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
                 p.setInqty(p.getInqty().subtract(detail.getQty()));
                 if (p.getInqty().compareTo(BigDecimal.ZERO) == 0) {
                     p.setStatus("10");
@@ -106,7 +106,7 @@ private ItemInventoryBean itemInventoryBean;
                 i.setQty(BigDecimal.ZERO);
                 inventoryList.add(i);
                 detail.setStatus("30");
-                p = purchaseOrderDetailBean.findByFormidAndSeq(detail.getSrcformid(), detail.getSrcseq());
+                p = purchaseOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
                 p.setInqty(p.getInqty().add(detail.getQty()));
                 p.setRelapi("purchaseacceptance");
                 p.setRelformid(detail.getPid());

@@ -8,6 +8,7 @@ package com.hhsc.comm;
 import com.lightshell.comm.SuperEJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +27,18 @@ public abstract class SuperBean<T> extends SuperEJB<T> {
     @Override
     public EntityManager getEntityManager() {
         return em;
+    }
+
+    public T findByPIdAndSeq(Object pid, int seq) {
+        
+        Query query = getEntityManager().createNamedQuery(this.className + ".findByPIdAndSeq");
+        query.setParameter("pid", pid);
+        query.setParameter("seq", seq);
+        try {
+            return (T) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

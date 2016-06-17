@@ -7,10 +7,8 @@ package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.PurchaseAcceptanceDetail;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.Query;
 
 /**
  *

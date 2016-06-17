@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="salesshipment" icon="ui-icon-arrowreturn-1-w"  /> 
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesShipmentManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{salesShipmentManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesShipmentManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formEdit" 
+                                     rendered="#{salesShipmentManagedBean.hasNext}"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{salesShipmentManagedBean.update()}" icon="ui-icon-disk" 
+                                     process="@this,plgHead,:formEdit:tabView:plgBase" 
+                                     update="formEdit"/>                                
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="出货通知－修改">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{salesShipmentManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="出货日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{salesShipmentManagedBean.currentEntity.formdate}" title="Formdate" 
+                                        required="true" requiredMessage="请输入出货日期">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="出货类型" for="shiptype" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="shiptype" value="#{salesShipmentManagedBean.currentEntity.shiptype}" title="Ordertype" 
+                                             required="true" requiredMessage="请输入出货类型" disabled="true">
+                                <f:selectItem itemLabel="外销" itemValue="外销" />  
+                                <f:selectItem itemLabel="经销" itemValue="经销" />  
+                                <f:selectItem itemLabel="加工" itemValue="加工" />  
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
+                        <p:column>
+                            <p:inputText id="deptid" value="#{salesShipmentManagedBean.currentEntity.dept.dept}" title="Deptid" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入部门" readonly="true"/>
+                            <p:commandButton id="btnSelectDept" actionListener="#{salesShipmentManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{salesShipmentManagedBean.handleDialogReturnDeptWhenEdit}" 
+                                        update="deptid" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column></p:column>
+                        <p:column>
+
+                        </p:column>
+                        <p:column><h:outputText value="默认仓库"/></p:column>
+                        <p:column>
+                            <h:outputText id="warehouseDefault" value="#{salesShipmentManagedBean.currentEntity.warehouse.name}" title="warehouse" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="客户" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="customer" value="#{salesShipmentManagedBean.currentEntity.customer.customer}" title="customer"  />
+                                </p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="业务员" for="salesman" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="salesman" value="#{salesShipmentManagedBean.currentEntity.salesman.username}"  title="Salesman" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入业务员" readonly="true"/>
+                                    <p:commandButton id="btnSelectSalesman" actionListener="#{salesShipmentManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesShipmentManagedBean.handleDialogReturnSalesmanWhenEdit}" 
+                                                update="salesman" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="币别" /></p:column>
+                                <p:column>
+                                    <h:outputText id="currency" value="#{salesShipmentManagedBean.currentEntity.currency}" title="Currency" />
+                                </p:column>
+                                <p:column><p:outputLabel value="汇率" for="exchange" /></p:column>
+                                <p:column>
+                                    <p:inputText id="exchange" value="#{salesShipmentManagedBean.currentEntity.exchange}" title="Exchange" 
+                                                 required="true" requiredMessage="请输入汇率"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="税别" /></p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="taxtype" value="#{salesShipmentManagedBean.currentEntity.taxtype}" title="Taxtype" 
+                                                     required="true" requiredMessage="请输入税别" disabled="true">
+                                        <f:selectItem itemLabel="内含" itemValue="0" />  
+                                        <f:selectItem itemLabel="外加" itemValue="1" />  
+                                        <f:selectItem itemLabel="零税" itemValue="2" />
+                                        <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column><h:outputText value="税率"/></p:column>
+                                <p:column>
+                                    <h:outputText id="taxrate" value="#{salesShipmentManagedBean.currentEntity.taxrate}" title="taxrate" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="出货地址" for="shipadd" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="shipadd" value="#{salesShipmentManagedBean.currentEntity.shipadd}" title="Shpadd" styleClass="Wid100"/> 
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="出货明细">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{salesShipmentManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                             process="@this"   update="plgDetail"/>
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{salesShipmentManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             process="@this" update="plgDetail,formEdit:tabView:detailList,"/>  
+                        </f:facet>
+                        <f:facet name="right">                        
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{salesShipmentManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             process="@this,plgDetail,formEdit:plgHead" update="plgDetail,formEdit:tabView:detailList" />                                
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="订单编号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="srcformid" value="#{salesShipmentManagedBean.currentDetail.srcformid}" title="srcid"/>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="客户单号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText value="#{salesShipmentManagedBean.currentDetail.customerrefno}" title="customerrefno" />  
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="客户品号"/></p:column>
+                                <p:column>
+                                    <h:outputText id="customeritemno" value="#{salesShipmentManagedBean.currentDetail.customeritemno}" title="customeritemno" />
+                                </p:column>
+                                <p:column><h:outputText value="华卉品号"/></p:column>
+                                <p:column>
+                                    <h:outputText value="#{salesShipmentManagedBean.currentDetail.itemno}" title="Itemno" />  
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="customercolorno" value="#{salesShipmentManagedBean.currentDetail.customercolorno}" title="Customercolorno" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="华卉色号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="colorno" value="#{salesShipmentManagedBean.currentDetail.colorno}" title="Colorno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="面料编号" /></p:column>
+                                <p:column>
+                                    <h:outputText id="batch" value="#{salesShipmentManagedBean.currentDetail.batch}" />
+                                </p:column>
+                                <p:column><h:outputText value="可出数量" /></p:column>
+                                <p:column>
+                                    <h:outputText id="allowqty" value="#{salesShipmentManagedBean.currentDetail.allowqty}" title="allowqty" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="仓库" for="warehouse" /></p:column>
+                                <p:column>
+                                    <p:inputText id="warehouse" value="#{salesShipmentManagedBean.currentDetail.warehouse.name}" title="warehouse" 
+                                                 styleClass="inputWithButton" required="true" requiredMessage="请输入默认仓库"  readonly="true"/>
+                                    <p:commandButton id="btnSelectWarehouse" actionListener="#{salesShipmentManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesShipmentManagedBean.handleDialogReturnWarehouseWhenDetailEdit}" 
+                                                update="warehouse" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column><p:outputLabel value="数量" for="qty" /></p:column>
+                                <p:column>
+                                    <p:inputText id="qty" value="#{salesShipmentManagedBean.currentDetail.qty}" title="Qty" 
+                                                 required="true" requiredMessage="请输入数量"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column></p:column>
+                                <p:column>
+
+                                </p:column>
+                                <p:column><h:outputText value="单位" /></p:column>
+                                <p:column>
+                                    <h:outputText id="unit" value="#{salesShipmentManagedBean.currentDetail.unit}" title="Unit" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <p:dataTable id="detailList" value="#{salesShipmentManagedBean.detailList}" var="item" styleClass="tableList"
+                                     selectionMode="single" selection="#{salesShipmentManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="合同编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.srcformid}-#{item.srcseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="华卉品号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="华卉色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.colorno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="面料编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.batch}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="仓库"/>
+                                </f:facet>
+                                <h:outputText value="#{item.warehouse.name}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -98,13 +98,26 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
     }
 
     @Override
-    protected boolean doBeforeVerify() throws Exception {
-        if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+    protected boolean doBeforeUnverify() throws Exception {
+        if (!super.doBeforeUnverify()) {
             return false;
+        }//超类中有重新加载明细资料
+        for (PurchaseOrderDetail detail : this.detailList) {
+            if ((detail.getInqty().compareTo(BigDecimal.ZERO) == 1) || (!detail.getStatus().equals("10"))) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已入库不可取消"));
+                return false;
+            }
         }
+        return true;
+    }
+
+    @Override
+    protected boolean doBeforeVerify() throws Exception {
+        if (!super.doBeforeVerify()) {
+            return false;
+        }//超类中有重新加载明细资料
         if (this.detailList == null || this.detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有订单明细!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有采购明细!"));
             return false;
         }
         for (PurchaseOrderDetail detail : this.detailList) {
@@ -113,7 +126,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
                 return false;
             }
         }
-        return super.doBeforeVerify();
+        return true;
     }
 
     @Override

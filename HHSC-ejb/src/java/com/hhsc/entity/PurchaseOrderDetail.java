@@ -8,6 +8,7 @@ package com.hhsc.entity;
 import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseOrderDetail.findAll", query = "SELECT p FROM PurchaseOrderDetail p"),
     @NamedQuery(name = "PurchaseOrderDetail.findById", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.id = :id"),
     @NamedQuery(name = "PurchaseOrderDetail.findByPId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid ORDER BY p.seq"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByFormidAndSeq", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :formid AND p.seq = :seq"),
+    @NamedQuery(name = "PurchaseOrderDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid AND p.seq = :seq"),
     @NamedQuery(name = "PurchaseOrderDetail.findByItemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.itemno = :itemno"),
     @NamedQuery(name = "PurchaseOrderDetail.findByColorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.colorno = :colorno"),
     @NamedQuery(name = "PurchaseOrderDetail.findByCustomerId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customerid = :customerid"),
@@ -381,7 +382,7 @@ public class PurchaseOrderDetail extends FormDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return (this.pid == other.pid && this.seq == other.seq);
+        return (Objects.equals(this.pid,other.pid) && (this.seq == other.seq));
     }
 
     @Override

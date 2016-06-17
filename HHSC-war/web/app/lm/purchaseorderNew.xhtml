@@ -50,7 +50,7 @@
                         <p:column><p:outputLabel value="供应商" for="vendor" /></p:column>
                         <p:column>
                             <p:inputText id="vendor" value="#{purchaseOrderManagedBean.newEntity.vendor.vendor}" title="vendor"  styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入供应商" disabled="true"/>
+                                         required="true" requiredMessage="请输入供应商" readonly="true"/>
                             <p:commandButton id="btnSelect" actionListener="#{purchaseOrderManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnWhenNew}" 
@@ -80,7 +80,7 @@
                         <p:column><p:outputLabel value="币别" for="currency" /></p:column>
                         <p:column>
                             <p:inputText id="currency" value="#{purchaseOrderManagedBean.newEntity.currency}" title="Currency" styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入币别"/>
+                                         required="true" requiredMessage="请输入币别" readonly="true"/>
                             <p:commandButton id="btnCurrencySelect" actionListener="#{purchaseOrderManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnCurrencyWhenEdit}" 
@@ -129,7 +129,7 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="花号" for="itemmaster" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="itemdesign" value="#{purchaseOrderManagedBean.newEntity.itemmaster.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入花号" disabled="true"/>
+                                                 required="true" requiredMessage="请输入花号" readonly="true"/>
                                     <p:commandButton id="btnItemDesign" actionListener="#{purchaseOrderManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnItemMasterWhenNew}" 

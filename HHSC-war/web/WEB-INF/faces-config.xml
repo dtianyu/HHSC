@@ -314,6 +314,16 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>iteminventory</from-outcome>
+            <to-view-id>/app/mm/iteminventory.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>iteminventoryView</from-outcome>
+            <to-view-id>/app/mm/iteminventoryView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>itemmaster</from-outcome>
             <to-view-id>/app/mm/itemmaster.xhtml</to-view-id>
             <redirect/>
@@ -362,7 +372,7 @@
             <from-outcome>itemrequestView</from-outcome>
             <to-view-id>/app/lm/itemrequestView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case>       
         <navigation-case>
             <from-outcome>jh</from-outcome>
             <to-view-id>/app/pp/jh.xhtml</to-view-id>
@@ -490,6 +500,43 @@
             <to-view-id>/app/sd/salesorderView.xhtml</to-view-id>
             <redirect/>
         </navigation-case><!--订单维护 End-->
+        <!--出货通知 Start-->
+        <navigation-case>
+            <from-outcome>shipmentadvice</from-outcome>
+            <to-view-id>/app/sd/shipmentadvice.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>shipmentadviceNew</from-outcome>
+            <to-view-id>/app/sd/shipmentadviceNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>shipmentadviceEdit</from-outcome>
+            <to-view-id>/app/sd/shipmentadviceEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>shipmentadviceView</from-outcome>
+            <to-view-id>/app/sd/shipmentadviceView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case><!--出货通知 End-->
+        <!--销售出货 Start-->
+        <navigation-case>
+            <from-outcome>salesshipment</from-outcome>
+            <to-view-id>/app/mm/salesshipment.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>salesshipmentEdit</from-outcome>
+            <to-view-id>/app/mm/salesshipmentEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>salesshipmentView</from-outcome>
+            <to-view-id>/app/mm/salesshipmentView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case><!--销售出货 End-->
         <navigation-case>
             <from-outcome>sysmodule</from-outcome>
             <to-view-id>/sys/sysmodule.xhtml</to-view-id>
@@ -759,6 +806,11 @@
         <navigation-case>
             <from-outcome>purchaseorderdetailSelect</from-outcome>
             <to-view-id>/app/df/purchaseorderdetailSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>salesorderdetailSelect</from-outcome>
+            <to-view-id>/app/df/salesorderdetailSelect</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

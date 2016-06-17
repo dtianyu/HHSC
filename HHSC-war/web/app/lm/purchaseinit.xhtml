@@ -70,7 +70,9 @@
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnVerify" value="抛转" action="#{purchaseInitManagedBean.verify()}" icon="ui-icon-locked"
-                                     rendered="#{purchaseInitManagedBean.doCfm}" update="formList"/>
+                                     rendered="#{purchaseInitManagedBean.doCfm}" update="formList">
+                        <p:confirm header="系统提示" message="确定吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnUnverify" actionListener="#{purchaseInitManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{purchaseInitManagedBean.doUnCfm}"  update="formList"/>
                     <p:commandButton id="btnCreate" action="#{purchaseInitManagedBean.create('purchaseinitNew')}" icon="ui-icon-plus" value="新增"
@@ -146,6 +148,9 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

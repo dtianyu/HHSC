@@ -56,6 +56,10 @@ public class PurchaseOrder extends FormEntity {
     @Size(max = 10)
     @Column(name = "purkind")
     private String purkind;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "abroad")
+    protected boolean abroad;
     @JoinColumn(name = "vendorid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Vendor vendor;
@@ -159,6 +163,7 @@ public class PurchaseOrder extends FormEntity {
     private String packremark;
 
     public PurchaseOrder() {
+        this.abroad = false;
     }
 
     public String getPurtype() {
@@ -472,6 +477,20 @@ public class PurchaseOrder extends FormEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.PurchaseOrder[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the abroad
+     */
+    public boolean isAbroad() {
+        return abroad;
+    }
+
+    /**
+     * @param abroad the abroad to set
+     */
+    public void setAbroad(boolean abroad) {
+        this.abroad = abroad;
     }
 
 }

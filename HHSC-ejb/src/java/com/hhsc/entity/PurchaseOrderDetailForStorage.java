@@ -382,7 +382,7 @@ public class PurchaseOrderDetailForStorage extends BaseEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return (this.getSeq() == other.getSeq());
+        return (this.getPurchaseOrder().getFormid().equals(other.getPurchaseOrder().getFormid()) && (this.getSeq() == other.getSeq()));
     }
 
     @Override

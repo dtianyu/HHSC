@@ -22,19 +22,20 @@
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{vendorManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{vendorManagedBean.init()}"  icon="ui-icon-search" 
+                                     update=":formList"/>
                     <p:commandButton id="btnView" value="查看" action="#{vendorManagedBean.view('vendorView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{vendorManagedBean.edit('vendorEdit')}" icon="ui-icon-pencil" value="编辑" 
+                    <p:commandButton id="btnEdit" value="编辑" action="#{vendorManagedBean.edit('vendorEdit')}" icon="ui-icon-pencil" 
                                      rendered="#{vendorManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{vendorManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{vendorManagedBean.delete()}" icon="ui-icon-trash" 
                                      rendered="#{vendorManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{vendorManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
-                                     rendered="#{vendorManagedBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" action="#{vendorManagedBean.create('vendorNew')}" icon="ui-icon-plus" value="新增"
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{vendorManagedBean.unverify()}" icon="ui-icon-unlocked"
+                                     rendered="#{vendorManagedBean.doUnCfm}" update=":formList"/>
+                    <p:commandButton id="btnCreate" value="新增" action="#{vendorManagedBean.create('vendorNew')}" icon="ui-icon-plus"
                                      rendered="#{vendorManagedBean.doAdd}"/>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{vendorManagedBean.reset()}"  icon="ui-icon-refresh"  
                                      update=":formList"/> 
@@ -94,6 +95,9 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
     </ui:define>
 

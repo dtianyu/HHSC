@@ -41,9 +41,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemInventory.findByBatch", query = "SELECT i FROM ItemInventory i WHERE i.batch = :batch"),
     @NamedQuery(name = "ItemInventory.findBySn", query = "SELECT i FROM ItemInventory i WHERE i.sn = :sn"),
     @NamedQuery(name = "ItemInventory.findByWarehouseno", query = "SELECT i FROM ItemInventory i WHERE i.warehouse.warehouseno = :warehouseno"),
-    @NamedQuery(name = "ItemInventory.findByLocation", query = "SELECT i FROM ItemInventory i WHERE i.location = :location"),
-    @NamedQuery(name = "ItemInventory.findByObjectkind", query = "SELECT i FROM ItemInventory i WHERE i.objectkind = :objectkind"),
-    @NamedQuery(name = "ItemInventory.findByObjectId", query = "SELECT i FROM ItemInventory i WHERE i.objectid = :objectid"),
     @NamedQuery(name = "ItemInventory.findByStatus", query = "SELECT i FROM ItemInventory i WHERE i.status = :status")})
 public class ItemInventory extends SuperEntity {
 

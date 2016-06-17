@@ -32,7 +32,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="请购单号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{itemMasterRequestManagedBean.currentEntity.formid}" title="Formid" 
-                                         required="true" requiredMessage="请输入请购单号" disabled="#{itemMasterRequestManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入请购单号" readonly="#{itemMasterRequestManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="请购日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
@@ -45,19 +45,23 @@
                     <p:row>
                         <p:column><p:outputLabel value="请购部门" for="deptid" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="deptid" value="#{itemMasterRequestManagedBean.currentEntity.dept}" title="Deptid" 
-                                             converter="departmentConverter"  required="true" requiredMessage="请输入请购部门">
-                                <f:selectItem itemLabel="Select One" itemValue="" /> 
-                                <f:selectItems value="#{itemMasterRequestManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="deptid" value="#{itemMasterRequestManagedBean.currentEntity.dept.dept}" title="Deptid" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入部门" readonly="true"/>
+                            <p:commandButton id="btnSelectDept" actionListener="#{itemMasterRequestManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnDeptWhenEdit}" 
+                                        update="deptid" />
+                            </p:commandButton>
                         </p:column>
-                        <p:column><p:outputLabel value="请购人员" for="userid" /></p:column>
+                        <p:column><p:outputLabel value="请购人员" for="buyerid" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="userid" value="#{itemMasterRequestManagedBean.currentEntity.systemuser}" 
-                                             converter="systemUserConverter" required="true" requiredMessage="请输入请购人员">
-                                <f:selectItem itemLabel="Select One" itemValue="" />  
-                                <f:selectItems value="#{itemMasterRequestManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="buyerid" value="#{itemMasterRequestManagedBean.currentEntity.systemuser.username}" title="Buyer" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入请购人员" readonly="true"/>
+                            <p:commandButton id="btnSelectSalesman" actionListener="#{itemMasterRequestManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnBuyerWhenEdit}" 
+                                        update="buyerid" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -98,7 +102,7 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="面料编号" for="itemmaster" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="itemmaster" value="#{itemMasterRequestManagedBean.currentDetail.itemmaster.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入面料编号" disabled="true"/>
+                                                 required="true" requiredMessage="请输入面料编号" readonly="true"/>
                                     <p:commandButton id="btnSelectItemDesign" actionListener="#{itemMasterRequestManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnWhenDetailEdit}" 
@@ -161,7 +165,7 @@
                                 <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                                 <p:column>
                                     <p:inputText id="customer" value="#{itemMasterRequestManagedBean.currentDetail.customer.customer}" title="customer"  
-                                                 styleClass="inputWithButton" disabled="true"/>
+                                                 styleClass="inputWithButton" readonly="true"/>
                                     <p:commandButton id="btnSelectCustomer" actionListener="#{itemMasterRequestManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnCustomerWhenDetailEdit}" 
@@ -178,25 +182,25 @@
                                      selectionMode="single" selection="#{itemMasterRequestManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
                             <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail" oncomplete="" />
-                            <p:column styleClass="Wid10">
+                            <p:column styleClass="Wid30">
                                 <f:facet name="header">
                                     <h:outputText value="面料编号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemmaster.itemno}"/>
                             </p:column>
-                            <p:column styleClass="Wid20">
+                            <p:column styleClass="Wid40">
                                 <f:facet name="header">
                                     <h:outputText value="品名"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemmaster.itemdesc}"/>
                             </p:column>
-                            <p:column  styleClass="Wid10 TexAlRight">
+                            <p:column  styleClass="Wid20 TexAlRight">
                                 <f:facet name="header">
                                     <h:outputText value="数量"/>
                                 </f:facet>
                                 <h:outputText value="#{item.qty}"/>
                             </p:column>
-                            <p:column>
+                            <p:column styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="单位"/>
                                 </f:facet>

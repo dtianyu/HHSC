@@ -9,6 +9,7 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.SalesOrderDetail;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *

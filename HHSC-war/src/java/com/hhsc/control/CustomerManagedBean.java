@@ -7,6 +7,7 @@ package com.hhsc.control;
 
 import com.hhsc.ejb.CustomerBean;
 import com.hhsc.ejb.CustomerContacterBean;
+import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerContacter;
 import com.hhsc.lazy.CustomerModel;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -36,7 +38,7 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
     @Override
     public void create() {
         super.create();
-        this.newEntity.setCurrency("RMB");
+        this.newEntity.setCurrency("CNY");
         this.newEntity.setTaxtype("0");
         this.newEntity.setTaxkind("VAT17");
         this.newEntity.setTaxrate(BigDecimal.valueOf(17));
@@ -59,6 +61,20 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
             return true;
         }
         return false;
+    }
+
+    public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            Currency entity = (Currency) event.getObject();
+            this.currentEntity.setCurrency(entity.getCurrency());
+        }
+    }
+
+    public void handleDialogReturnCurrencyWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            Currency entity = (Currency) event.getObject();
+            this.newEntity.setCurrency(entity.getCurrency());
+        }
     }
 
     @Override

@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -44,9 +43,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseAcceptanceDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.vendorcolorno = :vendorcolorno"),
     @NamedQuery(name = "PurchaseAcceptanceDetail.findByStatus", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.status = :status")})
 public class PurchaseAcceptanceDetail extends FormDetailEntity {
-
-    @Transient
-    protected BigDecimal allowqty;
 
     @Column(name = "acceptdate")
     @Temporal(TemporalType.DATE)
@@ -91,6 +87,8 @@ public class PurchaseAcceptanceDetail extends FormDetailEntity {
     @Size(max = 20)
     @Column(name = "sn")
     private String sn;
+    @Column(name = "allowqty")
+    private BigDecimal allowqty;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -115,8 +113,8 @@ public class PurchaseAcceptanceDetail extends FormDetailEntity {
     @NotNull
     @Column(name = "addqty")
     private BigDecimal addqty;
-    @JoinColumn(name="warehouseno",referencedColumnName="warehouseno")
-    @ManyToOne(optional=false)
+    @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
     private Warehouse warehouse;
     @Basic(optional = false)
     @NotNull
@@ -589,10 +587,7 @@ public class PurchaseAcceptanceDetail extends FormDetailEntity {
         if (this.itemmaster != other.itemmaster) {
             return false;
         }
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (Objects.equals(this.pid, other.pid) && (this.seq == other.seq));
     }
 
     @Override

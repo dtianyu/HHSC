@@ -6,9 +6,11 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
+import com.hhsc.entity.InventoryTransaction;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.PurchaseOrderDetail;
 import com.hhsc.entity.PurchaseStorage;
+import com.hhsc.entity.TransactionType;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -23,10 +25,16 @@ import javax.ejb.LocalBean;
 public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
 
     @EJB
-    private PurchaseOrderDetailBean purchaseOrderDetailBean;
+    private TransactionTypeBean transactionTypeBean;
+
+    @EJB
+    private InventoryTransactionBean inventoryTransactionBean;
 
     @EJB
     private ItemInventoryBean itemInventoryBean;
+
+    @EJB
+    private PurchaseOrderDetailBean purchaseOrderDetailBean;
 
     public PurchaseStorageBean() {
         super(PurchaseStorage.class);
@@ -36,7 +44,14 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
     public PurchaseStorage unverify(PurchaseStorage entity) {
         try {
             PurchaseStorage e = this.getEntityManager().merge(entity);
+            
+            //更新库存交易
+            InventoryTransaction t = inventoryTransactionBean.findByFormidAndSeq(e.getPurchaseAcceptance().getFormid(), e.getSeq());
+            if (t != null) {
+                inventoryTransactionBean.delete(t);
+            }
 
+            //更新库存数量       
             ItemInventory i = new ItemInventory();
             i.setItemmaster(e.getItemmaster());
             i.setColorno(e.getColorno());
@@ -48,8 +63,9 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             i.setQty(BigDecimal.ZERO.subtract(e.getQcqty().add(e.getAddqty())));
             itemInventoryBean.add(i);
 
-            PurchaseOrderDetail p = purchaseOrderDetailBean.findByFormidAndSeq(e.getSrcformid(), e.getSrcseq());
-            p.setInqty(p.getInqty().subtract(e.getQcqty()).subtract(e.getAddqty()).add(e.getQty()));
+            //更新采购状态 
+            PurchaseOrderDetail p = purchaseOrderDetailBean.findByPIdAndSeq(e.getSrcformid(), e.getSrcseq());
+            p.setInqty(p.getInqty().subtract(e.getQcqty().add(e.getAddqty())).add(e.getQty()));
             p.setStatus("30");
             purchaseOrderDetailBean.update(p);
 
@@ -61,9 +77,39 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
 
     @Override
     public PurchaseStorage verify(PurchaseStorage entity) {
+        TransactionType transactionType = transactionTypeBean.findByTrtype("PAA");
+        if (transactionType == null) {
+            throw new RuntimeException("PAA交易类别没有定义");
+        }
         try {
             PurchaseStorage e = this.getEntityManager().merge(entity);
+            //更新库存交易
+            InventoryTransaction t = new InventoryTransaction();
+            t.setTrtype(transactionType);
+            t.setFormid(e.getPurchaseAcceptance().getFormid());
+            t.setFormdate(e.getAcceptdate());
+            t.setSeq(e.getSeq());
+            t.setItemmaster(e.getItemmaster());
+            t.setColorno(e.getColorno());
+            t.setBrand(e.getBrand());
+            t.setBatch(e.getBatch());
+            t.setSn(e.getSn());
+            t.setQty(e.getQcqty().add(e.getAddqty()));
+            t.setUnit(e.getUnit());
+            t.setWarehouse(e.getWarehouse());
+            t.setIocode(transactionType.getIocode());
+            t.setProptype(e.getItemmaster().getProptype());
+            t.setMaketype(e.getItemmaster().getMaketype());
+            t.setSrcapi(e.getSrcapi());
+            t.setSrcformid(e.getSrcformid());
+            t.setSrcseq(e.getSrcseq());
+            t.setStatus(e.getStatus());
+            t.setCfmuser(e.getCfmuser());
+            t.setCfmdate(e.getCfmdate());
+            inventoryTransactionBean.setDefaultValue(t);
+            inventoryTransactionBean.persist(t);
 
+            //更新库存数量
             ItemInventory i = new ItemInventory();
             i.setItemmaster(e.getItemmaster());
             i.setColorno(e.getColorno());
@@ -75,7 +121,8 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             i.setQty(e.getQcqty().add(e.getAddqty()));
             itemInventoryBean.add(i);
 
-            PurchaseOrderDetail p = purchaseOrderDetailBean.findByFormidAndSeq(e.getSrcformid(), e.getSrcseq());
+            //更新采购状态    
+            PurchaseOrderDetail p = purchaseOrderDetailBean.findByPIdAndSeq(e.getSrcformid(), e.getSrcseq());
             p.setInqty(p.getInqty().subtract(e.getQty()).add(e.getQcqty()));
             if (p.getQty().compareTo(p.getInqty()) == 0) {
                 p.setStatus("AC");

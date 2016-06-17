@@ -23,7 +23,7 @@
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{salesOrderManagedBean.update()}" icon="ui-icon-disk" 
                                      process="@this,plgHead,:formEdit:tabView:plgBase" 
-                                     update="plgHead,:formEdit:tabView:plgBase,:formEdit:tabView:plgDetail,:formEdit:tabView:detailList"/>                                
+                                     update="formEdit"/>                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售合同－修改">
@@ -32,7 +32,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="合同编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{salesOrderManagedBean.currentEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入合同编号" disabled="#{salesOrderManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入合同编号" readonly="#{salesOrderManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="合同日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
@@ -55,7 +55,7 @@
                         <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                         <p:column>
                             <p:inputText id="customer" value="#{salesOrderManagedBean.currentEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入客户" disabled="true"/>
+                                         required="true" requiredMessage="请输入客户" readonly="true"/>
                             <p:commandButton id="btnSelect" actionListener="#{salesOrderManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCustomerWhenEdit}" 
@@ -66,19 +66,23 @@
                     <p:row>
                         <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="deptid" value="#{salesOrderManagedBean.currentEntity.dept}" title="Deptid" 
-                                             converter="departmentConverter"  required="true" requiredMessage="请输入部门">
-                                <f:selectItem itemLabel="Select One" itemValue="" /> 
-                                <f:selectItems value="#{salesOrderManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="deptid" value="#{salesOrderManagedBean.currentEntity.dept.dept}" title="Deptid" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入部门" readonly="true"/>
+                            <p:commandButton id="btnSelectDept" actionListener="#{salesOrderManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnDeptWhenEdit}" 
+                                        update="deptid" />
+                            </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="业务员" for="salesman" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="salesman" value="#{salesOrderManagedBean.currentEntity.salesman}" 
-                                             converter="systemUserConverter" required="true" requiredMessage="请输入业务员">
-                                <f:selectItem itemLabel="Select One" itemValue="" />  
-                                <f:selectItems value="#{salesOrderManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
-                            </p:selectOneMenu>
+                            <p:inputText id="salesman" value="#{salesOrderManagedBean.currentEntity.salesman.username}" title="Salesman" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入业务员" readonly="true"/>
+                            <p:commandButton id="btnSelectSalesman" actionListener="#{salesOrderManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnSalesmanWhenEdit}" 
+                                        update="salesman" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -134,12 +138,14 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉花号" for="itemmaster" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="itemdesign" value="#{salesOrderManagedBean.currentEntity.itemmaster.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入华卉花号" disabled="true"/>
+                                                 required="true" requiredMessage="请输入华卉花号" readonly="true"/>
                                     <p:commandButton id="btnItemDesign" actionListener="#{salesOrderManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenEdit}" 
-                                                update="plgBase"/>
+                                                update="plgBase" oncomplete="findCustomerItem();"/>
                                     </p:commandButton>
+                                    <p:remoteCommand id="findCustomerItem" name="findCustomerItem" actionListener="#{salesOrderManagedBean.findCustomerItem()}" 
+                                                     process="@this" update="customeritemno"/>
                                 </p:column>
                                 <p:column rowspan="6" colspan="2" styleClass="Wid50">
                                     <p:graphicImage value="/resources/upload/img/#{salesOrderManagedBean.currentEntity.itemimg}"/>
@@ -195,9 +201,9 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="出货方式" for="shpadd" /></p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="出货方式" for="shipadd" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputTextarea rows="2" id="shpadd" value="#{salesOrderManagedBean.currentEntity.shpadd}" title="Shpadd" styleClass="Wid100"/> 
+                                    <p:inputTextarea rows="2" id="shipadd" value="#{salesOrderManagedBean.currentEntity.shipadd}" title="Shpadd" styleClass="Wid100"/> 
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -242,7 +248,7 @@
                                 <p:column><p:outputLabel value="面料编号" for="itemmaster" /></p:column>
                                 <p:column>
                                     <p:inputText id="itemmaster" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemno}" styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入面料编号" disabled="true"/>
+                                                 required="true" requiredMessage="请输入面料编号" readonly="true"/>
                                     <p:commandButton id="btnItemMaster" actionListener="#{salesOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenDetailNew}" 

@@ -33,7 +33,7 @@ public class VendorManagedBean extends SuperSingleBean<Vendor> {
     @Override
     public void create() {
         super.create();
-        this.newEntity.setCurrency("RMB");
+        this.newEntity.setCurrency("CNY");
         this.newEntity.setTaxtype("0");
         this.newEntity.setTaxkind("VAT17");
         this.newEntity.setTaxrate(BigDecimal.valueOf(17));

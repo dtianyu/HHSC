@@ -59,29 +59,6 @@ public class FactoryStorageManagedBean extends FormMultiBean<FactoryStorage, Fac
     }
 
     @Override
-    protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            String formid = "";
-            if (this.getCurrentSysprg().getNoauto()) {
-                formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
-            }
-            this.newEntity.setFormid(formid);
-            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (FactoryStorageDetail detail : this.addedDetailList) {
-                    detail.setPid(formid);
-                }
-            }
-            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (FactoryStorageDetail detail : this.editedDetailList) {
-                    detail.setPid(formid);
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     protected boolean doBeforeUpdate() throws Exception {
         if (this.currentEntity != null) {
             FactoryOrderDetail factoryOrderDetail;
@@ -123,29 +100,23 @@ public class FactoryStorageManagedBean extends FormMultiBean<FactoryStorage, Fac
 
     @Override
     protected boolean doBeforeUnverify() throws Exception {
-        if (this.detailList != null && !this.detailList.isEmpty()) {
-            this.detailList.clear();
-        }
-        this.detailList = detailEJB.findByPId(currentEntity.getId());
-        if (this.detailList == null || this.detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有入库明细!"));
+        if (!super.doBeforeUnverify()) {
             return false;
-        } else {
-            FactoryOrderDetail factoryOrderDetail;
-            for (FactoryStorageDetail detail : this.detailList) {
-                try {
-                    factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
-                    if (factoryOrderDetail == null) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
-                        return false;
-                    }
-                    if (factoryOrderDetail.getInqty().compareTo(detail.getQty()) < 0) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可还原数量不足!"));
-                        return false;
-                    }
-                } catch (Exception e) {
-                    throw e;
+        }
+        FactoryOrderDetail factoryOrderDetail;
+        for (FactoryStorageDetail detail : this.detailList) {
+            try {
+                factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
+                if (factoryOrderDetail == null) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
+                    return false;
                 }
+                if (factoryOrderDetail.getInqty().compareTo(detail.getQty()) < 0) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可还原数量不足!"));
+                    return false;
+                }
+            } catch (Exception ex) {
+                throw ex;
             }
         }
         return true;
@@ -153,28 +124,30 @@ public class FactoryStorageManagedBean extends FormMultiBean<FactoryStorage, Fac
 
     @Override
     protected boolean doBeforeVerify() throws Exception {
+        if (!super.doBeforeVerify()) {
+            return false;
+        }
         if (this.detailList == null || this.detailList.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有入库明细!"));
             return false;
-        } else {
-            FactoryOrderDetail factoryOrderDetail;
-            for (FactoryStorageDetail detail : this.detailList) {
-                try {
-                    factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
-                    if (factoryOrderDetail == null) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
-                        return false;
-                    }
-                    //if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
-                    //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
-                    //    return false;
-                    //}
-                } catch (Exception e) {
-                    throw e;
-                }
-            }
-            return true;
         }
+        FactoryOrderDetail factoryOrderDetail;
+        for (FactoryStorageDetail detail : this.detailList) {
+            try {
+                factoryOrderDetail = factoryOrderDetailBean.findById(detail.getSid());
+                if (factoryOrderDetail == null) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "找不到流转单!"));
+                    return false;
+                }
+                //if (factoryOrderDetail.getJhqty().subtract(factoryOrderDetail.getInqty()).compareTo(detail.getQty()) < 0) {
+                //    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "可入库数量不足!"));
+                //    return false;
+                //}
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+        return true;
     }
 
     @Override

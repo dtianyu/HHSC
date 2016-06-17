@@ -33,7 +33,7 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="请购单号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="formid" value="#{purchaseDraftManagedBean.currentEntity.pformid}-#{purchaseDraftManagedBean.currentEntity.seq}" title="Formid" />
+                            <h:outputText id="formid" value="#{purchaseDraftManagedBean.currentEntity.purchaserequest.formid}-#{purchaseDraftManagedBean.currentEntity.seq}" title="Formid" />
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="请购日期" /></p:column>
                         <p:column styleClass="Wid30">
@@ -219,6 +219,13 @@
                     </p:panel>
                 </p:tab>
             </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

@@ -20,8 +20,6 @@
                     <p:commandButton id="btnNext" value="向后" actionListener="#{purchaseStorageManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
                                      process="@this" update="formView" 
                                      rendered="#{purchaseStorageManagedBean.hasNext}"/> 
-                    <p:commandButton id="btnUnverify" value="取消"  actionListener="#{purchaseStorageManagedBean.unverify()}" icon="ui-icon-unlocked"
-                                     rendered="#{purchaseStorageManagedBean.doUnCfm}"  process="@this" update="formView"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnVerify" value="审核" action="#{purchaseStorageManagedBean.verify()}" icon="ui-icon-locked"
@@ -132,6 +130,10 @@
                     </p:row>
                 </p:panelGrid>
             </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
         </h:form>
 
     </ui:define>

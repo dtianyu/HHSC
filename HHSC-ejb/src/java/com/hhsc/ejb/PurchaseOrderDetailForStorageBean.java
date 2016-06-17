@@ -26,11 +26,6 @@ public class PurchaseOrderDetailForStorageBean extends SuperBean<PurchaseOrderDe
     }
 
     @Override
-    public List<PurchaseOrderDetailForStorage> findByPId(Object value) {
-        return super.findByPId(Integer.parseInt(value.toString()));
-    }
-
-    @Override
     public int getRowCount(Map<String, Object> filters) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT COUNT(e) FROM PurchaseOrderDetailForStorage e WHERE ((e.qty - e.inqty) > 0)  ");
@@ -51,7 +46,7 @@ public class PurchaseOrderDetailForStorageBean extends SuperBean<PurchaseOrderDe
     public List<PurchaseOrderDetailForStorage> findByFilters(Map<String, Object> filters, int first, int pageSize, Map<String, String> orderBy) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT e FROM PurchaseOrderDetailForStorage e WHERE ((e.qty - e.inqty) > 0)  ");
-        sb.append(" AND e.purchaseOrder.status='V' ");
+        sb.append(" AND (e.purchaseOrder.status='V') AND (e.status<>'MC') ");
         if (filters != null) {
             this.setQueryFilter(sb, filters);
         }

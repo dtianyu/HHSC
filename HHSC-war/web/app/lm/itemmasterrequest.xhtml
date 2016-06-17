@@ -35,15 +35,15 @@
                     <p:commandButton id="btnView" value="查看" action="#{itemMasterRequestManagedBean.view('itemmasterrequestView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{itemMasterRequestManagedBean.edit('itemmasterrequestEdit')}" icon="ui-icon-pencil" value="编辑" 
+                    <p:commandButton id="btnEdit" value="编辑" action="#{itemMasterRequestManagedBean.edit('itemmasterrequestEdit')}" icon="ui-icon-pencil"
                                      rendered="#{itemMasterRequestManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{itemMasterRequestManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{itemMasterRequestManagedBean.delete()}" icon="ui-icon-trash"
                                      rendered="#{itemMasterRequestManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{itemMasterRequestManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
-                                     rendered="#{itemMasterRequestManagedBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" action="#{itemMasterRequestManagedBean.create('itemmasterrequestNew')}" icon="ui-icon-plus" value="新增"
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{itemMasterRequestManagedBean.unverify()}" icon="ui-icon-unlocked" 
+                                     rendered="#{itemMasterRequestManagedBean.doUnCfm}" update=":formList"/>
+                    <p:commandButton id="btnCreate" value="新增" action="#{itemMasterRequestManagedBean.create('itemmasterrequestNew')}" icon="ui-icon-plus"
                                      rendered="#{itemMasterRequestManagedBean.doAdd}"/>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{itemMasterRequestManagedBean.reset()}"  icon="ui-icon-refresh"  
                                      update=":formList"/> 
@@ -60,7 +60,7 @@
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Wid10">
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="请购单号"/>
                     </f:facet>
@@ -74,7 +74,7 @@
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="请购类别"/>
                     </f:facet>
@@ -108,6 +108,9 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

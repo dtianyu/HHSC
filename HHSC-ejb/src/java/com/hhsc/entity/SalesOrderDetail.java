@@ -8,6 +8,7 @@ package com.hhsc.entity;
 import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s"),
     @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id"),
     @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid ORDER BY s.seq"),
+    @NamedQuery(name = "SalesOrderDetail.findByPIdAndSeq", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid AND s.seq = :seq "),
     @NamedQuery(name = "SalesOrderDetail.findByColorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.colorno = :colorno"),
     @NamedQuery(name = "SalesOrderDetail.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.customercolorno = :customercolorno"),
     @NamedQuery(name = "SalesOrderDetail.findByItemId", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemmaster.id = :itemmasterid"),
@@ -102,12 +104,24 @@ public class SalesOrderDetail extends FormDetailEntity {
     @NotNull
     @Column(name = "issqty")
     private BigDecimal issqty;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "shipqty")
+    private BigDecimal shipqty;
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
     @Size(max = 2)
     @Column(name = "status")
     protected String status;
+    @Size(max = 100)
+    @Column(name = "srcapi")
+    protected String srcapi;
+    @Size(max = 20)
+    @Column(name = "srcformid")
+    protected String srcformid;
+    @Column(name = "srcseq")
+    protected Integer srcseq;
     @Size(max = 100)
     @Column(name = "relapi")
     protected String relapi;
@@ -118,6 +132,7 @@ public class SalesOrderDetail extends FormDetailEntity {
     protected Integer relseq;
 
     public SalesOrderDetail() {
+        this.shipqty = BigDecimal.ZERO;
     }
 
     public String getColorno() {
@@ -289,7 +304,7 @@ public class SalesOrderDetail extends FormDetailEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return (this.pid == other.pid && this.seq == other.seq);
+        return (Objects.equals(this.pid, other.pid) && (this.seq == other.seq));
     }
 
     @Override
@@ -351,6 +366,62 @@ public class SalesOrderDetail extends FormDetailEntity {
      */
     public void setRelseq(Integer relseq) {
         this.relseq = relseq;
+    }
+
+    /**
+     * @return the srcapi
+     */
+    public String getSrcapi() {
+        return srcapi;
+    }
+
+    /**
+     * @param srcapi the srcapi to set
+     */
+    public void setSrcapi(String srcapi) {
+        this.srcapi = srcapi;
+    }
+
+    /**
+     * @return the srcformid
+     */
+    public String getSrcformid() {
+        return srcformid;
+    }
+
+    /**
+     * @param srcformid the srcformid to set
+     */
+    public void setSrcformid(String srcformid) {
+        this.srcformid = srcformid;
+    }
+
+    /**
+     * @return the srcseq
+     */
+    public Integer getSrcseq() {
+        return srcseq;
+    }
+
+    /**
+     * @param srcseq the srcseq to set
+     */
+    public void setSrcseq(Integer srcseq) {
+        this.srcseq = srcseq;
+    }
+
+    /**
+     * @return the shipqty
+     */
+    public BigDecimal getShipqty() {
+        return shipqty;
+    }
+
+    /**
+     * @param shipqty the shipqty to set
+     */
+    public void setShipqty(BigDecimal shipqty) {
+        this.shipqty = shipqty;
     }
 
 }

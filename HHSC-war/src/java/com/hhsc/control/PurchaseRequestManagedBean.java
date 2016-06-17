@@ -54,9 +54,6 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
     @EJB
     protected PurchaseRequestDetailBean purchaseRequestDetailBean;
 
-    protected List<SystemUser> systemUserList;
-    protected List<Department> deptList;
-
     protected String queryItemno;
 
     public PurchaseRequestManagedBean() {
@@ -80,7 +77,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
         this.newDetail.setPurqty(BigDecimal.ZERO);
         this.newDetail.setPrice(BigDecimal.ZERO);
         this.newDetail.setAmts(BigDecimal.ZERO);
-        this.newDetail.setCurrency("RMB");
+        this.newDetail.setCurrency("CNY");
         this.newDetail.setExchange(BigDecimal.ONE);
         this.newDetail.setTaxtype("0");
         this.newDetail.setTaxkind("VAT17");
@@ -97,21 +94,12 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
 
     @Override
     protected boolean doBeforeUnverify() throws Exception {
-        if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
-            return false;
-        }
-        if (this.detailList != null) {
-            detailList.clear();
-        }
-        this.detailList = this.detailEJB.findByPId(currentEntity.getFormid());
-        if (this.detailList == null || this.detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有请购明细!"));
+        if (!super.doBeforeUnverify()) {
             return false;
         }
         boolean flag = true;
-        for (PurchaseRequestDetail entity : detailList) {
-            if (entity.getStatus().equals("V")) {
+        for (PurchaseRequestDetail detail : detailList) {
+            if (detail.getStatus().equals("V")) {
                 flag = false;
             }
         }
@@ -119,20 +107,19 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已转采购不能还原!"));
             return false;
         }
-        return super.doBeforeUnverify();
+        return true;
     }
 
     @Override
     protected boolean doBeforeVerify() throws Exception {
-        if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+        if (!super.doBeforeVerify()) {
             return false;
         }
         if (this.detailList == null || this.detailList.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有请购明细!"));
             return false;
         }
-        return super.doBeforeVerify();
+        return true;
     }
 
     @Override
@@ -156,6 +143,32 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
             if (entity != null) {
                 this.currentDetail.setVendoritemno(entity.getVendoritemno());
             }
+        }
+    }
+
+    public void handleDialogReturnDeptWhenNew(SelectEvent event) {
+        //返回部门
+        if (event.getObject() != null) {
+            this.newEntity.setDept((Department) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnDeptWhenEdit(SelectEvent event) {
+        //返回部门
+        if (event.getObject() != null) {
+            this.currentEntity.setDept((Department) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnBuyerWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            currentEntity.setSystemuser((SystemUser) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnBuyerWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            newEntity.setSystemuser((SystemUser) event.getObject());
         }
     }
 
@@ -199,8 +212,6 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
         this.superEJB = purchaseRequestBean;
         this.detailEJB = purchaseRequestDetailBean;
         setModel(new ItemMasterRequestModel(purchaseRequestBean));
-        setSystemUserList(systemUserBean.findAll());
-        setDeptList(departmentBean.findAll());
         super.init();
     }
 
@@ -221,34 +232,6 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
                 this.model.getFilterFields().put("status", queryState);
             }
         }
-    }
-
-    /**
-     * @return the systemUserList
-     */
-    public List<SystemUser> getSystemUserList() {
-        return systemUserList;
-    }
-
-    /**
-     * @param systemUserList the systemUserList to set
-     */
-    public void setSystemUserList(List<SystemUser> systemUserList) {
-        this.systemUserList = systemUserList;
-    }
-
-    /**
-     * @return the deptList
-     */
-    public List<Department> getDeptList() {
-        return deptList;
-    }
-
-    /**
-     * @param deptList the deptList to set
-     */
-    public void setDeptList(List<Department> deptList) {
-        this.deptList = deptList;
     }
 
     /**

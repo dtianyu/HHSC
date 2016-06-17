@@ -41,6 +41,9 @@ public class ItemMasterQueryBean extends SuperQueryBean<ItemMaster> {
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("itemno", this.queryFormId);
             }
+            if (this.queryName != null && !"".equals(this.queryName)) {
+                this.model.getFilterFields().put("itemdesc", this.queryName);
+            }
         }
     }
 

@@ -7,8 +7,6 @@ package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.ItemInventory;
-import com.lightshell.comm.SuperEJB;
-import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -93,7 +91,7 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
         return query.getResultList();
     }
 
-    //增加数量
+    //增加数量                                                    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void add(ItemInventory entity) throws RuntimeException {
         try {

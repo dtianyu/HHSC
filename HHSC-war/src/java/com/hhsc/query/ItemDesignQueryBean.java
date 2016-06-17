@@ -24,8 +24,6 @@ public class ItemDesignQueryBean extends SuperQueryBean<ItemMaster> {
     @EJB
     private ItemMasterBean itemMasterBean;
 
-    protected String designid;
-
     public ItemDesignQueryBean() {
         super(ItemMaster.class);
     }
@@ -40,24 +38,13 @@ public class ItemDesignQueryBean extends SuperQueryBean<ItemMaster> {
     @Override
     public void query() {
         if (this.model != null) {
-            if (this.designid != null && !"".equals(this.designid)) {
-                this.model.getFilterFields().put("itemno", this.designid);
+            if (this.queryFormId != null && !"".equals(this.queryFormId)) {
+                this.model.getFilterFields().put("itemno", this.queryFormId);
+            }
+            if (this.queryName != null && !"".equals(this.queryName)) {
+                this.model.getFilterFields().put("itemdesc", this.queryName);
             }
         }
-    }
-
-    /**
-     * @return the designid
-     */
-    public String getDesignid() {
-        return designid;
-    }
-
-    /**
-     * @param designid the designid to set
-     */
-    public void setDesignid(String designid) {
-        this.designid = designid;
     }
 
 }

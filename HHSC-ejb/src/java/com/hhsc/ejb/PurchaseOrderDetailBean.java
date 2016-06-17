@@ -23,15 +23,4 @@ public class PurchaseOrderDetailBean extends SuperBean<PurchaseOrderDetail> {
         super(PurchaseOrderDetail.class);
     }
 
-    public PurchaseOrderDetail findByFormidAndSeq(String formid, int seq) {
-        Query query = getEntityManager().createNamedQuery("PurchaseOrderDetail.findByFormidAndSeq");
-        query.setParameter("formid", formid);
-        query.setParameter("seq", seq);
-        try {
-            return (PurchaseOrderDetail) query.getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
 }
