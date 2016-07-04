@@ -96,7 +96,7 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, V extends SuperDeta
             try {
                 T entity = entityClass.newInstance();
                 entity.setStatus("N");
-                entity.setCreator(getUserManagedBean().getCurrentUser().getUserid());
+                entity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
                 entity.setCredateToNow();
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
@@ -171,7 +171,7 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, V extends SuperDeta
             try {
                 if (doBeforeUnverify()) {
                     currentEntity.setStatus("N");
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
                     currentEntity.setCfmuser(null);
                     currentEntity.setCfmdate(null);
@@ -195,7 +195,7 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, V extends SuperDeta
             try {
                 if (doBeforeVerify()) {
                     currentEntity.setStatus("V");
-                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setCfmdateToNow();
                     superEJB.verify(currentEntity);
                     doAfterVerify();

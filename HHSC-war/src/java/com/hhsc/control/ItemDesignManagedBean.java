@@ -12,6 +12,7 @@ import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerItem;
 import com.hhsc.entity.ItemCategory;
 import com.hhsc.entity.ItemMaster;
+import com.hhsc.entity.Unit;
 import com.hhsc.lazy.ItemDesignModel;
 import com.hhsc.web.SuperMultiBean;
 import java.math.BigDecimal;
@@ -56,6 +57,8 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
         newEntity.setUnittype("1");
         newEntity.setQcpass(false);
         newEntity.setUnitexch(BigDecimal.ONE);
+        newEntity.setInvtype(true);
+        newEntity.setBbstype("000");
         newEntity.setPurmax(BigDecimal.ZERO);
         newEntity.setPurmin(BigDecimal.ZERO);
         newEntity.setInvmax(BigDecimal.ZERO);
@@ -141,18 +144,18 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
     }
 
     @Override
-    public void handleFileUploadWhenNew(FileUploadEvent event) {
-        super.handleFileUploadWhenNew(event);
-        if (this.fileName != null && this.newEntity != null) {
-            this.newEntity.setImg1(fileName);
+    public void handleDialogReturnWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            Unit entity = (Unit) event.getObject();
+            this.currentEntity.setUnit(entity.getUnit());
         }
     }
 
     @Override
-    public void handleFileUploadWhenEdit(FileUploadEvent event) {
-        super.handleFileUploadWhenEdit(event);
-        if (this.fileName != null && this.currentEntity != null) {
-            this.currentEntity.setImg1(fileName);
+    public void handleDialogReturnWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            Unit entity = (Unit) event.getObject();
+            this.newEntity.setUnit(entity.getUnit());
         }
     }
 
@@ -171,6 +174,22 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
             Customer entity = (Customer) event.getObject();
             this.newDetail.setPid(entity.getId());
             this.newDetail.setCustomer(entity);
+        }
+    }
+
+    @Override
+    public void handleFileUploadWhenNew(FileUploadEvent event) {
+        super.handleFileUploadWhenNew(event);
+        if (this.fileName != null && this.newEntity != null) {
+            this.newEntity.setImg1(fileName);
+        }
+    }
+
+    @Override
+    public void handleFileUploadWhenEdit(FileUploadEvent event) {
+        super.handleFileUploadWhenEdit(event);
+        if (this.fileName != null && this.currentEntity != null) {
+            this.currentEntity.setImg1(fileName);
         }
     }
 

@@ -687,7 +687,7 @@ if(currentRow < 6 || currentRow < list.size()){
 	if(currentRow < list.size()){
 		dataSetRow["formid"] = master.getFormid();
 		dataSetRow["formdate"] = master.getFormdate();
-		dataSetRow["ordertype"] = master.getOrdertype();
+		dataSetRow["ordertype"] = master.getOrdertype().getName();
 		dataSetRow["customerno"] = master.getCustomer().getCustomerno();
 		dataSetRow["customer"] = master.getCustomer().getCustomer();
 		dataSetRow["dept"] = master.getDept().getDept();

@@ -69,7 +69,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         newEntity.setFormdate(getDate());
         newEntity.setBuyer(this.userManagedBean.getCurrentUser());
         newEntity.setDept(this.userManagedBean.getCurrentUser().getDept());
-        newEntity.setCurrency("RMB");
+        newEntity.setCurrency("CNY");
         newEntity.setExchange(BigDecimal.ONE);
         newEntity.setTaxtype("0");
         newEntity.setTaxkind("VAT17");

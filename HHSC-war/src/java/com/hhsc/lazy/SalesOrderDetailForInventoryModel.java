@@ -5,10 +5,9 @@
  */
 package com.hhsc.lazy;
 
-import com.hhsc.entity.ItemMaster;
+import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.primefaces.model.SortOrder;
@@ -17,17 +16,16 @@ import org.primefaces.model.SortOrder;
  *
  * @author kevindong
  */
-public class ItemFinishedModel extends BaseLazyModel<ItemMaster> {
+public class SalesOrderDetailForInventoryModel extends BaseLazyModel<SalesOrderDetailForQuery> {
 
-    public ItemFinishedModel(SuperEJB superEJB) {
+    public SalesOrderDetailForInventoryModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
 
     @Override
-    public List<ItemMaster> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        this.sortFields.put("status", "ASC");
-        this.sortFields.put("id", "DESC");
-        this.filterFields.put("itemcategory.category", "100");
+    public List<SalesOrderDetailForQuery> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        this.sortFields.put("salesOrder.formid", "ASC");
+        this.filterFields.put("salesOrder.ordertype.process", true);
         return super.load(first, pageSize, sortField, sortOrder, filters);
     }
 

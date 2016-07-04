@@ -74,13 +74,13 @@
                                      selectionMode="single" selection="#{itemMasterRequestManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update=":formView:tabView:plgDetail" oncomplete="" />
                             <p:ajax event="rowUnselect"  update=":formView:tabView:plgDetail" oncomplete="" />
-                            <p:column styleClass="Wid10">
+                            <p:column styleClass="Wid30">
                                 <f:facet name="header">
                                     <h:outputText value="面料编号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemmaster.itemno}"/>
                             </p:column>
-                            <p:column styleClass="Wid20">
+                            <p:column styleClass="Wid40">
                                 <f:facet name="header">
                                     <h:outputText value="品名"/>
                                 </f:facet>
@@ -92,7 +92,7 @@
                                 </f:facet>
                                 <h:outputText value="#{item.qty}"/>
                             </p:column>
-                            <p:column>
+                            <p:column styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="单位"/>
                                 </f:facet>

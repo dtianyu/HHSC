@@ -93,9 +93,9 @@ public class InventoryTransaction extends FormEntity {
     @Size(max = 10)
     @Column(name = "reasontype")
     private String reasontype;
-    @Size(max = 20)
-    @Column(name = "reasonno")
-    private String reasonno;
+    @Size(max = 45)
+    @Column(name = "reason")
+    private String reason;
     @Size(max = 2)
     @Column(name = "proptype")
     private String proptype;
@@ -245,12 +245,12 @@ public class InventoryTransaction extends FormEntity {
         this.reasontype = reasontype;
     }
 
-    public String getReasonno() {
-        return reasonno;
+    public String getReason() {
+        return reason;
     }
 
-    public void setReasonno(String reasonno) {
-        this.reasonno = reasonno;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getProptype() {

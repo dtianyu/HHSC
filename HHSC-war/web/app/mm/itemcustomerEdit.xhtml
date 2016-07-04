@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="itemcustomer" icon="ui-icon-arrowreturn-1-w"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnPersist" value="保存" actionListener="#{itemCustomerManagedBean.update()}" icon="ui-icon-disk"  
+                                     process="@this,plgEdit" update="plgEdit,formEdit:tabView:tableList"/>
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelEdit" header="客供面料－修改">
+                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="类别" for="itemcategory" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="itemcategory" value="#{itemCustomerManagedBean.currentEntity.itemcategory}" 
+                                             converter="itemCategoryConverter" required="true" requiredMessage="请输入类别" disabled="true">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItems value="#{itemCustomerManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="编号" for="itemno" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="itemno" value="#{itemCustomerManagedBean.currentEntity.itemno}" title="Itemno" 
+                                         required="true" requiredMessage="请输入编号" disabled="#{itemCustomerManagedBean.currentSysprg.noauto}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="名称" for="itemdesc" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="itemdesc" value="#{itemCustomerManagedBean.currentEntity.itemdesc}" title="Itemdesc" 
+                                         required="true" requiredMessage="请输入名称"/> 
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="单位" for="unit" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="unit" value="#{itemCustomerManagedBean.currentEntity.unit}" title="Unit" styleClass="inputWithButton" 
+                                         required="true" requiredMessage="请输入单位"/>
+                            <p:commandButton id="btnUnit" actionListener="#{itemCustomerManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemCustomerManagedBean.handleDialogReturnWhenEdit}" 
+                                        update="unit" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="规格" for="itemspec" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="itemspec" value="#{itemCustomerManagedBean.currentEntity.itemspec}" title="Itemspec" />
+                        </p:column>  
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="成分" for="itemmake" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="itemmake" value="#{itemCustomerManagedBean.currentEntity.itemmake}" title="Itemmake" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="纱线描述" for="itemyarncount" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemyarncount" value="#{itemCustomerManagedBean.currentEntity.itemyarncount}" title="Itemyarncount" />
+                        </p:column>
+                        <p:column><p:outputLabel value="匹样周期" for="sampleperiod" /></p:column>
+                        <p:column>
+                            <p:inputText id="sampleperiod" value="#{itemCustomerManagedBean.currentEntity.sampleperiod}" title="Sampleperiod" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="门幅" for="itemwidth" /></p:column>
+                        <p:column><p:inputText id="itemwidth" value="#{itemCustomerManagedBean.currentEntity.itemwidth}" title="Itemwidth" /></p:column>
+                        <p:column><p:outputLabel value="大货周期" for="deliveryperiod" /></p:column>
+                        <p:column>
+                            <p:inputText id="deliveryperiod" value="#{itemCustomerManagedBean.currentEntity.deliveryperiod}" title="Deliveryperiod" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="克重" for="itemweight" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemweight" value="#{itemCustomerManagedBean.currentEntity.itemweight}" title="Itemweight" />
+                        </p:column>
+                        <p:column><p:outputLabel value="密度" for="itemdensity" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemdensity" value="#{itemCustomerManagedBean.currentEntity.itemdensity}" title="Itemdensity" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
+                        <p:column>
+                            <p:inputSwitch id="invtype" value="#{itemCustomerManagedBean.currentEntity.invtype}" required="true"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="批号管理" for="bbstype" /></p:column>
+                        <p:column>
+                            <p:inputText id="bbstype" value="#{itemCustomerManagedBean.currentEntity.bbstype}" title="bbstype" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="登记人" for="creator" /></p:column>
+                        <p:column>
+                            <h:outputText id="creator" value="#{itemCustomerManagedBean.currentEntity.creator}" title="Creator" />
+                        </p:column>
+                        <p:column><p:outputLabel value="登记日期" for="credate" /></p:column>
+                        <p:column>
+                            <h:outputText id="credate" value="#{itemCustomerManagedBean.currentEntity.credate}" title="Credate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="成分信息">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{itemCustomerManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                             update=":formEdit:tabView:plgEditDetail" process="@this" />
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{itemCustomerManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             update=":formEdit:tabView:plgEditDetail,:formEdit:tabView:tableList" process="@this" />  
+                        </f:facet>
+                        <f:facet name="right">                        
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{itemCustomerManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             update=":formEdit:tabView:plgEditDetail,:formEdit:tabView:tableList" process="@this,:formEdit:tabView:plgEditDetail"/>                                
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgEditDetail" columns="2" columnClasses="Wid20,Wid80" styleClass="plgEdit Wid100">
+                            <p:outputLabel value="成分" for="make" />
+                            <p:inputText id="make" value="#{itemCustomerManagedBean.currentDetail.make}" title="make"  
+                                         required="true" requiredMessage="请输入成分" />
+                        </p:panelGrid>
+                        <p:dataTable id="tableList" value="#{itemCustomerManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{itemCustomerManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update=":formEdit:tabView:plgEditDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgEditDetail" oncomplete="" />
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.seq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid90">
+                                <f:facet name="header">
+                                    <h:outputText value="成分"/>
+                                </f:facet>
+                                <h:outputText value="#{item.make}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

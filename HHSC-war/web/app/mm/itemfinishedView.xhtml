@@ -84,6 +84,16 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column><h:outputText value="库存管理"/></p:column>
+                        <p:column>
+                            <h:outputText id="invtype" value="#{itemFinishedManagedBean.currentEntity.invtype}" />
+                        </p:column>
+                        <p:column><h:outputText value="批号管理"/></p:column>
+                        <p:column>
+                            <h:outputText id="bbstype" value="#{itemFinishedManagedBean.currentEntity.bbstype}" title="bbstype" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column><h:outputText value="登记人"/></p:column>
                         <p:column>
                             <h:outputText id="creator" value="#{itemFinishedManagedBean.currentEntity.creator}" title="Creator" />

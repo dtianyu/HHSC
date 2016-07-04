@@ -106,6 +106,10 @@ public class SalesOrderDetail extends FormDetailEntity {
     private BigDecimal issqty;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "inqty")
+    private BigDecimal inqty;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "shipqty")
     private BigDecimal shipqty;
     @Size(max = 200)
@@ -132,6 +136,7 @@ public class SalesOrderDetail extends FormDetailEntity {
     protected Integer relseq;
 
     public SalesOrderDetail() {
+        this.inqty = BigDecimal.ZERO;
         this.shipqty = BigDecimal.ZERO;
     }
 
@@ -422,6 +427,20 @@ public class SalesOrderDetail extends FormDetailEntity {
      */
     public void setShipqty(BigDecimal shipqty) {
         this.shipqty = shipqty;
+    }
+
+    /**
+     * @return the inqty
+     */
+    public BigDecimal getInqty() {
+        return inqty;
+    }
+
+    /**
+     * @param inqty the inqty to set
+     */
+    public void setInqty(BigDecimal inqty) {
+        this.inqty = inqty;
     }
 
 }

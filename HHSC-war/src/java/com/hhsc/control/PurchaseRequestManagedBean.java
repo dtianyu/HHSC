@@ -21,14 +21,17 @@ import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.ItemMasterRequestModel;
+import com.hhsc.rpt.PurchaseRequestReport;
 import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -124,6 +127,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
 
     @Override
     public void doConfirmDetail() {
+        this.currentDetail.setPurtype(currentEntity.getPurtype());
         this.currentDetail.setAmts(this.currentDetail.getQty().multiply(this.currentDetail.getPrice()));
         super.doConfirmDetail();
     }
@@ -216,6 +220,40 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
     }
 
     @Override
+    public void print() throws Exception {
+       
+        if (currentEntity == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("formid", currentEntity.getFormid());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + this.currentSysprg.getRptdesign() + currentEntity.getPurtype() + ".rptdesign";
+        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
@@ -232,6 +270,12 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
                 this.model.getFilterFields().put("status", queryState);
             }
         }
+    }
+
+    @Override
+    protected void reportInitAndConfig() {
+        super.reportInitAndConfig();
+        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, PurchaseRequestReport.class.getClassLoader());
     }
 
     /**

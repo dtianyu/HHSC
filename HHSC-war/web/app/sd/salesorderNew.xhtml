@@ -40,10 +40,9 @@
                         <p:column><p:outputLabel value="合同类型" for="ordertype" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="ordertype" value="#{salesOrderManagedBean.newEntity.ordertype}" title="Ordertype" 
-                                             required="true" requiredMessage="请输入合同类型">
-                                <f:selectItem itemLabel="外销" itemValue="外销" />  
-                                <f:selectItem itemLabel="经销" itemValue="经销" />  
-                                <f:selectItem itemLabel="加工" itemValue="加工" />  
+                                             converter="salesTypeConverter" required="true" requiredMessage="请输入合同类型">
+                                <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                <f:selectItems value="#{salesOrderManagedBean.salesTypeList}" var="t" itemLabel="#{t.name}" itemValue="#{t}"/>
                             </p:selectOneMenu>
                         </p:column>
                         <p:column><p:outputLabel value="客户" for="customer" /></p:column>
@@ -51,7 +50,7 @@
                             <p:inputText id="customer" value="#{salesOrderManagedBean.newEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入客户" readonly="true"/>
                             <p:commandButton id="btnSelect" actionListener="#{salesOrderManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
-                                             process="@this" >
+                                             process="@this,ordertype" >
                                 <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCustomerWhenNew}" 
                                         update="plgHead,:formNew:tabView:plgBase" />
                             </p:commandButton>
@@ -137,13 +136,13 @@
                                     <p:commandButton id="btnSelectItemDesign" actionListener="#{salesOrderManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenNew}" 
-                                                update="plgBase" oncomplete="findCustomerItem();"/>
+                                                update="itemdesign,itemdesignimg,itemdesignspec" oncomplete="findCustomerItem();"/>
                                     </p:commandButton>
                                     <p:remoteCommand id="findCustomerItem" name="findCustomerItem" actionListener="#{salesOrderManagedBean.findCustomerItem()}" 
                                                      process="@this" update="customeritemno"/>
                                 </p:column>
                                 <p:column rowspan="6" colspan="2" styleClass="Wid50">
-                                    <p:graphicImage value="/resources/upload/img/#{salesOrderManagedBean.newEntity.itemimg}"/>
+                                    <p:graphicImage id="itemdesignimg" value="/resources/upload/img/#{salesOrderManagedBean.newEntity.itemimg}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -247,7 +246,7 @@
                                     <p:commandButton id="btnItemMaster" actionListener="#{salesOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenDetailNew}" 
-                                                update="itemmaster,itemyarncount,itemmake,itemwidth" />
+                                                update="itemmaster,itemyarncount,itemmake,itemwidth,unit" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column><h:outputText value="纱线描述"/></p:column>
@@ -271,24 +270,40 @@
                                     <p:inputText id="qty" value="#{salesOrderManagedBean.currentDetail.qty}" title="Qty" 
                                                  required="true" requiredMessage="请输入数量"/>
                                 </p:column>
+                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column>
+                                    <p:inputText id="unit" value="#{salesOrderManagedBean.currentDetail.unit}" title="unit" styleClass="inputWithButton" 
+                                                 required="true" requiredMessage="请输入单位"/>
+                                    <p:commandButton id="btnUnit" actionListener="#{salesOrderManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
+                                                update="unit" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column><p:outputLabel value="投料数量" for="issqty" /></p:column>
                                 <p:column>
                                     <p:inputText id="issqty" value="#{salesOrderManagedBean.currentDetail.issqty}" title="Issqty" 
                                                  required="true" requiredMessage="请输入投料数量"/>
                                 </p:column>
-                            </p:row>
-                            <p:row>
                                 <p:column><p:outputLabel value="单价" for="price" /></p:column>
                                 <p:column>
                                     <p:inputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price" 
                                                  required="true" requiredMessage="请输入单价"/>
                                 </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column><p:outputLabel value="预计交期" for="deliverydate" /></p:column>
                                 <p:column>
                                     <p:calendar id="deliverydate" value="#{salesOrderManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
                                                 pattern="yyyy/MM/dd" required="true" requiredMessage="请输入预计交期">
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </p:calendar>
+                                </p:column>
+                                <p:column></p:column>
+                                <p:column>
+
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

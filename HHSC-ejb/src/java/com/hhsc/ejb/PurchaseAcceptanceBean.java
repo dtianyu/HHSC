@@ -34,12 +34,20 @@ public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
     @EJB
     private PurchaseAcceptanceDetailBean purchaseAcceptanceDetailBean;
 
-    protected List<PurchaseAcceptanceDetail> detailList;
+    private List<PurchaseAcceptanceDetail> detailList;
 
     private List<ItemInventory> inventoryList;
 
     public PurchaseAcceptanceBean() {
         super(PurchaseAcceptance.class);
+    }
+
+    @Override
+    public void setDetail(Object value) {
+        setDetailList(purchaseAcceptanceDetailBean.findByPId(value));
+        if (getDetailList() == null) {
+            setDetailList(new ArrayList<>());
+        }
     }
 
     @Override
@@ -52,8 +60,8 @@ public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
         PurchaseOrderDetail p;
         try {
             PurchaseAcceptance e = getEntityManager().merge(entity);
-            detailList = purchaseAcceptanceDetailBean.findByPId(e.getFormid());
-            for (PurchaseAcceptanceDetail detail : detailList) {
+            setDetailList(purchaseAcceptanceDetailBean.findByPId(e.getFormid()));
+            for (PurchaseAcceptanceDetail detail : getDetailList()) {
                 ItemInventory i = new ItemInventory();
                 i.setItemmaster(detail.getItemmaster());
                 i.setColorno(detail.getColorno());
@@ -76,7 +84,7 @@ public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
                 purchaseOrderDetailBean.update(p);
             }
             itemInventoryBean.subtract(inventoryList);
-            purchaseAcceptanceDetailBean.update(detailList);
+            purchaseAcceptanceDetailBean.update(getDetailList());
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -93,8 +101,8 @@ public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
         PurchaseOrderDetail p;
         try {
             PurchaseAcceptance e = getEntityManager().merge(entity);
-            detailList = purchaseAcceptanceDetailBean.findByPId(e.getFormid());
-            for (PurchaseAcceptanceDetail detail : detailList) {
+            setDetailList(purchaseAcceptanceDetailBean.findByPId(e.getFormid()));
+            for (PurchaseAcceptanceDetail detail : getDetailList()) {
                 ItemInventory i = new ItemInventory();
                 i.setItemmaster(detail.getItemmaster());
                 i.setColorno(detail.getColorno());
@@ -115,11 +123,25 @@ public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
                 purchaseOrderDetailBean.update(p);
             }
             itemInventoryBean.add(inventoryList);
-            purchaseAcceptanceDetailBean.update(detailList);
+            purchaseAcceptanceDetailBean.update(getDetailList());
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    /**
+     * @return the detailList
+     */
+    public List<PurchaseAcceptanceDetail> getDetailList() {
+        return detailList;
+    }
+
+    /**
+     * @param detailList the detailList to set
+     */
+    public void setDetailList(List<PurchaseAcceptanceDetail> detailList) {
+        this.detailList = detailList;
     }
 
 }

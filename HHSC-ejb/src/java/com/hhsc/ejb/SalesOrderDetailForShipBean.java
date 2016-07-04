@@ -6,7 +6,7 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
-import com.hhsc.entity.SalesOrderDetailForShip;
+import com.hhsc.entity.SalesOrderDetailForQuery;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -19,16 +19,16 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class SalesOrderDetailForShipBean extends SuperBean<SalesOrderDetailForShip> {
+public class SalesOrderDetailForShipBean extends SuperBean<SalesOrderDetailForQuery> {
 
     public SalesOrderDetailForShipBean() {
-        super(SalesOrderDetailForShip.class);
+        super(SalesOrderDetailForQuery.class);
     }
 
     @Override
     public int getRowCount(Map<String, Object> filters) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT COUNT(e) FROM SalesOrderDetailForShip e WHERE ((e.qty - e.shipqty) > 0)  ");
+        sb.append("SELECT COUNT(e) FROM SalesOrderDetailForQuery e WHERE ((e.qty - e.shipqty) > 0)  ");
         sb.append(" AND (e.salesOrder.status <>'N') AND (e.status<>'MC') ");
         if (filters != null) {
             this.setQueryFilter(sb, filters);
@@ -43,9 +43,9 @@ public class SalesOrderDetailForShipBean extends SuperBean<SalesOrderDetailForSh
     }
 
     @Override
-    public List<SalesOrderDetailForShip> findByFilters(Map<String, Object> filters, int first, int pageSize, Map<String, String> orderBy) {
+    public List<SalesOrderDetailForQuery> findByFilters(Map<String, Object> filters, int first, int pageSize, Map<String, String> orderBy) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT e FROM SalesOrderDetailForShip e WHERE ((e.qty - e.shipqty) > 0)  ");
+        sb.append("SELECT e FROM SalesOrderDetailForQuery e WHERE ((e.qty - e.shipqty) > 0)  ");
         sb.append(" AND (e.salesOrder.status<>'N') AND (e.status<>'MC') ");
         if (filters != null) {
             this.setQueryFilter(sb, filters);

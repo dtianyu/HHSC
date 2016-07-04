@@ -12,6 +12,7 @@ import com.lightshell.comm.FormDetailEntity;
 import com.lightshell.comm.FormEntity;
 import com.lightshell.comm.FormMultiManagedBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -88,7 +89,7 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
             try {
                 T entity = entityClass.newInstance();
                 entity.setStatus("N");
-                entity.setCreator(getUserManagedBean().getCurrentUser().getUserid());
+                entity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
                 entity.setCredateToNow();
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
@@ -138,7 +139,35 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
 
     @Override
     public void print() throws Exception {
-
+        if (currentEntity == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("formid", currentEntity.getFormid());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + this.currentSysprg.getRptdesign();
+        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
@@ -186,7 +215,7 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
             try {
                 if (doBeforeUnverify()) {
                     currentEntity.setStatus("N");//简化查询条件,此处不再提供修改状态(M)
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
                     currentEntity.setCfmuser(null);
                     currentEntity.setCfmdate(null);
@@ -210,7 +239,7 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
             try {
                 if (doBeforeVerify()) {
                     currentEntity.setStatus("V");
-                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setCfmdateToNow();
                     superEJB.verify(currentEntity);
                     doAfterVerify();

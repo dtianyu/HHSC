@@ -61,6 +61,28 @@
 
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="库存管理"/></p:column>
+                        <p:column>
+                            <h:outputText id="invtype" value="#{itemDesignManagedBean.currentEntity.invtype}" />
+                        </p:column>
+                        <p:column><h:outputText value="批号管理"/></p:column>
+                        <p:column>
+                            <h:outputText id="bbstype" value="#{itemDesignManagedBean.currentEntity.bbstype}" title="bbstype" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="登记人"/></p:column>
+                        <p:column>
+                            <h:outputText id="creator" value="#{itemDesignManagedBean.currentEntity.creator}" title="Creator" />
+                        </p:column>
+                        <p:column><h:outputText value="登记日期"/></p:column>
+                        <p:column>
+                            <h:outputText id="credate" value="#{itemDesignManagedBean.currentEntity.credate}" title="Credate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
                 <p:dataTable id="tableList" value="#{itemDesignManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                              selectionMode="single" selection="#{itemDesignManagedBean.currentDetail}" rowKey="#{item.seq}" >

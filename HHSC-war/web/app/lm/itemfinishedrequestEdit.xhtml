@@ -102,7 +102,7 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉花号" for="itemdesign" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="itemdesign" value="#{itemFinishedRequestManagedBean.currentDetail.itemdesign.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入华卉花号" disabled="true"/>
+                                                 required="true" requiredMessage="请输入华卉花号" readonly="true"/>
                                     <p:commandButton id="btnSelectItemDesign" actionListener="#{itemFinishedRequestManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemFinishedRequestManagedBean.handleDialogReturnItemDesignWhenDetailEdit}" 
@@ -123,7 +123,7 @@
                                 <p:column styleClass="Wid20"><p:outputLabel value="面料编号" for="itemmaster" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="itemmaster" value="#{itemFinishedRequestManagedBean.currentDetail.itemmaster.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入面料编号" disabled="true"/>
+                                                 required="true" requiredMessage="请输入面料编号" readonly="true"/>
                                     <p:commandButton id="btnSelectItemMaster" actionListener="#{itemFinishedRequestManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemFinishedRequestManagedBean.handleDialogReturnWhenDetailEdit}" 
@@ -169,7 +169,7 @@
                                 <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                                 <p:column>
                                     <p:inputText id="customer" value="#{itemFinishedRequestManagedBean.currentDetail.customer.customer}" title="customer"  
-                                                 styleClass="inputWithButton" disabled="true"/>
+                                                 styleClass="inputWithButton" readonly="true"/>
                                     <p:commandButton id="btnSelectCustomer" actionListener="#{itemFinishedRequestManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemFinishedRequestManagedBean.handleDialogReturnCustomerWhenDetailEdit}" 

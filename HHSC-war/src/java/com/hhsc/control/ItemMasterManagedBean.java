@@ -63,6 +63,8 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
         newEntity.setUnittype("1");
         newEntity.setQcpass(false);
         newEntity.setUnitexch(BigDecimal.ONE);
+        newEntity.setInvtype(true);
+        newEntity.setBbstype("000");
         newEntity.setPurmax(BigDecimal.ZERO);
         newEntity.setPurmin(BigDecimal.ZERO);
         newEntity.setInvmax(BigDecimal.ZERO);
@@ -71,6 +73,7 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
             newEntity.setItemno(formid);
         }
+        setCurrentEntity(newEntity);
     }
 
     @Override
@@ -212,6 +215,7 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
     public void init() {
         this.superEJB = itemMasterBean;
         setModel(new ItemMasterModel(itemMasterBean));
+        this.model.getFilterFields().put("itemcategory.category", "300");
         this.detailEJB = itemMakeBean;
         this.detailEJB2 = vendorItemBean;
         itemCategoryList = itemCategoryBean.findAll();
@@ -288,7 +292,14 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
             if (queryItemspec != null && !"".equals(queryItemspec)) {
                 this.model.getFilterFields().put("itemspec", queryItemspec);
             }
+            this.model.getFilterFields().put("itemcategory.category", "300");
         }
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("itemcategory.category", "300");
     }
 
     @Override

@@ -23,12 +23,6 @@ import javax.persistence.Query;
 @LocalBean
 public class ItemInventoryBean extends SuperBean<ItemInventory> {
 
-    @EJB
-    private WarehouseBean warehouseBean;
-
-    @EJB
-    private ItemMasterBean itemMasterBean;
-
     public ItemInventoryBean() {
         super(ItemInventory.class);
     }
@@ -94,18 +88,20 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
     //增加数量                                                    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void add(ItemInventory entity) throws RuntimeException {
-        try {
-            setDefaultValue(entity);
-            ItemInventory e = findItemInventory(entity);
-            if (e == null) {
-                persist(entity);
-            } else {
-                e.setPreqty(e.getPreqty().add(entity.getPreqty()));
-                e.setQty(e.getQty().add(entity.getQty()));
-                update(e);
+        if (entity.getItemmaster().isInvtype()) {
+            try {
+                setDefaultValue(entity);
+                ItemInventory e = findItemInventory(entity);
+                if (e == null) {
+                    persist(entity);
+                } else {
+                    e.setPreqty(e.getPreqty().add(entity.getPreqty()));
+                    e.setQty(e.getQty().add(entity.getQty()));
+                    update(e);
+                }
+            } catch (RuntimeException ex) {
+                throw new RuntimeException(ex.toString());
             }
-        } catch (RuntimeException ex) {
-            throw new RuntimeException(ex.toString());
         }
     }
 
@@ -120,18 +116,20 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
     //减少数量
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void subtract(ItemInventory entity) {
-        try {
-            setDefaultValue(entity);
-            ItemInventory e = findItemInventory(entity);
-            if (e == null) {
-                throw new RuntimeException("找不到库存信息");
-            } else {
-                e.setPreqty(e.getPreqty().subtract(entity.getPreqty()));
-                e.setQty(e.getQty().subtract(entity.getQty()));
-                update(e);
+        if (entity.getItemmaster().isInvtype()) {
+            try {
+                setDefaultValue(entity);
+                ItemInventory e = findItemInventory(entity);
+                if (e == null) {
+                    throw new RuntimeException("找不到库存信息");
+                } else {
+                    e.setPreqty(e.getPreqty().subtract(entity.getPreqty()));
+                    e.setQty(e.getQty().subtract(entity.getQty()));
+                    update(e);
+                }
+            } catch (RuntimeException ex) {
+                throw new RuntimeException(ex.toString());
             }
-        } catch (RuntimeException ex) {
-            throw new RuntimeException(ex.toString());
         }
     }
 

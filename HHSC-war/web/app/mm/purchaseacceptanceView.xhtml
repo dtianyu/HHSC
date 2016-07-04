@@ -23,7 +23,9 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnVerify" value="审核" action="#{purchaseAcceptanceManagedBean.verify()}" icon="ui-icon-locked"
-                                     rendered="#{purchaseAcceptanceManagedBean.doCfm}" process="@this" update="formView"/>
+                                     rendered="#{purchaseAcceptanceManagedBean.doCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseAcceptanceManagedBean.print()}" icon="ui-icon-print"
                                      rendered="#{purchaseAcceptanceManagedBean.doPrt}"/> 
                 </f:facet>
@@ -114,7 +116,7 @@
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
             <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
-                <p:graphicImage value="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>
 

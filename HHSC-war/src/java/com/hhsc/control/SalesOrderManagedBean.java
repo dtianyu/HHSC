@@ -9,6 +9,7 @@ import com.hhsc.ejb.CustomerItemBean;
 import com.hhsc.ejb.PurchaseRequestBean;
 import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
+import com.hhsc.ejb.SalesTypeBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerItem;
@@ -18,8 +19,10 @@ import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.PurchaseRequest;
 import com.hhsc.entity.PurchaseRequestDetail;
+import com.hhsc.entity.SalesType;
 import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.SystemUser;
+import com.hhsc.entity.Unit;
 import com.hhsc.lazy.SalesOrderModel;
 import com.hhsc.rpt.SalesOrderReport;
 import com.hhsc.web.FormMultiBean;
@@ -29,6 +32,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -47,6 +51,9 @@ import org.primefaces.event.SelectEvent;
 public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderDetail> {
 
     @EJB
+    private SalesTypeBean salesTypeBean;
+
+    @EJB
     private PurchaseRequestBean purchaseRequestBean;
 
     @EJB
@@ -57,6 +64,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
 
     @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
+
+    private List<SalesType> salesTypeList;
 
     private Boolean doTransfer;
 
@@ -215,6 +224,12 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         }
     }
 
+    public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            this.currentDetail.setUnit(((Unit) event.getObject()).getUnit());
+        }
+    }
+
     @Override
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
@@ -261,42 +276,25 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         setDetailEJB(salesOrderDetailBean);
         setModel(new SalesOrderModel(salesOrderBean, userManagedBean));
         getModel().getFilterFields().put("status", "N");
+        salesTypeList = salesTypeBean.findAll();
         super.init();
     }
 
     @Override
-    public void print() throws Exception {
-
-        if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
-            return;
+    public void openDialog(String view) {
+        if (null != view) {
+            switch (view) {
+                case "itemmasterSelect":
+                    Map<String, List<String>> params = new HashMap<>();
+                    List<String> itemcategory = new ArrayList<>();
+                    itemcategory.add("300");
+                    itemcategory.add("000");
+                    params.put("itemcategory", itemcategory);
+                    super.openDialog(view, params);
+                default:
+                    super.openDialog(view);
+            }
         }
-        //设置报表参数
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("id", currentEntity.getId());
-        params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentSysprg.getRptjndi());
-        //设置报表名称
-        String reportFormat;
-        if (this.currentSysprg.getRptformat() != null) {
-            reportFormat = this.currentSysprg.getRptformat();
-        } else {
-            reportFormat = reportOutputFormat;
-        }
-        String reportName = reportPath + this.currentSysprg.getRptdesign();
-        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
-        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
-        try {
-            //初始配置
-            this.reportInitAndConfig();
-            //生成报表
-            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
-            //预览报表
-            this.preview();
-        } catch (Exception ex) {
-            throw ex;
-        }
-
     }
 
     @Override
@@ -343,8 +341,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         if (currentEntity != null && "T".equals(currentEntity.getStatus())) {
             this.doEdit = false;
             this.doDel = false;
-            this.doCfm =false;
-            this.doUnCfm =false;
+            this.doCfm = false;
+            this.doUnCfm = false;
         }
     }
 
@@ -488,6 +486,20 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
      */
     public void setDoTransfer(Boolean doTransfer) {
         this.doTransfer = doTransfer;
+    }
+
+    /**
+     * @return the salesTypeList
+     */
+    public List<SalesType> getSalesTypeList() {
+        return salesTypeList;
+    }
+
+    /**
+     * @param salesTypeList the salesTypeList to set
+     */
+    public void setSalesTypeList(List<SalesType> salesTypeList) {
+        this.salesTypeList = salesTypeList;
     }
 
 }

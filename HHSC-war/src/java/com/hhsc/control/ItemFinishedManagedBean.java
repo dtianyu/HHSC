@@ -5,7 +5,6 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.lazy.ItemFinishedModel;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -29,7 +28,19 @@ public class ItemFinishedManagedBean extends ItemMasterManagedBean {
     @Override
     public void init() {
         super.init();
-        setModel(new ItemFinishedModel(this.itemMasterBean));
+        this.model.getFilterFields().put("itemcategory.category", "100");
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("itemcategory.category", "100");
+    }
+
+    @Override
+    public void query() {
+        super.query();
+        this.model.getFilterFields().put("itemcategory.category", "100");
     }
 
 }

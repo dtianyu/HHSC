@@ -46,6 +46,14 @@
                                    required="true" requiredMessage="请输入记录成本"/>
                     <p:outputLabel value="备注" for="remark" />
                     <p:inputText id="remark" value="#{transactionTypeManagedBean.currentEntity.remark}" title="Remark" />
+                    <p:outputLabel value="对象类别" for="objtype" />
+                    <p:inputText id="objtype" value="#{transactionTypeManagedBean.currentEntity.objtype}" title="objtype" />
+                    <p:outputLabel value="对象选择" for="objselect" />
+                    <p:inputText id="objselect" value="#{transactionTypeManagedBean.currentEntity.objselect}" title="objselect" />
+                    <p:outputLabel value="来源类别" for="srctype" />
+                    <p:inputText id="srctype" value="#{transactionTypeManagedBean.currentEntity.srctype}" title="srctype" />
+                    <p:outputLabel value="来源选择" for="srcselect" />
+                    <p:inputText id="srcselect" value="#{transactionTypeManagedBean.currentEntity.srcselect}" title="srcselect" />
                 </p:panelGrid>
             </p:panel>
         </h:form>

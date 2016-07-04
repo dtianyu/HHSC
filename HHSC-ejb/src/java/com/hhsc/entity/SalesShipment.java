@@ -32,16 +32,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesShipment.findById", query = "SELECT s FROM SalesShipment s WHERE s.id = :id"),
     @NamedQuery(name = "SalesShipment.findByFormid", query = "SELECT s FROM SalesShipment s WHERE s.formid = :formid"),
     @NamedQuery(name = "SalesShipment.findByFormdate", query = "SELECT s FROM SalesShipment s WHERE s.formdate = :formdate"),
-    @NamedQuery(name = "SalesShipment.findByShiptype", query = "SELECT s FROM SalesShipment s WHERE s.shiptype = :shiptype"),
     @NamedQuery(name = "SalesShipment.findByShipkind", query = "SELECT s FROM SalesShipment s WHERE s.shipkind = :shipkind"),
     @NamedQuery(name = "SalesShipment.findByStatus", query = "SELECT s FROM SalesShipment s WHERE s.status = :status")})
 public class SalesShipment extends FormEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "shiptype")
-    private String shiptype;
+    @JoinColumn(name = "shiptype", referencedColumnName = "type")
+    @ManyToOne(optional = false)
+    private SalesType shiptype;
     @Size(max = 10)
     @Column(name = "shipkind")
     private String shipkind;
@@ -117,11 +114,11 @@ public class SalesShipment extends FormEntity {
     public SalesShipment() {
     }
 
-    public String getShiptype() {
+    public SalesType getShiptype() {
         return shiptype;
     }
 
-    public void setShiptype(String shiptype) {
+    public void setShiptype(SalesType shiptype) {
         this.shiptype = shiptype;
     }
 

@@ -13,7 +13,6 @@ import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.entity.PrintDetail;
 import com.hhsc.lazy.YHModel;
 import com.hhsc.web.FormMulti2Bean;
-import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import java.math.BigDecimal;
 import javax.ejb.EJB;

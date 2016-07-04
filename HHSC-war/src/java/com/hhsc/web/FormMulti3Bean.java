@@ -104,7 +104,7 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
             try {
                 T entity = entityClass.newInstance();
                 entity.setStatus("N");
-                entity.setCreator(getUserManagedBean().getCurrentUser().getUserid());
+                entity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
                 entity.setCredateToNow();
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
@@ -222,7 +222,7 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
             try {
                 if (doBeforeUnverify()) {
                     currentEntity.setStatus("M");
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
                     currentEntity.setCfmuser(null);
                     currentEntity.setCfmdate(null);
@@ -246,7 +246,7 @@ public abstract class FormMulti3Bean<T extends FormEntity, V extends FormDetailE
             try {
                 if (doBeforeVerify()) {
                     currentEntity.setStatus("V");
-                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setCfmdateToNow();
                     superEJB.verify(currentEntity);
                     doAfterVerify();

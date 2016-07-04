@@ -40,10 +40,9 @@
                         <p:column><p:outputLabel value="出货类型" for="shiptype" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="shiptype" value="#{shipmentAdviceManagedBean.newEntity.shiptype}" title="Ordertype" 
-                                             required="true" requiredMessage="请输入出货类型">
-                                <f:selectItem itemLabel="外销" itemValue="外销" />  
-                                <f:selectItem itemLabel="经销" itemValue="经销" />  
-                                <f:selectItem itemLabel="加工" itemValue="加工" />  
+                                             converter="salesTypeConverter" required="true" requiredMessage="请输入出货类型">
+                                <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                <f:selectItems value="#{shipmentAdviceManagedBean.salesTypeList}" var="t" itemLabel="#{t.name}" itemValue="#{t}"/>
                             </p:selectOneMenu>
                         </p:column>
                         <p:column><p:outputLabel value="部门" for="deptid" /></p:column>

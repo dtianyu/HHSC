@@ -67,9 +67,9 @@ public class ItemMaster extends SuperEntity {
     private String pptype;
     @Size(max = 10)
     @Column(name = "purkind")
-    protected String purkind;
+    private String purkind;
     @Column(name = "qcpass")
-    protected boolean qcpass;
+    private boolean qcpass;
     @Size(max = 100)
     @Column(name = "itemmake")
     private String itemmake;
@@ -126,6 +126,11 @@ public class ItemMaster extends SuperEntity {
     @Size(max = 10)
     @Column(name = "unitpurchase")
     private String unitpurchase;
+    @Column(name = "invtype")
+    private boolean invtype;
+    @Size(max = 3)
+    @Column(name = "bbstype")
+    private String bbstype;
     @Column(name = "stdcost")
     private BigDecimal stdcost;
     @Column(name = "purprice")
@@ -499,6 +504,34 @@ public class ItemMaster extends SuperEntity {
      */
     public void setQcpass(boolean qcpass) {
         this.qcpass = qcpass;
+    }
+
+    /**
+     * @return the invtype
+     */
+    public boolean isInvtype() {
+        return invtype;
+    }
+
+    /**
+     * @param invtype the invtype to set
+     */
+    public void setInvtype(boolean invtype) {
+        this.invtype = invtype;
+    }
+
+    /**
+     * @return the bbstype
+     */
+    public String getBbstype() {
+        return bbstype;
+    }
+
+    /**
+     * @param bbstype the bbstype to set
+     */
+    public void setBbstype(String bbstype) {
+        this.bbstype = bbstype;
     }
 
 }

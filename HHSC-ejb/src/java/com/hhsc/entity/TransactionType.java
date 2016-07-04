@@ -54,9 +54,18 @@ public class TransactionType extends SuperEntity {
     @NotNull
     @Column(name = "hascost")
     private boolean hascost;
-    @Size(max = 45)
+    @Size(max = 100)
     @Column(name = "objtype")
     private String objtype;
+    @Size(max = 45)
+    @Column(name = "objselect")
+    private String objselect;
+    @Size(max = 100)
+    @Column(name = "srctype")
+    private String srctype;
+    @Size(max = 45)
+    @Column(name = "srcselect")
+    private String srcselect;
     @Size(max = 10)
     @Column(name = "reasontype")
     private String reasontype;
@@ -83,14 +92,6 @@ public class TransactionType extends SuperEntity {
         this.updateindate = updateindate;
         this.updateoutdate = updateoutdate;
         this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTrtype() {
@@ -196,6 +197,48 @@ public class TransactionType extends SuperEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.TransactionType[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the srctype
+     */
+    public String getSrctype() {
+        return srctype;
+    }
+
+    /**
+     * @param srctype the srctype to set
+     */
+    public void setSrctype(String srctype) {
+        this.srctype = srctype;
+    }
+
+    /**
+     * @return the objselect
+     */
+    public String getObjselect() {
+        return objselect;
+    }
+
+    /**
+     * @param objselect the objselect to set
+     */
+    public void setObjselect(String objselect) {
+        this.objselect = objselect;
+    }
+
+    /**
+     * @return the srcselect
+     */
+    public String getSrcselect() {
+        return srcselect;
+    }
+
+    /**
+     * @param srcselect the srcselect to set
+     */
+    public void setSrcselect(String srcselect) {
+        this.srcselect = srcselect;
     }
 
 }

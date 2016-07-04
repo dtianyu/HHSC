@@ -30,15 +30,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salesorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesOrderDetailForShip.getRowCount", query = "SELECT COUNT(s) FROM SalesOrderDetailForShip s"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findAll", query = "SELECT s FROM SalesOrderDetailForShip s"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findById", query = "SELECT s FROM SalesOrderDetailForShip s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findByPId", query = "SELECT s FROM SalesOrderDetailForShip s WHERE s.salesOrder.formid = :pid ORDER BY s.seq"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findByColorno", query = "SELECT s FROM SalesOrderDetailForShip s WHERE s.colorno = :colorno"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetailForShip s WHERE s.customercolorno = :customercolorno"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findByItemno", query = "SELECT s FROM SalesOrderDetailForShip s WHERE s.itemno = :itemno"),
-    @NamedQuery(name = "SalesOrderDetailForShip.findByDeliverydate", query = "SELECT s FROM SalesOrderDetailForShip s WHERE s.deliverydate = :deliverydate")})
-public class SalesOrderDetailForShip extends BaseEntity {
+    @NamedQuery(name = "SalesOrderDetailForQuery.getRowCount", query = "SELECT COUNT(s) FROM SalesOrderDetailForQuery s"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findAll", query = "SELECT s FROM SalesOrderDetailForQuery s"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findById", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.id = :id"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByPId", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.salesOrder.formid = :pid ORDER BY s.seq"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByColorno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.colorno = :colorno"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.customercolorno = :customercolorno"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByItemno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.itemno = :itemno"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByDeliverydate", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.deliverydate = :deliverydate")})
+public class SalesOrderDetailForQuery extends BaseEntity {
 
     @JoinColumn(name = "pid", referencedColumnName = "formid")
     @ManyToOne(optional = false)
@@ -113,6 +113,10 @@ public class SalesOrderDetailForShip extends BaseEntity {
     private BigDecimal issqty;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "inqty")
+    private BigDecimal inqty;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "shipqty")
     protected BigDecimal shipqty;
     @Size(max = 200)
@@ -138,7 +142,7 @@ public class SalesOrderDetailForShip extends BaseEntity {
     @Column(name = "relseq")
     protected Integer relseq;
 
-    public SalesOrderDetailForShip() {
+    public SalesOrderDetailForQuery() {
     }
 
     public String getColorno() {
@@ -303,10 +307,10 @@ public class SalesOrderDetailForShip extends BaseEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SalesOrderDetailForShip)) {
+        if (!(object instanceof SalesOrderDetailForQuery)) {
             return false;
         }
-        SalesOrderDetailForShip other = (SalesOrderDetailForShip) object;
+        SalesOrderDetailForQuery other = (SalesOrderDetailForQuery) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -315,7 +319,7 @@ public class SalesOrderDetailForShip extends BaseEntity {
 
     @Override
     public String toString() {
-        return "com.hhsc.entity.SalesOrderDetailForShip[ id=" + id + " ]";
+        return "com.hhsc.entity.SalesOrderDetailForQuery[ id=" + id + " ]";
     }
 
     /**
@@ -456,6 +460,20 @@ public class SalesOrderDetailForShip extends BaseEntity {
      */
     public void setSeq(int seq) {
         this.seq = seq;
+    }
+
+    /**
+     * @return the inqty
+     */
+    public BigDecimal getInqty() {
+        return inqty;
+    }
+
+    /**
+     * @param inqty the inqty to set
+     */
+    public void setInqty(BigDecimal inqty) {
+        this.inqty = inqty;
     }
 
 }

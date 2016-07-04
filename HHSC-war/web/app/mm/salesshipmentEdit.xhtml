@@ -42,14 +42,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="出货类型" for="shiptype" /></p:column>
+                        <p:column><h:outputText value="出货类型"/></p:column>
                         <p:column>
-                            <p:selectOneMenu id="shiptype" value="#{salesShipmentManagedBean.currentEntity.shiptype}" title="Ordertype" 
-                                             required="true" requiredMessage="请输入出货类型" disabled="true">
-                                <f:selectItem itemLabel="外销" itemValue="外销" />  
-                                <f:selectItem itemLabel="经销" itemValue="经销" />  
-                                <f:selectItem itemLabel="加工" itemValue="加工" />  
-                            </p:selectOneMenu>
+                            <h:outputText id="shiptype" value="#{salesShipmentManagedBean.currentEntity.shiptype.name}" title="Ordertype" />
                         </p:column>
                         <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
                         <p:column>

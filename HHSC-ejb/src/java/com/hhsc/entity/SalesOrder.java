@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrder.findById", query = "SELECT s FROM SalesOrder s WHERE s.id = :id"),
     @NamedQuery(name = "SalesOrder.findByFormid", query = "SELECT s FROM SalesOrder s WHERE s.formid = :formid"),
     @NamedQuery(name = "SalesOrder.findByFormdate", query = "SELECT s FROM SalesOrder s WHERE s.formdate = :formdate"),
-    @NamedQuery(name = "SalesOrder.findByOrdertype", query = "SELECT s FROM SalesOrder s WHERE s.ordertype = :ordertype"),
     @NamedQuery(name = "SalesOrder.findByCustomerId", query = "SELECT s FROM SalesOrder s WHERE s.customer.id = :customerid"),
     @NamedQuery(name = "SalesOrder.findByDeptId", query = "SELECT s FROM SalesOrder s WHERE s.dept.id = :deptid"),
     @NamedQuery(name = "SalesOrder.findBySalesmanId", query = "SELECT s FROM SalesOrder s WHERE s.salesman.id = :salesmanid"),
@@ -47,14 +46,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrder.findByStatus", query = "SELECT s FROM SalesOrder s WHERE s.status = :status")})
 public class SalesOrder extends FormEntity {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "ordertype")
-    private String ordertype;
+    @JoinColumn(name = "ordertype", referencedColumnName = "type")
+    @ManyToOne(optional = false)
+    private SalesType ordertype;
     @Size(max = 10)
     @Column(name = "orderkind")
-    protected String orderkind;
+    private String orderkind;
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Customer customer;
@@ -162,11 +159,11 @@ public class SalesOrder extends FormEntity {
     public SalesOrder() {
     }
 
-    public String getOrdertype() {
+    public SalesType getOrdertype() {
         return ordertype;
     }
 
-    public void setOrdertype(String ordertype) {
+    public void setOrdertype(SalesType ordertype) {
         this.ordertype = ordertype;
     }
 

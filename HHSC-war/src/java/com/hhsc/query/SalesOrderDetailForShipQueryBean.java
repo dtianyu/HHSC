@@ -6,7 +6,7 @@
 package com.hhsc.query;
 
 import com.hhsc.ejb.SalesOrderDetailForShipBean;
-import com.hhsc.entity.SalesOrderDetailForShip;
+import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.hhsc.lazy.SalesOrderDetailForShipModel;
 import com.hhsc.web.SuperQueryBean;
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "salesOrderDetailForShipQueryBean")
 @ViewScoped
-public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderDetailForShip> {
+public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderDetailForQuery> {
 
     @EJB
     private SalesOrderDetailForShipBean salesOrderDetailForShipBean;
@@ -33,7 +33,7 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
     private BigDecimal taxrate;
 
     public SalesOrderDetailForShipQueryBean() {
-        super(SalesOrderDetailForShip.class);
+        super(SalesOrderDetailForQuery.class);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
         if (params != null) {
             if (params.containsKey("shiptype")) {
                 shiptype = params.get("shiptype")[0];
-                this.model.getFilterFields().put("salesOrder.ordertype", shiptype);
+                this.model.getFilterFields().put("salesOrder.ordertype.type", shiptype);
             }
             if (params.containsKey("customerno")) {
                 customerno = params.get("customerno")[0];
@@ -94,7 +94,7 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
     public void reset() {
         super.reset();
         if (this.customerno != null) {
-            this.model.getFilterFields().put("salesOrder.vendor.vendorno", customerno);
+            this.model.getFilterFields().put("salesOrder.customer.customerno", customerno);
         }
     }
 

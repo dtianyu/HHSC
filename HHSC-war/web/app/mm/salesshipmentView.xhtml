@@ -47,12 +47,7 @@
                     <p:row>
                         <p:column><h:outputText value="出货类型" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="shiptype" value="#{salesShipmentManagedBean.currentEntity.shiptype}" title="Ordertype" 
-                                             required="true" requiredMessage="请输入出货类型" disabled="true">
-                                <f:selectItem itemLabel="外销" itemValue="外销" />  
-                                <f:selectItem itemLabel="经销" itemValue="经销" />  
-                                <f:selectItem itemLabel="加工" itemValue="加工" />  
-                            </p:selectOneMenu>
+                            <h:outputText id="shiptype" value="#{salesShipmentManagedBean.currentEntity.shiptype.name}" title="type" />
                         </p:column>
                         <p:column><h:outputText value="部门" /></p:column>
                         <p:column>
@@ -176,6 +171,9 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

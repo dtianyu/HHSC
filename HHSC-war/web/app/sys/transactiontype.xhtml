@@ -36,19 +36,19 @@
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="交易代号"/>
                     </f:facet>
                     <h:outputText value="#{item.trtype}"/>
                 </p:column>
-                <p:column styleClass="Wid30">
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="交易名称"/>
                     </f:facet>
                     <h:outputText value="#{item.trname}"/>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="出入库"/>
                     </f:facet>
@@ -58,11 +58,23 @@
                         <f:selectItem itemLabel="不变" itemValue="0"/>
                     </p:selectOneMenu>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="记录成本"/>
                     </f:facet>
-                    <p:selectBooleanCheckbox value="#{item.hascost}" disabled="true"/>
+                    <p:selectBooleanCheckbox value="#{item.hascost}"  disabled="true"/>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="对象类别"/>
+                    </f:facet>
+                    <h:outputText value="#{item.objtype}"/>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="来源类别"/>
+                    </f:facet>
+                    <h:outputText value="#{item.srctype}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

@@ -9,6 +9,7 @@ import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SalesShipmentBean;
 import com.hhsc.ejb.SalesShipmentDetailBean;
+import com.hhsc.ejb.SalesTypeBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.Department;
@@ -16,7 +17,8 @@ import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.SalesShipment;
 import com.hhsc.entity.SalesShipmentDetail;
-import com.hhsc.entity.SalesOrderDetailForShip;
+import com.hhsc.entity.SalesOrderDetailForQuery;
+import com.hhsc.entity.SalesType;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.SalesShipmentModel;
@@ -48,12 +50,16 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     @EJB
     private ItemInventoryBean itemInventoryBean;
     @EJB
+    private SalesTypeBean salesTypeBean;
+    @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
 
     @EJB
     protected SalesShipmentBean salesShipBean;
     @EJB
     protected SalesShipmentDetailBean salesShipmentDetailBean;
+    
+    private List<SalesType> salesTypeList;
 
     private String queryCustomerno;
 
@@ -70,7 +76,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         this.newEntity.setFormdate(getDate());
         this.newEntity.setSalesman(this.userManagedBean.getCurrentUser());
         this.newEntity.setDept(this.userManagedBean.getCurrentUser().getDept());
-        this.newEntity.setCurrency("RMB");
+        this.newEntity.setCurrency("CNY");
         this.newEntity.setExchange(BigDecimal.ONE);
         this.newEntity.setTaxtype("0");
         this.newEntity.setTaxkind("VAT17");
@@ -245,7 +251,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     @Override
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
-            SalesOrderDetailForShip entity = (SalesOrderDetailForShip) event.getObject();
+            SalesOrderDetailForQuery entity = (SalesOrderDetailForQuery) event.getObject();
             this.currentDetail.setItemmaster(entity.getSalesOrder().getItemmaster());
             this.currentDetail.setItemno(entity.getSalesOrder().getItemno());
             this.currentDetail.setItemimg(entity.getSalesOrder().getItemimg());
@@ -278,6 +284,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         setDetailEJB(salesShipmentDetailBean);
         setModel(new SalesShipmentModel(salesShipBean, null));
         getModel().getFilterFields().put("status", "N");
+        salesTypeList = salesTypeBean.findAll();
         super.init();
     }
 
@@ -289,8 +296,8 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                         && currentEntity.getCurrency() != null && currentEntity.getTaxtype() != null && currentEntity.getWarehouse() != null) {
                     Map<String, List<String>> params = new HashMap<>();
                     List<String> shiptype = new ArrayList<>();
-                    shiptype.add(currentEntity.getShiptype());
-                    //params.put("shiptype", shiptype);
+                    shiptype.add(currentEntity.getShiptype().getType());
+                    params.put("shiptype", shiptype);
                     List<String> customerno = new ArrayList<>();
                     customerno.add(currentEntity.getCustomer().getCustomerno());
                     params.put("customerno", customerno);
@@ -401,6 +408,20 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
      */
     public void setQueryCustomerno(String queryCustomerno) {
         this.queryCustomerno = queryCustomerno;
+    }
+
+    /**
+     * @return the salesTypeList
+     */
+    public List<SalesType> getSalesTypeList() {
+        return salesTypeList;
+    }
+
+    /**
+     * @param salesTypeList the salesTypeList to set
+     */
+    public void setSalesTypeList(List<SalesType> salesTypeList) {
+        this.salesTypeList = salesTypeList;
     }
 
 }

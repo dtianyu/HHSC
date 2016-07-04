@@ -26,7 +26,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="类别" for="itemcategory" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:selectOneMenu id="itemcategory" value="#{itemDesignManagedBean.newEntity.itemcategory}" title="categoryid" 
-                                             converter="itemCategoryConverter" required="true" requiredMessage="大类不能空白">
+                                             converter="itemCategoryConverter" required="true" requiredMessage="请输入大类">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{itemDesignManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
                             </p:selectOneMenu>
@@ -34,19 +34,24 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="花号" for="designid"/></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="designid" value="#{itemDesignManagedBean.newEntity.itemno}" title="Designid" 
-                                         required="true" requiredMessage="花号不能空白" disabled="#{itemDesignManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入花号" disabled="#{itemDesignManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="名称" for="name" /></p:column>
                         <p:column>
                             <p:inputText id="name" value="#{itemDesignManagedBean.newEntity.itemdesc}" title="Name" 
-                                         required="true" requiredMessage="花号不能空白"/>
+                                         required="true" requiredMessage="请输入名称"/>
                         </p:column>
                         <p:column><p:outputLabel value="单位" for="unit" /></p:column>
                         <p:column>
-                            <p:inputText id="unit" value="#{itemDesignManagedBean.newEntity.unit}" title="unit" 
-                                         required="true" requiredMessage="单位不能空白"/>
+                            <p:inputText id="unit" value="#{itemDesignManagedBean.newEntity.unit}" title="unit" styleClass="inputWithButton" 
+                                         required="true" requiredMessage="请输入单位"/>
+                            <p:commandButton id="btnUnit" actionListener="#{itemDesignManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenNew}" 
+                                        update="unit" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -67,6 +72,16 @@
                         <p:column styleClass="Wid20"></p:column>
                         <p:column styleClass="Wid30">
 
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
+                        <p:column>
+                            <p:inputSwitch id="invtype" value="#{itemDesignManagedBean.newEntity.invtype}" required="true"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="批号管理" for="bbstype" /></p:column>
+                        <p:column>
+                            <p:inputText id="bbstype" value="#{itemDesignManagedBean.newEntity.bbstype}" title="bbstype" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -104,7 +119,7 @@
                         <p:column><p:outputLabel value="客户" for="customerno" /></p:column>
                         <p:column>
                             <p:inputText id="customerno" value="#{itemDesignManagedBean.currentDetail.customer.customer}" title="customerno"  styleClass="inputWithButton"
-                                         required="true" requiredMessage="客户不能为空" readonly="true"/>
+                                         required="true" requiredMessage="请输入客户" readonly="true"/>
                             <p:commandButton id="btnSelect" actionListener="#{itemDesignManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenDetailEdit}" 
@@ -114,7 +129,7 @@
                         <p:column><p:outputLabel value="客户花号" for="customeritemno" /></p:column>
                         <p:column>
                             <p:inputText id="customeritemno" value="#{itemDesignManagedBean.currentDetail.customeritemno}" title="customeritemno" 
-                                         required="true" requiredMessage="客户花号不能为空"/>
+                                         required="true" requiredMessage="请输入客户花号"/>
                         </p:column>  
                     </p:row>
                     <p:row>

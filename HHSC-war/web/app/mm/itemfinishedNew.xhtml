@@ -47,9 +47,9 @@
                             <p:inputText id="unit" value="#{itemFinishedManagedBean.newEntity.unit}" title="Unit" styleClass="inputWithButton" 
                                          required="true" requiredMessage="请输入单位"/>
                             <p:commandButton id="btnUnit" actionListener="#{itemFinishedManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
-                                                     process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemFinishedManagedBean.handleDialogReturnWhenNew}" 
-                                                update="unit" />
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemFinishedManagedBean.handleDialogReturnWhenNew}" 
+                                        update="unit" />
                             </p:commandButton>
                         </p:column>
                     </p:row>
@@ -91,6 +91,16 @@
                         <p:column><p:outputLabel value="密度" for="itemdensity" /></p:column>
                         <p:column>
                             <p:inputText id="itemdensity" value="#{itemFinishedManagedBean.newEntity.itemdensity}" title="Itemdensity" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
+                        <p:column>
+                            <p:inputSwitch id="invtype" value="#{itemFinishedManagedBean.newEntity.invtype}" required="true"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="批号管理" for="bbstype" /></p:column>
+                        <p:column>
+                            <p:inputText id="bbstype" value="#{itemFinishedManagedBean.newEntity.bbstype}" title="bbstype" />
                         </p:column>
                     </p:row>
                     <p:row>
