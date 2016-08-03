@@ -22,7 +22,7 @@
                                      rendered="#{systemUserManagedBean.currentEntity.status!='V' }" update=":formList"/> 
                     <p:commandButton id="btnVerify" actionListener="#{systemUserManagedBean.verify()}" icon="ui-icon-locked" value="审核" 
                                      rendered="#{systemUserManagedBean.currentEntity.status!='V'}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" actionListener="#{systemUserManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" actionListener="#{systemUserManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
                                      rendered="#{systemUserManagedBean.currentEntity.status=='V'}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{systemUserManagedBean.create('systemuserNew')}" icon="ui-icon-plus" value="新增"
                                      /> 

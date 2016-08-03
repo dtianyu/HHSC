@@ -22,25 +22,25 @@ public class ItemCustomerManagedBean extends ItemMasterManagedBean {
     @Override
     public void create() {
         super.create();
-        newEntity.setItemcategory(itemCategoryBean.findByCategory("000"));
+        newEntity.setItemcategory(itemCategoryBean.findByCategory("999"));
     }
 
     @Override
     public void init() {
         super.init();
-        this.model.getFilterFields().put("itemcategory.category", "000");
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        this.model.getFilterFields().put("itemcategory.category", "000");
+        this.model.getFilterFields().put("itemcategory.category", "999");
     }
 
     @Override
     public void query() {
         super.query();
-        this.model.getFilterFields().put("itemcategory.category", "000");
+        this.model.getFilterFields().put("itemcategory.category", "999");
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("itemcategory.category", "999");
     }
 
 }

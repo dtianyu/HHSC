@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="process" icon="ui-icon-arrowreturn-1-w"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" action="#{processManagedBean.update()}" icon="ui-icon-disk" 
+                                     rendered="#{processManagedBean.doEdit}" process="@this,plgHead" update="formEdit"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="生产工艺－修改">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="代号" /></p:column>
+                        <p:column styleClass="Wis30">
+                            <h:outputText id="processno" value="#{processManagedBean.currentEntity.processno}" title="processno" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="名称" for="process" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="process" value="#{processManagedBean.currentEntity.process}" title="process"
+                                         required="true" requiredMessage="请输入名称"/>
+                        </p:column>
+                    </p:row>                    
+                    <p:row>
+                        <p:column><p:outputLabel value="排序" for="sortid" /></p:column>
+                        <p:column>
+                            <p:inputText id="sortid" value="#{processManagedBean.currentEntity.sortid}" title="sortid" />
+                        </p:column>
+                        <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                        <p:column>
+                            <p:inputText id="remark" value="#{processManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="归属部门" for="dept" /></p:column>
+                        <p:column>
+                            <p:inputText id="dept" value="#{processManagedBean.currentEntity.dept.dept}" title="dept"  styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入部门"/>
+                            <p:commandButton id="btnSelectDept" actionListener="#{processManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{processManagedBean.handleDialogReturnWhenNew}"
+                                        update="dept" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="主管" for="leader" /></p:column>
+                        <p:column>
+                            <p:inputText id="leader" value="#{processManagedBean.currentEntity.leader}" title="Leader"  styleClass="inputWithButton"/>
+                            <p:commandButton id="btnSelectUser" actionListener="#{processManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{processManagedBean.handleDialogReturnLeaderWhenNew}"
+                                        update="leader" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="工艺资源">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{processManagedBean.createDetail()}" icon="ui-icon-plus"
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
+                                             update=":formEdit:tabView:plgDetail" process="@this" />
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{processManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             update=":formEdit:tabView:plgDetail,:formEdit:tabView:tableList" process="@this" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{processManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             update=":formEdit:tabView:plgDetail,:formEdit:tabView:tableList" process="@this,:formEdit:tabView:plgDetail"/>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                            <p:row>
+                                <p:column><p:outputLabel value="类别" for="kind" /></p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="kind" value="#{processManagedBean.currentDetail.kind}" title="Kind"
+                                                     required="true" requiredMessage="请输入资源类别">
+                                        <f:selectItem itemLabel="设备" itemValue="E" />
+                                        <f:selectItem itemLabel="工艺" itemValue="P" />
+                                        <f:selectItem itemLabel="物料" itemValue="M" />
+                                        <f:selectItem itemLabel="人员" itemValue="H" />
+                                        <p:ajax update="boolvalue,numvalue,strvalue,plgDetail"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column><p:outputLabel value="值类型" for="valuetype"/></p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="valuetype" value="#{processManagedBean.currentDetail.valuetype}" title="Valuetype"
+                                                     required="true" requiredMessage="请输入值类型">
+                                        <f:selectItem itemLabel="-选择-" itemValue="" />
+                                        <f:selectItem itemLabel="布尔" itemValue="bool" />
+                                        <f:selectItem itemLabel="数值" itemValue="Decimal" />
+                                        <f:selectItem itemLabel="文字" itemValue="String" />
+                                        <p:ajax process="valuetype" update="boolvalue,numvalue,strvalue"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="资源名称" for="content"/></p:column>
+                                <p:column>
+                                    <p:inputText id="content" value="#{processManagedBean.currentDetail.content}" title="Content"
+                                                 required="true" requiredMessage="请输入资源名称"/>
+                                </p:column>
+                                <p:column><p:outputLabel value="布尔" for="boolvalue" /></p:column>
+                                <p:column>
+                                    <p:inputSwitch id="boolvalue" value="#{processManagedBean.currentDetail.boolvalue}"
+                                                   disabled = "#{processManagedBean.currentDetail.valuetype!='bool'}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="数值" for="numvalue" /></p:column>
+                                <p:column>
+                                    <p:inputText id="numvalue" value="#{processManagedBean.currentDetail.numvalue}" title="Numvalue"
+                                                 disabled="#{processManagedBean.currentDetail.valuetype!='Decimal'}" />
+                                </p:column>
+                                <p:column><p:outputLabel value="文字" for="strvalue" /></p:column>
+                                <p:column>
+                                    <p:inputText id="strvalue" value="#{processManagedBean.currentDetail.strvalue}" title="Strvalue"
+                                                 disabled="#{processManagedBean.currentDetail.valuetype!='String'}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                                <p:column>
+                                    <p:inputText id="remark" value="#{processManagedBean.currentDetail.remark}" title="Remark" />
+                                </p:column>
+                                <p:column><p:outputLabel value="排序" for="seq" /></p:column>
+                                <p:column>
+                                    <p:inputText id="seq" value="#{processManagedBean.currentDetail.seq}" title="Seq" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <p:dataTable id="tableList" value="#{processManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     widgetVar="resourceTable" selectionMode="single" selection="#{processManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail" oncomplete="" />
+                            <f:facet name="header">
+                                资源列表
+                            </f:facet>      
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.seq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="类别"/>
+                                </f:facet>
+                                <h:outputText value="#{item.kind}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="是否"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="数值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

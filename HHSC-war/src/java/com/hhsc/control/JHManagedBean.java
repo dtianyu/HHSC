@@ -5,18 +5,10 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.FactoryOrderBean;
-import com.hhsc.ejb.FactoryOrderDetailBean;
-import com.hhsc.entity.FactoryOrder;
-import com.hhsc.entity.FactoryOrderDetail;
-import com.hhsc.lazy.JHModel;
-import com.hhsc.web.FormMultiBean;
-import com.hhsc.web.SuperMultiBean;
-import javax.ejb.EJB;
+import com.hhsc.entity.ProductionOrder;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -24,26 +16,69 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "jhManagedBean")
 @SessionScoped
-public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
-
-    @EJB
-    private FactoryOrderBean factoryOrderBean;
-    @EJB
-    private FactoryOrderDetailBean factoryOrderDetailBean;
-
-    protected String designid;
+public class JHManagedBean extends ProductionOrderManagedBean {
 
     public JHManagedBean() {
-        super(FactoryOrder.class, FactoryOrderDetail.class);
+
+    }
+
+    @Override
+    protected boolean doBeforeUnverify() throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
+            return false;
+        }
+        ProductionOrder e = (ProductionOrder) superEJB.findById(currentEntity.getId());
+        if ("V".equals(e.getPsstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "配色已确认");
+            return false;
+        }
+        if (!"V".equals(e.getJhstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        if (detailList2 != null && !detailList2.isEmpty()) {
+            detailList2.clear();
+        }
+        detailList = detailEJB.findByPId(currentEntity.getFormid());
+        detailList2 = detailEJB2.findByPId(currentEntity.getFormid());
+        return true;
+    }
+
+    @Override
+    protected boolean doBeforeVerify() throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!");
+            return false;
+        }
+        ProductionOrder e = (ProductionOrder) superEJB.findById(currentEntity.getId());
+        if ("V".equals(e.getJhstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        if (detailList2 != null && !detailList2.isEmpty()) {
+            detailList2.clear();
+        }
+        detailList = detailEJB.findByPId(currentEntity.getFormid());
+        detailList2 = detailEJB2.findByPId(currentEntity.getFormid());
+        return true;
     }
 
     @Override
     public void init() {
-        setSuperEJB(factoryOrderBean);
-        setDetailEJB(factoryOrderDetailBean);
-        setModel(new JHModel(factoryOrderBean));
-        getModel().getFilterFields().put("jhstatus", "N");
         super.init();
+        this.model.getFilterFields().clear();
+        this.model.getSortFields().clear();
+        this.model.getSortFields().put("jhstatus", "ASC");
+        this.model.getSortFields().put("formid", "DESC");
+        this.model.getFilterFields().put("salesstatus", "V");
+        this.model.getFilterFields().put("jhstatus", "N");
     }
 
     public void passHG(Boolean flag) {
@@ -54,16 +89,16 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                     currentEntity.setHgdelman(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setHgstatus("V");
                     currentEntity.setZbrecdate(getDate());
-                    currentEntity.setStatus("ZB");
+                    currentEntity.setStatus("制版");
                 } else {
                     currentEntity.setHgdeldate(null);
                     currentEntity.setHgdelman(null);
                     currentEntity.setHgstatus("N");
                     currentEntity.setZbrecdate(null);
-                    currentEntity.setStatus("HG");
+                    currentEntity.setStatus("画稿");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         }
     }
@@ -76,16 +111,16 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                     currentEntity.setZbdelman(null);
                     currentEntity.setZbstatus("V");
                     currentEntity.setPsrecdate(getDate());
-                    currentEntity.setStatus("PS");
+                    currentEntity.setStatus("配色");
                 } else {
                     currentEntity.setZbdeldate(null);
                     currentEntity.setZbdelman(null);
                     currentEntity.setZbstatus("N");
                     currentEntity.setPsrecdate(null);
-                    currentEntity.setStatus("ZB");
+                    currentEntity.setStatus("制版");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         }
     }
@@ -98,16 +133,16 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                     currentEntity.setPsdelman(null);
                     currentEntity.setPsstatus("V");
                     currentEntity.setYhrecdate(getDate());
-                    currentEntity.setStatus("YH");
+                    currentEntity.setStatus("印花");
                 } else {
                     currentEntity.setPsdeldate(null);
                     currentEntity.setPsdelman(null);
                     currentEntity.setPsstatus("N");
                     currentEntity.setYhrecdate(null);
-                    currentEntity.setStatus("PS");
+                    currentEntity.setStatus("配色");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         }
     }
@@ -120,16 +155,16 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                     currentEntity.setYhdelman(null);
                     currentEntity.setYhstatus("V");
                     currentEntity.setZhrecdate(getDate());
-                    currentEntity.setStatus("HZ");
+                    currentEntity.setStatus("后整");
                 } else {
                     currentEntity.setYhdeldate(null);
                     currentEntity.setYhdelman(null);
                     currentEntity.setYhstatus("N");
                     currentEntity.setZhrecdate(null);
-                    currentEntity.setStatus("YH");
+                    currentEntity.setStatus("印花");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         }
     }
@@ -146,7 +181,7 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                 }
                 update();
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         }
     }
@@ -161,12 +196,15 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("formdateEnd", queryDateEnd);
             }
-            if (designid != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("designid", designid);
+            if (designno != null && !"".equals(designno)) {
+                this.model.getFilterFields().put("designno", designno);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("jhstatus", queryState);
             }
+            this.model.getSortFields().put("jhstatus", "ASC");
+            this.model.getSortFields().put("formid", "DESC");
+            this.model.getFilterFields().put("salesstatus", "V");
         }
     }
 
@@ -174,6 +212,9 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
     public void reset() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            this.model.getSortFields().put("jhstatus", "ASC");
+            this.model.getSortFields().put("formid", "DESC");
+            this.model.getFilterFields().put("salesstatus", "V");
             this.model.getFilterFields().put("jhstatus", "N");
         }
     }
@@ -218,20 +259,20 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                     currentEntity.setJhstatus("N");
                     currentEntity.setJhdelman(null);
                     currentEntity.setHgrecdate(null);
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
-                    currentEntity.setStatus("JH");
+                    currentEntity.setStatus("计划");
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "取消前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "还原前检查失败");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 
@@ -243,37 +284,23 @@ public class JHManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                     currentEntity.setJhstatus("V");
                     currentEntity.setJhdelman(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setHgrecdate(getDate());
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
-                    if ("JH".equals(currentEntity.getStatus().trim())) {
-                        currentEntity.setStatus("HG");
+                    if ("计划".equals(currentEntity.getStatus().trim())) {
+                        currentEntity.setStatus("画稿");
                     }
                     superEJB.verify(currentEntity);
                     doAfterVerify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
-    }
-
-    /**
-     * @return the designid
-     */
-    public String getDesignid() {
-        return designid;
-    }
-
-    /**
-     * @param designid the designid to set
-     */
-    public void setDesignid(String designid) {
-        this.designid = designid;
     }
 
 }

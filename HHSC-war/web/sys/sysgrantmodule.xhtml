@@ -21,7 +21,7 @@
                                      rendered="#{sysgrantModuleManagedBean.currentEntity.status!='V' }" update=":formList"/> 
                     <p:commandButton id="btnVerify" actionListener="#{sysgrantModuleManagedBean.verify()}" icon="ui-icon-locked" value="审核" 
                                      rendered="#{sysgrantModuleManagedBean.currentEntity.status!='V'}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" actionListener="#{sysgrantModuleManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" actionListener="#{sysgrantModuleManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
                                      rendered="#{sysgrantModuleManagedBean.currentEntity.status=='V'}"  update=":formList"/>                   
                     <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增"
                                      action="#{sysgrantModuleManagedBean.create('sysgrantmoduleNew')}" /> 

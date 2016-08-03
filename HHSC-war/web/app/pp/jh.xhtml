@@ -15,7 +15,7 @@
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
                     <h:outputLabel value="花号" for="designid" />
-                    <p:inputText id="designid" value="#{jhManagedBean.designid}" title="花号" />
+                    <p:inputText id="designid" value="#{jhManagedBean.designno}" title="花号" />
                     <h:outputLabel value="计划状态" for="state" />
                     <p:selectOneMenu id="state" value="#{jhManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
@@ -41,7 +41,7 @@
                                      rendered="#{jhManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{jhManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" actionListener="#{jhManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
                                      rendered="#{jhManagedBean.doUnCfm}"  update=":formList"/>    
                     <p:commandButton id="btnCreate" action="#{jhManagedBean.create('jhNew')}" icon="ui-icon-plus" value="新增" 
                                      rendered="#{jhManagedBean.doAdd}"/>
@@ -62,33 +62,33 @@
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="订单日期"/>
+                        <h:outputText value="工单编号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="工单日期"/>
                     </f:facet>
                     <h:outputText value="#{item.formdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
-                    <h:outputText value="#{item.designid}"/>
+                    <h:outputText value="#{item.designno}"/>
                 </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="成品规格"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemspec}"/>
+                    <h:outputText value="#{item.designspec}"/>
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="订单数量"/>
-                    </f:facet>
-                    <h:outputText value="#{item.orderqty}"/>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlRight">
-                    <f:facet name="header">
-                        <h:outputText value="计划数量"/>
+                        <h:outputText value="工单数量"/>
                     </f:facet>
                     <h:outputText value="#{item.qty}"/>
                 </p:column>
@@ -96,7 +96,15 @@
                     <f:facet name="header">
                         <h:outputText value="印花交期"/>
                     </f:facet>
-                    <h:outputText value="#{item.yhdate}">
+                    <h:outputText value="#{item.printdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="成品交期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.shipdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>

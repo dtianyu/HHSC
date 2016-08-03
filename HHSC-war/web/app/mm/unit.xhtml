@@ -22,7 +22,7 @@
                                      rendered="#{unitManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton> 
-                    <p:commandButton id="btnUnverify" actionListener="#{unitManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" actionListener="#{unitManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
                                      rendered="#{unitManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{unitManagedBean.create('unitNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{unitManagedBean.doAdd}"/> 

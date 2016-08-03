@@ -288,7 +288,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                     Map<String, List<String>> params = new HashMap<>();
                     List<String> itemcategory = new ArrayList<>();
                     itemcategory.add("300");
-                    itemcategory.add("000");
+                    itemcategory.add("999");
                     params.put("itemcategory", itemcategory);
                     super.openDialog(view, params);
                 default:

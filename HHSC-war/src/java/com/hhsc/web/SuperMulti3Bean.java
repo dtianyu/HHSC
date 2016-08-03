@@ -178,22 +178,22 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, V extends SuperDeta
         if (null != getCurrentEntity()) {
             try {
                 if (doBeforeUnverify()) {
-                    currentEntity.setStatus("M");
+                    currentEntity.setStatus("N");
                     currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
                     currentEntity.setCfmuser(null);
                     currentEntity.setCfmdate(null);
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "取消前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "还原前检查失败");
                 }
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            } catch (Exception ex) {
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", ex.toString());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 
@@ -207,15 +207,15 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, V extends SuperDeta
                     currentEntity.setCfmdateToNow();
                     superEJB.verify(currentEntity);
                     doAfterVerify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败");
                 }
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+            } catch (Exception ex) {
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", ex.toString());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 

@@ -111,6 +111,10 @@ public class SalesOrderDetailForQuery extends BaseEntity {
     @NotNull
     @Column(name = "issqty")
     private BigDecimal issqty;
+     @Basic(optional = false)
+    @NotNull
+    @Column(name = "proqty")
+    private BigDecimal proqty;
     @Basic(optional = false)
     @NotNull
     @Column(name = "inqty")
@@ -474,6 +478,20 @@ public class SalesOrderDetailForQuery extends BaseEntity {
      */
     public void setInqty(BigDecimal inqty) {
         this.inqty = inqty;
+    }
+
+    /**
+     * @return the proqty
+     */
+    public BigDecimal getProqty() {
+        return proqty;
+    }
+
+    /**
+     * @param proqty the proqty to set
+     */
+    public void setProqty(BigDecimal proqty) {
+        this.proqty = proqty;
     }
 
 }

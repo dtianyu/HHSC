@@ -85,7 +85,7 @@
             <p:panel id="panelDetail">
                 <p:dataTable id="tableList" value="#{itemTransactionManagedBean.detailList}" var="item" styleClass="tableList"
                              selectionMode="single" selection="#{itemTransactionManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                    <p:ajax event="rowSelect"  update=":formView:plgDetail"/>
+                    <p:ajax event="rowSelect"  update=":formView:plgDetail" oncomplete="PF('dlgDetail').show();"/>
                     <p:ajax event="rowUnselect"  update=":formView:plgDetail" />                           
                     <p:column styleClass="Wid20">
                         <f:facet name="header">
@@ -130,6 +130,8 @@
                         <h:outputText value="#{item.srcformid}-#{item.srcseq}"/>
                     </p:column>
                 </p:dataTable>
+            </p:panel>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="60%" >
                 <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="品号"/></p:column>
@@ -191,8 +193,8 @@
 
                         </p:column>
                     </p:row>
-                </p:panelGrid>
-            </p:panel>
+                </p:panelGrid>                
+            </p:dialog>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

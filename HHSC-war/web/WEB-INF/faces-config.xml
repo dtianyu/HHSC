@@ -80,34 +80,24 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>ck</from-outcome>
-            <to-view-id>/app/ck.xhtml</to-view-id>
+            <to-view-id>/app/pp/ck.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>ckNew</from-outcome>
-            <to-view-id>/app/ckNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
+        </navigation-case>  
         <navigation-case>
             <from-outcome>ckEdit</from-outcome>
-            <to-view-id>/app/ckEdit.xhtml</to-view-id>
+            <to-view-id>/app/pp/ckEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>ckView</from-outcome>
-            <to-view-id>/app/ckView.xhtml</to-view-id>
+            <to-view-id>/app/pp/ckView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>cp</from-outcome>
             <to-view-id>/app/cp.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>      
-        <navigation-case>
-            <from-outcome>cpNew</from-outcome>
-            <to-view-id>/app/cpNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
+        </navigation-case> 
         <navigation-case>
             <from-outcome>cpEdit</from-outcome>
             <to-view-id>/app/cpEdit.xhtml</to-view-id>
@@ -199,23 +189,18 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>factorystorage</from-outcome>
-            <to-view-id>/app/mm/factorystorage.xhtml</to-view-id>
+            <from-outcome>dx</from-outcome>
+            <to-view-id>/app/pp/dx.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>    
+        <navigation-case>
+            <from-outcome>dxEdit</from-outcome>
+            <to-view-id>/app/pp/dxEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>factorystorageNew</from-outcome>
-            <to-view-id>/app/mm/factorystorageNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>factorystorageEdit</from-outcome>
-            <to-view-id>/app/mm/factorystorageEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>factorystorageView</from-outcome>
-            <to-view-id>/app/mm/factorystorageView.xhtml</to-view-id>
+            <from-outcome>dxView</from-outcome>
+            <to-view-id>/app/pp/dxView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -392,7 +377,29 @@
             <from-outcome>itemrequestView</from-outcome>
             <to-view-id>/app/lm/itemrequestView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case> 
+        </navigation-case>
+        <!--件号资源 Start--> 
+        <navigation-case>
+            <from-outcome>itemprocess</from-outcome>
+            <to-view-id>/app/pp/itemprocess.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemprocessNew</from-outcome>
+            <to-view-id>/app/pp/itemprocessNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemprocessEdit</from-outcome>
+            <to-view-id>/app/pp/itemprocessEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemprocessView</from-outcome>
+            <to-view-id>/app/pp/itemprocessView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case><!--件号资源 End-->
+        <!--库存异动 Start--> 
         <navigation-case>
             <from-outcome>itemtransaction</from-outcome>
             <to-view-id>/app/mm/itemtransaction.xhtml</to-view-id>
@@ -412,7 +419,7 @@
             <from-outcome>itemtransactionView</from-outcome>
             <to-view-id>/app/mm/itemtransactionView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>   
+        </navigation-case><!--库存异动 End-->    
         <navigation-case>
             <from-outcome>jh</from-outcome>
             <to-view-id>/app/pp/jh.xhtml</to-view-id>
@@ -428,6 +435,87 @@
             <to-view-id>/app/pp/jhView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>process</from-outcome>
+            <to-view-id>/app/pp/process.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>processNew</from-outcome>
+            <to-view-id>/app/pp/processNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>processEdit</from-outcome>
+            <to-view-id>/app/pp/processEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>processView</from-outcome>
+            <to-view-id>/app/pp/processView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionfinish</from-outcome>
+            <to-view-id>/app/pp/productionfinish.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionfinishNew</from-outcome>
+            <to-view-id>/app/pp/productionfinishNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionfinishEdit</from-outcome>
+            <to-view-id>/app/pp/productionfinishEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionfinishView</from-outcome>
+            <to-view-id>/app/pp/productionfinishView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionorder</from-outcome>
+            <to-view-id>/app/pp/productionorder.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionorderNew</from-outcome>
+            <to-view-id>/app/pp/productionorderNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionorderEdit</from-outcome>
+            <to-view-id>/app/pp/productionorderEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionorderView</from-outcome>
+            <to-view-id>/app/pp/productionorderView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionpicking</from-outcome>
+            <to-view-id>/app/pp/productionpicking.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionpickingNew</from-outcome>
+            <to-view-id>/app/pp/productionpickingNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionpickingEdit</from-outcome>
+            <to-view-id>/app/pp/productionpickingEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionpickingView</from-outcome>
+            <to-view-id>/app/pp/productionpickingView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!--进货点收 Start-->       
         <navigation-case>
             <from-outcome>purchaseacceptance</from-outcome>
             <to-view-id>/app/mm/purchaseacceptance.xhtml</to-view-id>
@@ -447,7 +535,8 @@
             <from-outcome>purchaseacceptanceView</from-outcome>
             <to-view-id>/app/mm/purchaseacceptanceView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case> 
+        </navigation-case><!--进货点收 End-->
+        <!--采购草稿 Start--> 
         <navigation-case>
             <from-outcome>purchasedraft</from-outcome>
             <to-view-id>/app/lm/purchasedraft.xhtml</to-view-id>
@@ -462,12 +551,12 @@
             <from-outcome>purchasedraftView</from-outcome>
             <to-view-id>/app/lm/purchasedraftView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case><!--请购维护 End-->
+        </navigation-case>
         <navigation-case>
             <from-outcome>purchaseinit</from-outcome>
             <to-view-id>/app/lm/purchaseinit.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case><!--采购草稿 End-->
         <!--采购维护 Start-->    
         <navigation-case>
             <from-outcome>purchaseorder</from-outcome>
@@ -488,7 +577,8 @@
             <from-outcome>purchaseorderView</from-outcome>
             <to-view-id>/app/lm/purchaseorderView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case><!--采购维护 End--> 
+        </navigation-case><!--采购维护 End-->
+        <!--进货验收 Start--> 
         <navigation-case>
             <from-outcome>purchasestorage</from-outcome>
             <to-view-id>/app/mm/purchasestorage.xhtml</to-view-id>
@@ -503,7 +593,7 @@
             <from-outcome>purchasestorageView</from-outcome>
             <to-view-id>/app/mm/purchasestorageView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
+        </navigation-case><!--进货验收 End-->
         <navigation-case>
             <from-outcome>ps</from-outcome>
             <to-view-id>/app/pp/ps.xhtml</to-view-id>
@@ -595,6 +685,21 @@
         <navigation-case>
             <from-outcome>salestypeView</from-outcome>
             <to-view-id>/app/sys/salestypeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sx</from-outcome>
+            <to-view-id>/app/pp/sx.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>    
+        <navigation-case>
+            <from-outcome>sxEdit</from-outcome>
+            <to-view-id>/app/pp/sxEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sxView</from-outcome>
+            <to-view-id>/app/pp/sxView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -863,6 +968,21 @@
             <to-view-id>/app/df/itemmasterSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+         <navigation-case>
+            <from-outcome>processresourceSelect</from-outcome>
+            <to-view-id>/app/df/processresourceSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionorderdetailSelect</from-outcome>
+            <to-view-id>/app/df/productionorderdetailSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>productionorderpickingSelect</from-outcome>
+            <to-view-id>/app/df/productionorderpickingSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>purchaseorderdetailSelect</from-outcome>
             <to-view-id>/app/df/purchaseorderdetailSelect.xhtml</to-view-id>
@@ -876,6 +996,11 @@
         <navigation-case>
             <from-outcome>salesordermaterialSelect</from-outcome>
             <to-view-id>/app/df/salesordermaterialSelect</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>salesorderproductionSelect</from-outcome>
+            <to-view-id>/app/df/salesorderproductionSelect</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

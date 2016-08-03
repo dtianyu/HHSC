@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TransactionType.findAll", query = "SELECT t FROM TransactionType t"),
     @NamedQuery(name = "TransactionType.findById", query = "SELECT t FROM TransactionType t WHERE t.id = :id"),
     @NamedQuery(name = "TransactionType.findByTrtype", query = "SELECT t FROM TransactionType t WHERE t.trtype = :trtype"),
-    @NamedQuery(name = "TransactionType.findBySysid", query = "SELECT t FROM TransactionType t WHERE t.sysid = :sysid"),
+    @NamedQuery(name = "TransactionType.findBySystem", query = "SELECT t FROM TransactionType t WHERE t.sysid = :sysid"),
     @NamedQuery(name = "TransactionType.findByIocode", query = "SELECT t FROM TransactionType t WHERE t.iocode = :iocode"),
     @NamedQuery(name = "TransactionType.findByHascost", query = "SELECT t FROM TransactionType t WHERE t.hascost = :hascost"),
     @NamedQuery(name = "TransactionType.findByStatus", query = "SELECT t FROM TransactionType t WHERE t.status = :status")})
@@ -45,7 +45,7 @@ public class TransactionType extends SuperEntity {
     @Column(name = "trname")
     private String trname;
     @Column(name = "sysid")
-    private Integer sysid;
+    private String sysid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "iocode")
@@ -110,11 +110,11 @@ public class TransactionType extends SuperEntity {
         this.trname = trname;
     }
 
-    public Integer getSysid() {
+    public String getSysid() {
         return sysid;
     }
 
-    public void setSysid(Integer sysid) {
+    public void setSysid(String sysid) {
         this.sysid = sysid;
     }
 

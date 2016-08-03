@@ -13,10 +13,20 @@
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="ps" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{psManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{psManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{psManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{psManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" action="#{psManagedBean.verify()}" icon="ui-icon-locked" value="提交" 
-                                     rendered="#{psManagedBean.doCfm}" update="formView"/>
+                    <p:commandButton id="btnVerify" value="审核" actionListener="#{psManagedBean.verify()}" icon="ui-icon-locked" 
+                                     rendered="#{psManagedBean.doCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{psManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{psManagedBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelView" header="配色信息－查看">
@@ -28,41 +38,11 @@
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="尿素"/></p:column>
+                        <p:column styleClass="Wid20"></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="psns" value="#{psManagedBean.currentEntity.psns}" title="Psns" />
+
                         </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="糊料"/></p:column>
-                        <p:column>
-                            <h:outputText id="pshl" value="#{psManagedBean.currentEntity.pshl}" title="Pshl" />
-                        </p:column>
-                        <p:column><h:outputText value="渗透剂"/></p:column>
-                        <p:column>
-                            <h:outputText id="psyj" value="#{psManagedBean.currentEntity.psyj}" title="Psyj" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="建议蒸化时长"/></p:column>
-                        <p:column>
-                            <h:outputText id="pszhsj" value="#{psManagedBean.currentEntity.pszhsj}" title="Pszhsj" />
-                        </p:column>
-                        <p:column><h:outputText value="建议蒸化次数"/></p:column>
-                        <p:column>
-                            <h:outputText id="pszhcs" value="#{psManagedBean.currentEntity.pszhcs}" title="Pszhcs" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="建议蒸化压力"/></p:column>
-                        <p:column>
-                            <h:outputText id="pszhyl" value="#{psManagedBean.currentEntity.pszhyl}" title="pszhyl" />
-                        </p:column>
-                        <p:column><h:outputText value="建议蒸化湿度"/></p:column>
-                        <p:column>
-                            <h:outputText id="pszhsd" value="#{psManagedBean.currentEntity.pszhsd}" title="pszhsd" />
-                        </p:column>
-                    </p:row>
+                    </p:row>                   
                     <p:row>
                         <p:column><h:outputText value="配色备注"/></p:column>
                         <p:column colspan="3">
@@ -73,14 +53,12 @@
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
-                <p:tab id="tab1" title="订单信息">
-                    <p:panelGrid id="plgView" styleClass="plgView Wid100" >
+                <p:tab id="tab1" title="工单信息">
+                    <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
                         <p:row>
+                            <p:column styleClass="Wid20"><h:outputText  value="单号"/></p:column>
                             <p:column>
-                                <h:outputText  value="花号"/>
-                            </p:column>
-                            <p:column>
-                                <h:outputText  id="designid" value="#{psManagedBean.currentEntity.designid}" title="Itemid"/>
+                                <h:outputText  id="formid" value="#{psManagedBean.currentEntity.formid}" title="formid"/>
                             </p:column>
                             <p:column><h:outputText value="制单日期"/></p:column>
                             <p:column>
@@ -89,29 +67,43 @@
                                 </h:outputText>
                             </p:column>
                             <p:column rowspan="6" colspan="2" styleClass="Wid40">
-                                <p:graphicImage value="/resources/upload/img/#{psManagedBean.currentEntity.orderimg}"/>
+                                <p:graphicImage value="/resources/upload/img/#{psManagedBean.currentEntity.designimg}"/>
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column><h:outputText value="面料"/></p:column>
-                            <p:column colspan="3">
-                                <h:outputText id="itemdesc" value="#{psManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
+                            <p:column><h:outputText  value="花号"/></p:column>
+                            <p:column>
+                                <h:outputText  id="designno" value="#{psManagedBean.currentEntity.designno}" title="designno"/>
+                            </p:column>
+                            <p:column><h:outputText value="品名"/></p:column>
+                            <p:column>
+                                <h:outputText id="designdesc" value="#{psManagedBean.currentEntity.design.itemdesc}" title="designdesc"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="成品规格"/></p:column>
                             <p:column colspan="3">
-                                <h:outputText id="itemspec" value="#{psManagedBean.currentEntity.itemspec}" title="Itemspec"/>
+                                <h:outputText id="designspec" value="#{psManagedBean.currentEntity.designspec}" title="designspec"/>
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column><h:outputText value="订单数量"/></p:column>
+                            <p:column><h:outputText value="工单数量"/></p:column>
                             <p:column>
-                                <h:outputText id="orderqty" value="#{psManagedBean.currentEntity.orderqty}" title="Orderqty"/>
+                                <h:outputText id="prodqty" value="#{psManagedBean.currentEntity.qty}" title="qty"/>
                             </p:column>
-                            <p:column><h:outputText value="计划数量"/></p:column>
+                            <p:column><h:outputText value=""/></p:column>
                             <p:column>
-                                <h:outputText id="qty" value="#{psManagedBean.currentEntity.qty}" title="Qty"/>
+
+                            </p:column>
+                        </p:row>                        
+                        <p:row>
+                            <p:column><h:outputText value="客户"/></p:column>
+                            <p:column>
+                                <h:outputText id="customer" value="#{psManagedBean.currentEntity.customer}"/>
+                            </p:column>
+                            <p:column><h:outputText value="业务"/></p:column>
+                            <p:column>
+                                <h:outputText id="salesman" value="#{psManagedBean.currentEntity.salesman}"/>
                             </p:column>
                         </p:row>
                         <p:row>
@@ -119,21 +111,15 @@
                                 <h:outputText value="印花交期"/>
                             </p:column>
                             <p:column>
-                                <h:outputText id="yhdate" value="#{psManagedBean.currentEntity.yhdate}" title="Yhdate" >
+                                <h:outputText id="yhdate" value="#{psManagedBean.currentEntity.printdate}" title="Yhdate" >
                                     <f:convertDateTime pattern="yyyy/MM/dd" />
                                 </h:outputText>  
                             </p:column>
                             <p:column><h:outputText value="成品交期"/></p:column>
                             <p:column>
-                                <h:outputText id="cpdeldate" value="#{psManagedBean.currentEntity.cpdeldate}" title="cpdeldate" >
+                                <h:outputText id="cpdeldate" value="#{psManagedBean.currentEntity.shipdate}" title="cpdeldate" >
                                     <f:convertDateTime pattern="yyyy/MM/dd" />
                                 </h:outputText>  
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column><h:outputText value="业务"/></p:column>
-                            <p:column colspan="3">
-                                <h:outputText id="salesman" value="#{psManagedBean.currentEntity.salesman.username}"/>
                             </p:column>
                         </p:row>
                         <p:row>
@@ -172,11 +158,25 @@
                             </p:column>                
                         </p:row>
                         <p:row>
-                            <p:column><h:outputText value="后整要求"/></p:column>
+                            <p:column><h:outputText value="蒸化要求"/></p:column>
                             <p:column colspan="5">
                                 <p:inputTextarea id="zhreq" rows="2" value="#{psManagedBean.currentEntity.zhreq}" title="zhreq" 
                                                  styleClass="Wid90" readonly="true"/>
                             </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="水洗要求" for="zhreq" /></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="sxreq" rows="2" value="#{psManagedBean.currentEntity.sxreq}" title="req" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="定型要求" for="dxreq" /></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="dxreq" rows="2" value="#{psManagedBean.currentEntity.dxreq}" title="req" 
+                                                 styleClass="Wid90" readonly="true" />
+                            </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="仓库要求"/></p:column>
@@ -185,47 +185,380 @@
                                                  styleClass="Wid90" readonly="true"/>
                             </p:column>                
                         </p:row>
-                        <p:row>
-                            <p:column><h:outputText value="成品要求"/></p:column>
-                            <p:column colspan="5">
-                                <p:inputTextarea id="cpreq" rows="2" value="#{psManagedBean.currentEntity.cpreq}" title="cpreq" 
-                                                 styleClass="Wid90" readonly="true"/>
-                            </p:column>                
-                        </p:row>
                     </p:panelGrid>
                 </p:tab>
-                <p:tab id="tab2" title="分色明细">
-                    <p:dataTable id="tableList" value="#{psManagedBean.detailList}" var="item" styleClass="tableList Wid100"
-                                 selectionMode="single" selection="#{psManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                        <p:ajax event="rowSelect"/>
-                        <p:ajax event="rowUnselect"/>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="色号"/>
-                            </f:facet>
-                            <h:outputText value="#{item.colorid}"/>
-                        </p:column>
-                        <p:column styleClass="TexAlRight">
-                            <f:facet name="header">
-                                <h:outputText value="数量"/>
-                            </f:facet>
-                            <h:outputText value="#{item.qty}"/>
-                        </p:column>
-                        <p:column styleClass="TexAlRight">
-                            <f:facet name="header">
-                                <h:outputText value="计划数量"/>
-                            </f:facet>
-                            <h:outputText value="#{item.jhqty}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="单位"/>
-                            </f:facet>
-                            <h:outputText value="#{item.unit}"/>
-                        </p:column>
-                    </p:dataTable>
+                <p:tab title="工单明细">
+                    <p:panel id="panelDetail">
+                        <p:dataTable id="tableList" value="#{psManagedBean.detailList}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{psManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:tabView:plgDetail" oncomplete="PF('dlgDetail').show()" />
+                            <p:ajax event="rowUnselect"  update="formView:tabView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="订单编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.srcformid}-#{item.srcseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.colorno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="品号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemno}"/>
+                            </p:column>                          
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="订单数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.orderqty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="订单单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.orderunit}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="投料数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="投料单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:dialog id="dlgDetail" widgetVar="dlgDetail" modal="true" maximizable="true">
+                            <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
+                                <p:row>
+                                    <p:column styleClass="Wid20"><h:outputText value="订单编号" /></p:column>
+                                    <p:column styleClass="Wid30" colspan="3">
+                                        <h:outputText id="srcformid" value="#{psManagedBean.currentDetail.srcformid}-#{psManagedBean.currentDetail.srcseq}" title="srcformid" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="华卉品号"/></p:column>
+                                    <p:column>
+                                        <h:outputText value="#{psManagedBean.currentDetail.itemno}" title="Itemno" />  
+                                    </p:column>
+                                    <p:column><h:outputText value="客户品号"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="customeritemno" value="#{psManagedBean.currentDetail.customeritemno}" title="customeritemno" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column styleClass="Wid20"><h:outputText value="华卉色号" /></p:column>
+                                    <p:column styleClass="Wid30">
+                                        <h:outputText id="colorno" value="#{psManagedBean.currentDetail.colorno}" title="Colorno" />
+                                    </p:column>
+                                    <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
+                                    <p:column styleClass="Wid30">
+                                        <h:outputText id="customercolorno" value="#{psManagedBean.currentDetail.customercolorno}" title="Customercolorno" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="品名"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemdesc" value="#{psManagedBean.currentDetail.itemmaster.itemdesc}" title="itemdesc" />
+                                    </p:column>
+                                    <p:column><p:outputLabel value="订单数量"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="orderqty" value="#{psManagedBean.currentDetail.orderqty}" title="orderqty"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row> 
+                                    <p:column><h:outputText value="纱线描述"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemyarncount" value="#{psManagedBean.currentDetail.itemmaster.itemyarncount}" title="itemyarncount" />
+                                    </p:column>
+                                    <p:column><p:outputLabel value="订单单位" /></p:column>
+                                    <p:column>
+                                        <h:outputText id="orderunit" value="#{psManagedBean.currentDetail.orderunit}" title="unit"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="成分"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemmake" value="#{psManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
+                                    </p:column>
+                                    <p:column><h:outputText value="发料数量"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="qty" value="#{psManagedBean.currentDetail.qty}" title="qty"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="门幅"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemwidth" value="#{psManagedBean.currentDetail.itemmaster.itemwidth}" title="itemwidth" />
+                                    </p:column>
+                                    <p:column><h:outputText value="发料单位"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="unit" value="#{psManagedBean.currentDetail.unit}" title="unit"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:dialog>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="设备明细">
+                    <p:panel id="panelDetail1">                        
+                        <p:dataTable id="tableList1" value="#{psManagedBean.equipments}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{psManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="工艺明细">
+                    <p:panel id="panelDetail2">                       
+                        <p:dataTable id="tableList2" value="#{psManagedBean.processes}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{psManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="辅料明细">
+                    <p:panel id="panelDetail3">                     
+                        <p:dataTable id="tableList3" value="#{psManagedBean.materials}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{psManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="人员明细">
+                    <p:panel id="panelDetail4">                       
+                        <p:dataTable id="tableList4" value="#{psManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{psManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
                 </p:tab>
             </p:tabView>
+            <p:dialog id="dlgDetail2" widgetVar="dlgDetail2">
+                <p:panelGrid id="plgDetail2" styleClass="plgDetail Wid100" >
+                    <p:row>
+                        <p:column><h:outputText value="工艺"/></p:column>
+                        <p:column>
+                            <h:outputText id="process1" value="#{psManagedBean.currentDetail2.process.process}"/>
+                        </p:column>
+                        <p:column><h:outputText value="序号"/></p:column>
+                        <p:column>
+                            <h:outputText id="procseq1" value="#{psManagedBean.currentDetail2.procseq}" title="Procseq"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="类别"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="kind1" value="#{psManagedBean.currentDetail2.kind}" title="Kind" 
+                                             required="true" requiredMessage="请输入资源类别" disabled="true">
+                                <f:selectItem itemLabel="设备" itemValue="E" />
+                                <f:selectItem itemLabel="工艺" itemValue="P" />
+                                <f:selectItem itemLabel="物料" itemValue="M" />
+                                <f:selectItem itemLabel="人员" itemValue="H" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="值类型"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="valuetype1" value="#{psManagedBean.currentDetail2.valuetype}" title="Valuetype" 
+                                             required="true" requiredMessage="请输入值类型" disabled="true">
+                                <f:selectItem itemLabel="-选择-" itemValue="" />
+                                <f:selectItem itemLabel="布尔" itemValue="bool" />
+                                <f:selectItem itemLabel="数值" itemValue="Decimal" />
+                                <f:selectItem itemLabel="文字" itemValue="String" />
+                                <p:ajax process="valuetype1" update="boolvalue1,numvalue1,strvalue1"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="资源名称"/></p:column>
+                        <p:column>
+                            <h:outputText id="content1" value="#{psManagedBean.currentDetail2.content}" title="Content" />
+                        </p:column>
+                        <p:column><h:outputText value="布尔"/></p:column>
+                        <p:column>
+                            <h:outputText id="boolvalue1" value="#{psManagedBean.currentDetail2.boolvalue}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="数值"/></p:column>
+                        <p:column>
+                            <h:outputText id="numvalue1" value="#{psManagedBean.currentDetail2.numvalue}" title="Numvalue" />
+                        </p:column>
+                        <p:column><h:outputText value="文字"/></p:column>
+                        <p:column>
+                            <h:outputText id="strvalue1" value="#{psManagedBean.currentDetail2.strvalue}" title="Strvalue"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark1" value="#{psManagedBean.currentDetail2.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

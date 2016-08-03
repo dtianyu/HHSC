@@ -7,6 +7,7 @@ package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.TransactionType;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.Query;
@@ -27,7 +28,18 @@ public class TransactionTypeBean extends SuperBean<TransactionType> {
         Query query = this.getEntityManager().createNamedQuery("TransactionType.findByTrtype");
         query.setParameter("trtype", trtype);
         try {
-            return (TransactionType) query.getSingleResult();
+            Object o = query.getSingleResult();
+            return (TransactionType) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<TransactionType> findBySystem(String system) {
+        Query query = this.getEntityManager().createNamedQuery("TransactionType.findBySystem");
+        query.setParameter("sysid", system);
+        try {
+            return query.getResultList();
         } catch (Exception ex) {
             return null;
         }

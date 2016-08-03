@@ -104,7 +104,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         }//超类中有重新加载明细资料
         for (PurchaseOrderDetail detail : this.detailList) {
             if ((detail.getInqty().compareTo(BigDecimal.ZERO) == 1) || (!detail.getStatus().equals("10"))) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已入库不可取消"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已入库不可还原"));
                 return false;
             }
         }

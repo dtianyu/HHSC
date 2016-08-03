@@ -46,7 +46,7 @@
                                      rendered="#{purchaseOrderManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton> 
-                    <p:commandButton id="btnUnverify" actionListener="#{purchaseOrderManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" actionListener="#{purchaseOrderManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
                                      rendered="#{purchaseOrderManagedBean.doUnCfm}"  update=":formList"/>                   
                     <p:commandButton id="btnCreate" action="#{purchaseOrderManagedBean.create('purchaseorderNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{purchaseOrderManagedBean.doAdd}"/>

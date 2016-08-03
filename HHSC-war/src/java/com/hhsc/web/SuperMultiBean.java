@@ -12,6 +12,7 @@ import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMultiManagedBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -115,7 +116,35 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
 
     @Override
     public void print() throws Exception {
-
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("pid", currentEntity.getId());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + this.currentSysprg.getRptdesign();
+        String outputName = reportOutputPath + currentEntity.getId() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getId() + "." + reportFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
@@ -169,15 +198,15 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
                     currentEntity.setCfmdate(null);
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "取消前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "还原前检查失败");
                 }
             } catch (Exception ex) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, ex.toString()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", ex.toString());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 
@@ -191,15 +220,15 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
                     currentEntity.setCfmdateToNow();
                     superEJB.verify(currentEntity);
                     doAfterVerify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败");
                 }
             } catch (Exception ex) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, ex.toString()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", ex.toString());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 

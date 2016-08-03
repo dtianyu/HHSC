@@ -12,6 +12,7 @@ import com.hhsc.web.SuperQueryBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -24,6 +25,8 @@ public class TransactionTypeQueryBean extends SuperQueryBean<TransactionType> {
     @EJB
     private TransactionTypeBean transactionTypeBean;
 
+    private String sysid;
+
     public TransactionTypeQueryBean() {
         super(TransactionType.class);
     }
@@ -32,6 +35,13 @@ public class TransactionTypeQueryBean extends SuperQueryBean<TransactionType> {
     public void init() {
         this.superEJB = transactionTypeBean;
         setModel(new TransactionTypeModel(transactionTypeBean));
+        params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();
+        if (params != null) {
+            if (params.containsKey("sysid")) {
+                sysid = params.get("sysid")[0];
+                this.model.getFilterFields().put("sysid", sysid);
+            }
+        }
         super.init();
     }
 
@@ -41,7 +51,7 @@ public class TransactionTypeQueryBean extends SuperQueryBean<TransactionType> {
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("trtype", this.queryFormId);
             }
-             if (this.queryName != null && !"".equals(this.queryName)) {
+            if (this.queryName != null && !"".equals(this.queryName)) {
                 this.model.getFilterFields().put("trname", this.queryName);
             }
         }

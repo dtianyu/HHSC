@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/mm/itemtransactionView.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/mm/itemtransactionEdit.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/ItemTransactionManagedBean.java</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/mm/itemtransaction.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/mm/itemtransactionNew.xhtml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

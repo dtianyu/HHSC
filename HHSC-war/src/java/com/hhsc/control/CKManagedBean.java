@@ -9,6 +9,8 @@ import com.hhsc.ejb.FactoryOrderBean;
 import com.hhsc.ejb.FactoryOrderDetailBean;
 import com.hhsc.entity.FactoryOrder;
 import com.hhsc.entity.FactoryOrderDetail;
+import com.hhsc.entity.ProductionOrder;
+import com.hhsc.entity.ProductionResource;
 import com.hhsc.lazy.CKModel;
 import com.hhsc.web.FormMultiBean;
 import javax.ejb.EJB;
@@ -23,26 +25,65 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "ckManagedBean")
 @SessionScoped
-public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetail> {
-
-    @EJB
-    private FactoryOrderBean factoryOrderBean;
-    @EJB
-    private FactoryOrderDetailBean factoryOrderDetailBean;
-
-    protected String designid;
+public class CKManagedBean extends ProductionOrderManagedBean {
 
     public CKManagedBean() {
-        super(FactoryOrder.class, FactoryOrderDetail.class);
+
+    }
+
+    @Override
+    protected boolean doBeforeUnverify() throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
+            return false;
+        }
+        ProductionOrder e = (ProductionOrder) superEJB.findById(currentEntity.getId());
+        if (!"V".equals(e.getCkstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        if (detailList2 != null && !detailList2.isEmpty()) {
+            detailList2.clear();
+        }
+        detailList = detailEJB.findByPId(currentEntity.getFormid());
+        detailList2 = detailEJB2.findByPId(currentEntity.getFormid());
+        return true;
+    }
+
+    @Override
+    protected boolean doBeforeVerify() throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!");
+            return false;
+        }
+        ProductionOrder e = (ProductionOrder) superEJB.findById(currentEntity.getId());
+        if ("V".equals(e.getCkstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        if (detailList2 != null && !detailList2.isEmpty()) {
+            detailList2.clear();
+        }
+        detailList = detailEJB.findByPId(currentEntity.getFormid());
+        detailList2 = detailEJB2.findByPId(currentEntity.getFormid());
+        return true;
     }
 
     @Override
     public void init() {
-        setSuperEJB(factoryOrderBean);
-        setDetailEJB(factoryOrderDetailBean);
-        setModel(new CKModel(factoryOrderBean));
-        getModel().getFilterFields().put("ckstatus", "N");
         super.init();
+        getModel().getFilterFields().clear();
+        this.model.getFilterFields().put("jhstatus", "V");
+        this.model.getFilterFields().put("dxstatus", "V");
+        this.model.getFilterFields().put("ckstatus", "N");
+        this.model.getSortFields().put("ckstatus", "ASC");
+        this.model.getSortFields().put("formid", "DESC");
     }
 
     @Override
@@ -57,7 +98,7 @@ public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                 }
                 update();
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         }
     }
@@ -72,12 +113,16 @@ public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("ckdeldateEnd", queryDateEnd);
             }
-            if (getDesignid() != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("designid", getDesignid());
+            if (designno != null && !"".equals(designno)) {
+                this.model.getFilterFields().put("designno", designno);
             }
-            if (designid != null && !"ALL".equals(designid)) {
-                this.model.getFilterFields().put("ckstatus", designid);
+            if (queryState != null && !"ALL".equals(queryState)) {
+                this.model.getFilterFields().put("ckstatus", queryState);
             }
+            this.model.getFilterFields().put("jhstatus", "V");
+            this.model.getFilterFields().put("dxstatus", "V");
+            this.model.getSortFields().put("ckstatus", "ASC");
+            this.model.getSortFields().put("formid", "DESC");
         }
     }
 
@@ -85,14 +130,18 @@ public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
     public void reset() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("jhstatus", "V");
+            this.model.getFilterFields().put("dxstatus", "V");
             this.model.getFilterFields().put("ckstatus", "N");
+            this.model.getSortFields().put("ckstatus", "ASC");
+            this.model.getSortFields().put("formid", "DESC");
         }
     }
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getCkstatus() != null && currentEntity.getCpstatus() != null) {
-            if ("V".equals(currentEntity.getCpstatus())) {
+        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getCkstatus() != null && currentEntity.getStatus() != null) {
+            if ("V".equals(currentEntity.getStatus())) {
                 this.doEdit = false;
                 this.doDel = false;
                 this.doCfm = false;
@@ -121,27 +170,54 @@ public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
     }
 
     @Override
+    protected void splitResource() {
+        this.equipments.clear();
+        this.processes.clear();
+        this.materials.clear();
+        this.hurmans.clear();
+        for (ProductionResource r : detailList2) {
+            if (!"CK".equals(r.getProcess().getProcessno())) {
+                continue;
+            }
+            switch (r.getKind()) {
+                case "E":
+                    this.equipments.add(r);
+                    break;
+                case "P":
+                    this.processes.add(r);
+                    break;
+                case "M":
+                    this.materials.add(r);
+                    break;
+                case "H":
+                    this.hurmans.add(r);
+                    break;
+                default:
+            }
+        }
+    }
+
+    @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
                 if (doBeforeUnverify()) {
                     currentEntity.setCkstatus("N");
                     currentEntity.setCkdelman(null);
-                    currentEntity.setCprecdate(null);
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
-                    currentEntity.setStatus("CK");
+                    currentEntity.setStatus("仓库");
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 
@@ -152,36 +228,21 @@ public class CKManagedBean extends FormMultiBean<FactoryOrder, FactoryOrderDetai
                 if (doBeforeVerify()) {
                     currentEntity.setCkstatus("V");
                     currentEntity.setCkdelman(getUserManagedBean().getCurrentUser().getUsername());
-                    currentEntity.setCprecdate(getDate());
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
-                    currentEntity.setStatus("CP");
+                    currentEntity.setStatus("V");
                     superEJB.verify(currentEntity);
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                     doAfterVerify();
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "更新前检查失败");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
-    }
-
-    /**
-     * @return the designid
-     */
-    public String getDesignid() {
-        return designid;
-    }
-
-    /**
-     * @param designid the designid to set
-     */
-    public void setDesignid(String designid) {
-        this.designid = designid;
     }
 
 }

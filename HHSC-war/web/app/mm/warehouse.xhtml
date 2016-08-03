@@ -39,7 +39,7 @@
                     </p:commandButton>
                     <p:commandButton id="btnVerify" value="审核" actionListener="#{warehouseManagedBean.verify()}" icon="ui-icon-locked"
                                      rendered="#{warehouseManagedBean.doCfm}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" value="取消" actionListener="#{warehouseManagedBean.unverify()}" icon="ui-icon-unlocked"
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{warehouseManagedBean.unverify()}" icon="ui-icon-unlocked"
                                      rendered="#{warehouseManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" value="新增" action="#{warehouseManagedBean.create('warehouseNew')}" icon="ui-icon-plus"
                                      rendered="#{warehouseManagedBean.doAdd}"/>

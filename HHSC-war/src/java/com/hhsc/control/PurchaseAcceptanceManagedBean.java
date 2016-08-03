@@ -87,7 +87,7 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         }//超类中有重新加载明细资料
         for (PurchaseAcceptanceDetail detail : detailList) {
             if (detail.getStatus().equals("50")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", detail.getItemno() + "已入库不可取消"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", detail.getItemno() + "已入库不可还原"));
                 return false;
             }
             ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());

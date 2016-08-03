@@ -1,0 +1,567 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../WEB-INF/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="ck" icon="ui-icon-arrowreturn-1-w"  />
+                       <p:commandButton id="btnPrev" value="向前" actionListener="#{ckManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{ckManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{ckManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{ckManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{ckManagedBean.verify()}" icon="ui-icon-locked" 
+                                     rendered="#{ckManagedBean.doCfm}" update="formView">
+                             <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{ckManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{ckManagedBean.doPrt}"/>
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelHead" header="仓库信息－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100" >
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="仓库交期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="ckdeldate" value="#{ckManagedBean.currentEntity.ckdeldate}" title="Ckdeldate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="出货日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="cprecdate" value="#{ckManagedBean.currentEntity.shipdate}" title="cprecdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="仓库备注" for="ckremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="ckremark" rows="2" value="#{ckManagedBean.currentEntity.ckremark}" title="Ckremark" 
+                                             styleClass="Wid90" readonly="true"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab id="tab1" title="工单信息">
+                    <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
+                        <p:row>
+                            <p:column styleClass="Wid20"><h:outputText  value="单号"/></p:column>
+                            <p:column>
+                                <h:outputText  id="formid" value="#{ckManagedBean.currentEntity.formid}" title="formid"/>
+                            </p:column>
+                            <p:column><h:outputText value="制单日期"/></p:column>
+                            <p:column>
+                                <h:outputText id="formdate" value="#{ckManagedBean.currentEntity.formdate}" title="Orderdate">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column rowspan="6" colspan="2" styleClass="Wid40">
+                                <p:graphicImage value="/resources/upload/img/#{ckManagedBean.currentEntity.designimg}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText  value="花号"/></p:column>
+                            <p:column>
+                                <h:outputText  id="designno" value="#{ckManagedBean.currentEntity.designno}" title="designno"/>
+                            </p:column>
+                            <p:column><h:outputText value="品名"/></p:column>
+                            <p:column>
+                                <h:outputText id="designdesc" value="#{ckManagedBean.currentEntity.design.itemdesc}" title="designdesc"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="成品规格"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="designspec" value="#{ckManagedBean.currentEntity.designspec}" title="designspec"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="工单数量"/></p:column>
+                            <p:column>
+                                <h:outputText id="prodqty" value="#{ckManagedBean.currentEntity.qty}" title="qty"/>
+                            </p:column>
+                            <p:column><h:outputText value=""/></p:column>
+                            <p:column>
+
+                            </p:column>
+                        </p:row>                        
+                        <p:row>
+                            <p:column><h:outputText value="客户"/></p:column>
+                            <p:column>
+                                <h:outputText id="customer" value="#{ckManagedBean.currentEntity.customer}"/>
+                            </p:column>
+                            <p:column><h:outputText value="业务"/></p:column>
+                            <p:column>
+                                <h:outputText id="salesman" value="#{ckManagedBean.currentEntity.salesman}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="印花交期"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="yhdate" value="#{ckManagedBean.currentEntity.printdate}" title="Yhdate" >
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>  
+                            </p:column>
+                            <p:column><h:outputText value="成品交期"/></p:column>
+                            <p:column>
+                                <h:outputText id="cpdeldate" value="#{ckManagedBean.currentEntity.shipdate}" title="cpdeldate" >
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>  
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="Wid20"><h:outputText value="营业备注"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="salesremark" rows="2" value="#{ckManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="画稿要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="hgreq" rows="2" value="#{ckManagedBean.currentEntity.hgreq}" title="hgreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="制版要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="zbreq" rows="2" value="#{ckManagedBean.currentEntity.zbreq}" title="zbreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="配色要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="psreq" rows="2" value="#{ckManagedBean.currentEntity.psreq}" title="psreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="印花要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="yhreq" rows="2" value="#{ckManagedBean.currentEntity.yhreq}" title="yhreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="蒸化要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="zhreq" rows="2" value="#{ckManagedBean.currentEntity.zhreq}" title="zhreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="水洗要求" for="zhreq" /></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="sxreq" rows="2" value="#{ckManagedBean.currentEntity.sxreq}" title="req" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="定型要求" for="dxreq" /></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="dxreq" rows="2" value="#{ckManagedBean.currentEntity.dxreq}" title="req" 
+                                                 styleClass="Wid90" readonly="true" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="仓库要求"/></p:column>
+                            <p:column colspan="5">
+                                <p:inputTextarea id="ckreq" rows="2" value="#{ckManagedBean.currentEntity.ckreq}" title="ckreq" 
+                                                 styleClass="Wid90" readonly="true"/>
+                            </p:column>                
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="工单明细">
+                    <p:panel id="panelDetail">
+                        <p:dataTable id="tableList" value="#{ckManagedBean.detailList}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{ckManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:tabView:plgDetail" oncomplete="PF('dlgDetail').show()" />
+                            <p:ajax event="rowUnselect"  update="formView:tabView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="订单编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.srcformid}-#{item.srcseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.colorno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="品号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemno}"/>
+                            </p:column>                          
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="订单数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.orderqty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="订单单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.orderunit}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="投料数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="投料单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:dialog id="dlgDetail" widgetVar="dlgDetail" modal="true" maximizable="true">
+                            <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
+                                <p:row>
+                                    <p:column styleClass="Wid20"><h:outputText value="订单编号" /></p:column>
+                                    <p:column styleClass="Wid30" colspan="3">
+                                        <h:outputText id="srcformid" value="#{ckManagedBean.currentDetail.srcformid}-#{ckManagedBean.currentDetail.srcseq}" title="srcformid" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="华卉品号"/></p:column>
+                                    <p:column>
+                                        <h:outputText value="#{ckManagedBean.currentDetail.itemno}" title="Itemno" />  
+                                    </p:column>
+                                    <p:column><h:outputText value="客户品号"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="customeritemno" value="#{ckManagedBean.currentDetail.customeritemno}" title="customeritemno" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column styleClass="Wid20"><h:outputText value="华卉色号" /></p:column>
+                                    <p:column styleClass="Wid30">
+                                        <h:outputText id="colorno" value="#{ckManagedBean.currentDetail.colorno}" title="Colorno" />
+                                    </p:column>
+                                    <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
+                                    <p:column styleClass="Wid30">
+                                        <h:outputText id="customercolorno" value="#{ckManagedBean.currentDetail.customercolorno}" title="Customercolorno" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="品名"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemdesc" value="#{ckManagedBean.currentDetail.itemmaster.itemdesc}" title="itemdesc" />
+                                    </p:column>
+                                    <p:column><p:outputLabel value="订单数量"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="orderqty" value="#{ckManagedBean.currentDetail.orderqty}" title="orderqty"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row> 
+                                    <p:column><h:outputText value="纱线描述"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemyarncount" value="#{ckManagedBean.currentDetail.itemmaster.itemyarncount}" title="itemyarncount" />
+                                    </p:column>
+                                    <p:column><p:outputLabel value="订单单位" /></p:column>
+                                    <p:column>
+                                        <h:outputText id="orderunit" value="#{ckManagedBean.currentDetail.orderunit}" title="unit"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="成分"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemmake" value="#{ckManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
+                                    </p:column>
+                                    <p:column><h:outputText value="发料数量"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="qty" value="#{ckManagedBean.currentDetail.qty}" title="qty"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="门幅"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="itemwidth" value="#{ckManagedBean.currentDetail.itemmaster.itemwidth}" title="itemwidth" />
+                                    </p:column>
+                                    <p:column><h:outputText value="发料单位"/></p:column>
+                                    <p:column>
+                                        <h:outputText id="unit" value="#{ckManagedBean.currentDetail.unit}" title="unit"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:dialog>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="设备明细">
+                    <p:panel id="panelDetail1">                        
+                        <p:dataTable id="tableList1" value="#{ckManagedBean.equipments}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{ckManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="工艺明细">
+                    <p:panel id="panelDetail2">                       
+                        <p:dataTable id="tableList2" value="#{ckManagedBean.processes}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{ckManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="辅料明细">
+                    <p:panel id="panelDetail3">                     
+                        <p:dataTable id="tableList3" value="#{ckManagedBean.materials}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{ckManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="人员明细">
+                    <p:panel id="panelDetail4">                       
+                        <p:dataTable id="tableList4" value="#{ckManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{ckManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:dialog id="dlgDetail2" widgetVar="dlgDetail2">
+                <p:panelGrid id="plgDetail2" styleClass="plgDetail Wid100" >
+                    <p:row>
+                        <p:column><h:outputText value="工艺"/></p:column>
+                        <p:column>
+                            <h:outputText id="process1" value="#{ckManagedBean.currentDetail2.process.process}"/>
+                        </p:column>
+                        <p:column><h:outputText value="序号"/></p:column>
+                        <p:column>
+                            <h:outputText id="procseq1" value="#{ckManagedBean.currentDetail2.procseq}" title="Procseq"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="类别"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="kind1" value="#{ckManagedBean.currentDetail2.kind}" title="Kind" 
+                                             required="true" requiredMessage="请输入资源类别" disabled="true">
+                                <f:selectItem itemLabel="设备" itemValue="E" />
+                                <f:selectItem itemLabel="工艺" itemValue="P" />
+                                <f:selectItem itemLabel="物料" itemValue="M" />
+                                <f:selectItem itemLabel="人员" itemValue="H" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="值类型"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="valuetype1" value="#{ckManagedBean.currentDetail2.valuetype}" title="Valuetype" 
+                                             required="true" requiredMessage="请输入值类型" disabled="true">
+                                <f:selectItem itemLabel="-选择-" itemValue="" />
+                                <f:selectItem itemLabel="布尔" itemValue="bool" />
+                                <f:selectItem itemLabel="数值" itemValue="Decimal" />
+                                <f:selectItem itemLabel="文字" itemValue="String" />
+                                <p:ajax process="valuetype1" update="boolvalue1,numvalue1,strvalue1"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="资源名称"/></p:column>
+                        <p:column>
+                            <h:outputText id="content1" value="#{ckManagedBean.currentDetail2.content}" title="Content" />
+                        </p:column>
+                        <p:column><h:outputText value="布尔"/></p:column>
+                        <p:column>
+                            <h:outputText id="boolvalue1" value="#{ckManagedBean.currentDetail2.boolvalue}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="数值"/></p:column>
+                        <p:column>
+                            <h:outputText id="numvalue1" value="#{ckManagedBean.currentDetail2.numvalue}" title="Numvalue" />
+                        </p:column>
+                        <p:column><h:outputText value="文字"/></p:column>
+                        <p:column>
+                            <h:outputText id="strvalue1" value="#{ckManagedBean.currentDetail2.strvalue}" title="Strvalue"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark1" value="#{ckManagedBean.currentDetail2.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>   
+        </h:form>
+    </ui:define>
+
+</ui:composition>

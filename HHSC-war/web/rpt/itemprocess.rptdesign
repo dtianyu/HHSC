@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT 设计器 V4.5.0.v201506092134 构建 &lt;@建立@></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">fixed layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">72</property>
+    <parameters>
+        <scalar-parameter name="id" id="454">
+            <property name="hidden">true</property>
+            <text-property name="promptText">编号</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="JNDIName" id="455">
+            <property name="hidden">true</property>
+            <text-property name="promptText">JNDI</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="pid" id="570">
+            <property name="hidden">true</property>
+            <text-property name="promptText">编号</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="scriptDS" id="225"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataDetail" id="226">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">dept</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">itemdesign</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">itemdesigndesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">itemdesignspec</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">itemdesignmake</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">itemdesignimg</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">fyreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">hgreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">zbreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">psreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">yhreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">zhreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">sxreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">dxreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">ckreq</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">dept</property>
+                </structure>
+                <structure>
+                    <property name="columnName">itemdesign</property>
+                </structure>
+                <structure>
+                    <property name="columnName">itemdesigndesc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">itemdesignspec</property>
+                </structure>
+                <structure>
+                    <property name="columnName">itemdesignmake</property>
+                </structure>
+                <structure>
+                    <property name="columnName">itemdesignimg</property>
+                </structure>
+                <structure>
+                    <property name="columnName">fyreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">hgreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">zbreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">psreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">yhreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">zhreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">sxreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dxreq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ckreq</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">dept</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">itemdesign</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">itemdesigndesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">itemdesignspec</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">itemdesignmake</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">itemdesignimg</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">fyreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">hgreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">zbreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">psreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">yhreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">zhreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">sxreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">dxreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">ckreq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">scriptDS</property>
+            <method name="open"><![CDATA[
+importPackage(Packages.com.hhsc.rpt);
+
+ejbClient = new ItemProcessReport();
+ejbClient.setEJB(params["JNDIName"]);
+
+master = ejbClient.getEntity(params["id"]);
+
+currentRow = 0;]]></method>
+            <method name="fetch"><![CDATA[
+if(currentRow == 0){
+
+	dataSetRow["itemdesign"] = master.getItemno();
+	dataSetRow["itemdesigndesc"] = master.getItemmaster().getItemdesc();
+	dataSetRow["itemdesignspec"] = master.getItemmaster().getItemspec();
+	dataSetRow["itemdesignimg"] = "http://localhost:8480/HHSC-war/resources/upload/img/" + master.getItemmaster().getImg1();
+	
+	dataSetRow["hgreq"] = master.getHgreq();
+	dataSetRow["zbreq"] = master.getZbreq();
+	dataSetRow["psreq"] = master.getPsreq();		
+	dataSetRow["yhreq"] = master.getYhreq();
+	dataSetRow["zhreq"] = master.getZhreq();
+	dataSetRow["sxreq"] = master.getSxreq();
+	dataSetRow["dxreq"] = master.getDxreq();
+	dataSetRow["ckreq"] = master.getCkreq();
+	
+	currentRow++;
+	return true;
+}	
+						
+return false;]]></method>
+            <method name="close"><![CDATA[ejbClient = null;]]></method>
+        </script-data-set>
+        <script-data-set name="resourceDetail" id="651">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">process</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">procseq</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">kind</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">content</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">boolValue</property>
+                    <property name="dataType">boolean</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">contentValue</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">process</property>
+                </structure>
+                <structure>
+                    <property name="columnName">procseq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">kind</property>
+                </structure>
+                <structure>
+                    <property name="columnName">content</property>
+                </structure>
+                <structure>
+                    <property name="columnName">boolValue</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contentValue</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">process</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">procseq</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">kind</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">content</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">boolValue</property>
+                        <property name="dataType">boolean</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">contentValue</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">scriptDS</property>
+            <method name="open"><![CDATA[
+importPackage(Packages.com.hhsc.rpt);
+
+ejbClient = new ItemProcessReport();
+ejbClient.setEJB(params["JNDIName"]);
+
+resource = ejbClient.getDetail(params["pid"]);
+
+resourceRow = 0;]]></method>
+            <method name="fetch"><![CDATA[if(resourceRow < 10 || resourceRow < resource.size()){	
+	if(resourceRow < resource.size()){
+		dataSetRow["process"] = resource.get(resourceRow).getProcess().getProcess();				
+		dataSetRow["procseq"] = resource.get(resourceRow).getProcseq();	
+		dataSetRow["content"] = resource.get(resourceRow).getContent();			
+		if(resource.get(resourceRow).getKind()=='E'){
+			dataSetRow["kind"] = "设备";
+		}else if(resource.get(resourceRow).getKind()=='P'){
+			dataSetRow["kind"] = "方法";
+		}else if(resource.get(resourceRow).getKind()=='M'){
+			dataSetRow["kind"] = "辅料";
+		}else if (resource.get(resourceRow).getKind()=='H'){
+			dataSetRow["kind"] = "人员"
+		}
+		if(resource.get(resourceRow).getValuetype()=="bool"){
+			dataSetRow["boolValue"] = resource.get(resourceRow).getBoolvalue();
+		}else if(resource.get(resourceRow).getValuetype()=="Decimal"){
+			dataSetRow["contentValue"] = resource.get(resourceRow).getNumvalue();
+		}else if (resource.get(resourceRow).getValuetype()=="String"){
+			dataSetRow["contentValue"] = resource.get(resourceRow).getStrvalue();
+		}				
+	}
+	resourceRow++;	
+	return true;
+}
+	
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a4</property>
+            <page-header>
+                <label id="6">
+                    <property name="fontFamily">"Microsoft YaHei"</property>
+                    <property name="fontSize">16pt</property>
+                    <property name="textAlign">center</property>
+                    <text-property name="text">上海华卉丝绸印染有限公司</text-property>
+                </label>
+            </page-header>
+            <page-footer>
+                <grid id="544">
+                    <property name="width">7.583333333333333in</property>
+                    <column id="545">
+                        <property name="width">2.5277777777777777in</property>
+                    </column>
+                    <column id="546">
+                        <property name="width">3.3472222222222223in</property>
+                    </column>
+                    <column id="547">
+                        <property name="width">1.7083333333333333in</property>
+                    </column>
+                    <row id="548">
+                        <cell id="549"/>
+                        <cell id="550"/>
+                        <cell id="551">
+                            <grid id="552">
+                                <property name="width">1.625in</property>
+                                <column id="564">
+                                    <property name="width">0.3333333333333333in</property>
+                                </column>
+                                <column id="553">
+                                    <property name="width">0.2361111111111111in</property>
+                                </column>
+                                <column id="554">
+                                    <property name="width">0.4in</property>
+                                </column>
+                                <column id="555">
+                                    <property name="width">0.2361111111111111in</property>
+                                </column>
+                                <column id="568">
+                                    <property name="width">0.3194444444444444in</property>
+                                </column>
+                                <row id="556">
+                                    <cell id="563">
+                                        <label id="565">
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">第</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="557">
+                                        <auto-text id="558">
+                                            <property name="textAlign">center</property>
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="559">
+                                        <text id="560">
+                                            <property name="textAlign">center</property>
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[页/共]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="561">
+                                        <auto-text id="562">
+                                            <property name="textAlign">center</property>
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="567">
+                                        <label id="569">
+                                            <text-property name="text">页</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="227">
+            <property name="height">2.9444444444444446in</property>
+            <property name="width">7.7in</property>
+            <column id="228"/>
+            <column id="229"/>
+            <column id="230"/>
+            <column id="231"/>
+            <column id="232"/>
+            <column id="233"/>
+            <row id="376">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.5in</property>
+                <cell id="377"/>
+                <cell id="378"/>
+                <cell id="379">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <label id="383">
+                        <property name="fontSize">12pt</property>
+                        <property name="textAlign">center</property>
+                        <text-property name="text">工艺设计书</text-property>
+                    </label>
+                </cell>
+                <cell id="381"/>
+                <cell id="382">
+                    <text id="498"/>
+                </cell>
+            </row>
+            <row id="234">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <property name="borderTopStyle">none</property>
+                <cell id="235">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="270">
+                        <text-property name="text">华卉花号</text-property>
+                    </label>
+                </cell>
+                <cell id="236">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <data id="453">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">itemdesign</property>
+                                <text-property name="displayName">itemdesign</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemdesign"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">itemdesign</property>
+                    </data>
+                </cell>
+                <cell id="237">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="704">
+                        <text-property name="text">华卉色号</text-property>
+                    </label>
+                </cell>
+                <cell id="238">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                </cell>
+                <cell id="239">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">7</property>
+                    <image id="488">
+                        <property name="height">1.2916666666666667in</property>
+                        <property name="width">1.5138888888888888in</property>
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">itemdesignimg</property>
+                                <text-property name="displayName">itemdesignimg</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemdesignimg"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="source">url</property>
+                        <expression name="uri" type="javascript">row["itemdesignimg"]</expression>
+                    </image>
+                </cell>
+            </row>
+            <row id="362">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <cell id="363">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="265">
+                        <text-property name="text">品名</text-property>
+                    </label>
+                </cell>
+                <cell id="364">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <data id="703">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">itemdesigndesc</property>
+                                <text-property name="displayName">itemdesigndesc</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemdesigndesc"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">itemdesigndesc</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="241">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <cell id="242">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="272">
+                        <text-property name="text">规格</text-property>
+                    </label>
+                </cell>
+                <cell id="243">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <data id="440">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">itemdesignspec</property>
+                                <text-property name="displayName">itemdesignspec</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemdesignspec"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">itemdesignspec</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="248">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <cell id="249">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="271">
+                        <text-property name="text">成分</text-property>
+                    </label>
+                </cell>
+                <cell id="250">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                </cell>
+            </row>
+            <row id="255">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <cell id="256">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="269">
+                        <text-property name="text">其他</text-property>
+                    </label>
+                </cell>
+                <cell id="257">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                </cell>
+            </row>
+            <row id="424">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <cell id="425">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="705"/>
+                </cell>
+                <cell id="426">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+                <cell id="706"/>
+                <cell id="707">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                </cell>
+            </row>
+            <row id="369">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <cell id="370">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <label id="699"/>
+                </cell>
+                <cell id="371"/>
+                <cell id="372"/>
+                <cell id="373">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                </cell>
+            </row>
+            <row id="489">
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">thin</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">thin</property>
+                <property name="height">0.3055555555555556in</property>
+                <cell id="490">
+                    <label id="496"/>
+                </cell>
+                <cell id="491"/>
+                <cell id="492"/>
+                <cell id="493"/>
+                <cell id="494"/>
+                <cell id="495"/>
+            </row>
+        </grid>
+        <table id="615">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="width">7.7in</property>
+            <property name="dataSet">resourceDetail</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">process</property>
+                    <text-property name="displayName">process</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["process"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">procseq</property>
+                    <text-property name="displayName">procseq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["procseq"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">kind</property>
+                    <text-property name="displayName">kind</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["kind"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">content</property>
+                    <text-property name="displayName">content</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["content"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contentValue</property>
+                    <text-property name="displayName">contentValue</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["contentValue"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">boolValue</property>
+                    <text-property name="displayName">boolValue</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["boolValue"]</expression>
+                    <property name="dataType">boolean</property>
+                </structure>
+            </list-property>
+            <column id="631">
+                <property name="width">0.7222222222222222in</property>
+            </column>
+            <column id="648">
+                <property name="width">0.5555555555555556in</property>
+            </column>
+            <column id="632">
+                <property name="width">0.556in</property>
+            </column>
+            <column id="644">
+                <property name="width">2.125in</property>
+            </column>
+            <column id="694">
+                <property name="width">0.5833333333333334in</property>
+            </column>
+            <column id="634">
+                <property name="width">3.1527777777777777in</property>
+            </column>
+            <header>
+                <row id="616">
+                    <cell id="617">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="635">
+                            <text-property name="text">工艺</text-property>
+                        </label>
+                    </cell>
+                    <cell id="645">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="649">
+                            <text-property name="text">类型</text-property>
+                        </label>
+                    </cell>
+                    <cell id="618">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="637">
+                            <text-property name="text">序号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="641">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="639">
+                            <text-property name="text">资源名称</text-property>
+                        </label>
+                    </cell>
+                    <cell id="691">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="695">
+                            <text-property name="text">是否</text-property>
+                        </label>
+                    </cell>
+                    <cell id="620">
+                        <label id="656">
+                            <text-property name="text">内容</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="621">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <cell id="622">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="636">
+                            <property name="resultSetColumn">process</property>
+                        </data>
+                    </cell>
+                    <cell id="646">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="662">
+                            <property name="resultSetColumn">kind</property>
+                        </data>
+                    </cell>
+                    <cell id="623">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="638">
+                            <property name="resultSetColumn">procseq</property>
+                        </data>
+                    </cell>
+                    <cell id="642">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="685">
+                            <property name="resultSetColumn">content</property>
+                        </data>
+                    </cell>
+                    <cell id="692">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="696">
+                            <structure name="numberFormat">
+                                <property name="category">Unformatted</property>
+                            </structure>
+                            <structure name="stringFormat">
+                                <property name="category">Unformatted</property>
+                            </structure>
+                            <structure name="toc"/>
+                            <property name="resultSetColumn">boolValue</property>
+                        </data>
+                    </cell>
+                    <cell id="625">
+                        <data id="686">
+                            <property name="resultSetColumn">contentValue</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="626">
+                    <cell id="627">
+                        <label id="698"/>
+                    </cell>
+                    <cell id="647"/>
+                    <cell id="628"/>
+                    <cell id="643"/>
+                    <cell id="693"/>
+                    <cell id="630"/>
+                </row>
+            </footer>
+        </table>
+        <grid id="385">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="display">block</property>
+            <property name="canShrink">false</property>
+            <property name="width">7.7in</property>
+            <property name="dataSet">dataDetail</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">fyreq</property>
+                    <text-property name="displayName">fyreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["fyreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">hgreq</property>
+                    <text-property name="displayName">hgreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["hgreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">zbreq</property>
+                    <text-property name="displayName">zbreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["zbreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">psreq</property>
+                    <text-property name="displayName">psreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["psreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">yhreq</property>
+                    <text-property name="displayName">yhreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["yhreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">zhreq</property>
+                    <text-property name="displayName">zhreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["zhreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">sxreq</property>
+                    <text-property name="displayName">sxreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["sxreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dxreq</property>
+                    <text-property name="displayName">dxreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dxreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ckreq</property>
+                    <text-property name="displayName">ckreq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ckreq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="386">
+                <property name="width">1.2638888888888888in</property>
+            </column>
+            <column id="387"/>
+            <row id="394">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="395">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="412">
+                        <text-property name="text">放样要求</text-property>
+                    </label>
+                </cell>
+                <cell id="396">
+                    <property name="paddingTop">1pt</property>
+                    <data id="664">
+                        <property name="fontFamily">serif</property>
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">jhremark</property>
+                                <text-property name="displayName">fyreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["fyreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">jhremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="397">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="398">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="413">
+                        <text-property name="text">画稿要求</text-property>
+                    </label>
+                </cell>
+                <cell id="399">
+                    <property name="paddingTop">1pt</property>
+                    <data id="769">
+                        <property name="resultSetColumn">hgreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="405">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="406">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="414">
+                        <text-property name="text">制版要求</text-property>
+                    </label>
+                </cell>
+                <cell id="407">
+                    <property name="paddingTop">1pt</property>
+                    <data id="666">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">zbremark</property>
+                                <text-property name="displayName">zbreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["zbreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">zbreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["zbreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">zbreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="400">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="401">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="415">
+                        <text-property name="text">配色要求</text-property>
+                    </label>
+                </cell>
+                <cell id="402">
+                    <property name="paddingTop">1pt</property>
+                    <data id="667">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">psremark</property>
+                                <text-property name="displayName">psreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["psreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">psreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["psreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">psreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="595">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="596">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="610">
+                        <text-property name="text">印花要求</text-property>
+                    </label>
+                </cell>
+                <cell id="597">
+                    <property name="paddingTop">1pt</property>
+                    <data id="668">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">yhremark</property>
+                                <text-property name="displayName">yhreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["yhreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">yhreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["yhreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">yhreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="598">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="599">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="611">
+                        <text-property name="text">蒸化要求</text-property>
+                    </label>
+                </cell>
+                <cell id="600">
+                    <property name="paddingTop">1pt</property>
+                    <data id="669">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">zhremark</property>
+                                <text-property name="displayName">zhreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["zhreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">zhreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["zhreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <method name="onRender"><![CDATA[
+]]></method>
+                        <property name="resultSetColumn">zhreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="604">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="605">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="612">
+                        <text-property name="text">水洗要求</text-property>
+                    </label>
+                </cell>
+                <cell id="606">
+                    <property name="paddingTop">1pt</property>
+                    <data id="670">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">sxremark</property>
+                                <text-property name="displayName">sxreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["sxreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">sxreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["sxreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">sxreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="607">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">0.612in</property>
+                <cell id="608">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="613">
+                        <text-property name="text">定型要求</text-property>
+                    </label>
+                </cell>
+                <cell id="609">
+                    <property name="paddingTop">1pt</property>
+                    <data id="671">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">dxremark</property>
+                                <text-property name="displayName">dxreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["dxreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">dxreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["dxreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">dxreq</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="601">
+                <property name="height">0.612in</property>
+                <cell id="602">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="614">
+                        <text-property name="text">仓库要求</text-property>
+                    </label>
+                </cell>
+                <cell id="603">
+                    <property name="paddingTop">1pt</property>
+                    <data id="697">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">ckremark</property>
+                                <text-property name="displayName">ckreq</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["ckreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">ckreq</property>
+                                <expression name="expression" type="javascript">dataSetRow["ckreq"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">ckreq</property>
+                    </data>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

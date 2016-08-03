@@ -15,9 +15,9 @@
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
                     <h:outputLabel value="花号" for="designid" />
-                    <p:inputText id="designid" value="#{zbManagedBean.designid}" title="花号" />
+                    <p:inputText id="designid" value="#{psManagedBean.designno}" title="花号" />
                     <h:outputLabel value="配色状态" for="state" />
-                    <p:selectOneMenu id="state" value="#{zbManagedBean.queryState}" title="状态" >
+                    <p:selectOneMenu id="state" value="#{psManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
                         <f:selectItem itemLabel="未提交" itemValue="N"/>
                         <f:selectItem itemLabel="已提交" itemValue="V"/>
@@ -37,7 +37,7 @@
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" action="#{psManagedBean.edit('psEdit')}" icon="ui-icon-pencil" value="编辑"
                                      rendered="#{psManagedBean.doEdit}"/>                                                     
-                    <p:commandButton id="btnUnverify" actionListener="#{psManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                    <p:commandButton id="btnUnverify" actionListener="#{psManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
                                      rendered="#{psManagedBean.doUnCfm}"  update=":formList"/>                   
                     <p:commandButton id="btnCreate" action="#{psManagedBean.create('psNew')}" icon="ui-icon-plus" value="新增" 
                                      rendered="#{psManagedBean.doAdd}"/>
@@ -58,33 +58,33 @@
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="订单日期"/>
+                        <h:outputText value="工单编号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="工单日期"/>
                     </f:facet>
                     <h:outputText value="#{item.formdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
-                    <h:outputText value="#{item.designid}"/>
+                    <h:outputText value="#{item.designno}"/>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="成品规格"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemspec}"/>
+                    <h:outputText value="#{item.designspec}"/>
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="订单数量"/>
-                    </f:facet>
-                    <h:outputText value="#{item.orderqty}"/>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlRight">
-                    <f:facet name="header">
-                        <h:outputText value="计划数量"/>
+                        <h:outputText value="工单数量"/>
                     </f:facet>
                     <h:outputText value="#{item.qty}"/>
                 </p:column>

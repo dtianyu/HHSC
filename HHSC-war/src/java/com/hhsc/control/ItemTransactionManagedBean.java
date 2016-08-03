@@ -256,8 +256,14 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
 
     @Override
     public void openDialog(String view) {
-        if ("deptSelect".equals(view) || "trtypeSelect".equals(view) || "warehouseSelect".equals(view)) {
+        if ("deptSelect".equals(view) || "warehouseSelect".equals(view)) {
             super.openDialog(view);
+        } else if ("trtypeSelect".equals(view)) {
+            Map<String, List<String>> params = new HashMap<>();
+            List<String> sysid = new ArrayList<>();
+            sysid.add("MM");
+            params.put("sysid", sysid);           
+            super.openDialog(view, params);
         } else {
             if (currentEntity.getTransactionType() == null) {
                 showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入异动类别");

@@ -5,21 +5,14 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.FactoryOrderBean;
-import com.hhsc.ejb.FactoryOrderDetailBean;
-import com.hhsc.ejb.PrintDetailBean;
-import com.hhsc.entity.FactoryOrder;
-import com.hhsc.entity.FactoryOrderDetail;
-import com.hhsc.entity.PrintDetail;
-import com.hhsc.lazy.YHModel;
-import com.hhsc.web.FormMulti2Bean;
+import com.hhsc.entity.Department;
+import com.hhsc.entity.ProductionOrder;
+import com.hhsc.entity.ProductionResource;
 import com.lightshell.comm.BaseLib;
-import java.math.BigDecimal;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -27,38 +20,85 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "yhManagedBean")
 @SessionScoped
-public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDetail, PrintDetail> {
-
-    @EJB
-    private FactoryOrderBean factoryOrderBean;
-    @EJB
-    private FactoryOrderDetailBean factoryOrderDetailBean;
-    @EJB
-    private PrintDetailBean printDetailBean;
-
-    protected String designid;
+public class YHManagedBean extends ProductionOrderManagedBean {
 
     public YHManagedBean() {
-        super(FactoryOrder.class, FactoryOrderDetail.class, PrintDetail.class);
+
     }
 
     @Override
-    public void createDetail2() {
-        super.createDetail2();
-        this.newDetail2.setSeq(getMaxSeq(this.detailList2));
-        this.newDetail2.setQty(BigDecimal.ONE);
-        this.newDetail2.setPrice(BigDecimal.ZERO);
-        this.setCurrentDetail2(newDetail2);
+    protected boolean doBeforeUnverify() throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
+            return false;
+        }
+        ProductionOrder e = (ProductionOrder) superEJB.findById(currentEntity.getId());
+        if ("V".equals(e.getZhstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "蒸化已确认");
+            return false;
+        }
+        if (!"V".equals(e.getYhstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        if (detailList2 != null && !detailList2.isEmpty()) {
+            detailList2.clear();
+        }
+        if (detailList3 != null && !detailList3.isEmpty()) {
+            detailList3.clear();
+        }
+        detailList = detailEJB.findByPId(currentEntity.getFormid());
+        detailList2 = detailEJB2.findByPId(currentEntity.getFormid());
+        detailList3 = detailEJB3.findByPId(currentEntity.getFormid());
+        return true;
+    }
+
+    @Override
+    protected boolean doBeforeVerify() throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!");
+            return false;
+        }
+        ProductionOrder e = (ProductionOrder) superEJB.findById(currentEntity.getId());
+        if ("V".equals(e.getYhstatus())) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        if (detailList2 != null && !detailList2.isEmpty()) {
+            detailList2.clear();
+        }
+        if (detailList3 != null && !detailList3.isEmpty()) {
+            detailList3.clear();
+        }
+        detailList = detailEJB.findByPId(currentEntity.getFormid());
+        detailList2 = detailEJB2.findByPId(currentEntity.getFormid());
+        detailList3 = detailEJB3.findByPId(currentEntity.getFormid());
+        return true;
+    }
+
+    public void handleDialogReturnDeptWhenDetailEdit(SelectEvent event){
+        if(event.getObject()!=null){
+            Department e = (Department)event.getObject();
+            currentDetail3.setDept(e);
+        }
     }
 
     @Override
     public void init() {
-        setSuperEJB(factoryOrderBean);
-        setDetailEJB(factoryOrderDetailBean);
-        setDetailEJB2(printDetailBean);
-        setModel(new YHModel(factoryOrderBean));
-        getModel().getFilterFields().put("yhstatus", "N");
         super.init();
+        this.model.getFilterFields().clear();
+        this.model.getSortFields().clear();
+        this.model.getFilterFields().put("jhstatus", "V");
+        this.model.getFilterFields().put("psstatus", "V");
+        this.model.getFilterFields().put("yhstatus", "N");
+        this.model.getSortFields().put("yhstatus", "ASC");
+        this.model.getSortFields().put("formid", "DESC");
     }
 
     @Override
@@ -73,7 +113,7 @@ public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDeta
                 }
                 update();
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Warn", e.getMessage());
             }
         }
     }
@@ -88,12 +128,16 @@ public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDeta
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("yhdeldateEnd", queryDateEnd);
             }
-            if (designid != null && !"".equals(designid)) {
-                this.model.getFilterFields().put("designid", designid);
+            if (designno != null && !"".equals(designno)) {
+                this.model.getFilterFields().put("designno", designno);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("yhstatus", queryState);
             }
+            this.model.getFilterFields().put("jhstatus", "V");
+            this.model.getFilterFields().put("psstatus", "V");
+            this.model.getSortFields().put("yhstatus", "ASC");
+            this.model.getSortFields().put("formid", "DESC");
         }
     }
 
@@ -101,7 +145,11 @@ public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDeta
     public void reset() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            this.model.getFilterFields().put("jhstatus", "V");
+            this.model.getFilterFields().put("psstatus", "V");
             this.model.getFilterFields().put("yhstatus", "N");
+            this.model.getSortFields().put("yhstatus", "ASC");
+            this.model.getSortFields().put("formid", "DESC");
         }
     }
 
@@ -137,6 +185,34 @@ public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDeta
     }
 
     @Override
+    protected void splitResource() {
+        this.equipments.clear();
+        this.processes.clear();
+        this.materials.clear();
+        this.hurmans.clear();
+        for (ProductionResource r : detailList2) {
+            if (!"YH".equals(r.getProcess().getProcessno())) {
+                continue;
+            }
+            switch (r.getKind()) {
+                case "E":
+                    this.equipments.add(r);
+                    break;
+                case "P":
+                    this.processes.add(r);
+                    break;
+                case "M":
+                    this.materials.add(r);
+                    break;
+                case "H":
+                    this.hurmans.add(r);
+                    break;
+                default:
+            }
+        }
+    }
+
+    @Override
     public void unverify() {
         if (null != getCurrentEntity()) {
             try {
@@ -144,20 +220,20 @@ public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setYhstatus("N");
                     currentEntity.setYhdelman(null);
                     currentEntity.setZhrecdate(null);
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
-                    currentEntity.setStatus("YH");
+                    currentEntity.setStatus("印花");
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "取消前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "还原前检查失败");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Warn", e.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
     }
 
@@ -169,35 +245,21 @@ public class YHManagedBean extends FormMulti2Bean<FactoryOrder, FactoryOrderDeta
                     currentEntity.setYhstatus("V");
                     currentEntity.setYhdelman(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setZhrecdate(getDate());
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
-                    currentEntity.setStatus("HZ");
+                    currentEntity.setStatus("蒸化");
                     superEJB.verify(currentEntity);
                     doAfterVerify();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
+                    showMsg(FacesMessage.SEVERITY_INFO, "Info", "更新成功");
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
+                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败");
                 }
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Warn", e.getMessage());
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
         }
-    }
-
-    /**
-     * @return the designid
-     */
-    public String getDesignid() {
-        return designid;
-    }
-
-    /**
-     * @param designid the designid to set
-     */
-    public void setDesignid(String designid) {
-        this.designid = designid;
     }
 
 }
