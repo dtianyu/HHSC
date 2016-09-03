@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="processgroup" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{processGroupManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{processGroupManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{processGroupManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{processGroupManagedBean.hasNext}"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{processGroupManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{processGroupManagedBean.doCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{processGroupManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{processGroupManagedBean.doPrt}"/> 
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="paneHead" header="工艺群组－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="群组编号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="groupno" value="#{processGroupManagedBean.currentEntity.groupno}" title="groupno"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="群组名称"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="group" value="#{processGroupManagedBean.currentEntity.name}" title="group"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark" value="#{processManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>                   
+                    </p:row>                   
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="设备明细">
+                    <p:panel id="panelDetail1">                        
+                        <p:dataTable id="tableList1" value="#{processGroupManagedBean.equipments}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="工艺明细">
+                    <p:panel id="panelDetail2">                       
+                        <p:dataTable id="tableList2" value="#{processGroupManagedBean.processes}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="辅料明细">
+                    <p:panel id="panelDetail3">                     
+                        <p:dataTable id="tableList3" value="#{processGroupManagedBean.materials}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="人员明显">
+                    <p:panel id="panelDetail4">                       
+                        <p:dataTable id="tableList4" value="#{processGroupManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect"  update="formView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="工艺"/>
+                                </f:facet>
+                                <h:outputText value="#{item.process.process}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="序号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.procseq}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="资源名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.content}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="布尔值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.boolvalue}"/>
+                            </p:column>
+                            <p:column styleClass="TexAlRight Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="数值值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.numvalue}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="文字值"/>
+                                </f:facet>
+                                <h:outputText value="#{item.strvalue}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail">
+                <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
+                    <p:row>
+                        <p:column><h:outputText value="工艺"/></p:column>
+                        <p:column>
+                            <h:outputText id="process1" value="#{processGroupManagedBean.currentDetail.process.process}"/>
+                        </p:column>
+                        <p:column><h:outputText value="序号"/></p:column>
+                        <p:column>
+                            <h:outputText id="procseq1" value="#{processGroupManagedBean.currentDetail.procseq}" title="Procseq"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="类别"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="kind1" value="#{processGroupManagedBean.currentDetail.kind}" title="Kind" 
+                                             required="true" requiredMessage="请输入资源类别" disabled="true">
+                                <f:selectItem itemLabel="设备" itemValue="E" />
+                                <f:selectItem itemLabel="工艺" itemValue="P" />
+                                <f:selectItem itemLabel="物料" itemValue="M" />
+                                <f:selectItem itemLabel="人员" itemValue="H" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="值类型"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="valuetype1" value="#{processGroupManagedBean.currentDetail.valuetype}" title="Valuetype" 
+                                             required="true" requiredMessage="请输入值类型" disabled="true">
+                                <f:selectItem itemLabel="-选择-" itemValue="" />
+                                <f:selectItem itemLabel="布尔" itemValue="bool" />
+                                <f:selectItem itemLabel="数值" itemValue="Decimal" />
+                                <f:selectItem itemLabel="文字" itemValue="String" />
+                                <p:ajax process="valuetype1" update="boolvalue1,numvalue1,strvalue1"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="资源名称"/></p:column>
+                        <p:column>
+                            <h:outputText id="content1" value="#{processGroupManagedBean.currentDetail.content}" title="Content" />
+                        </p:column>
+                        <p:column><h:outputText value="布尔"/></p:column>
+                        <p:column>
+                            <h:outputText id="boolvalue1" value="#{processGroupManagedBean.currentDetail.boolvalue}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="数值"/></p:column>
+                        <p:column>
+                            <h:outputText id="numvalue1" value="#{processGroupManagedBean.currentDetail.numvalue}" title="Numvalue" />
+                        </p:column>
+                        <p:column><h:outputText value="文字"/></p:column>
+                        <p:column>
+                            <h:outputText id="strvalue1" value="#{processGroupManagedBean.currentDetail.strvalue}" title="Strvalue"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark1" value="#{processGroupManagedBean.currentDetail.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>  
+        </h:form>
+    </ui:define>
+
+</ui:composition>

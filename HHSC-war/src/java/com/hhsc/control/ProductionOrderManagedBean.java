@@ -5,6 +5,7 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.ejb.ProcessDetailBean;
 import com.hhsc.rpt.ProductionOrderReport;
 import com.hhsc.ejb.ProductionOrderBean;
 import com.hhsc.ejb.ProductionOrderDetailBean;
@@ -15,6 +16,9 @@ import com.hhsc.entity.Customer;
 import com.hhsc.entity.ProductionOrder;
 import com.hhsc.entity.ProductionOrderDetail;
 import com.hhsc.entity.ItemMaster;
+import com.hhsc.entity.ProcessDetail;
+import com.hhsc.entity.ProcessGroup;
+import com.hhsc.entity.ProcessResource;
 import com.hhsc.entity.ProductionPrint;
 import com.hhsc.entity.ProductionResource;
 import com.hhsc.entity.SalesOrderDetailForQuery;
@@ -52,9 +56,11 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
     @EJB
     private ProductionOrderDetailBean productionOrderDetailBean;
     @EJB
+    private ProductionPrintBean productionPrintBean;
+    @EJB
     private ProductionResourceBean productionResourceBean;
     @EJB
-    private ProductionPrintBean productionPrintBean;
+    private ProcessDetailBean processDetailBean;
 
     protected List<ProductionResource> equipments;
     protected List<ProductionResource> processes;
@@ -289,6 +295,48 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
             currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
             currentDetail.setSrcseq(entity.getSeq());
             currentEntity.setSalesman(entity.getSalesOrder().getSalesman().getUsername());
+        }
+    }
+
+    @Override
+    public void handleDialogReturnWhenDetail2Edit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null && currentDetail2 != null) {
+            ProcessResource r = (ProcessResource) event.getObject();
+            currentDetail2.setProcess(r.getProcess());
+            currentDetail2.setProcseq(r.getSeq());
+            currentDetail2.setKind(r.getKind());
+            currentDetail2.setItemid(currentEntity.getDesign().getId());
+            currentDetail2.setItemno(currentEntity.getDesignno());
+            currentDetail2.setContent(r.getContent());
+            currentDetail2.setValuetype(r.getValuetype());
+            currentDetail2.setBoolvalue(r.getBoolvalue());
+            currentDetail2.setNumvalue(r.getNumvalue());
+            currentDetail2.setStrvalue(r.getStrvalue());
+            currentDetail2.setRemark(r.getRemark());
+        }
+    }
+
+    public void handleDialogReturnGroupWhenDetail2Edit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null && this.detailList2 != null) {
+            ProcessGroup g = (ProcessGroup) event.getObject();
+            List<ProcessDetail> processDetails = processDetailBean.findByPId(g.getId());
+            if (processDetails != null && !processDetails.isEmpty()) {
+                for (ProcessDetail r : processDetails) {
+                    this.createDetail2();
+                    currentDetail2.setProcess(r.getProcess());
+                    currentDetail2.setProcseq(r.getSeq());
+                    currentDetail2.setKind(r.getKind());
+                    currentDetail2.setItemid(currentEntity.getDesign().getId());
+                    currentDetail2.setItemno(currentEntity.getDesignno());
+                    currentDetail2.setContent(r.getContent());
+                    currentDetail2.setValuetype(r.getValuetype());
+                    currentDetail2.setBoolvalue(r.getBoolvalue());
+                    currentDetail2.setNumvalue(r.getNumvalue());
+                    currentDetail2.setStrvalue(r.getStrvalue());
+                    currentDetail2.setRemark(r.getRemark());
+                    this.doConfirmDetail2();
+                }
+            }
         }
     }
 

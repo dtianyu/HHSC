@@ -344,14 +344,22 @@
                 <p:tab title="设备明细">
                     <p:toolbar id="detailToolbar1" styleClass="detailToolbar">
                         <f:facet name="left">
+                            <p:commandButton id="btnAddDetail1" widgetVar="btnAddDetail1" value="添加" actionListener="#{productionOrderManagedBean.createDetail2()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').enable();" 
+                                             process="@this,formEdit:plgHead" update="plgDetail1"/>
                             <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{productionOrderManagedBean.deleteDetail2()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
+                                             oncomplete="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
                                              update=":formEdit:tabView:plgDetail1,:formEdit:tabView:tableList1" process="@this" />  
                         </f:facet>
-                        <f:facet name="right">                        
+                        <f:facet name="right">   
+                            <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{productionOrderManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnGroupWhenDetail2Edit}" 
+                                        update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1,formEdit:tabView:tableList2,formEdit:tabView:tableList3,formEdit:tabView:tableList4"/>  
+                            </p:commandButton>         
                             <p:commandButton id="btnSaveDetail1" widgetVar="btnSaveDetail1" value="确定" actionListener="#{productionOrderManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
-                                             update=":formEdit:qty,formEdit:tabView:plgDetail1,formEdit:tabView:tableList1" process="@this,plgDetail1"/>                                
+                                             onsuccess="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
+                                             update=":formEdit:qty,formEdit:tabView:plgDetail1,formEdit:tabView:tableList1,formEdit:tabView:tableList2,formEdit:tabView:tableList3,formEdit:tabView:tableList4" process="@this,plgDetail1"/>                                
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail1">
@@ -394,8 +402,13 @@
                             <p:row>
                                 <p:column><p:outputLabel value="资源名称" for="content1"/></p:column>
                                 <p:column>
-                                    <p:inputText id="content1" value="#{productionOrderManagedBean.currentDetail2.content}" title="Content" 
+                                    <p:inputText id="content1" value="#{productionOrderManagedBean.currentDetail2.content}" title="Content" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入资源名称"/>
+                                    <p:commandButton id="btnSelectResource" actionListener="#{productionOrderManagedBean.openDialog('processresourceSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnWhenDetail2Edit}" 
+                                                update="plgDetail1" />
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue1" /></p:column>
                                 <p:column>

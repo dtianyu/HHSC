@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/WEB-INF/faces-config.xml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/ProductionOrderManagedBean.java</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/src/java/com/hhsc/control/ItemProcessManagedBean.java</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/pp/productionorderEdit.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/pp/itemprocessEdit.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HHSC/HHSC-war/web/app/pp/itemprocessNew.xhtml</file>
+        </group>
     </open-files>
 </project-private>

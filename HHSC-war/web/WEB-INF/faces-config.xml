@@ -456,6 +456,26 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>processgroup</from-outcome>
+            <to-view-id>/app/pp/processgroup.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>processgroupNew</from-outcome>
+            <to-view-id>/app/pp/processgroupNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>processgroupEdit</from-outcome>
+            <to-view-id>/app/pp/processgroupEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>processgroupView</from-outcome>
+            <to-view-id>/app/pp/processgroupView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>productionfinish</from-outcome>
             <to-view-id>/app/pp/productionfinish.xhtml</to-view-id>
             <redirect/>
@@ -968,7 +988,12 @@
             <to-view-id>/app/df/itemmasterSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-         <navigation-case>
+        <navigation-case>
+            <from-outcome>processgroupSelect</from-outcome>
+            <to-view-id>/app/df/processgroupSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>processresourceSelect</from-outcome>
             <to-view-id>/app/df/processresourceSelect.xhtml</to-view-id>
             <redirect/>

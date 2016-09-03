@@ -33,9 +33,10 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column><p:outputLabel value="规格" for="itemspec"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemmaster.itemspec}" title="itemspec" />
+                            <p:inputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemmaster.itemspec}" title="itemspec" 
+                                         required="true" requiredMessage="请输入规格" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -123,10 +124,15 @@
                                              oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').enable();" 
                                              process="@this,formEdit:plgHead" update="plgDetail1"/>
                             <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{itemProcessManagedBean.deleteDetail()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
+                                             oncomplete="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
                                              process="@this" update="formEdit:tabView:plgDetail1,:formEdit:tabView:tableList1" />  
                         </f:facet>
-                        <f:facet name="right">                        
+                        <f:facet name="right">
+                             <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{productionOrderManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemProcessManagedBean.handleDialogReturnGroupWhenDetailEdit}" 
+                                        update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1,formEdit:tabView:tableList2,formEdit:tabView:tableList3,formEdit:tabView:tableList4"/>  
+                            </p:commandButton>
                             <p:commandButton id="btnSaveDetail1" widgetVar="btnSaveDetail1" value="确定" actionListener="#{itemProcessManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
                                              process="@this,plgDetail1" update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1,formEdit:tabView:tableList2,formEdit:tabView:tableList3,formEdit:tabView:tableList4" />                                

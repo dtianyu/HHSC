@@ -7,9 +7,12 @@ package com.hhsc.control;
 
 import com.hhsc.ejb.ItemResourceBean;
 import com.hhsc.ejb.ItemProcessBean;
+import com.hhsc.ejb.ProcessDetailBean;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.ItemProcess;
 import com.hhsc.entity.ItemResource;
+import com.hhsc.entity.ProcessDetail;
+import com.hhsc.entity.ProcessGroup;
 import com.hhsc.entity.ProcessResource;
 import com.hhsc.lazy.ItemProcessModel;
 import com.hhsc.rpt.ItemProcessReport;
@@ -30,6 +33,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "itemProcessManagedBean")
 @SessionScoped
 public class ItemProcessManagedBean extends SuperMultiBean<ItemProcess, ItemResource> {
+
+    @EJB
+    private ProcessDetailBean processDetailBean;
 
     @EJB
     private ItemProcessBean itemProcessBean;
@@ -121,6 +127,29 @@ public class ItemProcessManagedBean extends SuperMultiBean<ItemProcess, ItemReso
             this.currentDetail.setNumvalue(e.getNumvalue());
             this.currentDetail.setStrvalue(e.getStrvalue());
             this.currentDetail.setRemark(e.getRemark());
+        }
+    }
+
+    public void handleDialogReturnGroupWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null && this.detailList != null) {
+            ProcessGroup g = (ProcessGroup) event.getObject();
+            List<ProcessDetail> processDetails = processDetailBean.findByPId(g.getId());
+            if (processDetails != null && !processDetails.isEmpty()) {
+                for (ProcessDetail r : processDetails) {
+                    this.createDetail();                   
+                    currentDetail.setItemno(currentEntity.getItemno());
+                    currentDetail.setProcess(r.getProcess());
+                    currentDetail.setProcseq(r.getSeq());
+                    currentDetail.setKind(r.getKind());
+                    currentDetail.setContent(r.getContent());
+                    currentDetail.setValuetype(r.getValuetype());
+                    currentDetail.setBoolvalue(r.getBoolvalue());
+                    currentDetail.setNumvalue(r.getNumvalue());
+                    currentDetail.setStrvalue(r.getStrvalue());
+                    currentDetail.setRemark(r.getRemark());
+                    this.doConfirmDetail();
+                }
+            }
         }
     }
 

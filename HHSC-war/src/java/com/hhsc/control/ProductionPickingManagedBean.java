@@ -20,6 +20,7 @@ import com.hhsc.entity.SalesType;
 import com.hhsc.entity.TransactionType;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.ProductionPickingModel;
+import com.hhsc.rpt.ProductionPickingReport;
 import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -99,14 +101,14 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
 
     @Override
     protected boolean doBeforeVerify() throws Exception {
-        if (!super.doBeforeVerify()){
+        if (!super.doBeforeVerify()) {
             return false;
         }
         if (this.detailList == null || this.detailList.isEmpty()) {
             showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有交易明细!");
             return false;
         }
-         if (currentEntity.getTransactionType().getIocode() == -1) {
+        if (currentEntity.getTransactionType().getIocode() == -1) {
             ItemInventory i;
             for (ProductionPickingDetail d : this.detailList) {
                 i = itemInventoryBean.findItemInventory(d.getItemno(), d.getColorno(), d.getBrand(), d.getBatch(), d.getSn(), d.getWarehouse().getWarehouseno());
@@ -278,6 +280,12 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
                 this.model.getFilterFields().put("status", queryState);
             }
         }
+    }
+
+    @Override
+    protected void reportInitAndConfig() {
+        super.reportInitAndConfig();
+        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, ProductionPickingReport.class.getClassLoader());
     }
 
     /**

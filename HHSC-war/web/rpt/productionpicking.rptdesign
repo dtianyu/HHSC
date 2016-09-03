@@ -364,12 +364,12 @@ if(currentRow < 4 || currentRow < detail.size()){
 		dataSetRow["formdate"] = master.getFormdate();
 		dataSetRow["trtype"] = master.getTransactionType().getTrname();
 		dataSetRow["dept"] = master.getDept().getDept();
-		dataSetRow["remark"] = master.getRemark();
-		dataSetRow["seq"] = detail.get(currentRow).getSeq();
-		dataSetRow["itemdesign"] = "";
+		dataSetRow["remark"] = master.getRemark();		
+		dataSetRow["itemdesign"] = master.getSrcitemno();
 		dataSetRow["itemdesigndesc"] = "";
 		dataSetRow["itemdesignspec"] = "";
 		dataSetRow["itemdesignimg"] = "";
+		dataSetRow["seq"] = detail.get(currentRow).getSeq();
 		dataSetRow["itemno"] = detail.get(currentRow).getItemno();
 		dataSetRow["colorno"] = detail.get(currentRow).getColorno();
 		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();
@@ -600,7 +600,16 @@ return false;]]></method>
                 <cell id="243">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <data id="618">
+                    <data id="630">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">itemdesign</property>
+                                <text-property name="displayName">itemdesign</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemdesign"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
                         <property name="resultSetColumn">itemdesign</property>
                     </data>
                 </cell>

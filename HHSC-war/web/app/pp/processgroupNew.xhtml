@@ -12,133 +12,48 @@
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />   
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="itemprocess" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:button id="btnReturn" value="返回" outcome="processgroup" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" value="保存" action="#{itemProcessManagedBean.persist()}" icon="ui-icon-disk"  
+                    <p:commandButton id="btnPersist" value="保存" action="#{processGroupManagedBean.persist()}" icon="ui-icon-disk"  
                                      process="@this,plgHead" update="formNew"/>
                 </f:facet>
             </p:toolbar> 
-            <p:panel id="panelHead" header="工艺设计－新增">
+            <p:panel id="panelHead" header="工艺群组－新增">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="花号" for="itemno" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="群组编号" for="groupno" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="itemno" value="#{itemProcessManagedBean.newEntity.itemno}" title="itemno" styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入花号" readonly="true"/>
-                            <p:commandButton actionListener="#{itemProcessManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemProcessManagedBean.handleDialogReturnWhenNew}" 
-                                        update="plgHead" />
-                            </p:commandButton>
+                            <p:inputText id="groupno" value="#{processGroupManagedBean.newEntity.groupno}" title="groupno"
+                                         required="true" requiredMessage="请输入群组编号"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="品名"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="群组名称"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="itemdesc" value="#{itemProcessManagedBean.newEntity.itemmaster.itemdesc}" title="designdesc"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><p:outputLabel value="规格" for="itemspec"/></p:column>
-                        <p:column colspan="3">
-                            <p:inputText id="itemspec" value="#{itemProcessManagedBean.newEntity.itemmaster.itemspec}" title="itemspec" 
-                                         required="true" requiredMessage="请输入规格" />
+                            <p:inputText id="group" value="#{processGroupManagedBean.newEntity.name}" title="group"
+                                           required="true" requiredMessage="请输入群组名称"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column colspan="3">
-                            <p:inputText id="remark" value="#{itemProcessManagedBean.newEntity.remark}" title="Remark" />
+                            <p:inputText id="remark" value="#{processGroupManagedBean.newEntity.remark}" title="Remark" />
                         </p:column>                   
                     </p:row>                   
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
-                <p:tab title="备注信息">
-                    <p:panel id="panelBase">
-                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="放样要求" for="fyreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="fyreq" rows="3" value="#{itemProcessManagedBean.newEntity.fyreq}" title="fyreq" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="hgreq" rows="3" value="#{itemProcessManagedBean.newEntity.hgreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="制版要求" for="zbreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="zbreq" rows="3" value="#{itemProcessManagedBean.newEntity.zbreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="配色要求" for="psreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="psreq" rows="3" value="#{itemProcessManagedBean.newEntity.psreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="印花要求" for="yhreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="yhreq" rows="3" value="#{itemProcessManagedBean.newEntity.yhreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="蒸化要求" for="zhreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="zhreq" rows="3" value="#{itemProcessManagedBean.newEntity.zhreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="水洗要求" for="zhreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="sxreq" rows="3" value="#{itemProcessManagedBean.newEntity.sxreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="定型要求" for="dxreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="dxreq" rows="3" value="#{itemProcessManagedBean.newEntity.dxreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="仓库要求" for="ckreq" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="ckreq" rows="3" value="#{itemProcessManagedBean.newEntity.ckreq}" title="req" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>
-                    </p:panel>
-                </p:tab>
                 <p:tab id="tabE" title="设备明细">
                     <p:toolbar id="detailToolbar1" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnAddDetail1" widgetVar="btnAddDetail1" value="添加" actionListener="#{itemProcessManagedBean.createDetail()}" icon="ui-icon-plus" 
+                            <p:commandButton id="btnAddDetail1" widgetVar="btnAddDetail1" value="添加" actionListener="#{processGroupManagedBean.createDetail()}" icon="ui-icon-plus" 
                                              oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').enable();" 
                                              process="@this,formNew:plgHead" update="plgDetail1"/>
-                            <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{itemProcessManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                            <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{processGroupManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
                                              process="@this" update="formNew:tabView:plgDetail1,:formNew:tabView:tableList1" />  
                         </f:facet>
-                        <f:facet name="right">
-                            <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{productionOrderManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemProcessManagedBean.handleDialogReturnGroupWhenDetailEdit}" 
-                                        update="formNew:tabView:plgDetail1,formNew:tabView:tableList1,formNew:tabView:tableList2,formNew:tabView:tableList3,formNew:tabView:tableList4"/>  
-                            </p:commandButton>
-                            <p:commandButton id="btnSaveDetail1" widgetVar="btnSaveDetail1" value="确定" actionListener="#{itemProcessManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                        <f:facet name="right">                        
+                            <p:commandButton id="btnSaveDetail1" widgetVar="btnSaveDetail1" value="确定" actionListener="#{processGroupManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
                                              process="@this,plgDetail1" update="formNew:tabView:plgDetail1,formNew:tabView:tableList1,formNew:tabView:tableList2,formNew:tabView:tableList3,formNew:tabView:tableList4" />                                
                         </f:facet>
@@ -148,18 +63,18 @@
                             <p:row>
                                 <p:column><h:outputText value="工艺"/></p:column>
                                 <p:column>
-                                    <h:outputText id="process1" value="#{itemProcessManagedBean.currentDetail.process.process}"/>
+                                    <h:outputText id="process1" value="#{processGroupManagedBean.currentDetail.process.process}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="序号" for="procseq1" /></p:column>
                                 <p:column>
-                                    <p:inputText id="procseq1" value="#{itemProcessManagedBean.currentDetail.procseq}" title="Procseq"
+                                    <p:inputText id="procseq1" value="#{processGroupManagedBean.currentDetail.procseq}" title="Procseq"
                                                  required="true" requiredMessage="The Procseq field is required."/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="类别" for="kind1" /></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="kind1" value="#{itemProcessManagedBean.currentDetail.kind}" title="Kind" 
+                                    <p:selectOneMenu id="kind1" value="#{processGroupManagedBean.currentDetail.kind}" title="Kind" 
                                                      required="true" requiredMessage="请输入资源类别">
                                         <f:selectItem itemLabel="设备" itemValue="E" />
                                         <f:selectItem itemLabel="工艺" itemValue="P" />
@@ -170,7 +85,7 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="值类型" for="valuetype1"/></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="valuetype1" value="#{itemProcessManagedBean.currentDetail.valuetype}" title="Valuetype" 
+                                    <p:selectOneMenu id="valuetype1" value="#{processGroupManagedBean.currentDetail.valuetype}" title="Valuetype" 
                                                      required="true" requiredMessage="请输入值类型">
                                         <f:selectItem itemLabel="-选择-" itemValue="" />
                                         <f:selectItem itemLabel="布尔" itemValue="bool" />
@@ -183,41 +98,41 @@
                             <p:row>
                                 <p:column><p:outputLabel value="资源名称" for="content1"/></p:column>
                                 <p:column>
-                                    <p:inputText id="content1" value="#{itemProcessManagedBean.currentDetail.content}" title="Content" styleClass="inputWithButton"
+                                    <p:inputText id="content1" value="#{processGroupManagedBean.currentDetail.content}" title="Content" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入资源名称"/>
-                                    <p:commandButton id="btnSelectResource" actionListener="#{itemProcessManagedBean.openDialog('processresourceSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnSelectResource" actionListener="#{processGroupManagedBean.openDialog('processresourceSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemProcessManagedBean.handleDialogReturnWhenDetailEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{processGroupManagedBean.handleDialogReturnWhenDetailEdit}" 
                                                 update="plgDetail1" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue1" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="boolvalue1" value="#{itemProcessManagedBean.currentDetail.boolvalue}" 
-                                                   disabled = "#{itemProcessManagedBean.currentDetail.valuetype!='bool'}" />
+                                    <p:inputSwitch id="boolvalue1" value="#{processGroupManagedBean.currentDetail.boolvalue}" 
+                                                   disabled = "#{processGroupManagedBean.currentDetail.valuetype!='bool'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="数值" for="numvalue1" /></p:column>
                                 <p:column>
-                                    <p:inputText id="numvalue1" value="#{itemProcessManagedBean.currentDetail.numvalue}" title="Numvalue" 
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='Decimal'}" />
+                                    <p:inputText id="numvalue1" value="#{processGroupManagedBean.currentDetail.numvalue}" title="Numvalue" 
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='Decimal'}" />
                                 </p:column>
                                 <p:column><p:outputLabel value="文字" for="strvalue1" /></p:column>
                                 <p:column>
-                                    <p:inputText id="strvalue1" value="#{itemProcessManagedBean.currentDetail.strvalue}" title="Strvalue"
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='String'}" />
+                                    <p:inputText id="strvalue1" value="#{processGroupManagedBean.currentDetail.strvalue}" title="Strvalue"
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='String'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="备注" for="remark1" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputText id="remark1" value="#{itemProcessManagedBean.currentDetail.remark}" title="Remark" />
+                                    <p:inputText id="remark1" value="#{processGroupManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>                        
-                        <p:dataTable id="tableList1" value="#{itemProcessManagedBean.equipments}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:dataTable id="tableList1" value="#{processGroupManagedBean.equipments}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formNew:tabView:plgDetail1" oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').enable();PF('btnSaveDetail1').enable();" />
                             <p:ajax event="rowUnselect"  update="formNew:tabView:plgDetail1" oncomplete="" />
                             <p:column styleClass="Wid20">
@@ -262,12 +177,12 @@
                 <p:tab id="tabP" title="工艺明细">
                     <p:toolbar id="detailToolbar2" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnDeleteDetail2" widgetVar="btnDeleteDetail2" value="删除" actionListener="#{itemProcessManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                            <p:commandButton id="btnDeleteDetail2" widgetVar="btnDeleteDetail2" value="删除" actionListener="#{processGroupManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').disable();" 
                                              update="formNew:tabView:plgDetail2,:formNew:tabView:tableList2" process="@this" />  
                         </f:facet>
                         <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail2" widgetVar="btnSaveDetail2" value="确定" actionListener="#{itemProcessManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail2" widgetVar="btnSaveDetail2" value="确定" actionListener="#{processGroupManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').disable();" 
                                              update="formNew:tabView:plgDetail2,formNew:tabView:tableList2" process="@this,plgDetail2"/>                                
                         </f:facet>
@@ -277,18 +192,18 @@
                             <p:row>
                                 <p:column><h:outputText value="工艺"/></p:column>
                                 <p:column>
-                                    <h:outputText id="process2" value="#{itemProcessManagedBean.currentDetail.process.process}"/>
+                                    <h:outputText id="process2" value="#{processGroupManagedBean.currentDetail.process.process}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="序号" for="procseq2" /></p:column>
                                 <p:column>
-                                    <p:inputText id="procseq2" value="#{itemProcessManagedBean.currentDetail.procseq}" title="Procseq"
+                                    <p:inputText id="procseq2" value="#{processGroupManagedBean.currentDetail.procseq}" title="Procseq"
                                                  required="true" requiredMessage="The Procseq field is required."/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="类别" for="kind2" /></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="kind2" value="#{itemProcessManagedBean.currentDetail.kind}" title="Kind" 
+                                    <p:selectOneMenu id="kind2" value="#{processGroupManagedBean.currentDetail.kind}" title="Kind" 
                                                      required="true" requiredMessage="请输入资源类别">
                                         <f:selectItem itemLabel="设备" itemValue="E" />
                                         <f:selectItem itemLabel="工艺" itemValue="P" />
@@ -299,7 +214,7 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="值类型" for="valuetype2"/></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="valuetype2" value="#{itemProcessManagedBean.currentDetail.valuetype}" title="Valuetype" 
+                                    <p:selectOneMenu id="valuetype2" value="#{processGroupManagedBean.currentDetail.valuetype}" title="Valuetype" 
                                                      required="true" requiredMessage="请输入值类型">
                                         <f:selectItem itemLabel="-选择-" itemValue="" />
                                         <f:selectItem itemLabel="布尔" itemValue="bool" />
@@ -312,36 +227,36 @@
                             <p:row>
                                 <p:column><p:outputLabel value="资源名称" for="content2"/></p:column>
                                 <p:column>
-                                    <p:inputText id="content2" value="#{itemProcessManagedBean.currentDetail.content}" title="Content" 
+                                    <p:inputText id="content2" value="#{processGroupManagedBean.currentDetail.content}" title="Content" 
                                                  required="true" requiredMessage="请输入资源名称"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue2" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="boolvalue2" value="#{itemProcessManagedBean.currentDetail.boolvalue}" 
-                                                   disabled = "#{itemProcessManagedBean.currentDetail.valuetype!='bool'}" />
+                                    <p:inputSwitch id="boolvalue2" value="#{processGroupManagedBean.currentDetail.boolvalue}" 
+                                                   disabled = "#{processGroupManagedBean.currentDetail.valuetype!='bool'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="数值" for="numvalue2" /></p:column>
                                 <p:column>
-                                    <p:inputText id="numvalue2" value="#{itemProcessManagedBean.currentDetail.numvalue}" title="Numvalue" 
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='Decimal'}" />
+                                    <p:inputText id="numvalue2" value="#{processGroupManagedBean.currentDetail.numvalue}" title="Numvalue" 
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='Decimal'}" />
                                 </p:column>
                                 <p:column><p:outputLabel value="文字" for="strvalue2" /></p:column>
                                 <p:column>
-                                    <p:inputText id="strvalue2" value="#{itemProcessManagedBean.currentDetail.strvalue}" title="Strvalue"
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='String'}" />
+                                    <p:inputText id="strvalue2" value="#{processGroupManagedBean.currentDetail.strvalue}" title="Strvalue"
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='String'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="备注" for="remark2" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputText id="remark2" value="#{itemProcessManagedBean.currentDetail.remark}" title="Remark" />
+                                    <p:inputText id="remark2" value="#{processGroupManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>                        
-                        <p:dataTable id="tableList2" value="#{itemProcessManagedBean.processes}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:dataTable id="tableList2" value="#{processGroupManagedBean.processes}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formNew:tabView:plgDetail2" oncomplete="PF('btnDeleteDetail2').enable();PF('btnSaveDetail2').enable();" />
                             <p:ajax event="rowUnselect"  update="formNew:tabView:plgDetail2" oncomplete="" />
                             <p:column styleClass="Wid20">
@@ -386,12 +301,12 @@
                 <p:tab id="tabM" title="辅料明细">
                     <p:toolbar id="detailToolbar3" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnDeleteDetail3" widgetVar="btnDeleteDetail3" value="删除" actionListener="#{itemProcessManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                            <p:commandButton id="btnDeleteDetail3" widgetVar="btnDeleteDetail3" value="删除" actionListener="#{processGroupManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnDeleteDetail3').disable();PF('btnSaveDetail3').disable();" 
                                              update=":formNew:tabView:plgDetail3,:formNew:tabView:tableList3" process="@this" />  
                         </f:facet>
                         <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail3" widgetVar="btnSaveDetail3" value="确定" actionListener="#{itemProcessManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail3" widgetVar="btnSaveDetail3" value="确定" actionListener="#{processGroupManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnDeleteDetail3').disable();PF('btnSaveDetail3').disable();" 
                                              update="formNew:tabView:plgDetail3,formNew:tabView:tableList3" process="@this,plgDetail3"/>                                
                         </f:facet>
@@ -401,18 +316,18 @@
                             <p:row>
                                 <p:column><h:outputText value="工艺"/></p:column>
                                 <p:column>
-                                    <h:outputText id="process3" value="#{itemProcessManagedBean.currentDetail.process.process}"/>
+                                    <h:outputText id="process3" value="#{processGroupManagedBean.currentDetail.process.process}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="序号" for="procseq3" /></p:column>
                                 <p:column>
-                                    <p:inputText id="procseq3" value="#{itemProcessManagedBean.currentDetail.procseq}" title="Procseq"
+                                    <p:inputText id="procseq3" value="#{processGroupManagedBean.currentDetail.procseq}" title="Procseq"
                                                  required="true" requiredMessage="The Procseq field is required."/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="类别" for="kind3" /></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="kind3" value="#{itemProcessManagedBean.currentDetail.kind}" title="Kind" 
+                                    <p:selectOneMenu id="kind3" value="#{processGroupManagedBean.currentDetail.kind}" title="Kind" 
                                                      required="true" requiredMessage="请输入资源类别">
                                         <f:selectItem itemLabel="设备" itemValue="E" />
                                         <f:selectItem itemLabel="工艺" itemValue="P" />
@@ -423,7 +338,7 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="值类型" for="valuetype3"/></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="valuetype3" value="#{itemProcessManagedBean.currentDetail.valuetype}" title="Valuetype" 
+                                    <p:selectOneMenu id="valuetype3" value="#{processGroupManagedBean.currentDetail.valuetype}" title="Valuetype" 
                                                      required="true" requiredMessage="请输入值类型">
                                         <f:selectItem itemLabel="-选择-" itemValue="" />
                                         <f:selectItem itemLabel="布尔" itemValue="bool" />
@@ -436,36 +351,36 @@
                             <p:row>
                                 <p:column><p:outputLabel value="资源名称" for="content3"/></p:column>
                                 <p:column>
-                                    <p:inputText id="content3" value="#{itemProcessManagedBean.currentDetail.content}" title="Content" 
+                                    <p:inputText id="content3" value="#{processGroupManagedBean.currentDetail.content}" title="Content" 
                                                  required="true" requiredMessage="请输入资源名称"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue3" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="boolvalue3" value="#{itemProcessManagedBean.currentDetail.boolvalue}" 
-                                                   disabled = "#{itemProcessManagedBean.currentDetail.valuetype!='bool'}" />
+                                    <p:inputSwitch id="boolvalue3" value="#{processGroupManagedBean.currentDetail.boolvalue}" 
+                                                   disabled = "#{processGroupManagedBean.currentDetail.valuetype!='bool'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="数值" for="numvalue3" /></p:column>
                                 <p:column>
-                                    <p:inputText id="numvalue3" value="#{itemProcessManagedBean.currentDetail.numvalue}" title="Numvalue" 
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='Decimal'}" />
+                                    <p:inputText id="numvalue3" value="#{processGroupManagedBean.currentDetail.numvalue}" title="Numvalue" 
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='Decimal'}" />
                                 </p:column>
                                 <p:column><p:outputLabel value="文字" for="strvalue3" /></p:column>
                                 <p:column>
-                                    <p:inputText id="strvalue3" value="#{itemProcessManagedBean.currentDetail.strvalue}" title="Strvalue"
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='String'}" />
+                                    <p:inputText id="strvalue3" value="#{processGroupManagedBean.currentDetail.strvalue}" title="Strvalue"
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='String'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="备注" for="remark3" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputText id="remark3" value="#{itemProcessManagedBean.currentDetail.remark}" title="Remark" />
+                                    <p:inputText id="remark3" value="#{processGroupManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>                        
-                        <p:dataTable id="tableList3" value="#{itemProcessManagedBean.materials}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:dataTable id="tableList3" value="#{processGroupManagedBean.materials}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formNew:tabView:plgDetail3" oncomplete="PF('btnDeleteDetail3').enable();PF('btnSaveDetail3').enable();" />
                             <p:ajax event="rowUnselect"  update="formNew:tabView:plgDetail3" oncomplete="" />
                             <p:column styleClass="Wid20">
@@ -510,12 +425,12 @@
                 <p:tab id="tabH" title="人员明细">
                     <p:toolbar id="detailToolbar4" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnDeleteDetail4" widgetVar="btnDeleteDetail4" value="删除" actionListener="#{itemProcessManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                            <p:commandButton id="btnDeleteDetail4" widgetVar="btnDeleteDetail4" value="删除" actionListener="#{processGroupManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnDeleteDetail4').disable();PF('btnSaveDetail4').disable();" 
                                              update="formNew:tabView:plgDetail4,formNew:tabView:tableList4" process="@this" />  
                         </f:facet>
                         <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail4" widgetVar="btnSaveDetail4" value="确定" actionListener="#{itemProcessManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail4" widgetVar="btnSaveDetail4" value="确定" actionListener="#{processGroupManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnDeleteDetail4').disable();PF('btnSaveDetail4').disable();" 
                                              update="formNew:tabView:plgDetail4,formNew:tabView:tableList4" process="@this,plgDetail4"/>                                
                         </f:facet>
@@ -525,18 +440,18 @@
                             <p:row>
                                 <p:column><h:outputText value="工艺"/></p:column>
                                 <p:column>
-                                    <h:outputText id="process4" value="#{itemProcessManagedBean.currentDetail.process.process}"/>
+                                    <h:outputText id="process4" value="#{processGroupManagedBean.currentDetail.process.process}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="序号" for="procseq4" /></p:column>
                                 <p:column>
-                                    <p:inputText id="procseq4" value="#{itemProcessManagedBean.currentDetail.procseq}" title="Procseq"
+                                    <p:inputText id="procseq4" value="#{processGroupManagedBean.currentDetail.procseq}" title="Procseq"
                                                  required="true" requiredMessage="The Procseq field is required."/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="类别" for="kind4" /></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="kind4" value="#{itemProcessManagedBean.currentDetail.kind}" title="Kind" 
+                                    <p:selectOneMenu id="kind4" value="#{processGroupManagedBean.currentDetail.kind}" title="Kind" 
                                                      required="true" requiredMessage="请输入资源类别">
                                         <f:selectItem itemLabel="设备" itemValue="E" />
                                         <f:selectItem itemLabel="工艺" itemValue="P" />
@@ -547,7 +462,7 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="值类型" for="valuetype4"/></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="valuetype4" value="#{itemProcessManagedBean.currentDetail.valuetype}" title="Valuetype" 
+                                    <p:selectOneMenu id="valuetype4" value="#{processGroupManagedBean.currentDetail.valuetype}" title="Valuetype" 
                                                      required="true" requiredMessage="请输入值类型">
                                         <f:selectItem itemLabel="-选择-" itemValue="" />
                                         <f:selectItem itemLabel="布尔" itemValue="bool" />
@@ -560,36 +475,36 @@
                             <p:row>
                                 <p:column><p:outputLabel value="资源名称" for="content4"/></p:column>
                                 <p:column>
-                                    <p:inputText id="content4" value="#{itemProcessManagedBean.currentDetail.content}" title="Content" 
+                                    <p:inputText id="content4" value="#{processGroupManagedBean.currentDetail.content}" title="Content" 
                                                  required="true" requiredMessage="请输入资源名称"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue4" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="boolvalue4" value="#{itemProcessManagedBean.currentDetail.boolvalue}" 
-                                                   disabled = "#{itemProcessManagedBean.currentDetail.valuetype!='bool'}" />
+                                    <p:inputSwitch id="boolvalue4" value="#{processGroupManagedBean.currentDetail.boolvalue}" 
+                                                   disabled = "#{processGroupManagedBean.currentDetail.valuetype!='bool'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="数值" for="numvalue4" /></p:column>
                                 <p:column>
-                                    <p:inputText id="numvalue4" value="#{itemProcessManagedBean.currentDetail.numvalue}" title="Numvalue" 
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='Decimal'}" />
+                                    <p:inputText id="numvalue4" value="#{processGroupManagedBean.currentDetail.numvalue}" title="Numvalue" 
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='Decimal'}" />
                                 </p:column>
                                 <p:column><p:outputLabel value="文字" for="strvalue4" /></p:column>
                                 <p:column>
-                                    <p:inputText id="strvalue4" value="#{itemProcessManagedBean.currentDetail.strvalue}" title="Strvalue"
-                                                 disabled="#{itemProcessManagedBean.currentDetail.valuetype!='String'}" />
+                                    <p:inputText id="strvalue4" value="#{processGroupManagedBean.currentDetail.strvalue}" title="Strvalue"
+                                                 disabled="#{processGroupManagedBean.currentDetail.valuetype!='String'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="备注" for="remark4" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputText id="remark4" value="#{itemProcessManagedBean.currentDetail.remark}" title="Remark" />
+                                    <p:inputText id="remark4" value="#{processGroupManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>                        
-                        <p:dataTable id="tableList4" value="#{itemProcessManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:dataTable id="tableList4" value="#{processGroupManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
+                                     selectionMode="single" selection="#{processGroupManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formNew:tabView:plgDetail4" oncomplete="PF('btnDeleteDetail4').enable();PF('btnSaveDetail4').enable();" />
                             <p:ajax event="rowUnselect"  update="formNew:tabView:plgDetail4" oncomplete="" />
                             <p:column styleClass="Wid20">
