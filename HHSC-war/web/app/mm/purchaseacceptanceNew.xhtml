@@ -95,23 +95,23 @@
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="华卉品号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemno}" title="Itemno" readonly="true"/>  
+                            <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemno}" title="Itemno"/>  
                         </p:column>
                     </p:row>
                     <p:row>                      
                         <p:column styleClass="Wid20"><h:outputText value="色号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText value="#{purchaseAcceptanceManagedBean.currentDetail.colorno}" title="Colorid" readonly="true"/>   
+                            <p:inputText value="#{purchaseAcceptanceManagedBean.currentDetail.colorno}" title="Colorid"/>   
                         </p:column>
                         <p:column><h:outputText value="批次"/></p:column>
                         <p:column>
-                            <p:inputText value="#{purchaseAcceptanceManagedBean.currentDetail.batch}" title="Itemno" readonly="true"/>  
+                            <p:inputText value="#{purchaseAcceptanceManagedBean.currentDetail.batch}" title="Itemno"/>  
                         </p:column> 
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="可入库量" for="allowqty"/></p:column>
                         <p:column>
-                            <p:inputText id="allowqty" value="#{purchaseAcceptanceManagedBean.currentDetail.allowqty}" title="Qty" readonly="true"/>                                        
+                            <h:outputText id="allowqty" value="#{purchaseAcceptanceManagedBean.currentDetail.allowqty}" title="Qty"/>                                        
                         </p:column>
                         <p:column><p:outputLabel value="送货数量" for="qty"/></p:column>
                         <p:column>

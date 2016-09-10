@@ -33,6 +33,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemProcess.findByStatus", query = "SELECT i FROM ItemProcess i WHERE i.status = :status")})
 public class ItemProcess extends SuperEntity {
 
+    @Size(max = 100)
+    @Column(name = "itemspec")
+    private String itemspec;
+    @Size(max = 20)
+    @Column(name = "colorno")
+    private String colorno;
+
     @Size(max = 400)
     @Column(name = "fyreq")
     private String fyreq;
@@ -208,6 +215,34 @@ public class ItemProcess extends SuperEntity {
 
     public void setCkreq(String ckreq) {
         this.ckreq = ckreq;
+    }
+
+    /**
+     * @return the itemspec
+     */
+    public String getItemspec() {
+        return itemspec;
+    }
+
+    /**
+     * @param itemspec the itemspec to set
+     */
+    public void setItemspec(String itemspec) {
+        this.itemspec = itemspec;
+    }
+
+    /**
+     * @return the colorno
+     */
+    public String getColorno() {
+        return colorno;
+    }
+
+    /**
+     * @param colorno the colorno to set
+     */
+    public void setColorno(String colorno) {
+        this.colorno = colorno;
     }
 
 }

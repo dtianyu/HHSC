@@ -228,10 +228,10 @@ public class ProcessResource extends SuperDetailEntity {
         if (Objects.equals(this.pid, other.pid) && !Objects.equals(this.kind, other.kind)) {
             return false;
         }
-        if (Objects.equals(this.pid, other.pid) && Objects.equals(this.kind, other.kind) && !Objects.equals(this.content, other.content)) {
+        if (Objects.equals(this.kind, other.kind) && !Objects.equals(this.content, other.content)) {
             return false;
         }
-        return true;
+        return this.seq == other.seq;
     }
 
     @Override

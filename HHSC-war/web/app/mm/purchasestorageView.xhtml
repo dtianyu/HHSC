@@ -87,15 +87,15 @@
                         <p:column>
                             <h:outputText id="batch" value="#{purchaseStorageManagedBean.currentEntity.batch}" title="Batch" />
                         </p:column>
-                        <p:column><h:outputText value="仓库"/></p:column>
-                        <p:column>
-                            <h:outputText id="warehouse" value="#{purchaseStorageManagedBean.currentEntity.warehouse.name}" title="warehouse" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column><h:outputText value="点收数量" /></p:column>
                         <p:column>
                             <h:outputText id="qty" value="#{purchaseStorageManagedBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>                       
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="良品仓库"/></p:column>
+                        <p:column>
+                            <h:outputText id="warehouse" value="#{purchaseStorageManagedBean.currentEntity.warehouse.name}" title="warehouse" />
                         </p:column>
                         <p:column><h:outputText value="合格数量"/></p:column>
                         <p:column>
@@ -103,9 +103,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column><h:outputText value="不良仓库"/></p:column>
                         <p:column>
-                            <h:outputText id="unit" value="#{purchaseStorageManagedBean.currentEntity.unit}" title="Unit" />
+                            <h:outputText id="badwarehouse" value="#{purchaseStorageManagedBean.currentEntity.badwarehouse.name}" title="warehouse" />
                         </p:column>
                         <p:column><h:outputText value="不合格量" /></p:column>
                         <p:column>
@@ -126,6 +126,16 @@
                         <p:column><h:outputText value="多余数量" /></p:column>
                         <p:column>
                             <h:outputText id="addqty" value="#{purchaseStorageManagedBean.currentEntity.addqty}" title="Addqty"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column></p:column>
+                        <p:column>
+
+                        </p:column>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{purchaseStorageManagedBean.currentEntity.unit}" title="Unit" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

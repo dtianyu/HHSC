@@ -297,6 +297,38 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         }
     }
 
+    public void print(String reportDesignFile) throws Exception {
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("formid", currentEntity.getFormid());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + reportDesignFile;
+        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
     @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {

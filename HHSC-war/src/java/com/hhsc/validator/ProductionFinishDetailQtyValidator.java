@@ -5,8 +5,8 @@
  */
 package com.hhsc.validator;
 
-import com.hhsc.ejb.FactoryOrderDetailBean;
-import com.hhsc.entity.FactoryOrderDetail;
+import com.hhsc.ejb.ProductionOrderDetailBean;
+import com.hhsc.entity.ProductionOrderDetail;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -19,16 +19,16 @@ import javax.faces.validator.ValidatorException;
  *
  * @author kevindong
  */
-@FacesValidator("com.hhsc.validator.FactoryStorageDetailQtyValidator")
-public class FactoryStorageDetailQtyValidator implements Validator {
+@FacesValidator("com.hhsc.validator.ProductionFinishDetailQtyValidator")
+public class ProductionFinishDetailQtyValidator implements Validator {
 
     @EJB
-    private FactoryOrderDetailBean factoryOrderDetailBean;
+    private ProductionOrderDetailBean factoryOrderDetailBean;
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value != null) {
-            FactoryOrderDetail entity = factoryOrderDetailBean.findById(Integer.parseInt(value.toString()));
+            ProductionOrderDetail entity = factoryOrderDetailBean.findById(Integer.parseInt(value.toString()));
             return;
         }
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "可入库数量不足", "可入库数量不足");

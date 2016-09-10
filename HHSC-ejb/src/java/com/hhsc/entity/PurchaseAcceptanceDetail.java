@@ -116,6 +116,9 @@ public class PurchaseAcceptanceDetail extends FormDetailEntity {
     @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
     @ManyToOne(optional = false)
     private Warehouse warehouse;
+    @JoinColumn(name = "badwarehouse", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
+    private Warehouse badwarehouse;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -621,6 +624,20 @@ public class PurchaseAcceptanceDetail extends FormDetailEntity {
      */
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
+    }
+
+    /**
+     * @return the badwarehouse
+     */
+    public Warehouse getBadwarehouse() {
+        return badwarehouse;
+    }
+
+    /**
+     * @param badwarehouse the badwarehouse to set
+     */
+    public void setBadwarehouse(Warehouse badwarehouse) {
+        this.badwarehouse = badwarehouse;
     }
 
 }

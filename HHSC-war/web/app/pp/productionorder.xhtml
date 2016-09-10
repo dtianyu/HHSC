@@ -59,7 +59,7 @@
                          rowsPerPageTemplate="15,30,45"  lazy="true" 
                          selectionMode="single" selection="#{productionOrderManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    工单维护
+                    流转单维护
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />

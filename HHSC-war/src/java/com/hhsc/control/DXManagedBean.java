@@ -77,7 +77,7 @@ public class DXManagedBean extends ProductionOrderManagedBean {
         this.model.getFilterFields().clear();
         this.model.getSortFields().clear();
         this.model.getFilterFields().put("jhstatus", "V");
-        this.model.getFilterFields().put("zhstatus", "V");
+        this.model.getFilterFields().put("psstatus", "V");
         this.model.getFilterFields().put("dxstatus", "N");
         this.model.getSortFields().put("dxstatus", "ASC");
         this.model.getSortFields().put("formid", "DESC");
@@ -117,7 +117,7 @@ public class DXManagedBean extends ProductionOrderManagedBean {
                 this.model.getFilterFields().put("dxstatus", queryState);
             }
             this.model.getFilterFields().put("jhstatus", "V");
-            this.model.getFilterFields().put("zhstatus", "V");
+            this.model.getFilterFields().put("psstatus", "V");
             this.model.getSortFields().put("dxstatus", "ASC");
             this.model.getSortFields().put("formid", "DESC");
         }
@@ -128,7 +128,7 @@ public class DXManagedBean extends ProductionOrderManagedBean {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
             this.model.getFilterFields().put("jhstatus", "V");
-            this.model.getFilterFields().put("zhstatus", "V");
+            this.model.getFilterFields().put("psstatus", "V");
             this.model.getFilterFields().put("dxstatus", "N");
             this.model.getSortFields().put("dxstatus", "ASC");
             this.model.getSortFields().put("formid", "DESC");

@@ -19,7 +19,7 @@
                                      rendered="#{sxManagedBean.doEdit}" process="@this,plgHead" update="formEdit"/>                                
                 </f:facet>
             </p:toolbar>        
-            <p:panel id="panelHead" header="水洗信息－修改">
+            <p:panel id="panelHead" header="流转单-水洗修改">
                 <p:panelGrid id="plgHead"  styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="水洗交期"/></p:column>
@@ -30,7 +30,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="接收日期" /></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="sxrecdate" value="#{yhManagedBean.currentEntity.sxrecdate}" title="sxrecdate">
+                            <h:outputText id="sxrecdate" value="#{sxManagedBean.currentEntity.sxrecdate}" title="sxrecdate">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
@@ -300,30 +300,39 @@
                             </p:panelGrid>
                         </p:dialog>
                     </p:panel>
-                </p:tab>
-                <p:tab title="设备明细">
+                </p:tab>             
+                <p:tab title="工艺明细">
                     <p:toolbar id="detailToolbar1" styleClass="detailToolbar">
                         <f:facet name="left">
+                            <p:commandButton id="btnAddDetail1" widgetVar="btnAddDetail1" value="添加" actionListener="#{sxManagedBean.createDetail2()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').enable();" 
+                                             process="@this,formEdit:plgHead" update="plgDetail1"/>
                             <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{sxManagedBean.deleteDetail2()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
+                                             oncomplete="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
                                              update=":formEdit:tabView:plgDetail1,:formEdit:tabView:tableList1" process="@this" />  
                         </f:facet>
-                        <f:facet name="right">                        
+                        <f:facet name="right">   
+                            <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{sxManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{sxManagedBean.handleDialogReturnGroupWhenDetail2Edit}" 
+                                        update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1"/>  
+                            </p:commandButton>         
                             <p:commandButton id="btnSaveDetail1" widgetVar="btnSaveDetail1" value="确定" actionListener="#{sxManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
-                                             update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1" process="@this,plgDetail1"/>                                
+                                             onsuccess="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
+                                             process="@this,plgDetail1" update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1"/>                                
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail1">
                         <p:panelGrid id="plgDetail1" styleClass="plgDetail Wid100" >
                             <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="工艺"/></p:column>
-                                <p:column styleClass="Wid30">
+                                <p:column><h:outputText value="工艺"/></p:column>
+                                <p:column>
                                     <h:outputText id="process1" value="#{sxManagedBean.currentDetail2.process.process}"/>
                                 </p:column>
-                                <p:column styleClass="Wid20"><p:outputLabel value="序号" for="procseq1" /></p:column>
-                                <p:column styleClass="Wid30">
-                                    <p:inputText id="procseq1" value="#{sxManagedBean.currentDetail2.procseq}" title="Procseq"/>
+                                <p:column><p:outputLabel value="序号" for="procseq1" /></p:column>
+                                <p:column>
+                                    <p:inputText id="procseq1" value="#{sxManagedBean.currentDetail2.procseq}" title="Procseq"
+                                                 required="true" requiredMessage="The Procseq field is required."/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -353,8 +362,13 @@
                             <p:row>
                                 <p:column><p:outputLabel value="资源名称" for="content1"/></p:column>
                                 <p:column>
-                                    <p:inputText id="content1" value="#{sxManagedBean.currentDetail2.content}" title="Content" 
+                                    <p:inputText id="content1" value="#{sxManagedBean.currentDetail2.content}" title="Content" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入资源名称"/>
+                                    <p:commandButton id="btnSelectResource" actionListener="#{sxManagedBean.openDialog('processresourceSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{sxManagedBean.handleDialogReturnWhenDetail2Edit}" 
+                                                update="plgDetail1" />
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue1" /></p:column>
                                 <p:column>
@@ -381,379 +395,10 @@
                                 </p:column>
                             </p:row>
                         </p:panelGrid>                        
-                        <p:dataTable id="tableList1" value="#{sxManagedBean.equipments}" var="item" styleClass="tableList Wid100"
+                        <p:dataTable id="tableList1" value="#{sxManagedBean.detailList2}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail1" oncomplete="PF('btnDeleteDetail1').enable();PF('btnSaveDetail1').enable();" />
                             <p:ajax event="rowUnselect"  update="formEdit:tabView:plgDetail1" oncomplete="" />
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="工艺"/>
-                                </f:facet>
-                                <h:outputText value="#{item.process.process}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="序号"/>
-                                </f:facet>
-                                <h:outputText value="#{item.procseq}"/>
-                            </p:column>
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="资源名称"/>
-                                </f:facet>
-                                <h:outputText value="#{item.content}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="布尔值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.boolvalue}"/>
-                            </p:column>
-                            <p:column styleClass="TexAlRight Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="数值值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numvalue}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="文字值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.strvalue}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
-                <p:tab title="工艺明细">
-                    <p:toolbar id="detailToolbar2" styleClass="detailToolbar">
-                        <f:facet name="left">
-                            <p:commandButton id="btnDeleteDetail2" widgetVar="btnDeleteDetail2" value="删除" actionListener="#{sxManagedBean.deleteDetail2()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').disable();" 
-                                             update=":formEdit:tabView:plgDetail2,:formEdit:tabView:tableList2" process="@this" />  
-                        </f:facet>
-                        <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail2" widgetVar="btnSaveDetail2" value="确定" actionListener="#{sxManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').disable();" 
-                                             update="formEdit:tabView:plgDetail2,formEdit:tabView:tableList2" process="@this,plgDetail2"/>                                
-                        </f:facet>
-                    </p:toolbar>
-                    <p:panel id="panelDetail2">
-                        <p:panelGrid id="plgDetail2" styleClass="plgDetail Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="工艺"/></p:column>
-                                <p:column styleClass="Wid30">
-                                    <h:outputText id="process2" value="#{sxManagedBean.currentDetail2.process.process}"/>
-                                </p:column>
-                                <p:column styleClass="Wid20"><p:outputLabel value="序号" for="procseq2" /></p:column>
-                                <p:column styleClass="Wid30">
-                                    <p:inputText id="procseq2" value="#{sxManagedBean.currentDetail2.procseq}" title="Procseq"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="类别" for="kind2" /></p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="kind2" value="#{sxManagedBean.currentDetail2.kind}" title="Kind" 
-                                                     required="true" requiredMessage="请输入资源类别">
-                                        <f:selectItem itemLabel="设备" itemValue="E" />
-                                        <f:selectItem itemLabel="工艺" itemValue="P" />
-                                        <f:selectItem itemLabel="物料" itemValue="M" />
-                                        <f:selectItem itemLabel="人员" itemValue="H" />
-                                        <p:ajax update="plgDetail2"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                                <p:column><p:outputLabel value="值类型" for="valuetype2"/></p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="valuetype2" value="#{sxManagedBean.currentDetail2.valuetype}" title="Valuetype" 
-                                                     required="true" requiredMessage="请输入值类型">
-                                        <f:selectItem itemLabel="-选择-" itemValue="" />
-                                        <f:selectItem itemLabel="布尔" itemValue="bool" />
-                                        <f:selectItem itemLabel="数值" itemValue="Decimal" />
-                                        <f:selectItem itemLabel="文字" itemValue="String" />
-                                        <p:ajax process="valuetype2" update="boolvalue2,numvalue2,strvalue2"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="资源名称" for="content2"/></p:column>
-                                <p:column>
-                                    <p:inputText id="content2" value="#{sxManagedBean.currentDetail2.content}" title="Content" 
-                                                 required="true" requiredMessage="请输入资源名称"/>
-                                </p:column>
-                                <p:column><p:outputLabel value="布尔" for="boolvalue2" /></p:column>
-                                <p:column>
-                                    <p:inputSwitch id="boolvalue2" value="#{sxManagedBean.currentDetail2.boolvalue}" 
-                                                   disabled = "#{sxManagedBean.currentDetail2.valuetype!='bool'}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="数值" for="numvalue2" /></p:column>
-                                <p:column>
-                                    <p:inputText id="numvalue2" value="#{sxManagedBean.currentDetail2.numvalue}" title="Numvalue" 
-                                                 disabled="#{sxManagedBean.currentDetail2.valuetype!='Decimal'}" />
-                                </p:column>
-                                <p:column><p:outputLabel value="文字" for="strvalue2" /></p:column>
-                                <p:column>
-                                    <p:inputText id="strvalue2" value="#{sxManagedBean.currentDetail2.strvalue}" title="Strvalue"
-                                                 disabled="#{sxManagedBean.currentDetail2.valuetype!='String'}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="备注" for="remark2" /></p:column>
-                                <p:column colspan="3">
-                                    <p:inputText id="remark2" value="#{sxManagedBean.currentDetail2.remark}" title="Remark" />
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>                        
-                        <p:dataTable id="tableList2" value="#{sxManagedBean.processes}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail2" oncomplete="PF('btnDeleteDetail2').enable();PF('btnSaveDetail2').enable();" />
-                            <p:ajax event="rowUnselect"  update="formEdit:tabView:plgDetail2" oncomplete="" />
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="工艺"/>
-                                </f:facet>
-                                <h:outputText value="#{item.process.process}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="序号"/>
-                                </f:facet>
-                                <h:outputText value="#{item.procseq}"/>
-                            </p:column>
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="资源名称"/>
-                                </f:facet>
-                                <h:outputText value="#{item.content}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="布尔值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.boolvalue}"/>
-                            </p:column>
-                            <p:column styleClass="TexAlRight Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="数值值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numvalue}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="文字值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.strvalue}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
-                <p:tab title="辅料明细">
-                    <p:toolbar id="detailToolbar3" styleClass="detailToolbar">
-                        <f:facet name="left">
-                            <p:commandButton id="btnDeleteDetail3" widgetVar="btnDeleteDetail3" value="删除" actionListener="#{sxManagedBean.deleteDetail2()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnDeleteDetail3').disable();PF('btnSaveDetail3').disable();" 
-                                             update=":formEdit:tabView:plgDetail3,:formEdit:tabView:tableList3" process="@this" />  
-                        </f:facet>
-                        <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail3" widgetVar="btnSaveDetail3" value="确定" actionListener="#{sxManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnDeleteDetail3').disable();PF('btnSaveDetail3').disable();" 
-                                             update="formEdit:tabView:plgDetail3,formEdit:tabView:tableList3" process="@this,plgDetail3"/>                                
-                        </f:facet>
-                    </p:toolbar>
-                    <p:panel id="panelDetail3">
-                        <p:panelGrid id="plgDetail3" styleClass="plgDetail Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="工艺"/></p:column>
-                                <p:column styleClass="Wid30">
-                                    <h:outputText id="process3" value="#{sxManagedBean.currentDetail2.process.process}"/>
-                                </p:column>
-                                <p:column styleClass="Wid20"><p:outputLabel value="序号" for="procseq3" /></p:column>
-                                <p:column styleClass="Wid30">
-                                    <p:inputText id="procseq3" value="#{sxManagedBean.currentDetail2.procseq}" title="Procseq"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="类别" for="kind3" /></p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="kind3" value="#{sxManagedBean.currentDetail2.kind}" title="Kind" 
-                                                     required="true" requiredMessage="请输入资源类别">
-                                        <f:selectItem itemLabel="设备" itemValue="E" />
-                                        <f:selectItem itemLabel="工艺" itemValue="P" />
-                                        <f:selectItem itemLabel="物料" itemValue="M" />
-                                        <f:selectItem itemLabel="人员" itemValue="H" />
-                                        <p:ajax update="plgDetail3"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                                <p:column><p:outputLabel value="值类型" for="valuetype3"/></p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="valuetype3" value="#{sxManagedBean.currentDetail2.valuetype}" title="Valuetype" 
-                                                     required="true" requiredMessage="请输入值类型">
-                                        <f:selectItem itemLabel="-选择-" itemValue="" />
-                                        <f:selectItem itemLabel="布尔" itemValue="bool" />
-                                        <f:selectItem itemLabel="数值" itemValue="Decimal" />
-                                        <f:selectItem itemLabel="文字" itemValue="String" />
-                                        <p:ajax process="valuetype3" update="boolvalue3,numvalue3,strvalue3"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="资源名称" for="content3"/></p:column>
-                                <p:column>
-                                    <p:inputText id="content3" value="#{sxManagedBean.currentDetail2.content}" title="Content" 
-                                                 required="true" requiredMessage="请输入资源名称"/>
-                                </p:column>
-                                <p:column><p:outputLabel value="布尔" for="boolvalue3" /></p:column>
-                                <p:column>
-                                    <p:inputSwitch id="boolvalue3" value="#{sxManagedBean.currentDetail2.boolvalue}" 
-                                                   disabled = "#{sxManagedBean.currentDetail2.valuetype!='bool'}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="数值" for="numvalue3" /></p:column>
-                                <p:column>
-                                    <p:inputText id="numvalue3" value="#{sxManagedBean.currentDetail2.numvalue}" title="Numvalue" 
-                                                 disabled="#{sxManagedBean.currentDetail2.valuetype!='Decimal'}" />
-                                </p:column>
-                                <p:column><p:outputLabel value="文字" for="strvalue3" /></p:column>
-                                <p:column>
-                                    <p:inputText id="strvalue3" value="#{sxManagedBean.currentDetail2.strvalue}" title="Strvalue"
-                                                 disabled="#{sxManagedBean.currentDetail2.valuetype!='String'}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="备注" for="remark3" /></p:column>
-                                <p:column colspan="3">
-                                    <p:inputText id="remark3" value="#{sxManagedBean.currentDetail2.remark}" title="Remark" />
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>                        
-                        <p:dataTable id="tableList3" value="#{sxManagedBean.materials}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail3" oncomplete="PF('btnDeleteDetail3').enable();PF('btnSaveDetail3').enable();" />
-                            <p:ajax event="rowUnselect"  update="formEdit:tabView:plgDetail3" oncomplete="" />
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="工艺"/>
-                                </f:facet>
-                                <h:outputText value="#{item.process.process}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="序号"/>
-                                </f:facet>
-                                <h:outputText value="#{item.procseq}"/>
-                            </p:column>
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="资源名称"/>
-                                </f:facet>
-                                <h:outputText value="#{item.content}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="布尔值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.boolvalue}"/>
-                            </p:column>
-                            <p:column styleClass="TexAlRight Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="数值值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numvalue}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="文字值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.strvalue}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
-                <p:tab title="人员明细">
-                    <p:toolbar id="detailToolbar4" styleClass="detailToolbar">
-                        <f:facet name="left">
-                            <p:commandButton id="btnDeleteDetail4" widgetVar="btnDeleteDetail4" value="删除" actionListener="#{sxManagedBean.deleteDetail2()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnDeleteDetail4').disable();PF('btnSaveDetail4').disable();" 
-                                             update=":formEdit:tabView:plgDetail4,:formEdit:tabView:tableList4" process="@this" />  
-                        </f:facet>
-                        <f:facet name="right">                        
-                            <p:commandButton id="btnSaveDetail4" widgetVar="btnSaveDetail4" value="确定" actionListener="#{sxManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnDeleteDetail4').disable();PF('btnSaveDetail4').disable();" 
-                                             update="formEdit:tabView:plgDetail4,formEdit:tabView:tableList4" process="@this,plgDetail4"/>                                
-                        </f:facet>
-                    </p:toolbar>
-                    <p:panel id="panelDetail4">
-                        <p:panelGrid id="plgDetail4" styleClass="plgDetail Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="工艺"/></p:column>
-                                <p:column styleClass="Wid30">
-                                    <h:outputText id="process4" value="#{sxManagedBean.currentDetail2.process.process}"/>
-                                </p:column>
-                                <p:column styleClass="Wid20"><p:outputLabel value="序号" for="procseq4" /></p:column>
-                                <p:column styleClass="Wid30">
-                                    <p:inputText id="procseq4" value="#{sxManagedBean.currentDetail2.procseq}" title="Procseq"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="类别" for="kind4" /></p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="kind4" value="#{sxManagedBean.currentDetail2.kind}" title="Kind" 
-                                                     required="true" requiredMessage="请输入资源类别">
-                                        <f:selectItem itemLabel="设备" itemValue="E" />
-                                        <f:selectItem itemLabel="工艺" itemValue="P" />
-                                        <f:selectItem itemLabel="物料" itemValue="M" />
-                                        <f:selectItem itemLabel="人员" itemValue="H" />
-                                        <p:ajax update="plgDetail4"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                                <p:column><p:outputLabel value="值类型" for="valuetype4"/></p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="valuetype4" value="#{sxManagedBean.currentDetail2.valuetype}" title="Valuetype" 
-                                                     required="true" requiredMessage="请输入值类型">
-                                        <f:selectItem itemLabel="-选择-" itemValue="" />
-                                        <f:selectItem itemLabel="布尔" itemValue="bool" />
-                                        <f:selectItem itemLabel="数值" itemValue="Decimal" />
-                                        <f:selectItem itemLabel="文字" itemValue="String" />
-                                        <p:ajax process="valuetype4" update="boolvalue4,numvalue4,strvalue4"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="资源名称" for="content4"/></p:column>
-                                <p:column>
-                                    <p:inputText id="content4" value="#{sxManagedBean.currentDetail2.content}" title="Content" 
-                                                 required="true" requiredMessage="请输入资源名称"/>
-                                </p:column>
-                                <p:column><p:outputLabel value="布尔" for="boolvalue4" /></p:column>
-                                <p:column>
-                                    <p:inputSwitch id="boolvalue4" value="#{sxManagedBean.currentDetail2.boolvalue}" 
-                                                   disabled = "#{sxManagedBean.currentDetail2.valuetype!='bool'}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="数值" for="numvalue4" /></p:column>
-                                <p:column>
-                                    <p:inputText id="numvalue4" value="#{sxManagedBean.currentDetail2.numvalue}" title="Numvalue" 
-                                                 disabled="#{sxManagedBean.currentDetail2.valuetype!='Decimal'}" />
-                                </p:column>
-                                <p:column><p:outputLabel value="文字" for="strvalue4" /></p:column>
-                                <p:column>
-                                    <p:inputText id="strvalue4" value="#{sxManagedBean.currentDetail2.strvalue}" title="Strvalue"
-                                                 disabled="#{sxManagedBean.currentDetail2.valuetype!='String'}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="备注" for="remark4" /></p:column>
-                                <p:column colspan="3">
-                                    <p:inputText id="remark4" value="#{sxManagedBean.currentDetail2.remark}" title="Remark" />
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>                        
-                        <p:dataTable id="tableList4" value="#{sxManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail4" oncomplete="PF('btnDeleteDetail4').enable();PF('btnSaveDetail4').enable();" />
-                            <p:ajax event="rowUnselect"  update="formEdit:tabView:plgDetail4" oncomplete="" />
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="工艺"/>

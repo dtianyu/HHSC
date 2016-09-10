@@ -98,16 +98,16 @@
                         <p:column>
                             <h:outputText id="batch" value="#{purchaseStorageManagedBean.currentEntity.batch}" title="Batch" />
                         </p:column>
-                        <p:column><h:outputText value="仓库"/></p:column>
-                        <p:column>
-                            <h:outputText id="warehouse" value="#{purchaseStorageManagedBean.currentEntity.warehouse.name}" title="warehouse" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column><h:outputText value="点收数量" /></p:column>
                         <p:column>
                             <h:outputText id="qty" value="#{purchaseStorageManagedBean.currentEntity.qty}" title="Qty"/>
                         </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="良品仓库"/></p:column>
+                        <p:column>
+                            <h:outputText id="warehouse" value="#{purchaseStorageManagedBean.currentEntity.warehouse.name}" title="warehouse" />
+                        </p:column>                       
                         <p:column><p:outputLabel value="合格数量" for="qcqty" /></p:column>
                         <p:column>
                             <p:inputText id="qcqty" value="#{purchaseStorageManagedBean.currentEntity.qcqty}" title="qcqty" 
@@ -115,9 +115,15 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column><h:outputText value="不良仓库"/></p:column>
                         <p:column>
-                            <h:outputText id="unit" value="#{purchaseStorageManagedBean.currentEntity.unit}" title="Unit" />
+                            <p:inputText id="badwarehouse" value="#{purchaseStorageManagedBean.currentEntity.badwarehouse.name}" title="warehouse" 
+                                         styleClass="inputWithButton" required="true" requiredMessage="请输入默认仓库"  readonly="true"/>
+                            <p:commandButton id="btnSelectWarehouse" actionListener="#{purchaseStorageManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{purchaseStorageManagedBean.handleDialogReturnWarehouseWhenEdit}" 
+                                        update="badwarehouse" />
+                            </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="不合格量" for="badqty" /></p:column>
                         <p:column>
@@ -140,6 +146,16 @@
                         <p:column>
                             <p:inputText id="addqty" value="#{purchaseStorageManagedBean.currentEntity.addqty}" title="Addqty" 
                                          required="true" requiredMessage="请输入多余数量"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column></p:column>
+                        <p:column>
+
+                        </p:column>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{purchaseStorageManagedBean.currentEntity.unit}" title="Unit" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

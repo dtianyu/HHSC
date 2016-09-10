@@ -33,8 +33,10 @@
                                      rendered="#{salesOrderManagedBean.doCfm}" process="@this" update="formView">
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
-                                     rendered="#{salesOrderManagedBean.doPrt}"/>                              
+                    <p:commandButton id="btnPrint" value="打印合同" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{salesOrderManagedBean.doPrt}"/> 
+                    <p:commandButton id="btnPrint2" value="任务单" actionListener="#{salesOrderManagedBean.print('salestransfer.rptdesign')}" icon="ui-icon-print"
+                                     rendered="#{salesOrderManagedBean.doPrt}"/> 
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售合同－查看">
@@ -317,7 +319,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnTrans1,btnTrans2">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnPrint2,btnTrans1,btnTrans2">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

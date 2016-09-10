@@ -111,12 +111,13 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         PurchaseOrderDetail p;
         for (PurchaseAcceptanceDetail detail : detailList) {
             p = purchaseOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
-            if ((p == null) || p.getStatus().equals("AC") || p.getStatus().endsWith("MC")){
+            if ((p == null) || p.getStatus().equals("AC") || p.getStatus().endsWith("MC")) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "采购明细状态错误"));
                 return false;
             } else if ((p.getQty().subtract(p.getInqty()).compareTo(detail.getQty()) == -1)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "可点收量不足"));
-                return false;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "点收数量大于采购数量"));
+                //允许超点 2016/9/10
+                //return false;
             }
         }
         return true;

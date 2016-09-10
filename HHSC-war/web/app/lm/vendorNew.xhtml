@@ -89,7 +89,8 @@
                         <p:row>
                             <p:column styleClass="Wid20"><p:outputLabel value="公司电话" for="tel" /></p:column>
                             <p:column styleClass="Wid30">
-                                <p:inputText id="tel" value="#{vendorManagedBean.newEntity.tel}" title="Tel" />
+                                <p:inputText id="tel" value="#{vendorManagedBean.newEntity.tel}" title="Tel" 
+                                             required="true" requiredMessage="请输入公司电话"/>
                             </p:column>
                             <p:column styleClass="Wid20"><p:outputLabel value="公司传真" for="fax" /></p:column>
                             <p:column styleClass="Wid30">
@@ -103,7 +104,8 @@
                             </p:column>
                             <p:column><p:outputLabel value="联系人" for="contacter" /></p:column>
                             <p:column>
-                                <p:inputText id="contacter" value="#{vendorManagedBean.newEntity.contacter}" title="Contacter" />
+                                <p:inputText id="contacter" value="#{vendorManagedBean.newEntity.contacter}" title="Contacter" 
+                                             required="true" requiredMessage="请输入联系人"/>
                             </p:column> 
                         </p:row> 
                         <p:row>

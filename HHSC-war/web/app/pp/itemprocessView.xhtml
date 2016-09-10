@@ -43,9 +43,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column><h:outputText value="色号"/></p:column>
+                        <p:column>
+                            <h:outputText id="colorno" value="#{itemProcessManagedBean.currentEntity.colorno}" title="colorno" />
+                        </p:column>
                         <p:column><h:outputText value="规格"/></p:column>
-                        <p:column colspan="3">
-                            <h:outputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemmaster.itemspec}" title="itemspec" />
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemspec}" title="itemspec" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -57,7 +61,7 @@
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
-                  <p:tab title="备注信息">
+                <p:tab title="备注信息">
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
                             <p:row>
@@ -370,7 +374,7 @@
                     </p:row>
                 </p:panelGrid>
             </p:dialog>
-             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>

@@ -55,7 +55,7 @@
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        <h:outputText value="编号"/>
+                        <h:outputText value="花号"/>
                     </f:facet>
                     <h:outputText value="#{item.itemno}"/>
                 </p:column>
@@ -65,11 +65,17 @@
                     </f:facet>
                     <h:outputText value="#{item.itemmaster.itemdesc}"/>
                 </p:column>
-                <p:column styleClass="Ｗid40">
+                <p:column styleClass="Ｗid10">
+                    <f:facet name="header">
+                        <h:outputText value="色号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.colorno}"/>
+                </p:column>
+                <p:column styleClass="Ｗid30">
                     <f:facet name="header">
                         <h:outputText value="规格"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemmaster.itemspec}"/>
+                    <h:outputText value="#{item.itemspec}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

@@ -43,7 +43,9 @@
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnUnverify" value="还原" actionListener="#{purchaseStorageManagedBean.unverify()}" icon="ui-icon-unlocked"
-                                     rendered="#{purchaseStorageManagedBean.doUnCfm}"  process="@this" update="formList"/>                   
+                                     rendered="#{purchaseStorageManagedBean.doUnCfm}"  process="@this" update="formList">
+                        <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
+                    </p:commandButton>                   
                     <p:commandButton id="btnCreate" value="新增" action="#{purchaseStorageManagedBean.create('purchasestorageNew')}" icon="ui-icon-plus"
                                      rendered="#{purchaseStorageManagedBean.doAdd}"/>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseStorageManagedBean.reset()}"  icon="ui-icon-refresh"  

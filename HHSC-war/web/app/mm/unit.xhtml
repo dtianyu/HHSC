@@ -35,6 +35,8 @@
                 <f:facet name="header">
                     单位维护
                 </f:facet>
+                <p:ajax event="rowSelect"  update=":formList:toolbar" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="单位"/>

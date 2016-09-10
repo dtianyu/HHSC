@@ -5,19 +5,11 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.FactoryOrderBean;
-import com.hhsc.ejb.FactoryOrderDetailBean;
-import com.hhsc.entity.FactoryOrder;
-import com.hhsc.entity.FactoryOrderDetail;
 import com.hhsc.entity.ProductionOrder;
 import com.hhsc.entity.ProductionResource;
-import com.hhsc.lazy.CKModel;
-import com.hhsc.web.FormMultiBean;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -80,7 +72,7 @@ public class CKManagedBean extends ProductionOrderManagedBean {
         super.init();
         getModel().getFilterFields().clear();
         this.model.getFilterFields().put("jhstatus", "V");
-        this.model.getFilterFields().put("dxstatus", "V");
+        this.model.getFilterFields().put("psstatus", "V");
         this.model.getFilterFields().put("ckstatus", "N");
         this.model.getSortFields().put("ckstatus", "ASC");
         this.model.getSortFields().put("formid", "DESC");
@@ -120,7 +112,7 @@ public class CKManagedBean extends ProductionOrderManagedBean {
                 this.model.getFilterFields().put("ckstatus", queryState);
             }
             this.model.getFilterFields().put("jhstatus", "V");
-            this.model.getFilterFields().put("dxstatus", "V");
+            this.model.getFilterFields().put("psstatus", "V");
             this.model.getSortFields().put("ckstatus", "ASC");
             this.model.getSortFields().put("formid", "DESC");
         }
@@ -131,7 +123,7 @@ public class CKManagedBean extends ProductionOrderManagedBean {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
             this.model.getFilterFields().put("jhstatus", "V");
-            this.model.getFilterFields().put("dxstatus", "V");
+            this.model.getFilterFields().put("psstatus", "V");
             this.model.getFilterFields().put("ckstatus", "N");
             this.model.getSortFields().put("ckstatus", "ASC");
             this.model.getSortFields().put("formid", "DESC");

@@ -16,7 +16,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnPersist" value="保存" action="#{itemProcessManagedBean.persist()}" icon="ui-icon-disk"  
-                                     process="@this,plgHead" update="formNew"/>
+                                     process="@this,plgHead,formNew:tabView:plgBase" update="formNew"/>
                 </f:facet>
             </p:toolbar> 
             <p:panel id="panelHead" header="工艺设计－新增">
@@ -38,9 +38,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                         <p:column><p:outputLabel value="色号" for="colorno"/></p:column>
+                         <p:column>
+                            <p:inputText id="colorno" value="#{itemProcessManagedBean.newEntity.colorno}" title="colorno" />
+                        </p:column>
                         <p:column><p:outputLabel value="规格" for="itemspec"/></p:column>
-                        <p:column colspan="3">
-                            <p:inputText id="itemspec" value="#{itemProcessManagedBean.newEntity.itemmaster.itemspec}" title="itemspec" 
+                        <p:column>
+                            <p:inputText id="itemspec" value="#{itemProcessManagedBean.newEntity.itemspec}" title="itemspec" 
                                          required="true" requiredMessage="请输入规格" />
                         </p:column>
                     </p:row>

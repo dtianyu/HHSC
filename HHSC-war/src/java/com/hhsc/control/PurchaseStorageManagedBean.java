@@ -116,8 +116,7 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     }
 
     @Override
-    public void handleDialogReturnWhenEdit(SelectEvent event
-    ) {
+    public void handleDialogReturnWhenEdit(SelectEvent event) {
         //返回部门
         if (event.getObject() != null) {
             this.currentEntity.setDept((Department) event.getObject());
@@ -125,7 +124,7 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     }
 
     public void handleDialogReturnUserWhenEdit(SelectEvent event) {
-        //返回仓库
+        //返回验收人
         if (event.getObject() != null) {
             this.currentEntity.setAcceptuser((SystemUser) event.getObject());
         }
@@ -134,7 +133,7 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     public void handleDialogReturnWarehouseWhenEdit(SelectEvent event) {
         //返回仓库
         if (event.getObject() != null) {
-            this.currentEntity.setWarehouse((Warehouse) event.getObject());
+            this.currentEntity.setBadwarehouse((Warehouse) event.getObject());
         }
     }
 

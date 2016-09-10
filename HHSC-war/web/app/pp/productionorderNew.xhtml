@@ -20,7 +20,7 @@
                                      process="@this,plgHead" update="formNew"/>
                 </f:facet>
             </p:toolbar>  
-            <p:panel id="panelHead" header="生产工单－新增">
+            <p:panel id="panelHead" header="流转单－新增">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100" >
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="工单编号" for="formid" /></p:column>
@@ -47,7 +47,11 @@
                         </p:column>
                         <p:column><p:outputLabel value="工单分类" for="formkind" /></p:column>
                         <p:column>
-                            <p:inputText id="formkind" value="#{productionOrderManagedBean.newEntity.formkind}" title="formkind"/>
+                            <p:selectOneMenu id="formkind" value="#{productionOrderManagedBean.newEntity.formkind}" title="formkind"
+                                              required="true" requiredMessage="请输入工单分类">
+                                <f:selectItem itemLabel="大货" itemValue="大货" /> 
+                                <f:selectItem itemLabel="小样" itemValue="小样" /> 
+                            </p:selectOneMenu>
                         </p:column>
                     </p:row>
                     <p:row>

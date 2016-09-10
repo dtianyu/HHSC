@@ -170,13 +170,13 @@ public class ProcessDetail extends SuperDetailEntity {
         if ((this.pid != 0 && other.pid != 0) && !Objects.equals(this.pid, other.pid)) {
             return false;
         }
-        if (Objects.equals(this.pid, other.pid) && !Objects.equals(this.seq, other.seq)) {
+        if (Objects.equals(this.pid, other.pid) && !Objects.equals(this.kind, other.kind)) {
             return false;
         }
-        if (Objects.equals(this.pid, other.pid) && Objects.equals(this.kind, other.kind) && !Objects.equals(this.content, other.content)) {
+        if (Objects.equals(this.kind, other.kind) && !Objects.equals(this.content, other.content)) {
             return false;
         }
-        return true;
+        return this.seq == other.seq;
     }
 
     @Override

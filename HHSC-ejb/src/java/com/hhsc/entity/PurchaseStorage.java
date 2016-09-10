@@ -124,6 +124,9 @@ public class PurchaseStorage extends SuperEntity {
     @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
     @ManyToOne(optional = false)
     private Warehouse warehouse;
+    @JoinColumn(name = "badwarehouse", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = true)
+    private Warehouse badwarehouse;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -567,6 +570,20 @@ public class PurchaseStorage extends SuperEntity {
      */
     public void setSeq(int seq) {
         this.seq = seq;
+    }
+
+    /**
+     * @return the badwarehouse
+     */
+    public Warehouse getBadwarehouse() {
+        return badwarehouse;
+    }
+
+    /**
+     * @param badwarehouse the badwarehouse to set
+     */
+    public void setBadwarehouse(Warehouse badwarehouse) {
+        this.badwarehouse = badwarehouse;
     }
 
 }

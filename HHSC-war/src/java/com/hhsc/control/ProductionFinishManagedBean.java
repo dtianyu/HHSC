@@ -106,8 +106,9 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
                     }
                     if (d.getAllowqty().compareTo(d.getQty()) == -1) {
                         d.setQty(d.getAllowqty());
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "入库数量不能大于可入库数量");
-                        return false;
+                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "入库数量大于可入库数量");
+                        //允许超产 2016/9/10
+                        //return false;
                     }
                     s = productionOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
                     if (s == null) {

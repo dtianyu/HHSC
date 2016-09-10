@@ -36,7 +36,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="接收日期" /></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="sxrecdate" value="#{yhManagedBean.currentEntity.sxrecdate}" title="sxrecdate">
+                            <h:outputText id="sxrecdate" value="#{sxManagedBean.currentEntity.sxrecdate}" title="sxrecdate">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
@@ -307,144 +307,9 @@
                         </p:dialog>
                     </p:panel>
                 </p:tab>
-                <p:tab title="设备明细">
-                    <p:panel id="panelDetail1">                        
-                        <p:dataTable id="tableList1" value="#{sxManagedBean.equipments}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
-                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="工艺"/>
-                                </f:facet>
-                                <h:outputText value="#{item.process.process}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="序号"/>
-                                </f:facet>
-                                <h:outputText value="#{item.procseq}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="资源名称"/>
-                                </f:facet>
-                                <h:outputText value="#{item.content}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="布尔值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.boolvalue}"/>
-                            </p:column>
-                            <p:column styleClass="TexAlRight Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="数值值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numvalue}"/>
-                            </p:column>
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="文字值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.strvalue}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
                 <p:tab title="工艺明细">
-                    <p:panel id="panelDetail2">                       
-                        <p:dataTable id="tableList2" value="#{sxManagedBean.processes}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
-                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="工艺"/>
-                                </f:facet>
-                                <h:outputText value="#{item.process.process}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="序号"/>
-                                </f:facet>
-                                <h:outputText value="#{item.procseq}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="资源名称"/>
-                                </f:facet>
-                                <h:outputText value="#{item.content}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="布尔值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.boolvalue}"/>
-                            </p:column>
-                            <p:column styleClass="TexAlRight Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="数值值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numvalue}"/>
-                            </p:column>
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="文字值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.strvalue}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
-                <p:tab title="辅料明细">
-                    <p:panel id="panelDetail3">                     
-                        <p:dataTable id="tableList3" value="#{sxManagedBean.materials}" var="item" styleClass="tableList Wid100"
-                                     selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
-                            <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="工艺"/>
-                                </f:facet>
-                                <h:outputText value="#{item.process.process}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="序号"/>
-                                </f:facet>
-                                <h:outputText value="#{item.procseq}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="资源名称"/>
-                                </f:facet>
-                                <h:outputText value="#{item.content}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="布尔值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.boolvalue}"/>
-                            </p:column>
-                            <p:column styleClass="TexAlRight Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="数值值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numvalue}"/>
-                            </p:column>
-                            <p:column styleClass="Wid20">
-                                <f:facet name="header">
-                                    <h:outputText value="文字值"/>
-                                </f:facet>
-                                <h:outputText value="#{item.strvalue}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:tab>
-                <p:tab title="人员明细">
-                    <p:panel id="panelDetail4">                       
-                        <p:dataTable id="tableList4" value="#{sxManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
+                    <p:panel id="panelDetail1">                        
+                        <p:dataTable id="tableList1" value="#{sxManagedBean.detailList2}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{sxManagedBean.currentDetail2}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formView:plgDetail2" oncomplete="PF('dlgDetail2').show();" />
                             <p:ajax event="rowUnselect"  update="formView:plgDetail2" oncomplete="" />

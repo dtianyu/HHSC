@@ -33,8 +33,12 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column><p:outputLabel value="色号" for="colorno"/></p:column>
+                         <p:column>
+                            <p:inputText id="colorno" value="#{itemProcessManagedBean.currentEntity.colorno}" title="colorno" />
+                        </p:column>
                         <p:column><p:outputLabel value="规格" for="itemspec"/></p:column>
-                        <p:column colspan="3">
+                        <p:column>
                             <p:inputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemmaster.itemspec}" title="itemspec" 
                                          required="true" requiredMessage="请输入规格" />
                         </p:column>
