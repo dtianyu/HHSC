@@ -181,10 +181,10 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
         }
     }
 
-    public void handleDialogReturnBrandWhenDetailEdit(SelectEvent event) {
+    public void handleDialogReturnBatchWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
             ItemMaster entity = (ItemMaster) event.getObject();
-            currentDetail.setBrand(entity.getItemno());
+            currentDetail.setBatch(entity.getItemno());
         }
     }
 

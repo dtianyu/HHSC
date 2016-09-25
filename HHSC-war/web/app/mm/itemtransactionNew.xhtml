@@ -151,9 +151,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="品牌" for="batch"/></p:column>
+                        <p:column><p:outputLabel value="品牌" for="brand"/></p:column>
                         <p:column>
-                            <p:inputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch" />  
+                            <p:inputText id="brand" value="#{itemTransactionManagedBean.currentDetail.brand}" title="brand" />  
                         </p:column>
                         <p:column><h:outputText value="规格"/></p:column>
                         <p:column>
@@ -161,14 +161,14 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="批号" for="brand"/></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="批号" for="batch"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="brand" value="#{itemTransactionManagedBean.currentDetail.brand}" title="brand" 
+                            <p:inputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch" 
                                          styleClass="inputWithButton"/>  
                             <p:commandButton actionListener="#{itemTransactionManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnBrandWhenDetailEdit}" 
-                                        update="brand" />
+                                <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnBatchWhenDetailEdit}" 
+                                        update="batch" />
                             </p:commandButton>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="序号" for="sn"/></p:column>

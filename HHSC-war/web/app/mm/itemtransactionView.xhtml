@@ -109,7 +109,7 @@
                         <f:facet name="header">
                             <h:outputText value="批号"/>
                         </f:facet>
-                        <h:outputText value="#{item.brand}"/>
+                        <h:outputText value="#{item.batch}"/>
                     </p:column>
                     <p:column styleClass="Wid10 TexAlRight">
                         <f:facet name="header">
@@ -154,9 +154,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="品牌" for="batch"/></p:column>
+                        <p:column><p:outputLabel value="品牌" for="brand"/></p:column>
                         <p:column>
-                            <h:outputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch" />  
+                            <h:outputText id="brand" value="#{itemTransactionManagedBean.currentDetail.brand}" title="brand" />  
                         </p:column>
                         <p:column><h:outputText value="规格"/></p:column>
                         <p:column>
@@ -166,7 +166,7 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="批号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="brand" value="#{itemTransactionManagedBean.currentDetail.brand}" title="brand" />
+                            <h:outputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch" />
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="序号"/></p:column>
                         <p:column styleClass="Wid30">

@@ -58,7 +58,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     protected SalesShipmentBean salesShipBean;
     @EJB
     protected SalesShipmentDetailBean salesShipmentDetailBean;
-    
+
     private List<SalesType> salesTypeList;
 
     private String queryCustomerno;
@@ -123,23 +123,25 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             return false;
         }//超类中有重新加载明细资料
         if (detailList == null || detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有出货明细"));
+            showMsg(FacesMessage.SEVERITY_ERROR, "Error", "没有出货明细");
             return false;
         }
         SalesOrderDetail s;
         for (SalesShipmentDetail detail : detailList) {
             s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
             if ((s == null) || s.getStatus().equals("AC") || s.getStatus().endsWith("MC")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单明细状态错误"));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单明细状态错误");
                 return false;
             } else if ((s.getQty().subtract(s.getShipqty()).compareTo(detail.getQty()) == -1)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单可出货量不足"));
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单可出货量不足");
                 return false;
             }
-            ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
-            if ((i == null) || (i.getQty().compareTo(detail.getQty()) == -1)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "库存可使用量不足"));
-                return false;
+            if (detail.getItemmaster().isInvtype()) {
+                ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
+                if ((i == null) || (i.getQty().compareTo(detail.getQty()) == -1)) {
+                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "库存可使用量不足");
+                    return false;
+                }
             }
         }
         return true;
@@ -252,24 +254,45 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
             SalesOrderDetailForQuery entity = (SalesOrderDetailForQuery) event.getObject();
-            this.currentDetail.setItemmaster(entity.getSalesOrder().getItemmaster());
-            this.currentDetail.setItemno(entity.getSalesOrder().getItemno());
-            this.currentDetail.setItemimg(entity.getSalesOrder().getItemimg());
-            this.currentDetail.setColorno(entity.getColorno());
-            this.currentDetail.setCustomeritemno(entity.getSalesOrder().getCustomeritemno());
-            this.currentDetail.setCustomercolorno(entity.getCustomercolorno());
-            this.currentDetail.setCustomerrefno(entity.getSalesOrder().getRefno());
-            this.currentDetail.setBrand(entity.getBrand());
-            this.currentDetail.setBatch(entity.getItemno());
-            this.currentDetail.setSn(entity.getSn());
-            this.currentDetail.setAllowqty(entity.getQty().subtract(entity.getShipqty()));
-            this.currentDetail.setQty(this.currentDetail.getAllowqty());
-            this.currentDetail.setUnit(entity.getUnit());
-            this.currentDetail.setWarehouse(currentEntity.getWarehouse());
-            this.currentDetail.setPrice(entity.getPrice());
-            this.currentDetail.setSrcapi("salesorder");
-            this.currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
-            this.currentDetail.setSrcseq(entity.getSeq());
+            if (!entity.getItemno().equals("A000000")) {
+                this.currentDetail.setItemmaster(entity.getSalesOrder().getItemmaster());
+                this.currentDetail.setItemno(entity.getSalesOrder().getItemno());
+                this.currentDetail.setItemimg(entity.getSalesOrder().getItemimg());
+                this.currentDetail.setColorno(entity.getColorno());
+                this.currentDetail.setCustomeritemno(entity.getSalesOrder().getCustomeritemno());
+                this.currentDetail.setCustomercolorno(entity.getCustomercolorno());
+                this.currentDetail.setCustomerrefno(entity.getSalesOrder().getRefno());
+                this.currentDetail.setBrand(entity.getBrand());
+                this.currentDetail.setBatch(entity.getItemno());
+                this.currentDetail.setSn(entity.getSn());
+                this.currentDetail.setAllowqty(entity.getQty().subtract(entity.getShipqty()));
+                this.currentDetail.setQty(this.currentDetail.getAllowqty());
+                this.currentDetail.setUnit(entity.getUnit());
+                this.currentDetail.setWarehouse(currentEntity.getWarehouse());
+                this.currentDetail.setPrice(entity.getPrice());
+                this.currentDetail.setSrcapi("salesorder");
+                this.currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
+                this.currentDetail.setSrcseq(entity.getSeq());
+            } else {
+                this.currentDetail.setItemmaster(entity.getItemmaster());
+                this.currentDetail.setItemno(entity.getItemno());
+                this.currentDetail.setItemimg(entity.getSalesOrder().getItemimg());
+                this.currentDetail.setColorno(entity.getColorno());
+                this.currentDetail.setCustomeritemno("");
+                this.currentDetail.setCustomercolorno("");
+                this.currentDetail.setCustomerrefno(entity.getSalesOrder().getRefno());
+                this.currentDetail.setBrand(entity.getBrand());
+                this.currentDetail.setBatch(entity.getBatch());
+                this.currentDetail.setSn(entity.getSn());
+                this.currentDetail.setAllowqty(entity.getQty().subtract(entity.getShipqty()));
+                this.currentDetail.setQty(this.currentDetail.getAllowqty());
+                this.currentDetail.setUnit(entity.getUnit());
+                this.currentDetail.setWarehouse(currentEntity.getWarehouse());
+                this.currentDetail.setPrice(entity.getPrice());
+                this.currentDetail.setSrcapi("salesorder");
+                this.currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
+                this.currentDetail.setSrcseq(entity.getSeq());
+            }
         }
     }
 
@@ -326,41 +349,6 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             default:
                 super.openDialog(view);
         }
-    }
-
-    @Override
-    public void print() throws Exception {
-
-        if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
-            return;
-        }
-        //设置报表参数
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("id", currentEntity.getId());
-        params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentSysprg.getRptjndi());
-        //设置报表名称
-        String reportFormat;
-        if (this.currentSysprg.getRptformat() != null) {
-            reportFormat = this.currentSysprg.getRptformat();
-        } else {
-            reportFormat = reportOutputFormat;
-        }
-        String reportName = reportPath + this.currentSysprg.getRptdesign();
-        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
-        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
-        try {
-            //初始配置
-            this.reportInitAndConfig();
-            //生成报表
-            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
-            //预览报表
-            this.preview();
-        } catch (Exception ex) {
-            throw ex;
-        }
-
     }
 
     @Override
