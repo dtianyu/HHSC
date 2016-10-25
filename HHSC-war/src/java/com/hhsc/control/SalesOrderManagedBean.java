@@ -349,12 +349,6 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     }
 
     @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, SalesOrderReport.class.getClassLoader());
-    }
-
-    @Override
     public void reset() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
@@ -435,10 +429,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                     d.setDesignno(currentEntity.getItemno());
                     d.setDesignspec(currentEntity.getItemspec());
                     d.setCustomeritemno(currentEntity.getCustomeritemno());
+                    d.setColorno(entity.getColorno());
                 }
                 d.setItemmaster(entity.getItemmaster());
                 d.setItemno(entity.getItemno());
-                d.setColorno(entity.getColorno());
                 d.setCustomer(currentEntity.getCustomer());
                 d.setCustomercolorno(entity.getCustomercolorno());
                 if ("300".equals(purtype)) {
@@ -459,6 +453,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                 d.setTaxes(BigDecimal.ZERO);
                 d.setRequestdate(getDate());
                 d.setDeliverydate(entity.getDeliverydate());
+                d.setRemark(entity.getRemark());
                 d.setStatus("N");
                 d.setSrcapi(this.currentSysprg.getApi());
                 d.setSrcformid(currentEntity.getFormid());

@@ -679,12 +679,13 @@ ejbClient = new SalesOrderReport();
 ejbClient.setEJB(params["JNDIName"]);
 
 master = ejbClient.getEntity(params["id"]);
-list = ejbClient.getDetail(params["formid"]);
+detail = ejbClient.getDetail(params["formid"]);
 
 currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[
-if(currentRow < 6 || currentRow < list.size()){
-	if(currentRow < list.size()){
+
+if(currentRow < detail.size()){
+
 		dataSetRow["formid"] = master.getFormid();
 		dataSetRow["formdate"] = master.getFormdate();
 		dataSetRow["ordertype"] = master.getOrdertype().getName();
@@ -708,35 +709,29 @@ if(currentRow < 6 || currentRow < list.size()){
 		dataSetRow["totalextax"] = master.getTotalextax();
 		dataSetRow["totaltaxes"] = master.getTotaltaxes();
 		dataSetRow["totalamts"] = master.getTotalamts();		
-		dataSetRow["seq"] = list.get(currentRow).getSeq();	
-		dataSetRow["customercolorno"] = list.get(currentRow).getCustomercolorno();
-		dataSetRow["colorno"] = list.get(currentRow).getColorno();
-		dataSetRow["itemno"] = list.get(currentRow).getItemno();		
-		dataSetRow["itemdesc"] = list.get(currentRow).getItemmaster().getItemdesc();	
-		dataSetRow["itemyarncount"] = list.get(currentRow).getItemmaster().getItemyarncount();	
-		dataSetRow["itemmake"] = list.get(currentRow).getItemmaster().getItemmake();	
-		dataSetRow["itemwidth"] = list.get(currentRow).getItemmaster().getItemwidth();	
-		dataSetRow["qty"] = list.get(currentRow).getQty();	
-		dataSetRow["issqty"] = list.get(currentRow).getIssqty();	
-		dataSetRow["unit"] = list.get(currentRow).getUnit();	
-		dataSetRow["price"] = list.get(currentRow).getPrice();	
-		dataSetRow["amts"] = list.get(currentRow).getAmts();	
+		dataSetRow["seq"] = detail.get(currentRow).getSeq();	
+		dataSetRow["customercolorno"] = detail.get(currentRow).getCustomercolorno();
+		dataSetRow["colorno"] = detail.get(currentRow).getColorno();
+		dataSetRow["itemno"] = detail.get(currentRow).getItemno();		
+		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();	
+		dataSetRow["itemyarncount"] = detail.get(currentRow).getItemmaster().getItemyarncount();	
+		dataSetRow["itemmake"] = detail.get(currentRow).getItemmaster().getItemmake();	
+		dataSetRow["itemwidth"] = detail.get(currentRow).getItemmaster().getItemwidth();	
+		dataSetRow["qty"] = detail.get(currentRow).getQty();	
+		dataSetRow["issqty"] = detail.get(currentRow).getIssqty();	
+		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
+		dataSetRow["price"] = detail.get(currentRow).getPrice();	
+		dataSetRow["amts"] = detail.get(currentRow).getAmts();	
 		
 		dataSetRow["testremark"] = master.getTestremark();	
 		dataSetRow["productremark"] = master.getProductremark();
-		dataSetRow["packremark"] = master.getPackremark();				
-		dataSetRow["shipmark"] = master.getShipmarks();	
+		dataSetRow["packremark"] = master.getPackremark();	
+		dataSetRow["shiptype"] = master.getShipadd();				
+		dataSetRow["shipmarks"] = master.getShipmarks();	
 	
 		currentRow++;
 		return true;	
-	}
-	dataSetRow["formid"] = master.getFormid();
-	dataSetRow["formdate"] = master.getFormdate();
-	dataSetRow["customerno"] = master.getCustomer().getCustomerno();
-	dataSetRow["customer"] = master.getCustomer().getCustomer();
-	dataSetRow["customercolorno"] ="";
-	currentRow++;
-	return true;
+
 }
 return false;]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>

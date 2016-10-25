@@ -4,7 +4,7 @@
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="layoutPreference">fixed layout</property>
-    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="bidiLayoutOrientation">rtl</property>
     <property name="imageDPI">72</property>
     <parameters>
         <scalar-parameter name="id" id="454">
@@ -1136,7 +1136,6 @@ return false;]]></method>
             <row id="391">
                 <property name="borderBottomStyle">solid</property>
                 <property name="borderBottomWidth">thin</property>
-                <property name="height">1in</property>
                 <cell id="392">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
@@ -1148,6 +1147,7 @@ return false;]]></method>
                 <cell id="393">
                     <property name="paddingTop">1pt</property>
                     <data id="580">
+                        <property name="textAlign">left</property>
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>

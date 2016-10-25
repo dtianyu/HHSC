@@ -15,86 +15,92 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="请购单号" for="queryformid" />
-                    <p:inputText id="queryformid" value="#{purchaseRequestQueryBean.queryFormId}" title="请购单号" />
+                    <h:outputLabel value="采购单号" for="queryformid" />
+                    <p:inputText id="queryformid" value="#{purchaseDetailQueryBean.queryFormId}" title="采购单号" />
                     <h:outputLabel value="状态" for="queryState" />
-                    <p:selectOneMenu id="queryState" value="#{purchaseRequestQueryBean.queryState}" title="状态" >
+                    <p:selectOneMenu id="queryState" value="#{purchaseDetailQueryBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
-                        <f:selectItem itemLabel="未提交" itemValue="N"/>
-                        <f:selectItem itemLabel="已提交" itemValue="V"/>
+                        <f:selectItem itemLabel="未确认" itemValue="00"/>
+                        <f:selectItem itemLabel="已确认" itemValue="10"/>
+                        <f:selectItem itemLabel="点收中" itemValue="20"/>
+                        <f:selectItem itemLabel="已点收" itemValue="30"/>
+                        <f:selectItem itemLabel="验收中" itemValue="40"/>
+                        <f:selectItem itemLabel="已验收" itemValue="50"/>
+                        <f:selectItem itemLabel="自动结案" itemValue="AC"/>
+                        <f:selectItem itemLabel="人工结案" itemValue="MC"/>
                     </p:selectOneMenu>
                     <h:outputLabel value="品号" for="queryItemno" />
-                    <p:inputText id="queryItemno" value="#{purchaseRequestQueryBean.queryItemno}" title="品号" />
+                    <p:inputText id="queryItemno" value="#{purchaseDetailQueryBean.queryItemno}" title="品号" />
                     <h:outputLabel value="品名" for="queryName" />
-                    <p:inputText id="queryName" value="#{purchaseRequestQueryBean.queryName}" title="品名" />
-                    <h:outputLabel value="请购日期" for="queryDateBegin" />
-                    <p:calendar id="queryDateBegin" value="#{purchaseRequestQueryBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <p:inputText id="queryName" value="#{purchaseDetailQueryBean.queryName}" title="品名" />
+                    <h:outputLabel value="采购日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{purchaseDetailQueryBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
-                    <p:calendar id="queryDateEnd" value="#{purchaseRequestQueryBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <p:calendar id="queryDateEnd" value="#{purchaseDetailQueryBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{purchaseRequestQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{purchaseRequestQueryBean.view('itemrequestView')}" icon="ui-icon-document"/>
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{purchaseDetailQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{purchaseDetailQueryBean.view('itempurchaseView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{purchaseRequestQueryBean.edit('itemrequestEdit')}" icon="ui-icon-pencil"
-                                     rendered="#{purchaseRequestQueryBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{purchaseRequestQueryBean.delete()}" icon="ui-icon-trash" 
-                                     rendered="#{purchaseRequestQueryBean.doDel}" update=":formList">
+                    <p:commandButton id="btnEdit" value="编辑" action="#{purchaseDetailQueryBean.edit('')}" icon="ui-icon-pencil"
+                                     rendered="#{purchaseDetailQueryBean.doEdit}" />                                                     
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{purchaseDetailQueryBean.delete()}" icon="ui-icon-trash" 
+                                     rendered="#{purchaseDetailQueryBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{purchaseRequestQueryBean.unverify()}" icon="ui-icon-unlocked" 
-                                     rendered="#{purchaseRequestQueryBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{purchaseRequestQueryBean.create('itemrequestNew')}" icon="ui-icon-plus"
-                                     rendered="#{purchaseRequestQueryBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseRequestQueryBean.reset()}"  icon="ui-icon-refresh"  
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{purchaseDetailQueryBean.unverify()}" icon="ui-icon-unlocked" 
+                                     rendered="#{purchaseDetailQueryBean.doUnCfm}"  update=":formList"/>
+                    <p:commandButton id="btnCreate" value="新增" action="#{purchaseDetailQueryBean.create('')}" icon="ui-icon-plus"
+                                     rendered="#{purchaseDetailQueryBean.doAdd}"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseDetailQueryBean.reset()}"  icon="ui-icon-refresh"  
                                      update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{purchaseRequestQueryBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{purchaseDetailQueryBean.query()}"  icon="ui-icon-search"  
                                      update=":formList"/>
                 </f:facet>
             </p:toolbar> 
-            <p:dataTable value="#{purchaseRequestQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
+            <p:dataTable value="#{purchaseDetailQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                          rowsPerPageTemplate="15,30,45"  lazy="true" 
-                         selectionMode="single" selection="#{purchaseRequestQueryBean.currentEntity}" rowKey="#{item.id}" >
+                         selectionMode="single" selection="#{purchaseDetailQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    请购明细查询
+                    采购明细查询
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="请购单号"/>
+                        <h:outputText value="采购单号"/>
                     </f:facet>
-                    <h:outputText value="#{item.purchaserequest.formid}"/>
+                    <h:outputText value="#{item.purchaseOrder.formid}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="请购日期"/>
+                        <h:outputText value="采购日期"/>
                     </f:facet>
-                    <h:outputText value="#{item.purchaserequest.formdate}">
+                    <h:outputText value="#{item.purchaseOrder.formdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
-                <p:column styleClass="Wid20">
-                    <f:facet name="header">
-                        <h:outputText value="客户"/>
-                    </f:facet>
-                    <h:outputText value="#{item.customer.customer}"/>
-                </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="花号"/>
+                        <h:outputText value="供应商"/>
                     </f:facet>
-                    <h:outputText value="#{item.designno}"/>
+                    <h:outputText value="#{item.purchaseOrder.vendor.vendor}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="品号"/>
                     </f:facet>
                     <h:outputText value="#{item.itemno}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="品名"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemmaster.itemdesc}"/>
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">

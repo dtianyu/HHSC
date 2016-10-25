@@ -38,6 +38,9 @@ public class Sysprg extends SuperEntity {
     @ManyToOne(optional = false)
     private Sysmodule sysmodule;
     @Size(max = 100)
+    @Column(name = "rptclazz")
+    private String rptclazz;
+    @Size(max = 100)
     @Column(name = "rptdesign")
     private String rptdesign;
     @Size(max = 200)
@@ -339,6 +342,20 @@ public class Sysprg extends SuperEntity {
      */
     public void setRptformat(String rptformat) {
         this.rptformat = rptformat;
+    }
+
+    /**
+     * @return the rptclazz
+     */
+    public String getRptclazz() {
+        return rptclazz;
+    }
+
+    /**
+     * @param rptclazz the rptclazz to set
+     */
+    public void setRptclazz(String rptclazz) {
+        this.rptclazz = rptclazz;
     }
 
 }

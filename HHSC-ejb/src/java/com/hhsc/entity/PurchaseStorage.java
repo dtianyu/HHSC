@@ -45,9 +45,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PurchaseStorage extends SuperEntity {
 
     @JoinColumn(name = "pid", referencedColumnName = "formid")
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = false)
     private PurchaseAcceptance purchaseAcceptance;
-        @Basic(optional = false)
+    @Basic(optional = false)
     @NotNull
     @Column(name = "seq")
     protected int seq;

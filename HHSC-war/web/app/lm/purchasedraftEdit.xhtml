@@ -99,9 +99,9 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="华卉色号"/></p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="华卉色号" for="colorno"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="colorno" value="#{purchaseDraftManagedBean.currentEntity.colorno}" title="Colorno" />
+                                    <p:inputText id="colorno" value="#{purchaseDraftManagedBean.currentEntity.colorno}" title="Colorno" />
                                 </p:column>
                                 <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
                                 <p:column styleClass="Wid30">
@@ -202,6 +202,12 @@
                                 <p:column>
                                     <p:calendar id="deliverydate" value="#{purchaseDraftManagedBean.currentEntity.deliverydate}" title="Deliverydate" 
                                                 pattern="yyyy/MM/dd" required="true" requiredMessage="请输入订单交期"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="remark"/></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="remark" value="#{purchaseDraftManagedBean.currentEntity.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

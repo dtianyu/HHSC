@@ -33,7 +33,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="编号" for="itemno" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="itemno" value="#{itemMasterManagedBean.currentEntity.itemno}" title="Itemno" 
-                                         required="true" requiredMessage="请输入编号" disabled="#{itemMasterManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入编号" readonly="#{itemMasterManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                     </p:row>
                     <p:row>

@@ -245,8 +245,7 @@
                             <p:row rendered="#{purchaseOrderManagedBean.newEntity.purtype=='100'}">
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉色号" for="colorno" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="colorno" value="#{purchaseOrderManagedBean.currentDetail.colorno}" title="Colorno" 
-                                                 required="true" requiredMessage="请输入华卉色号"/>
+                                    <p:inputText id="colorno" value="#{purchaseOrderManagedBean.currentDetail.colorno}" title="Colorno" />
                                 </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="供应商色号" for="vendorcolorno" /></p:column>
                                 <p:column styleClass="Wid30">
@@ -290,12 +289,31 @@
                                     <p:inputText id="price" value="#{purchaseOrderManagedBean.currentDetail.price}" title="Price" 
                                                  required="true" requiredMessage="请输入单价"/>
                                 </p:column>
-                                <p:column><p:outputLabel value="预计交期" for="deliverydate" /></p:column>
+                                <p:column></p:column>
                                 <p:column>
-                                    <p:calendar id="deliverydate" value="#{purchaseOrderManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
+
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="采购交期" for="requestdate" /></p:column>
+                                <p:column>
+                                    <p:calendar id="requestdate" value="#{purchaseOrderManagedBean.currentDetail.requestdate}" title="requestdate" 
                                                 pattern="yyyy/MM/dd" required="true" requiredMessage="请输入预计交期">
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </p:calendar>
+                                </p:column>
+                                <p:column><p:outputLabel value="订单交期" for="deliverydate" /></p:column>
+                                <p:column>
+                                    <p:calendar id="deliverydate" value="#{purchaseOrderManagedBean.currentDetail.deliverydate}" title="deliverydate" 
+                                                pattern="yyyy/MM/dd">
+                                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                                    </p:calendar>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="dremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="dremark" value="#{purchaseOrderManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

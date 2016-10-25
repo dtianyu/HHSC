@@ -308,6 +308,11 @@
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
                 </structure>
+                <structure>
+                    <property name="position">52</property>
+                    <property name="name">dremark</property>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
@@ -462,6 +467,9 @@
                 </structure>
                 <structure>
                     <property name="columnName">amts</property>
+                </structure>
+                <structure>
+                    <property name="columnName">dremark</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -721,6 +729,11 @@
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
                     </structure>
+                    <structure>
+                        <property name="position">52</property>
+                        <property name="name">dremark</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
@@ -731,12 +744,12 @@ ejbClient = new PurchaseOrderReport();
 ejbClient.setEJB(params["JNDIName"]);
 
 master = ejbClient.getEntity(params["id"]);
-list = ejbClient.getDetail(params["formid"]);
+detail = ejbClient.getDetail(params["formid"]);
 
 currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[
-if(currentRow < 6 || currentRow < list.size()){
-	if(currentRow < list.size()){
+
+	if(currentRow < detail.size()){
 		dataSetRow["formid"] = master.getFormid();
 		dataSetRow["formdate"] = master.getFormdate();
 		dataSetRow["purtype"] = master.getPurtype();
@@ -762,32 +775,26 @@ if(currentRow < 6 || currentRow < list.size()){
 		dataSetRow["totalextax"] = master.getTotalextax();
 		dataSetRow["totaltaxes"] = master.getTotaltaxes();
 		dataSetRow["totalamts"] = master.getTotalamts();		
-		dataSetRow["seq"] = list.get(currentRow).getSeq();	
-		dataSetRow["itemno"] = list.get(currentRow).getItemno();
-		dataSetRow["colorno"] = list.get(currentRow).getColorno();
-		dataSetRow["itemdesc"] = list.get(currentRow).getItemmaster().getItemdesc();
-		dataSetRow["itemspec"] = list.get(currentRow).getItemmaster().getItemspec();			
-		dataSetRow["itemyarncount"] = list.get(currentRow).getItemmaster().getItemyarncount();	
-		dataSetRow["itemmake"] = list.get(currentRow).getItemmaster().getItemmake();	
-		dataSetRow["itemwidth"] = list.get(currentRow).getItemmaster().getItemwidth();		
-		dataSetRow["itemweight"] = list.get(currentRow).getItemmaster().getItemweight();				
-		dataSetRow["vendoritemno"] = list.get(currentRow).getVendoritemno();
-		dataSetRow["vendorcolorno"] = list.get(currentRow).getVendorcolorno();
-		dataSetRow["qty"] = list.get(currentRow).getQty();		
-		dataSetRow["unit"] = list.get(currentRow).getUnit();	
-		dataSetRow["price"] = list.get(currentRow).getPrice();	
-		dataSetRow["amts"] = list.get(currentRow).getAmts();			
+		dataSetRow["seq"] = detail.get(currentRow).getSeq();	
+		dataSetRow["itemno"] = detail.get(currentRow).getItemno();
+		dataSetRow["colorno"] = detail.get(currentRow).getColorno();
+		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();
+		dataSetRow["itemspec"] = detail.get(currentRow).getItemmaster().getItemspec();			
+		dataSetRow["itemyarncount"] = detail.get(currentRow).getItemmaster().getItemyarncount();	
+		dataSetRow["itemmake"] = detail.get(currentRow).getItemmaster().getItemmake();	
+		dataSetRow["itemwidth"] = detail.get(currentRow).getItemmaster().getItemwidth();		
+		dataSetRow["itemweight"] = detail.get(currentRow).getItemmaster().getItemweight();				
+		dataSetRow["vendoritemno"] = detail.get(currentRow).getVendoritemno();
+		dataSetRow["vendorcolorno"] = detail.get(currentRow).getVendorcolorno();
+		dataSetRow["qty"] = detail.get(currentRow).getQty();		
+		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
+		dataSetRow["price"] = detail.get(currentRow).getPrice();	
+		dataSetRow["amts"] = detail.get(currentRow).getAmts();
+		dataSetRow["dremark"] = detail.get(currentRow).getRemark();					
 		currentRow++;
 		return true;	
 	}
-	dataSetRow["formid"] = master.getFormid();
-	dataSetRow["formdate"] = master.getFormdate();
-	dataSetRow["vendorno"] = master.getVendor().getVendorno();
-	dataSetRow["vendor"] = master.getVendor().getVendor();
 
-	currentRow++;
-	return true;
-}
 return false;]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>
         </script-data-set>
@@ -1469,6 +1476,12 @@ return false;]]></method>
                     </list-property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">dremark</property>
+                    <text-property name="displayName">dremark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dremark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
@@ -1648,7 +1661,7 @@ return false;]]></method>
                     </cell>
                 </row>
                 <row id="443">
-                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomStyle">dashed</property>
                     <property name="borderBottomWidth">thin</property>
                     <cell id="444">
                         <property name="borderRightStyle">solid</property>
@@ -1696,6 +1709,23 @@ return false;]]></method>
                         <property name="borderRightWidth">thin</property>
                     </cell>
                     <cell id="452"/>
+                </row>
+                <row id="585">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <cell id="586">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                    </cell>
+                    <cell id="587">
+                        <property name="colSpan">8</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="595">
+                            <property name="resultSetColumn">dremark</property>
+                        </data>
+                    </cell>
                 </row>
             </detail>
             <footer>
@@ -1782,32 +1812,6 @@ return false;]]></method>
                             </structure>
                         </list-property>
                         <property name="resultSetColumn">remark</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="397">
-                <property name="borderBottomStyle">solid</property>
-                <property name="borderBottomWidth">thin</property>
-                <cell id="398">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <property name="paddingTop">1pt</property>
-                    <label id="413">
-                        <text-property name="text">包装要求</text-property>
-                    </label>
-                </cell>
-                <cell id="399">
-                    <property name="paddingTop">1pt</property>
-                    <data id="403">
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">packremark</property>
-                                <text-property name="displayName">packremark</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["packremark"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">packremark</property>
                     </data>
                 </cell>
             </row>

@@ -368,6 +368,29 @@
             <to-view-id>/app/lm/itemmasterrequestView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <!--采购明细查询-->
+        <navigation-case>
+            <from-outcome>itempurchase</from-outcome>
+            <to-view-id>/app/mm/itempurchase.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itempurchaseView</from-outcome>
+            <to-view-id>/app/mm/itempurchaseView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!--点验明细查询-->
+        <navigation-case>
+            <from-outcome>itemacceptance</from-outcome>
+            <to-view-id>/app/mm/itemacceptance.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemacceptanceView</from-outcome>
+            <to-view-id>/app/mm/itemacceptanceView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <!--请购明细查询-->
         <navigation-case>
             <from-outcome>itemrequest</from-outcome>
             <to-view-id>/app/lm/itemrequest.xhtml</to-view-id>
@@ -556,6 +579,17 @@
             <to-view-id>/app/mm/purchaseacceptanceView.xhtml</to-view-id>
             <redirect/>
         </navigation-case><!--进货点收 End-->
+        <!--采购明细查询 Start-->
+        <navigation-case>
+            <from-outcome>purchasedetail</from-outcome>
+            <to-view-id>/app/lm/purchasedetail.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchasedetailView</from-outcome>
+            <to-view-id>/app/lm/purchasedetailView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case><!--采购明细查询 End-->
         <!--采购草稿 Start--> 
         <navigation-case>
             <from-outcome>purchasedraft</from-outcome>

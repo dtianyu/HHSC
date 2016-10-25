@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
@@ -124,7 +125,7 @@ public abstract class SuperMulti2Bean<T extends SuperEntity, V extends SuperDeta
 
     @Override
     public void print() throws Exception {
-if (currentEntity == null) {
+        if (currentEntity == null) {
             showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
             return;
         }
@@ -168,6 +169,18 @@ if (currentEntity == null) {
     @Override
     public void push() {
         buildJsonArray();
+    }
+
+    @Override
+    protected void reportInitAndConfig() {
+        super.reportInitAndConfig();
+        if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+            try {
+                reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, Class.forName(this.currentSysprg.getRptclazz()).getClassLoader());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SuperSingleBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override

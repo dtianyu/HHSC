@@ -57,11 +57,13 @@
                     <p:row>
                         <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
                         <p:column>
-                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec" />
+                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec" 
+                                         required="true" requiredMessage="请输入规格"/>
                         </p:column>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column>
-                            <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark" />
+                            <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark" 
+                                         required="true" requiredMessage="请输入备注"/>
                         </p:column>
                     </p:row>
                     <p:row>

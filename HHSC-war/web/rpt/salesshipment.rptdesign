@@ -33,7 +33,7 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="formid" id="606">
+        <scalar-parameter name="formid" id="570">
             <property name="hidden">true</property>
             <text-property name="promptText">单号</text-property>
             <property name="valueType">static</property>
@@ -65,253 +65,148 @@
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">purtype</property>
+                    <property name="name">formtype</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
-                    <property name="name">vendorno</property>
+                    <property name="name">customerno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">vendor</property>
+                    <property name="name">customer</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">6</property>
-                    <property name="name">vendorcontacter</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">7</property>
-                    <property name="name">vendorfax</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">8</property>
                     <property name="name">dept</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">9</property>
-                    <property name="name">buyer</property>
+                    <property name="position">7</property>
+                    <property name="name">salesman</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">10</property>
-                    <property name="name">itemdesign</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">11</property>
-                    <property name="name">itemdesigndesc</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">12</property>
-                    <property name="name">itemdesignspec</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">13</property>
-                    <property name="name">itemdesignimg</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">14</property>
-                    <property name="name">vendoritem</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">15</property>
+                    <property name="position">8</property>
                     <property name="name">currency</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">9</property>
                     <property name="name">exchange</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">17</property>
+                    <property name="position">10</property>
                     <property name="name">taxtype</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">18</property>
+                    <property name="position">11</property>
                     <property name="name">taxkind</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">19</property>
+                    <property name="position">12</property>
                     <property name="name">taxrate</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">20</property>
+                    <property name="position">13</property>
                     <property name="name">tradetype</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">21</property>
+                    <property name="position">14</property>
                     <property name="name">tradename</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">22</property>
+                    <property name="position">15</property>
                     <property name="name">paymemt</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">23</property>
+                    <property name="position">16</property>
                     <property name="name">refno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">24</property>
-                    <property name="name">shiptype</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">25</property>
+                    <property name="position">17</property>
                     <property name="name">shipadd</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">26</property>
-                    <property name="name">shipmarks</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">27</property>
-                    <property name="name">designsets</property>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="position">28</property>
-                    <property name="name">designprice</property>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">29</property>
-                    <property name="name">totaldesign</property>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">30</property>
-                    <property name="name">totalnotaxs</property>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">31</property>
-                    <property name="name">totaltaxs</property>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">32</property>
-                    <property name="name">totalamts</property>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">33</property>
+                    <property name="position">18</property>
                     <property name="name">remark</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">34</property>
-                    <property name="name">testremark</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">35</property>
-                    <property name="name">productremark</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">36</property>
-                    <property name="name">packremark</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">37</property>
+                    <property name="position">19</property>
                     <property name="name">seq</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">38</property>
+                    <property name="position">20</property>
                     <property name="name">itemno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">39</property>
+                    <property name="position">21</property>
+                    <property name="name">customeritemno</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
                     <property name="name">colorno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">40</property>
+                    <property name="position">23</property>
+                    <property name="name">customercolorno</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
                     <property name="name">itemdesc</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">41</property>
-                    <property name="name">itemspec</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">42</property>
-                    <property name="name">itemmake</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">43</property>
-                    <property name="name">itemwidth</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">44</property>
+                    <property name="position">25</property>
                     <property name="name">itemyarncount</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">45</property>
-                    <property name="name">itemweigth</property>
+                    <property name="position">26</property>
+                    <property name="name">itemmake</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">46</property>
-                    <property name="name">vendoritemno</property>
+                    <property name="position">27</property>
+                    <property name="name">itemwidth</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">47</property>
-                    <property name="name">vendorcolorno</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">48</property>
+                    <property name="position">28</property>
                     <property name="name">qty</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">49</property>
+                    <property name="position">29</property>
                     <property name="name">unit</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">50</property>
+                    <property name="position">30</property>
                     <property name="name">price</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">51</property>
+                    <property name="position">31</property>
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="position">52</property>
-                    <property name="name">dremark</property>
-                    <property name="dataType">string</property>
                 </structure>
             </list-property>
             <list-property name="columnHints">
@@ -322,40 +217,19 @@
                     <property name="columnName">formdate</property>
                 </structure>
                 <structure>
-                    <property name="columnName">purtype</property>
+                    <property name="columnName">formtype</property>
                 </structure>
                 <structure>
-                    <property name="columnName">vendorno</property>
+                    <property name="columnName">customerno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">vendor</property>
-                </structure>
-                <structure>
-                    <property name="columnName">vendorcontacter</property>
-                </structure>
-                <structure>
-                    <property name="columnName">vendorfax</property>
+                    <property name="columnName">customer</property>
                 </structure>
                 <structure>
                     <property name="columnName">dept</property>
                 </structure>
                 <structure>
-                    <property name="columnName">buyer</property>
-                </structure>
-                <structure>
-                    <property name="columnName">itemdesign</property>
-                </structure>
-                <structure>
-                    <property name="columnName">itemdesigndesc</property>
-                </structure>
-                <structure>
-                    <property name="columnName">itemdesignspec</property>
-                </structure>
-                <structure>
-                    <property name="columnName">itemdesignimg</property>
-                </structure>
-                <structure>
-                    <property name="columnName">vendoritem</property>
+                    <property name="columnName">salesman</property>
                 </structure>
                 <structure>
                     <property name="columnName">currency</property>
@@ -385,43 +259,10 @@
                     <property name="columnName">refno</property>
                 </structure>
                 <structure>
-                    <property name="columnName">shiptype</property>
-                </structure>
-                <structure>
                     <property name="columnName">shipadd</property>
                 </structure>
                 <structure>
-                    <property name="columnName">shipmarks</property>
-                </structure>
-                <structure>
-                    <property name="columnName">designsets</property>
-                </structure>
-                <structure>
-                    <property name="columnName">designprice</property>
-                </structure>
-                <structure>
-                    <property name="columnName">totaldesign</property>
-                </structure>
-                <structure>
-                    <property name="columnName">totalnotaxs</property>
-                </structure>
-                <structure>
-                    <property name="columnName">totaltaxs</property>
-                </structure>
-                <structure>
-                    <property name="columnName">totalamts</property>
-                </structure>
-                <structure>
                     <property name="columnName">remark</property>
-                </structure>
-                <structure>
-                    <property name="columnName">testremark</property>
-                </structure>
-                <structure>
-                    <property name="columnName">productremark</property>
-                </structure>
-                <structure>
-                    <property name="columnName">packremark</property>
                 </structure>
                 <structure>
                     <property name="columnName">seq</property>
@@ -430,31 +271,25 @@
                     <property name="columnName">itemno</property>
                 </structure>
                 <structure>
+                    <property name="columnName">customeritemno</property>
+                </structure>
+                <structure>
                     <property name="columnName">colorno</property>
+                </structure>
+                <structure>
+                    <property name="columnName">customercolorno</property>
                 </structure>
                 <structure>
                     <property name="columnName">itemdesc</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itemspec</property>
+                    <property name="columnName">itemyarncount</property>
                 </structure>
                 <structure>
                     <property name="columnName">itemmake</property>
                 </structure>
                 <structure>
                     <property name="columnName">itemwidth</property>
-                </structure>
-                <structure>
-                    <property name="columnName">itemyarncount</property>
-                </structure>
-                <structure>
-                    <property name="columnName">itemweigth</property>
-                </structure>
-                <structure>
-                    <property name="columnName">vendoritemno</property>
-                </structure>
-                <structure>
-                    <property name="columnName">vendorcolorno</property>
                 </structure>
                 <structure>
                     <property name="columnName">qty</property>
@@ -467,9 +302,6 @@
                 </structure>
                 <structure>
                     <property name="columnName">amts</property>
-                </structure>
-                <structure>
-                    <property name="columnName">dremark</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -486,253 +318,148 @@
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">purtype</property>
+                        <property name="name">formtype</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">vendorno</property>
+                        <property name="name">customerno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">vendor</property>
+                        <property name="name">customer</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">6</property>
-                        <property name="name">vendorcontacter</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">7</property>
-                        <property name="name">vendorfax</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">8</property>
                         <property name="name">dept</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">9</property>
-                        <property name="name">buyer</property>
+                        <property name="position">7</property>
+                        <property name="name">salesman</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">10</property>
-                        <property name="name">itemdesign</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">11</property>
-                        <property name="name">itemdesigndesc</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">12</property>
-                        <property name="name">itemdesignspec</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">13</property>
-                        <property name="name">itemdesignimg</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">14</property>
-                        <property name="name">vendoritem</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">15</property>
+                        <property name="position">8</property>
                         <property name="name">currency</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">9</property>
                         <property name="name">exchange</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">17</property>
+                        <property name="position">10</property>
                         <property name="name">taxtype</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">18</property>
+                        <property name="position">11</property>
                         <property name="name">taxkind</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">19</property>
+                        <property name="position">12</property>
                         <property name="name">taxrate</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">20</property>
+                        <property name="position">13</property>
                         <property name="name">tradetype</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">21</property>
+                        <property name="position">14</property>
                         <property name="name">tradename</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">22</property>
+                        <property name="position">15</property>
                         <property name="name">paymemt</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">23</property>
+                        <property name="position">16</property>
                         <property name="name">refno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">24</property>
-                        <property name="name">shiptype</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">25</property>
+                        <property name="position">17</property>
                         <property name="name">shipadd</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">26</property>
-                        <property name="name">shipmarks</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">27</property>
-                        <property name="name">designsets</property>
-                        <property name="dataType">integer</property>
-                    </structure>
-                    <structure>
-                        <property name="position">28</property>
-                        <property name="name">designprice</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">29</property>
-                        <property name="name">totaldesign</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">30</property>
-                        <property name="name">totalnotaxs</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">31</property>
-                        <property name="name">totaltaxs</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">32</property>
-                        <property name="name">totalamts</property>
-                        <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">33</property>
+                        <property name="position">18</property>
                         <property name="name">remark</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">34</property>
-                        <property name="name">testremark</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">35</property>
-                        <property name="name">productremark</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">36</property>
-                        <property name="name">packremark</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">37</property>
+                        <property name="position">19</property>
                         <property name="name">seq</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">38</property>
+                        <property name="position">20</property>
                         <property name="name">itemno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">39</property>
+                        <property name="position">21</property>
+                        <property name="name">customeritemno</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
                         <property name="name">colorno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">40</property>
+                        <property name="position">23</property>
+                        <property name="name">customercolorno</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
                         <property name="name">itemdesc</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">41</property>
-                        <property name="name">itemspec</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">42</property>
-                        <property name="name">itemmake</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">43</property>
-                        <property name="name">itemwidth</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">44</property>
+                        <property name="position">25</property>
                         <property name="name">itemyarncount</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">45</property>
-                        <property name="name">itemweigth</property>
+                        <property name="position">26</property>
+                        <property name="name">itemmake</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">46</property>
-                        <property name="name">vendoritemno</property>
+                        <property name="position">27</property>
+                        <property name="name">itemwidth</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">47</property>
-                        <property name="name">vendorcolorno</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">48</property>
+                        <property name="position">28</property>
                         <property name="name">qty</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">49</property>
+                        <property name="position">29</property>
                         <property name="name">unit</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">50</property>
+                        <property name="position">30</property>
                         <property name="name">price</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">51</property>
+                        <property name="position">31</property>
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
-                    </structure>
-                    <structure>
-                        <property name="position">52</property>
-                        <property name="name">dremark</property>
-                        <property name="dataType">string</property>
                     </structure>
                 </list-property>
             </structure>
@@ -740,7 +467,7 @@
             <method name="open"><![CDATA[
 importPackage(Packages.com.hhsc.rpt);
 
-ejbClient = new PurchaseOrderReport();
+ejbClient = new SalesShipmentReport();
 ejbClient.setEJB(params["JNDIName"]);
 
 master = ejbClient.getEntity(params["id"]);
@@ -749,59 +476,48 @@ detail = ejbClient.getDetail(params["formid"]);
 currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[
 
-	if(currentRow < detail.size()){
+if (currentRow < detail.size()){
 		dataSetRow["formid"] = master.getFormid();
 		dataSetRow["formdate"] = master.getFormdate();
-		dataSetRow["purtype"] = master.getPurtype();
-		dataSetRow["vendorno"] = master.getVendor().getVendorno();
-		dataSetRow["vendor"] = master.getVendor().getVendor();
-		dataSetRow["vendorcontacter"] = master.getVendor().getContacter();
-		dataSetRow["vendorfax"] = master.getVendor().getFax();
+		dataSetRow["formtype"] = master.getShiptype().getName();
+		dataSetRow["customerno"] = master.getCustomer().getCustomerno();
+		dataSetRow["customer"] = master.getCustomer().getCustomer();
 		dataSetRow["dept"] = master.getDept().getDept();
-		dataSetRow["buyer"] = master.getBuyer().getUsername();
+		dataSetRow["salesman"] = master.getSalesman().getUsername();
 		dataSetRow["currency"] = master.getCurrency();
 		dataSetRow["exchange"] = master.getExchange();
 		dataSetRow["taxtype"] = master.getTaxtype();
 		dataSetRow["taxkind"] = master.getTaxkind();
 		dataSetRow["taxrate"] = master.getTaxrate();
-		dataSetRow["itemdesign"] = "";
-		dataSetRow["itemdesigndesc"] = "";
-		dataSetRow["itemdesignspec"] = "";
-		dataSetRow["itemdesignimg"] = "";
-		dataSetRow["vendoritem"] = master.getVendoritemno();		
-		dataSetRow["designprice"] = master.getDesignprice();
-		dataSetRow["designsets"] = master.getDesignsets();
-		dataSetRow["totaldesign"] = master.getTotaldesign();
-		dataSetRow["totalextax"] = master.getTotalextax();
-		dataSetRow["totaltaxes"] = master.getTotaltaxes();
-		dataSetRow["totalamts"] = master.getTotalamts();		
-		dataSetRow["seq"] = detail.get(currentRow).getSeq();	
-		dataSetRow["itemno"] = detail.get(currentRow).getItemno();
-		dataSetRow["colorno"] = detail.get(currentRow).getColorno();
-		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();
-		dataSetRow["itemspec"] = detail.get(currentRow).getItemmaster().getItemspec();			
+		dataSetRow["seq"] = detail.get(currentRow).getSeq();		
+		dataSetRow["itemno"] = detail.get(currentRow).getItemno();		
+		dataSetRow["customeritemno"] = detail.get(currentRow).getCustomeritemno();
+		dataSetRow["colorno"] = detail.get(currentRow).getColorno();				
+		dataSetRow["customercolorno"] = detail.get(currentRow).getCustomercolorno();
+		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();	
 		dataSetRow["itemyarncount"] = detail.get(currentRow).getItemmaster().getItemyarncount();	
 		dataSetRow["itemmake"] = detail.get(currentRow).getItemmaster().getItemmake();	
-		dataSetRow["itemwidth"] = detail.get(currentRow).getItemmaster().getItemwidth();		
-		dataSetRow["itemweight"] = detail.get(currentRow).getItemmaster().getItemweight();				
-		dataSetRow["vendoritemno"] = detail.get(currentRow).getVendoritemno();
-		dataSetRow["vendorcolorno"] = detail.get(currentRow).getVendorcolorno();
-		dataSetRow["qty"] = detail.get(currentRow).getQty();		
+		dataSetRow["itemwidth"] = detail.get(currentRow).getItemmaster().getItemwidth();	
+		dataSetRow["qty"] = detail.get(currentRow).getQty();	
 		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
 		dataSetRow["price"] = detail.get(currentRow).getPrice();	
 		dataSetRow["amts"] = detail.get(currentRow).getAmts();	
-		dataSetRow["dremark"] = detail.get(currentRow).getRemark();			
+		dataSetRow["shipadd"] = master.getShipadd();				
+		dataSetRow["remark"] = master.getRemark();	
+	
 		currentRow++;
 		return true;	
-	}
-
+	
+}
 return false;]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>
         </script-data-set>
     </data-sets>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
-            <property name="type">a4</property>
+            <property name="type">custom</property>
+            <property name="height">148mm</property>
+            <property name="width">210mm</property>
             <page-header>
                 <label id="6">
                     <property name="fontFamily">"Microsoft YaHei"</property>
@@ -884,7 +600,6 @@ return false;]]></method>
     </page-setup>
     <body>
         <grid id="227">
-            <property name="height">1.96in</property>
             <property name="width">7.7in</property>
             <column id="228"/>
             <column id="229"/>
@@ -904,7 +619,7 @@ return false;]]></method>
                     <label id="383">
                         <property name="fontSize">12pt</property>
                         <property name="textAlign">center</property>
-                        <text-property name="text">面料采购合同</text-property>
+                        <text-property name="text">出货单</text-property>
                     </label>
                 </cell>
                 <cell id="381"/>
@@ -922,7 +637,7 @@ return false;]]></method>
                 <property name="borderTopStyle">none</property>
                 <cell id="235">
                     <label id="267">
-                        <text-property name="text">合同编号</text-property>
+                        <text-property name="text">出货单号</text-property>
                     </label>
                 </cell>
                 <cell id="236">
@@ -943,7 +658,7 @@ return false;]]></method>
                 </cell>
                 <cell id="237">
                     <label id="268">
-                        <text-property name="text">采购日期</text-property>
+                        <text-property name="text">出货日期</text-property>
                     </label>
                 </cell>
                 <cell id="238">
@@ -970,22 +685,21 @@ return false;]]></method>
                     <property name="colSpan">1</property>
                     <property name="rowSpan">1</property>
                     <label id="262">
-                        <text-property name="text">合同类型</text-property>
+                        <text-property name="text">出货类型</text-property>
                     </label>
                 </cell>
-                <cell id="570">
-                    <data id="437">
+                <cell id="573">
+                    <data id="572">
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>
-                                <property name="name">purtype</property>
-                                <text-property name="displayName">purtype</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["purtype"]</expression>
+                                <property name="name">formtype</property>
+                                <text-property name="displayName">formtype</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["formtype"]</expression>
                                 <property name="dataType">string</property>
-                                <property name="allowExport">true</property>
                             </structure>
                         </list-property>
-                        <property name="resultSetColumn">purtype</property>
+                        <property name="resultSetColumn">formtype</property>
                     </data>
                 </cell>
             </row>
@@ -998,7 +712,7 @@ return false;]]></method>
                 <property name="borderRightWidth">thin</property>
                 <cell id="363">
                     <label id="265">
-                        <text-property name="text">供应商简称</text-property>
+                        <text-property name="text">客户简称</text-property>
                     </label>
                 </cell>
                 <cell id="364">
@@ -1009,69 +723,20 @@ return false;]]></method>
                         <list-property name="boundDataColumns">
                             <structure>
                                 <property name="name">customer</property>
-                                <text-property name="displayName">vendor</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["vendor"]</expression>
+                                <text-property name="displayName">customer</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["customer"]</expression>
                                 <property name="dataType">string</property>
-                                <property name="allowExport">true</property>
                             </structure>
                         </list-property>
                         <property name="resultSetColumn">customer</property>
                     </data>
                 </cell>
                 <cell id="365">
-                    <label id="586">
-                        <text-property name="text">联系人</text-property>
-                    </label>
-                </cell>
-                <cell id="366">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <data id="587">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">vendorcontacter</property>
-                                <text-property name="displayName">vendorcontacter</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["vendorcontacter"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">vendorcontacter</property>
-                    </data>
-                </cell>
-                <cell id="571">
-                    <label id="605">
-                        <text-property name="text">传真</text-property>
-                    </label>
-                </cell>
-                <cell id="572">
-                    <data id="604">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">vendorfax</property>
-                                <text-property name="displayName">vendorfax</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["vendorfax"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">vendorfax</property>
-                    </data>
-                </cell>
-            </row>
-            <row id="241">
-                <property name="borderBottomStyle">solid</property>
-                <property name="borderBottomWidth">thin</property>
-                <property name="borderLeftStyle">solid</property>
-                <property name="borderLeftWidth">thin</property>
-                <property name="borderRightStyle">solid</property>
-                <property name="borderRightWidth">thin</property>
-                <cell id="242">
                     <label id="269">
                         <text-property name="text">负责部门</text-property>
                     </label>
                 </cell>
-                <cell id="243">
+                <cell id="366">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <data id="441">
@@ -1087,45 +752,23 @@ return false;]]></method>
                         <property name="resultSetColumn">dept</property>
                     </data>
                 </cell>
-                <cell id="244">
+                <cell id="574">
                     <label id="266">
-                        <text-property name="text">负责采购</text-property>
+                        <text-property name="text">负责业务</text-property>
                     </label>
                 </cell>
-                <cell id="245">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
+                <cell id="575">
                     <data id="284">
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>
-                                <property name="name">buyer</property>
-                                <text-property name="displayName">buyer</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["buyer"]</expression>
-                                <property name="dataType">string</property>
-                                <property name="allowExport">true</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">buyer</property>
-                    </data>
-                </cell>
-                <cell id="573">
-                    <label id="602">
-                        <text-property name="text">税别</text-property>
-                    </label>
-                </cell>
-                <cell id="574">
-                    <data id="601">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">taxtype</property>
-                                <text-property name="displayName">taxtype</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["taxtype"]</expression>
+                                <property name="name">salesman</property>
+                                <text-property name="displayName">salesman</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["salesman"]</expression>
                                 <property name="dataType">string</property>
                             </structure>
                         </list-property>
-                        <property name="resultSetColumn">taxtype</property>
+                        <property name="resultSetColumn">salesman</property>
                     </data>
                 </cell>
             </row>
@@ -1166,10 +809,6 @@ return false;]]></method>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <data id="438">
-                        <structure name="numberFormat">
-                            <property name="category">Custom</property>
-                            <property name="pattern">#0.000</property>
-                        </structure>
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>
@@ -1182,25 +821,8 @@ return false;]]></method>
                         <property name="resultSetColumn">exchange</property>
                     </data>
                 </cell>
-                <cell id="579">
-                    <label id="603">
-                        <text-property name="text">税率</text-property>
-                    </label>
-                </cell>
-                <cell id="580">
-                    <data id="600">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">taxrate</property>
-                                <text-property name="displayName">taxrate</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["taxrate"]</expression>
-                                <property name="dataType">float</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">taxrate</property>
-                    </data>
-                </cell>
+                <cell id="582"/>
+                <cell id="583"/>
             </row>
             <row id="489">
                 <property name="borderLeftStyle">solid</property>
@@ -1208,19 +830,28 @@ return false;]]></method>
                 <property name="borderRightStyle">solid</property>
                 <property name="borderRightWidth">thin</property>
                 <cell id="490">
-                    <label id="496"/>
+                    <label id="496">
+                        <text-property name="text">送货地址</text-property>
+                    </label>
                 </cell>
                 <cell id="491">
+                    <property name="colSpan">5</property>
+                    <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
+                    <data id="585">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">shipadd</property>
+                                <text-property name="displayName">shipadd</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["shipadd"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">shipadd</property>
+                    </data>
                 </cell>
-                <cell id="492"/>
-                <cell id="493">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                </cell>
-                <cell id="494"/>
-                <cell id="495"/>
             </row>
         </grid>
         <table id="286">
@@ -1235,7 +866,7 @@ return false;]]></method>
             <property name="verticalAlign">middle</property>
             <property name="masterPage">Simple MasterPage</property>
             <property name="canShrink">false</property>
-            <property name="width">7.694444444444445in</property>
+            <property name="width">7.7in</property>
             <property name="dataSet">dataDetail</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -1245,11 +876,10 @@ return false;]]></method>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="name">vendoritemno</property>
-                    <text-property name="displayName">vendoritemno</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["vendoritemno"]</expression>
+                    <property name="name">customercolorno</property>
+                    <text-property name="displayName">customercolorno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["customercolorno"]</expression>
                     <property name="dataType">string</property>
-                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">colorno</property>
@@ -1312,6 +942,12 @@ return false;]]></method>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
+                    <property name="name">customeritemno</property>
+                    <text-property name="displayName">customeritemno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["customeritemno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
                     <property name="name">数量合计</property>
                     <property name="dataType">float</property>
                     <property name="aggregateFunction">SUM</property>
@@ -1323,52 +959,19 @@ return false;]]></method>
                     </list-property>
                     <property name="allowExport">true</property>
                 </structure>
-                <structure>
-                    <property name="name">数量</property>
-                    <property name="dataType">float</property>
-                    <property name="aggregateFunction">SUM</property>
-                    <list-property name="arguments">
-                        <structure>
-                            <property name="name">Expression</property>
-                            <expression name="value" type="javascript">row["qty"]</expression>
-                        </structure>
-                    </list-property>
-                    <property name="allowExport">true</property>
-                </structure>
-                <structure>
-                    <property name="name">金额</property>
-                    <property name="dataType">float</property>
-                    <property name="aggregateFunction">SUM</property>
-                    <list-property name="arguments">
-                        <structure>
-                            <property name="name">Expression</property>
-                            <expression name="value" type="javascript">row["amts"]</expression>
-                        </structure>
-                    </list-property>
-                    <property name="allowExport">true</property>
-                </structure>
-                <structure>
-                    <property name="name">itemweigth</property>
-                    <text-property name="displayName">itemweigth</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["itemweigth"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">dremark</property>
-                    <text-property name="displayName">dremark</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["dremark"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
                 <property name="width">0.2in</property>
             </column>
             <column id="351">
-                <property name="width">1.1666666666666667in</property>
+                <property name="width">1in</property>
+            </column>
+            <column id="353">
+                <property name="width">0.4in</property>
             </column>
             <column id="355">
-                <property name="width">1.25in</property>
+                <property name="width">1.5in</property>
             </column>
             <column id="357">
                 <property name="width">0.8in</property>
@@ -1378,12 +981,6 @@ return false;]]></method>
             </column>
             <column id="359">
                 <property name="width">0.2in</property>
-            </column>
-            <column id="360">
-                <property name="width">0.6in</property>
-            </column>
-            <column id="361">
-                <property name="width">0.8in</property>
             </column>
             <header>
                 <row id="287">
@@ -1400,21 +997,28 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="291">
-                            <text-property name="text">面料/名称</text-property>
+                            <text-property name="text">品号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="294">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="295">
+                            <text-property name="text">色号</text-property>
                         </label>
                     </cell>
                     <cell id="298">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="299">
-                            <text-property name="text">成分/纱线</text-property>
+                            <text-property name="text">名称/成分</text-property>
                         </label>
                     </cell>
                     <cell id="302">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="303">
-                            <text-property name="text">门幅/克重</text-property>
+                            <text-property name="text">门幅/纱线</text-property>
                         </label>
                     </cell>
                     <cell id="304">
@@ -1429,18 +1033,6 @@ return false;]]></method>
                         <property name="borderRightWidth">thin</property>
                         <label id="307">
                             <text-property name="text">单位</text-property>
-                        </label>
-                    </cell>
-                    <cell id="308">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <label id="311">
-                            <text-property name="text">单价</text-property>
-                        </label>
-                    </cell>
-                    <cell id="310">
-                        <label id="456">
-                            <text-property name="text">小计</text-property>
                         </label>
                     </cell>
                 </row>
@@ -1463,12 +1055,18 @@ return false;]]></method>
                             <property name="resultSetColumn">itemno</property>
                         </data>
                     </cell>
+                    <cell id="319">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="318">
+                            <property name="resultSetColumn">colorno</property>
+                        </data>
+                    </cell>
                     <cell id="323">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="326">
-                            <property name="whiteSpace">nowrap</property>
-                            <property name="resultSetColumn">itemmake</property>
+                        <data id="322">
+                            <property name="resultSetColumn">itemdesc</property>
                         </data>
                     </cell>
                     <cell id="327">
@@ -1497,31 +1095,9 @@ return false;]]></method>
                             <property name="resultSetColumn">unit</property>
                         </data>
                     </cell>
-                    <cell id="333">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="336">
-                            <structure name="numberFormat">
-                                <property name="category">Custom</property>
-                                <property name="pattern">###,##0.00</property>
-                            </structure>
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">price</property>
-                        </data>
-                    </cell>
-                    <cell id="335">
-                        <data id="510">
-                            <structure name="numberFormat">
-                                <property name="category">Custom</property>
-                                <property name="pattern">###,##0.00</property>
-                            </structure>
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">amts</property>
-                        </data>
-                    </cell>
                 </row>
                 <row id="443">
-                    <property name="borderBottomStyle">dashed</property>
+                    <property name="borderBottomStyle">solid</property>
                     <property name="borderBottomWidth">thin</property>
                     <cell id="444">
                         <property name="borderRightStyle">solid</property>
@@ -1530,11 +1106,25 @@ return false;]]></method>
                     <cell id="445">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="322">
-                            <property name="resultSetColumn">itemdesc</property>
+                        <data id="584">
+                            <property name="resultSetColumn">customeritemno</property>
+                        </data>
+                    </cell>
+                    <cell id="446">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="316">
+                            <property name="resultSetColumn">customercolorno</property>
                         </data>
                     </cell>
                     <cell id="447">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="571">
+                            <property name="resultSetColumn">itemmake</property>
+                        </data>
+                    </cell>
+                    <cell id="448">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="324">
@@ -1542,43 +1132,13 @@ return false;]]></method>
                             <property name="resultSetColumn">itemyarncount</property>
                         </data>
                     </cell>
-                    <cell id="448">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="588">
-                            <property name="resultSetColumn">itemweigth</property>
-                        </data>
-                    </cell>
                     <cell id="449">
-                        <property name="colSpan">2</property>
-                        <property name="rowSpan">1</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="316">
-                            <property name="resultSetColumn">vendoritemno</property>
-                        </data>
-                    </cell>
-                    <cell id="451">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                     </cell>
-                    <cell id="452"/>
-                </row>
-                <row id="607">
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <cell id="608">
+                    <cell id="450">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                    </cell>
-                    <cell id="609">
-                        <property name="colSpan">7</property>
-                        <property name="rowSpan">1</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="617">
-                            <property name="resultSetColumn">dremark</property>
-                        </data>
                     </cell>
                 </row>
             </detail>
@@ -1586,6 +1146,7 @@ return false;]]></method>
                 <row id="337">
                     <cell id="338"/>
                     <cell id="339"/>
+                    <cell id="341"/>
                     <cell id="343"/>
                     <cell id="345">
                         <property name="borderRightStyle">solid</property>
@@ -1598,32 +1159,14 @@ return false;]]></method>
                     <cell id="346">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="531">
-                            <structure name="numberFormat">
-                                <property name="category">General Number</property>
-                                <property name="pattern">General Number</property>
-                            </structure>
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">数量</property>
+                        <property name="textAlign">right</property>
+                        <data id="586">
+                            <property name="resultSetColumn">数量合计</property>
                         </data>
                     </cell>
                     <cell id="347">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                    </cell>
-                    <cell id="348">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                    </cell>
-                    <cell id="349">
-                        <data id="532">
-                            <structure name="numberFormat">
-                                <property name="category">Custom</property>
-                                <property name="pattern">###,##0.00</property>
-                            </structure>
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">金额</property>
-                        </data>
                     </cell>
                 </row>
             </footer>
@@ -1654,67 +1197,19 @@ return false;]]></method>
                 </cell>
                 <cell id="393">
                     <property name="paddingTop">1pt</property>
-                    <data id="589">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">remark</property>
-                                <text-property name="displayName">remark</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">remark</property>
-                    </data>
                 </cell>
             </row>
         </grid>
         <grid id="513">
-            <property name="height">3.6944444444444446in</property>
+            <property name="height">0.6in</property>
             <column id="514"/>
             <column id="515"/>
-            <row id="516">
-                <cell id="517">
-                    <label id="506">
-                        <text-property name="text">条款</text-property>
-                    </label>
-                </cell>
-                <cell id="518"/>
-            </row>
             <row id="522">
-                <property name="height">2.138888888888889in</property>
                 <cell id="523">
-                    <property name="colSpan">2</property>
+                    <property name="colSpan">1</property>
                     <property name="rowSpan">1</property>
-                    <text id="512">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[一、质量与验收标准：                          为标准，根据《GB/T 17760-1999印染布布面疵点检验方法》或《GB/T 18132-2000丝绸服装》检验，一等品        ％，二等品        ％。二等品超出双方约定可协商解决。面料开剪后我司将不承担任何责任。
-
-二、数量超差幅度：            ％
-
-三、本合同自：            之日起生效，合同执行期内甲乙双方均不得随意变更或解除合同。如有变化须经双方共同协商，并作出书面补充，补充内容与本合同具有同等效力。
-
-四、违约责任：按照《中华人民共和国合同法》有关规定执行。
-
-五、根据《中华人民共和国合同法》规定，经双方协商一致，签订本合同，以资共同信守。本合同一式二份，甲乙双方各执一份。
-]]></text-property>
-                    </text>
                 </cell>
-            </row>
-            <row id="525">
-                <property name="height">1.25in</property>
-                <cell id="526">
-                    <label id="528">
-                        <property name="textAlign">center</property>
-                        <text-property name="text">甲方代表签字或盖公章</text-property>
-                    </label>
-                </cell>
-                <cell id="527">
-                    <label id="529">
-                        <property name="textAlign">center</property>
-                        <text-property name="text">乙方代表签字或盖公章</text-property>
-                    </label>
-                </cell>
+                <cell id="587"/>
             </row>
         </grid>
     </body>

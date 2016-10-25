@@ -679,12 +679,12 @@ ejbClient = new SalesOrderReport();
 ejbClient.setEJB(params["JNDIName"]);
 
 master = ejbClient.getEntity(params["id"]);
-list = ejbClient.getDetail(params["formid"]);
+detail = ejbClient.getDetail(params["formid"]);
 
 currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[
-if(currentRow < 6 || currentRow < list.size()){
-	if(currentRow < list.size()){
+
+if(currentRow < detail.size()){
 		dataSetRow["formid"] = master.getFormid();
 		dataSetRow["formdate"] = master.getFormdate();
 		dataSetRow["ordertype"] = master.getOrdertype().getName();
@@ -708,35 +708,29 @@ if(currentRow < 6 || currentRow < list.size()){
 		dataSetRow["totalextax"] = master.getTotalextax();
 		dataSetRow["totaltaxes"] = master.getTotaltaxes();
 		dataSetRow["totalamts"] = master.getTotalamts();		
-		dataSetRow["seq"] = list.get(currentRow).getSeq();	
-		dataSetRow["customercolorno"] = list.get(currentRow).getCustomercolorno();
-		dataSetRow["colorno"] = list.get(currentRow).getColorno();
-		dataSetRow["itemno"] = list.get(currentRow).getItemno();		
-		dataSetRow["itemdesc"] = list.get(currentRow).getItemmaster().getItemdesc();	
-		dataSetRow["itemyarncount"] = list.get(currentRow).getItemmaster().getItemyarncount();	
-		dataSetRow["itemmake"] = list.get(currentRow).getItemmaster().getItemmake();	
-		dataSetRow["itemwidth"] = list.get(currentRow).getItemmaster().getItemwidth();	
-		dataSetRow["qty"] = list.get(currentRow).getQty();	
-		dataSetRow["issqty"] = list.get(currentRow).getIssqty();	
-		dataSetRow["unit"] = list.get(currentRow).getUnit();	
-		dataSetRow["price"] = list.get(currentRow).getPrice();	
-		dataSetRow["amts"] = list.get(currentRow).getAmts();	
+		dataSetRow["seq"] = detail.get(currentRow).getSeq();	
+		dataSetRow["customercolorno"] = detail.get(currentRow).getCustomercolorno();
+		dataSetRow["colorno"] = detail.get(currentRow).getColorno();
+		dataSetRow["itemno"] = detail.get(currentRow).getItemno();		
+		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();	
+		dataSetRow["itemyarncount"] = detail.get(currentRow).getItemmaster().getItemyarncount();	
+		dataSetRow["itemmake"] = detail.get(currentRow).getItemmaster().getItemmake();	
+		dataSetRow["itemwidth"] = detail.get(currentRow).getItemmaster().getItemwidth();	
+		dataSetRow["qty"] = detail.get(currentRow).getQty();	
+		dataSetRow["issqty"] = detail.get(currentRow).getIssqty();	
+		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
+		dataSetRow["price"] = detail.get(currentRow).getPrice();	
+		dataSetRow["amts"] = detail.get(currentRow).getAmts();	
 		
 		dataSetRow["testremark"] = master.getTestremark();	
 		dataSetRow["productremark"] = master.getProductremark();
-		dataSetRow["packremark"] = master.getPackremark();				
-		dataSetRow["shipmark"] = master.getShipmarks();	
+		dataSetRow["packremark"] = master.getPackremark();	
+		dataSetRow["shiptype"] = master.getShipadd();				
+		dataSetRow["shipmarks"] = master.getShipmarks();	
 	
 		currentRow++;
 		return true;	
-	}
-	dataSetRow["formid"] = master.getFormid();
-	dataSetRow["formdate"] = master.getFormdate();
-	dataSetRow["customerno"] = master.getCustomer().getCustomerno();
-	dataSetRow["customer"] = master.getCustomer().getCustomer();
-	dataSetRow["customercolorno"] ="";
-	currentRow++;
-	return true;
+	
 }
 return false;]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>
@@ -1764,49 +1758,29 @@ return false;]]></method>
             </row>
         </grid>
         <grid id="513">
-            <property name="height">3.6944444444444446in</property>
+            <property name="height">2.0416666666666665in</property>
             <column id="514"/>
             <column id="515"/>
-            <row id="516">
-                <cell id="517">
-                    <label id="506">
-                        <text-property name="text">条款</text-property>
-                    </label>
-                </cell>
-                <cell id="518"/>
-            </row>
             <row id="522">
-                <property name="height">2.138888888888889in</property>
+                <property name="height">0.6388888888888888in</property>
                 <cell id="523">
                     <property name="colSpan">2</property>
                     <property name="rowSpan">1</property>
                     <text id="512">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[一、质量与验收标准：                          为标准，根据《GB/T 17760-1999印染布布面疵点检验方法》或《GB/T 18132-2000丝绸服装》检验，一等品        ％，二等品        ％。二等品超出双方约定可协商解决。面料开剪后我司将不承担任何责任。
+                        <text-property name="content"><![CDATA[数量超差幅度：            ％
 
-二、数量超差幅度：            ％
-
-三、本合同自：            之日起生效，合同执行期内甲乙双方均不得随意变更或解除合同。如有变化须经双方共同协商，并作出书面补充，补充内容与本合同具有同等效力。
-
-四、违约责任：按照《中华人民共和国合同法》有关规定执行。
-
-五、根据《中华人民共和国合同法》规定，经双方协商一致，签订本合同，以资共同信守。本合同一式二份，甲乙双方各执一份。
 ]]></text-property>
                     </text>
                 </cell>
             </row>
             <row id="525">
                 <property name="height">1.25in</property>
-                <cell id="526">
-                    <label id="528">
-                        <property name="textAlign">center</property>
-                        <text-property name="text">甲方代表签字或盖公章</text-property>
-                    </label>
-                </cell>
+                <cell id="526"/>
                 <cell id="527">
                     <label id="529">
                         <property name="textAlign">center</property>
-                        <text-property name="text">乙方代表签字或盖公章</text-property>
+                        <text-property name="text">发单人签字</text-property>
                     </label>
                 </cell>
             </row>

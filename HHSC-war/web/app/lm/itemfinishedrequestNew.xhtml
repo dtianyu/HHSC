@@ -67,8 +67,9 @@
                                 <f:selectItem itemLabel="成品" itemValue="100" />
                             </p:selectOneMenu>
                         </p:column>
-                        <p:column></p:column>
+                        <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column>
+                            <p:inputText id="remark" value="#{itemFinishedRequestManagedBean.newDetail.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -163,7 +164,7 @@
                                 <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                                 <p:column>
                                     <p:inputText id="customer" value="#{itemFinishedRequestManagedBean.currentDetail.customer.customer}" title="customer"  
-                                                 styleClass="inputWithButton" readonly="true"/>
+                                                 styleClass="inputWithButton" required="true" requiredMessage="请输入客户" disabled="true"/>
                                     <p:commandButton id="btnSelectCustomer" actionListener="#{itemFinishedRequestManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemFinishedRequestManagedBean.handleDialogReturnCustomerWhenDetailEdit}" 
@@ -207,18 +208,17 @@
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </p:calendar>
                                 </p:column>
-                                <p:column><p:outputLabel value="订单交期" for="deliverydate" /></p:column>
+                                <p:column><h:outputText value="订单交期"/></p:column>
                                 <p:column>
-                                    <p:calendar id="deliverydate" value="#{itemFinishedRequestManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
-                                                pattern="yyyy/MM/dd" required="true" requiredMessage="请输入订单交期">
+                                    <h:outputText id="deliverydate" value="#{itemFinishedRequestManagedBean.currentDetail.deliverydate}" title="Deliverydate" >
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
-                                    </p:calendar>
+                                    </h:outputText>
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                                <p:column><p:outputLabel value="备注" for="dremark" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputText id="remark" value="#{itemFinishedRequestManagedBean.currentDetail.remark}" title="Remark" />
+                                    <p:inputText id="dremark" value="#{itemFinishedRequestManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -228,13 +228,19 @@
                             <p:ajax event="rowUnselect"  update=":formNew:tabView:plgDetail" oncomplete="" />
                             <p:column styleClass="Wid10">
                                 <f:facet name="header">
+                                    <h:outputText value="客户"/>
+                                </f:facet>
+                                <h:outputText value="#{item.customer.customer}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
                                     <h:outputText value="花号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemdesign.itemno}"/>
                             </p:column>
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
-                                    <h:outputText value="花名"/>
+                                    <h:outputText value="名称"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemdesign.itemdesc}"/>
                             </p:column>
@@ -256,7 +262,7 @@
                                 </f:facet>
                                 <h:outputText value="#{item.colorno}"/>
                             </p:column>
-                            <p:column  styleClass="Wid20 TexAlRight">
+                            <p:column  styleClass="Wid10 TexAlRight">
                                 <f:facet name="header">
                                     <h:outputText value="数量"/>
                                 </f:facet>

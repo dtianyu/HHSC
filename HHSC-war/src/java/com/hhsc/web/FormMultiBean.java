@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
@@ -186,6 +187,18 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
     }
 
     @Override
+    protected void reportInitAndConfig() {
+        super.reportInitAndConfig();
+        if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+            try {
+                reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, Class.forName(this.currentSysprg.getRptclazz()).getClassLoader());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SuperSingleBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
     protected void setToolBar() {
         if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
@@ -226,7 +239,7 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
                     showMsg(FacesMessage.SEVERITY_WARN, "Warn", "还原前检查失败");
                 }
             } catch (Exception ex) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error",ex.toString());
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", ex.toString());
             }
         } else {
             showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");
@@ -248,7 +261,7 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
                     showMsg(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败");
                 }
             } catch (Exception ex) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error",ex.toString());
+                showMsg(FacesMessage.SEVERITY_ERROR, "Error", ex.toString());
             }
         } else {
             showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据");

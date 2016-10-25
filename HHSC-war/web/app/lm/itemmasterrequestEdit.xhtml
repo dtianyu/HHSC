@@ -73,8 +73,9 @@
                                 <f:selectItem itemLabel="白坯" itemValue="300" />
                             </p:selectOneMenu>
                         </p:column>
-                        <p:column></p:column>
+                        <p:column><p:outputLabel value="请购备注" for="remark" /></p:column>
                         <p:column>
+                            <p:inputText id="remark" value="#{itemMasterRequestManagedBean.currentEntity.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -153,28 +154,27 @@
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </p:calendar>
                                 </p:column>
-                                <p:column><p:outputLabel value="订单交期" for="deliverydate" /></p:column>
+                                <p:column><h:outputText value="订单交期"/></p:column>
                                 <p:column>
-                                    <p:calendar id="deliverydate" value="#{itemMasterRequestManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
-                                                pattern="yyyy/MM/dd" required="true" requiredMessage="请输入订单交期">
+                                    <h:outputText id="deliverydate" value="#{itemMasterRequestManagedBean.currentDetail.deliverydate}" title="Deliverydate" >
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
-                                    </p:calendar>
+                                    </h:outputText>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                                 <p:column>
                                     <p:inputText id="customer" value="#{itemMasterRequestManagedBean.currentDetail.customer.customer}" title="customer"  
-                                                 styleClass="inputWithButton" readonly="true"/>
+                                                 styleClass="inputWithButton" required="true" requiredMessage="请输入客户" readonly="true"/>
                                     <p:commandButton id="btnSelectCustomer" actionListener="#{itemMasterRequestManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnCustomerWhenDetailEdit}" 
                                                 update="customer" />
                                     </p:commandButton>
                                 </p:column>
-                                <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                                <p:column><p:outputLabel value="备注" for="dremark" /></p:column>
                                 <p:column>
-                                    <p:inputText id="remark" value="#{itemMasterRequestManagedBean.currentDetail.remark}" title="Remark" />
+                                    <p:inputText id="dremark" value="#{itemMasterRequestManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -182,7 +182,13 @@
                                      selectionMode="single" selection="#{itemMasterRequestManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
                             <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail" oncomplete="" />
-                            <p:column styleClass="Wid30">
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="客户"/>
+                                </f:facet>
+                                <h:outputText value="#{item.customer.customer}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="面料编号"/>
                                 </f:facet>
@@ -194,7 +200,7 @@
                                 </f:facet>
                                 <h:outputText value="#{item.itemmaster.itemdesc}"/>
                             </p:column>
-                            <p:column  styleClass="Wid20 TexAlRight">
+                            <p:column  styleClass="Wid10 TexAlRight">
                                 <f:facet name="header">
                                     <h:outputText value="数量"/>
                                 </f:facet>

@@ -201,6 +201,8 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                     d.setAmts(entity.getAmts());
                     d.setExtax(entity.getExtax());
                     d.setTaxes(entity.getTaxes());
+                    d.setRequestdate(entity.getRequestdate());
+                    d.setRequesttime(entity.getRequesttime());
                     d.setDeliverydate(entity.getDeliverydate());
                     d.setDeliverytime(entity.getDeliverytime());
                     d.setDeliveryadd(entity.getDeliveryadd());

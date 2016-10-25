@@ -5,7 +5,7 @@
  */
 package com.hhsc.entity;
 
-import com.lightshell.comm.FormDetailEntity;
+import com.lightshell.comm.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -31,20 +31,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseOrderDetail.getRowCount", query = "SELECT COUNT(p) FROM PurchaseOrderDetail p"),
-    @NamedQuery(name = "PurchaseOrderDetail.findAll", query = "SELECT p FROM PurchaseOrderDetail p"),
-    @NamedQuery(name = "PurchaseOrderDetail.findById", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByPId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid ORDER BY p.seq"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid AND p.seq = :seq"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByItemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByColorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.colorno = :colorno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByCustomerId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customerid = :customerid"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByCustomeritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customeritemno = :customeritemno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByCustomercolorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customercolorno = :customercolorno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByVendoritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.vendoritemno = :vendoritemno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.vendorcolorno = :vendorcolorno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByDeliverydate", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.deliverydate = :deliverydate")})
-public class PurchaseOrderDetail extends FormDetailEntity {
+    @NamedQuery(name = "PurchaseDetail.getRowCount", query = "SELECT COUNT(p) FROM PurchaseDetail p"),
+    @NamedQuery(name = "PurchaseDetail.findAll", query = "SELECT p FROM PurchaseDetail p"),
+    @NamedQuery(name = "PurchaseDetail.findById", query = "SELECT p FROM PurchaseDetail p WHERE p.id = :id"),
+    @NamedQuery(name = "PurchaseDetail.findByPId", query = "SELECT p FROM PurchaseDetail p WHERE p.purchaseOrder.id = :pid ORDER BY p.seq"),
+    @NamedQuery(name = "PurchaseDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseDetail p WHERE p.purchaseOrder.id = :pid AND p.seq = :seq"),
+    @NamedQuery(name = "PurchaseDetail.findByItemno", query = "SELECT p FROM PurchaseDetail p WHERE p.itemno = :itemno"),
+    @NamedQuery(name = "PurchaseDetail.findByColorno", query = "SELECT p FROM PurchaseDetail p WHERE p.colorno = :colorno"),
+    @NamedQuery(name = "PurchaseDetail.findByCustomeritemno", query = "SELECT p FROM PurchaseDetail p WHERE p.customeritemno = :customeritemno"),
+    @NamedQuery(name = "PurchaseDetail.findByCustomercolorno", query = "SELECT p FROM PurchaseDetail p WHERE p.customercolorno = :customercolorno"),
+    @NamedQuery(name = "PurchaseDetail.findByVendoritemno", query = "SELECT p FROM PurchaseDetail p WHERE p.vendoritemno = :vendoritemno"),
+    @NamedQuery(name = "PurchaseDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseDetail p WHERE p.vendorcolorno = :vendorcolorno"),
+    @NamedQuery(name = "PurchaseDetail.findByDeliverydate", query = "SELECT p FROM PurchaseDetail p WHERE p.deliverydate = :deliverydate")})
+public class PurchaseDetail extends BaseEntity {
+
+    @JoinColumn(name = "customerid", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private Customer customer;
+
+    @JoinColumn(name = "pid", referencedColumnName = "formid")
+    @ManyToOne(optional = false)
+    private PurchaseOrder purchaseOrder;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "seq")
+    private int seq;
 
     @JoinColumn(name = "itemid", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -57,8 +68,6 @@ public class PurchaseOrderDetail extends FormDetailEntity {
     @Size(max = 20)
     @Column(name = "colorno")
     private String colorno;
-    @Column(name = "customerid")
-    private Integer customerid;
     @Size(max = 45)
     @Column(name = "customeritemno")
     private String customeritemno;
@@ -137,15 +146,15 @@ public class PurchaseOrderDetail extends FormDetailEntity {
     private String relformid;
     @Column(name = "relseq")
     private Integer relseq;
-
+    
     @Column(name = "requestdate")
     @Temporal(TemporalType.DATE)
     private Date requestdate;
     @Column(name = "requesttime")
     @Temporal(TemporalType.TIME)
     private Date requesttime;
-
-    public PurchaseOrderDetail() {
+    
+    public PurchaseDetail() {
 
     }
 
@@ -171,14 +180,6 @@ public class PurchaseOrderDetail extends FormDetailEntity {
 
     public void setColorno(String colorno) {
         this.colorno = colorno;
-    }
-
-    public Integer getCustomerid() {
-        return customerid;
-    }
-
-    public void setCustomerid(Integer customerid) {
-        this.customerid = customerid;
     }
 
     public String getCustomeritemno() {
@@ -383,19 +384,19 @@ public class PurchaseOrderDetail extends FormDetailEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PurchaseOrderDetail)) {
+        if (!(object instanceof PurchaseDetail)) {
             return false;
         }
-        PurchaseOrderDetail other = (PurchaseOrderDetail) object;
+        PurchaseDetail other = (PurchaseDetail) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return (Objects.equals(this.pid, other.pid) && (this.seq == other.seq));
+        return (Objects.equals(this.purchaseOrder.getId(), other.purchaseOrder.getId()) && (this.getSeq() == other.getSeq()));
     }
 
     @Override
     public String toString() {
-        return "com.hhsc.entity.PurchaseOrderDetail[ id=" + id + " ]";
+        return "com.hhsc.entity.PurchaseDetail[ id=" + id + " ]";
     }
 
     /**
@@ -410,6 +411,48 @@ public class PurchaseOrderDetail extends FormDetailEntity {
      */
     public void setInqty(BigDecimal inqty) {
         this.inqty = inqty;
+    }
+
+    /**
+     * @return the purchaseOrder
+     */
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    /**
+     * @param purchaseOrder the purchaseOrder to set
+     */
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
+
+    /**
+     * @return the seq
+     */
+    public int getSeq() {
+        return seq;
+    }
+
+    /**
+     * @param seq the seq to set
+     */
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+
+    /**
+     * @return the customer
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     * @param customer the customer to set
+     */
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     /**

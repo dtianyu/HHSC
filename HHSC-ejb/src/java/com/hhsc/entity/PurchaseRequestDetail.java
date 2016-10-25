@@ -74,7 +74,7 @@ public class PurchaseRequestDetail extends FormDetailEntity {
     @Column(name = "colorno")
     private String colorno;
     @JoinColumn(name = "customerid", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = true)
     private Customer customer;
     @Size(max = 45)
     @Column(name = "customeritemno")

@@ -308,9 +308,9 @@
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
-                        <p:column></p:column>
+                        <p:column><h:outputText value="明细备注" /></p:column>
                         <p:column>
-
+                            <h:outputText id="dremark" value="#{salesOrderManagedBean.currentDetail.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

@@ -133,7 +133,6 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
                 showMsg(FacesMessage.SEVERITY_WARN, "Warn", "数据已被修改");
                 return false;
             }
-
             if (this.detailList != null && !this.detailList.isEmpty()) {
                 this.detailList.clear();
             }
@@ -295,6 +294,12 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
             currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
             currentDetail.setSrcseq(entity.getSeq());
             currentEntity.setSalesman(entity.getSalesOrder().getSalesman().getUsername());
+            if(currentEntity.getSalesremark()==null){
+                currentEntity.setSalesremark("");
+            }
+            if(currentDetail.getRemark()!=null){
+                currentEntity.setSalesremark(currentEntity.getSalesremark() + currentDetail.getRemark());
+            }
         }
     }
 

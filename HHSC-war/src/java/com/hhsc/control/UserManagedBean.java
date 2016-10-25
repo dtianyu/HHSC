@@ -45,8 +45,8 @@ public class UserManagedBean implements Serializable {
     public boolean checkUser() {
         return true;
     }
-    
-    public SystemUser findById(int id){
+
+    public SystemUser findById(int id) {
         return systemUserBean.findById(id);
     }
 
@@ -81,7 +81,9 @@ public class UserManagedBean implements Serializable {
             currentUser = null;
             status = false;
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            session.invalidate();
+            if (session != null) {
+                session.invalidate();
+            }
             return "login";
         } else {
             return "home";

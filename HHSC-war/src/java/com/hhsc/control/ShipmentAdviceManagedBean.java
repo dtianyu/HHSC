@@ -29,9 +29,9 @@ public class ShipmentAdviceManagedBean extends SalesShipmentManagedBean {
 
     @Override
     public void init() {
-        setSuperEJB(salesShipBean);
+        setSuperEJB(salesShipmentBean);
         setDetailEJB(salesShipmentDetailBean);
-        setModel(new SalesShipmentModel(salesShipBean, userManagedBean));
+        setModel(new SalesShipmentModel(salesShipmentBean, userManagedBean));
         getModel().getFilterFields().put("status", "N");
         super.init();
     }

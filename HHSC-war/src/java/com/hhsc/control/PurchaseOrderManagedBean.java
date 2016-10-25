@@ -98,6 +98,27 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
     }
 
     @Override
+    protected boolean doBeforePersist() throws Exception {
+        if (this.getNewEntity() != null && this.getNewEntity().getVendor() == null) {
+            showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入供应商");
+            return false;
+        }
+        if (this.detailList != null && !this.detailList.isEmpty()) {
+            for (PurchaseOrderDetail detail : detailList) {
+                if (detail.getItemmaster() == null) {
+                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入品号");
+                    return false;
+                }
+                if ((detail.getQty().compareTo(BigDecimal.ZERO) == 1) || (detail.getPrice().compareTo(BigDecimal.ZERO) == 1)) {
+                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入数量或单价");
+                    return false;
+                }
+            }
+        }
+        return super.doBeforePersist();
+    }
+
+    @Override
     protected boolean doBeforeUnverify() throws Exception {
         if (!super.doBeforeUnverify()) {
             return false;

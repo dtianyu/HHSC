@@ -47,7 +47,7 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
             return false;
         }
         if (currentEntity.getQty().compareTo(currentEntity.getQcqty().add(currentEntity.getBadqty())) != 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "验收数量不等于点收数量"));
+            showMsg(FacesMessage.SEVERITY_ERROR, "Error", "验收数量不等于点收数量");
             return false;
         }
         this.currentEntity.setStatus("40");//验收中状态
@@ -64,18 +64,18 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     protected boolean doBeforeUnverify() throws Exception {
         //因为判断明细状态所以不能调用超类方法
         if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!");
             return false;
         }
         PurchaseStorage e = (PurchaseStorage) superEJB.findById(currentEntity.getId());
         if (!"50".equals(e.getStatus())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!"));
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!");
             return false;
         }
         ItemInventory i;
         i = itemInventoryBean.findItemInventory(currentEntity.getItemno(), currentEntity.getColorno(), currentEntity.getBrand(), currentEntity.getBatch(), currentEntity.getSn(), currentEntity.getWarehouse().getWarehouseno());
         if ((i == null) || (i.getQty().compareTo(currentEntity.getQcqty().add(currentEntity.getAddqty())) == -1)) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", currentEntity.getItemno() + "库存可还原量不足"));
+            showErrorMsg("Error", currentEntity.getItemno() + "库存可还原量不足");
             return false;
         }
         return true;
@@ -90,7 +90,7 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
         }
         PurchaseStorage e = (PurchaseStorage) superEJB.findById(currentEntity.getId());
         if ("50".equals(e.getStatus())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!"));
+            showWarnMsg("Warn", "状态已变更!");
             return false;
         }
         return true;

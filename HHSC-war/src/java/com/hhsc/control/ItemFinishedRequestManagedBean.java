@@ -10,7 +10,6 @@ import com.hhsc.lazy.ItemFinishedRequestModel;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -37,11 +36,15 @@ public class ItemFinishedRequestManagedBean extends PurchaseRequestManagedBean {
         if (this.detailList != null && !this.detailList.isEmpty()) {
             for (PurchaseRequestDetail detail : detailList) {
                 if (detail.getItemdesign() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入花号"));
+                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入花号");
                     return false;
                 }
                 if (detail.getItemmaster() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入面料"));
+                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入面料");
+                    return false;
+                }
+                if (detail.getCustomer() == null) {
+                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入客户");
                     return false;
                 }
             }

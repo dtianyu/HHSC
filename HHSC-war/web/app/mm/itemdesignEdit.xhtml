@@ -34,7 +34,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="花号" for="designid"/></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="designid" value="#{itemDesignManagedBean.currentEntity.itemno}" title="Designid" 
-                                         required="true" requiredMessage="请输入花号" disabled="#{itemDesignManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入花号" readonly="#{itemDesignManagedBean.currentSysprg.noauto}"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -57,11 +57,13 @@
                     <p:row>
                         <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
                         <p:column>
-                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.currentEntity.itemspec}" title="itemspec" />
+                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.currentEntity.itemspec}" title="itemspec" 
+                                         required="true" requiredMessage="请输入规格"/>
                         </p:column>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column>
-                            <p:inputText id="remark" value="#{itemDesignManagedBean.currentEntity.remark}" title="Remark" />
+                            <p:inputText id="remark" value="#{itemDesignManagedBean.currentEntity.remark}" title="Remark" 
+                                         required="true" requiredMessage="请输入备注"/>
                         </p:column>
                     </p:row>
                     <p:row>
