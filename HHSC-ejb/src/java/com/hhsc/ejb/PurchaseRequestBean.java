@@ -33,10 +33,12 @@ public class PurchaseRequestBean extends SuperBean<PurchaseRequest> {
 
     public void initRequest(PurchaseRequest p, List<PurchaseRequestDetail> detailList) {
         try {
-            for (PurchaseRequestDetail d : detailList) {
+            detailList.stream().map((d) -> {
                 d.setPid(p.getFormid());
+                return d;
+            }).forEach((d) -> {
                 purchaseRequestDetailBean.persist(d);
-            }
+            });
         } catch (Exception e) {
             delete(p);
             throw new RuntimeException(e);

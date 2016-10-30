@@ -10,6 +10,7 @@ import com.hhsc.entity.InventoryTransaction;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.PurchaseOrderDetail;
 import com.hhsc.entity.PurchaseStorage;
+import com.hhsc.entity.PurchaseTransaction;
 import com.hhsc.entity.TransactionType;
 import java.math.BigDecimal;
 import javax.ejb.EJB;
@@ -23,6 +24,9 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
+
+    @EJB
+    private PurchaseTransactionBean purchaseTransactionBean;
 
     @EJB
     private TransactionTypeBean transactionTypeBean;
@@ -44,11 +48,10 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
     public PurchaseStorage unverify(PurchaseStorage entity) {
         try {
             PurchaseStorage e = this.getEntityManager().merge(entity);
-
-            //更新库存交易
-            InventoryTransaction t = inventoryTransactionBean.findByFormidAndSeq(e.getPurchaseAcceptance().getFormid(), e.getSeq());
-            if (t != null) {
-                inventoryTransactionBean.delete(t);
+            //删除库存交易
+            InventoryTransaction it = inventoryTransactionBean.findByFormidAndSeq(e.getPurchaseAcceptance().getFormid(), e.getSeq());
+            if (it != null) {
+                inventoryTransactionBean.delete(it);
             }
             //更新库存数量       
             ItemInventory i = new ItemInventory();
@@ -61,13 +64,17 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             i.setPreqty(e.getQty());
             i.setQty(BigDecimal.ZERO.subtract(e.getQcqty().add(e.getAddqty())));
             itemInventoryBean.add(i);
-
+            //删除验收应付
+            PurchaseTransaction pt = purchaseTransactionBean.findByFormidAndSeq(e.getPurchaseAcceptance().getFormid(), e.getSeq());
+            if (pt != null) {
+                purchaseTransactionBean.delete(pt);
+            }
             //不良品处理
             if (e.getBadqty().compareTo(BigDecimal.ZERO) != 0 && e.getBadwarehouse() != null) {
                 //更新库存交易
-                t = inventoryTransactionBean.findByFormidAndSeq(e.getPurchaseAcceptance().getFormid(), 9000 + e.getSeq());
-                if (t != null) {
-                    inventoryTransactionBean.delete(t);
+                it = inventoryTransactionBean.findByFormidAndSeq(e.getPurchaseAcceptance().getFormid(), 9000 + e.getSeq());
+                if (it != null) {
+                    inventoryTransactionBean.delete(it);
                 }
                 //更新库存数量
                 i = new ItemInventory();
@@ -81,7 +88,6 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
                 i.setQty(BigDecimal.ZERO.subtract(e.getBadqty()));
                 itemInventoryBean.add(i);
             }
-
             //更新采购状态 
             PurchaseOrderDetail p = purchaseOrderDetailBean.findByPIdAndSeq(e.getSrcformid(), e.getSrcseq());
             p.setInqty(p.getInqty().subtract(e.getQcqty().add(e.getAddqty())).add(e.getQty()));
@@ -127,7 +133,6 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             t.setCfmdate(e.getCfmdate());
             inventoryTransactionBean.setDefaultValue(t);
             inventoryTransactionBean.persist(t);
-
             //更新库存数量
             ItemInventory i = new ItemInventory();
             i.setItemmaster(e.getItemmaster());
@@ -139,7 +144,9 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             i.setPreqty(BigDecimal.ZERO.subtract(e.getQty()));
             i.setQty(e.getQcqty().add(e.getAddqty()));
             itemInventoryBean.add(i);
-
+            //更新验收应付
+            PurchaseTransaction pt = purchaseTransactionBean.createFromPurchaseStorage(entity);
+            purchaseTransactionBean.persist(pt);          
             //不良入库处理
             if (e.getBadqty().compareTo(BigDecimal.ZERO) != 0 && e.getBadwarehouse() != null) {
                 //更新库存交易
@@ -167,7 +174,6 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
                 t.setCfmdate(e.getCfmdate());
                 inventoryTransactionBean.setDefaultValue(t);
                 inventoryTransactionBean.persist(t);
-
                 //更新库存数量
                 i = new ItemInventory();
                 i.setItemmaster(e.getItemmaster());
@@ -180,7 +186,6 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
                 i.setQty(e.getBadqty());
                 itemInventoryBean.add(i);
             }
-
             //更新采购状态    
             PurchaseOrderDetail p = purchaseOrderDetailBean.findByPIdAndSeq(e.getSrcformid(), e.getSrcseq());
             p.setInqty(p.getInqty().subtract(e.getQty()).add(e.getQcqty()));

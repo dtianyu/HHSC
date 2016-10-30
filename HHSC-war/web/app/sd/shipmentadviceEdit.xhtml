@@ -132,6 +132,12 @@
                                     <p:inputTextarea rows="2" id="shipadd" value="#{shipmentAdviceManagedBean.currentEntity.shipadd}" title="Shpadd" styleClass="Wid100"/> 
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="出货备注" for="remark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="remark" value="#{shipmentAdviceManagedBean.currentEntity.remark}" title="remark" styleClass="Wid100"/> 
+                                </p:column>
+                            </p:row>
                         </p:panelGrid>
                     </p:panel>
                 </p:tab>

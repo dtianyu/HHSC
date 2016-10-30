@@ -108,14 +108,14 @@ public abstract class FormMultiBean<T extends FormEntity, V extends FormDetailEn
                 this.newEntity.setFormid(formid);
             }
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (V detail : this.addedDetailList) {
+                this.addedDetailList.stream().forEach((detail) -> {
                     detail.setPid(newEntity.getFormid());
-                }
+                });
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (V detail : this.editedDetailList) {
+                this.editedDetailList.stream().forEach((detail) -> {
                     detail.setPid(newEntity.getFormid());
-                }
+                });
 
             }
             return true;

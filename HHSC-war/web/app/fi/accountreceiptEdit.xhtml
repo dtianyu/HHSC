@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <h:form id="formNewEdit">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="accountreceipt" icon="ui-icon-arrowreturn-1-w"  />                          
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{accountReceiptManagedBean.update()}" icon="ui-icon-disk" 
+                                     process="@this,plgHead"  update="formNewEdit"/>                                
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="销售收款－修改">
+                <p:panelGrid id="plgHead" styleClass="plgNew Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="收款单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{accountReceiptManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="收款日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{accountReceiptManagedBean.currentEntity.formdate}" title="Formdate" 
+                                        pattern="yyyy/MM/dd" required="true" requiredMessage="请输入收款日期">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="客户" /></p:column>
+                        <p:column>
+                            <h:outputText id="customer" value="#{accountReceiptManagedBean.currentEntity.customer.customer}" title="customer" />
+                        </p:column>
+                        <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
+                        <p:column>
+                            <p:inputText id="deptid" value="#{accountReceiptManagedBean.currentEntity.dept.dept}" title="Deptid" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入部门" readonly="true"/>
+                            <p:commandButton id="btnSelectDept" actionListener="#{accountReceiptManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{accountReceiptManagedBean.handleDialogReturnDeptWhenNew}" 
+                                        update="deptid" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="摘要" for="summary" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="summary" value="#{accountReceiptManagedBean.currentEntity.summary}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="原币总额" for="recamts" /></p:column>
+                        <p:column>
+                            <h:outputText id="recamts" value="#{accountReceiptManagedBean.currentEntity.recamts}"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="本币总额" for="recamt" /></p:column>
+                        <p:column>
+                            <h:outputText id="recamt" value="#{accountReceiptManagedBean.currentEntity.recamt}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="收款明细">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{accountReceiptManagedBean.createDetail()}" icon="ui-icon-plus" 
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                             process="@this"   update="plgDetail"/>
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{accountReceiptManagedBean.deleteDetail()}" icon="ui-icon-trash" 
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             process="@this" update="plgDetail,formNewEdit:tabView:detailList,"/>  
+                        </f:facet>
+                        <f:facet name="right">                        
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{accountReceiptManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
+                                             process="@this,plgDetail,formNewEdit:plgHead" update="plgDetail,formNewEdit:tabView:detailList,formNewEdit:plgHead" />                                
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="币别" for="currency" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="currency" value="#{accountReceiptManagedBean.currentDetail.currency}" title="Currency" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入币别"/>
+                                    <p:commandButton id="btnCurrencySelect" actionListener="#{accountReceiptManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{accountReceiptManagedBean.handleDialogReturnCurrencyWhenDetailEdit}" 
+                                                update="currency,exchange" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="汇率" for="exchange" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="exchange" value="#{accountReceiptManagedBean.currentDetail.exchange}" title="Exchange" 
+                                                 required="true" requiredMessage="请输入汇率"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="发票编号" for="srcformid" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="srcformid" value="#{accountReceiptManagedBean.currentDetail.srcformid}" title="srcformid" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入发票编号"/>
+                                    <p:commandButton id="btnAccountReceivableSelect" actionListener="#{accountReceiptManagedBean.openDialog('accountreceivableSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{accountReceiptManagedBean.handleDialogReturnRecamtsWhenDetailEdit}" 
+                                                update="plgDetail" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="收款金额" for="recamts" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="recamts" value="#{accountReceiptManagedBean.currentDetail.recamts}" title="recamts" 
+                                                 required="true" requiredMessage="请输入收款金额"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="摘要" for="dsummary" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="dsummary" value="#{accountReceiptManagedBean.currentDetail.summary}" readonly="summary"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <p:dataTable id="detailList" value="#{accountReceiptManagedBean.detailList}" var="item" tableStyleClass="tableList" 
+                                     selectionMode="single"  selection="#{accountReceiptManagedBean.currentDetail}" rowKey="#{item.seq}" >           
+                            <p:ajax event="rowSelect"  update="formNewEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect" update="formNewEdit:tabView:plgDetail" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="发票编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.srcformid}"/>
+                            </p:column>
+                            <p:column styleClass="Wid40">
+                                <f:facet name="header">
+                                    <h:outputText value="摘要"/>
+                                </f:facet>
+                                <h:outputText value="#{item.summary}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="收款原币"/>
+                                </f:facet>
+                                <h:outputText value="#{item.recamts}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="收款本币"/>
+                                </f:facet>
+                                <h:outputText value="#{item.recamt}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formNewEdit" trigger="btnSave">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

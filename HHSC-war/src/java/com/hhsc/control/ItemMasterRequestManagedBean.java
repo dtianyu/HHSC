@@ -52,6 +52,16 @@ public class ItemMasterRequestManagedBean extends PurchaseRequestManagedBean {
     public void init() {
         super.init();
         setModel(new ItemMasterRequestModel(purchaseRequestBean));
+        if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
+            this.model.getFilterFields().put("systemuser.id", userManagedBean.getCurrentUser().getId());
+        }
+        this.model.getFilterFields().put("status", "N");
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("status", "N");
     }
 
 }

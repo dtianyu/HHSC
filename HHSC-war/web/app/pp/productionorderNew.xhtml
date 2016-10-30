@@ -48,7 +48,7 @@
                         <p:column><p:outputLabel value="工单分类" for="formkind" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="formkind" value="#{productionOrderManagedBean.newEntity.formkind}" title="formkind"
-                                              required="true" requiredMessage="请输入工单分类">
+                                             required="true" requiredMessage="请输入工单分类">
                                 <f:selectItem itemLabel="大货" itemValue="大货" /> 
                                 <f:selectItem itemLabel="小样" itemValue="小样" /> 
                             </p:selectOneMenu>
@@ -146,15 +146,15 @@
                         <f:facet name="left">
                             <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{productionOrderManagedBean.createDetail()}" icon="ui-icon-plus" 
                                              oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
-                                             update=":formNew:tabView:plgDetail,:formNew:tabView:tableList" process="@this" />
+                                             process="@this" update=":formNew:tabView:plgDetail,:formNew:tabView:tableList" />
                             <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{productionOrderManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             update=":formNew:tabView:plgDetail,:formNew:tabView:tableList" process="@this" />  
+                                             process="@this" update=":formNew:tabView:plgDetail,:formNew:tabView:tableList" />  
                         </f:facet>
                         <f:facet name="right">                        
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{productionOrderManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             update=":formNew:qty,:formNew:tabView:plgDetail,:formNew:tabView:tableList" process="@this,plgDetail"/>                                
+                                             process="@this,plgDetail" update="formNew:qty,formNew:salesremark,formNew:tabView:plgDetail,:formNew:tabView:tableList"/>                                
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail">

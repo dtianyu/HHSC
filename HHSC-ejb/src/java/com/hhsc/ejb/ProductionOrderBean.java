@@ -85,6 +85,7 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
     public void persist(ProductionOrder entity) {
         super.persist(entity);
         initResource(entity);
+        update(entity);
     }
 
     @Override

@@ -24,7 +24,6 @@ import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Unit;
 import com.hhsc.lazy.SalesOrderModel;
-import com.hhsc.rpt.SalesOrderReport;
 import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
@@ -38,7 +37,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -412,7 +410,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             p.setDept(this.userManagedBean.getCurrentUser().getDept());
             p.setSystemuser(this.userManagedBean.getCurrentUser());
             p.setPurtype(purtype);
-            p.setRemark("订单抛转");
+            p.setRemark(currentEntity.getItemno() + "订单抛转");
             p.setStatus("N");
             p.setCreator(this.userManagedBean.getCurrentUser().getUserid());
             p.setCredateToNow();

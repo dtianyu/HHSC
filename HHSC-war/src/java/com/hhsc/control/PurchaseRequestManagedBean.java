@@ -18,6 +18,7 @@ import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.PurchaseRequest;
 import com.hhsc.entity.PurchaseRequestDetail;
 import com.hhsc.entity.SystemUser;
+import com.hhsc.entity.Unit;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.ItemMasterRequestModel;
@@ -211,6 +212,13 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
         }
     }
 
+    public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            Unit entity = (Unit) event.getObject();
+            this.currentDetail.setUnit(entity.getUnit());
+        }
+    }
+
     @Override
     public void init() {
         this.superEJB = purchaseRequestBean;
@@ -221,7 +229,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
 
     @Override
     public void print() throws Exception {
-       
+
         if (currentEntity == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
             return;

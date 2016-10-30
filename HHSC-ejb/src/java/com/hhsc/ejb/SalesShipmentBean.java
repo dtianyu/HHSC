@@ -11,6 +11,7 @@ import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.SalesShipment;
 import com.hhsc.entity.SalesShipmentDetail;
+import com.hhsc.entity.SalesTransaction;
 import com.hhsc.entity.TransactionType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class SalesShipmentBean extends SuperBean<SalesShipment> {
+
+    @EJB
+    private SalesTransactionBean salesTransactionBean;
 
     @EJB
     private TransactionTypeBean transactionTypeBean;
@@ -51,6 +55,14 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
     }
 
     @Override
+    public void setDetail(Object value) {
+        setDetailList(salesShipmentDetailBean.findByPId(value));
+        if (getDetailList() == null) {
+            setDetailList(new ArrayList<>());
+        }
+    }
+
+    @Override
     public SalesShipment unverify(SalesShipment entity) {
         if (inventoryList == null) {
             inventoryList = new ArrayList<>();
@@ -60,15 +72,19 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
         SalesOrderDetail s;
         try {
             SalesShipment e = this.getEntityManager().merge(entity);
+            //删除库存交易
+            List<InventoryTransaction> it = inventoryTransactionBean.findByFormid(e.getFormid());
+            if (it != null && !it.isEmpty()) {
+                inventoryTransactionBean.delete(it);
+            }
+            //删除出货立账记录
+            List<SalesTransaction> st = salesTransactionBean.findByFormid(e.getFormid());
+            if (st != null && !st.isEmpty()) {
+                salesTransactionBean.delete(st);
+            }
+
             detailList = salesShipmentDetailBean.findByPId(e.getFormid());
             for (SalesShipmentDetail detail : detailList) {
-
-                //更新库存交易
-                List<InventoryTransaction> t = inventoryTransactionBean.findByFormid(e.getFormid());
-                if (t != null && !t.isEmpty()) {
-                    inventoryTransactionBean.delete(t);
-                }
-
                 //更新库存数量       
                 ItemInventory i = new ItemInventory();
                 i.setItemmaster(detail.getItemmaster());
@@ -80,7 +96,6 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 i.setPreqty(BigDecimal.ZERO);
                 i.setQty(detail.getQty());
                 itemInventoryBean.add(i);
-
                 //更新订单状态 
                 s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
                 s.setShipqty(s.getShipqty().subtract(detail.getQty()));
@@ -93,11 +108,11 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                     s.setStatus("50");
                 }
                 salesOrderDetailBean.update(s);
-
                 detail.setStatus("40");
             }
             itemInventoryBean.add(inventoryList);
             salesShipmentDetailBean.update(detailList);
+            
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -116,11 +131,11 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
             inventoryList.clear();
         }
         SalesOrderDetail s;
+        SalesTransaction st;
         try {
             SalesShipment e = getEntityManager().merge(entity);
             detailList = salesShipmentDetailBean.findByPId(e.getFormid());
             for (SalesShipmentDetail detail : detailList) {
-
                 //更新库存交易
                 InventoryTransaction t = new InventoryTransaction();
                 t.setTrtype(transactionType);
@@ -146,7 +161,6 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 t.setCfmdate(e.getCfmdate());
                 inventoryTransactionBean.setDefaultValue(t);
                 inventoryTransactionBean.persist(t);
-
                 //更新库存数量
                 ItemInventory i = new ItemInventory();
                 i.setItemmaster(detail.getItemmaster());
@@ -158,7 +172,6 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 i.setPreqty(BigDecimal.ZERO);
                 i.setQty(detail.getQty());
                 inventoryList.add(i);
-
                 //更新订单状态
                 s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
                 s.setShipqty(s.getShipqty().add(detail.getQty()));
@@ -171,11 +184,14 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 s.setRelformid(detail.getPid());
                 s.setRelseq(detail.getSeq());
                 salesOrderDetailBean.update(s);
-
                 detail.setStatus("50");
+
+                st = salesTransactionBean.createFromSalesShipment(entity, detail);
+                salesTransactionBean.persist(st);
             }
             itemInventoryBean.subtract(inventoryList);
             salesShipmentDetailBean.update(detailList);
+            
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);

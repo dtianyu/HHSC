@@ -24,7 +24,6 @@ public class ProductionOrderDetailForQueryModel extends BaseLazyModel<Production
 
     @Override
     public List<ProductionOrderDetailForQuery> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        this.sortFields.put("productionOrder.formid", "ASC");
         return super.load(first, pageSize, sortField, sortOrder, filters); 
     }
     

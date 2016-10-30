@@ -23,7 +23,9 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnVerify" value="审核" action="#{purchaseStorageManagedBean.verify()}" icon="ui-icon-locked"
-                                     rendered="#{purchaseStorageManagedBean.doCfm}" process="@this" update="formView"/>                    
+                                     rendered="#{purchaseStorageManagedBean.doCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>                    
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseStorageManagedBean.print()}" icon="ui-icon-print"
                                      rendered="#{purchaseStorageManagedBean.doPrt}"/> 
                 </f:facet>

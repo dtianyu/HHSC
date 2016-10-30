@@ -209,12 +209,12 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
 
     @Override
     public void doConfirmDetail() {
+        super.doConfirmDetail();
         BigDecimal qty = BigDecimal.ZERO;
         for (ProductionOrderDetail d : this.detailList) {
             qty = qty.add(d.getQty());
         }
-        currentEntity.setQty(qty.toString());
-        super.doConfirmDetail();
+        currentEntity.setQty(qty.toString());       
     }
 
     @Override
@@ -294,11 +294,23 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
             currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
             currentDetail.setSrcseq(entity.getSeq());
             currentEntity.setSalesman(entity.getSalesOrder().getSalesman().getUsername());
-            if(currentEntity.getSalesremark()==null){
+            if (currentEntity.getSalesremark() == null) {
                 currentEntity.setSalesremark("");
             }
-            if(currentDetail.getRemark()!=null){
-                currentEntity.setSalesremark(currentEntity.getSalesremark() + currentDetail.getRemark());
+            if (entity.getSalesOrder().getSalesremark() != null) {
+                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getSalesremark());
+            }
+            if (entity.getSalesOrder().getTestremark() != null) {
+                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getTestremark());
+            }
+            if (entity.getSalesOrder().getProductremark() != null) {
+                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getProductremark());
+            }
+            if (entity.getSalesOrder().getPackremark() != null) {
+                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getPackremark());
+            }
+            if (currentDetail.getRemark() != null) {
+                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getRemark());
             }
         }
     }

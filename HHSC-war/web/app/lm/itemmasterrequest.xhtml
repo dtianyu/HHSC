@@ -60,7 +60,7 @@
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="请购单号"/>
                     </f:facet>
@@ -91,11 +91,17 @@
                     </f:facet>
                     <h:outputText value="#{item.dept.dept}"/>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="请购人"/>
                     </f:facet>
                     <h:outputText value="#{item.systemuser.username}"/>
+                </p:column>
+                <p:column styleClass="Wid30">
+                    <f:facet name="header">
+                        <h:outputText value="备注"/>
+                    </f:facet>
+                    <h:outputText value="#{item.remark}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

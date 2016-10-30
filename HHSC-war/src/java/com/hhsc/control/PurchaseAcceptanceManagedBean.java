@@ -81,6 +81,13 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
     }
 
     @Override
+    protected boolean doAfterPersist() throws Exception {
+        //点收新增后直接审核2016/10/30
+        this.verify();
+        return super.doAfterPersist();
+    }
+
+    @Override
     protected boolean doBeforeUnverify() throws Exception {
         if (!super.doBeforeUnverify()) {
             return false;

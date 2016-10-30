@@ -194,10 +194,12 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
             currentDetail.setRefitemno(entity.getItemno());
             currentDetail.setItemmaster(entity.getItemmaster());
             currentDetail.setItemno(entity.getItemno());
-            currentDetail.setColorno(entity.getColorno());
-            currentDetail.setBrand(entity.getBrand());
-            currentDetail.setBatch(entity.getBatch());
-            currentDetail.setSn(entity.getSn());
+            if (!entity.getItemmaster().getItemcategory().getCategory().equals("300")) {
+                currentDetail.setColorno(entity.getColorno());
+                currentDetail.setBrand(entity.getBrand());
+                currentDetail.setBatch(entity.getBatch());
+                currentDetail.setSn(entity.getSn());
+            }
             currentDetail.setQty(entity.getQty().subtract(entity.getIssqty()));
             currentDetail.setUnit(entity.getItemmaster().getUnit());
             if (currentEntity != null && currentEntity.getWarehouse() != null) {
@@ -269,6 +271,9 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
             this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("formid", queryFormId);
+            }
+            if (queryName != null && !"".equals(queryName)) {
+                this.model.getFilterFields().put("srcitemno", queryName);
             }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("formdateBegin", queryDateBegin);

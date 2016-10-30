@@ -959,17 +959,17 @@ return false;]]></method>
                 <cell id="366">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <data id="281">
+                    <data id="572">
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>
-                                <property name="name">customer</property>
-                                <text-property name="displayName">customer</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["customer"]</expression>
+                                <property name="name">customerno</property>
+                                <text-property name="displayName">customerno</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["customerno"]</expression>
                                 <property name="dataType">string</property>
                             </structure>
                         </list-property>
-                        <property name="resultSetColumn">customer</property>
+                        <property name="resultSetColumn">customerno</property>
                     </data>
                 </cell>
             </row>

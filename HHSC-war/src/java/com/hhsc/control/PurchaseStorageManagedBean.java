@@ -7,9 +7,11 @@ package com.hhsc.control;
 
 import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.PurchaseStorageBean;
+import com.hhsc.ejb.PurchaseTransactionBean;
 import com.hhsc.entity.Department;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.PurchaseStorage;
+import com.hhsc.entity.PurchaseTransaction;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.PurchaseStorageModel;
@@ -30,6 +32,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "purchaseStorageManagedBean")
 @SessionScoped
 public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage> {
+
+    @EJB
+    private PurchaseTransactionBean purchaseTransactionBean;
 
     @EJB
     private ItemInventoryBean itemInventoryBean;
@@ -64,12 +69,17 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     protected boolean doBeforeUnverify() throws Exception {
         //因为判断明细状态所以不能调用超类方法
         if (currentEntity == null) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!");
+            showWarnMsg("Warn", "没有可更新数据!");
             return false;
         }
         PurchaseStorage e = (PurchaseStorage) superEJB.findById(currentEntity.getId());
         if (!"50".equals(e.getStatus())) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "状态已变更!");
+            showErrorMsg("Error", "验收状态已变更!");
+            return false;
+        }
+        PurchaseTransaction pt = purchaseTransactionBean.findByFormidAndSeq(currentEntity.getPurchaseAcceptance().getFormid(), currentEntity.getSeq());
+        if (!"50".equals(pt.getStatus())) {
+            showErrorMsg("Error", "付款状态已变更!");
             return false;
         }
         ItemInventory i;

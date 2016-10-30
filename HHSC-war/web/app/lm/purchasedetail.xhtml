@@ -42,7 +42,7 @@
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{purchaseDetailQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{purchaseDetailQueryBean.view('itempurchaseView')}" icon="ui-icon-document"/>
+                    <p:commandButton id="btnView" value="查看" action="#{purchaseDetailQueryBean.view('purchasedetailView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" value="编辑" action="#{purchaseDetailQueryBean.edit('')}" icon="ui-icon-pencil"
@@ -119,6 +119,14 @@
                         <h:outputText value="单价"/>
                     </f:facet>
                     <h:outputText value="#{item.price}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="采购交期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.requestdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

@@ -137,7 +137,13 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="单位" for="unit" /></p:column>
                                 <p:column>
-                                    <p:inputText id="unit" value="#{itemMasterRequestManagedBean.currentDetail.unit}" title="Unit" />
+                                    <p:inputText id="unit" value="#{itemMasterRequestManagedBean.currentDetail.unit}" title="Unit" styleClass="inputWithButton" 
+                                                 required="true" requiredMessage="请输入单位"/>
+                                    <p:commandButton id="btnUnit" actionListener="#{itemMasterRequestManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
+                                                update="unit" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>

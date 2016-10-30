@@ -9,6 +9,7 @@ import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SalesShipmentBean;
 import com.hhsc.ejb.SalesShipmentDetailBean;
+import com.hhsc.ejb.SalesTransactionBean;
 import com.hhsc.ejb.SalesTypeBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
@@ -18,11 +19,11 @@ import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.SalesShipment;
 import com.hhsc.entity.SalesShipmentDetail;
 import com.hhsc.entity.SalesOrderDetailForQuery;
+import com.hhsc.entity.SalesTransaction;
 import com.hhsc.entity.SalesType;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.SalesShipmentModel;
-import com.hhsc.rpt.SalesShipmentReport;
 import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
@@ -36,7 +37,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -48,6 +48,9 @@ import org.primefaces.event.SelectEvent;
 public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, SalesShipmentDetail> {
 
     @EJB
+    private SalesTransactionBean salesTransactionBean;
+
+    @EJB
     private ItemInventoryBean itemInventoryBean;
     @EJB
     private SalesTypeBean salesTypeBean;
@@ -55,7 +58,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     private SalesOrderDetailBean salesOrderDetailBean;
 
     @EJB
-    protected SalesShipmentBean salesShipBean;
+    protected SalesShipmentBean salesShipmentBean;
     @EJB
     protected SalesShipmentDetailBean salesShipmentDetailBean;
 
@@ -104,13 +107,21 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             return false;
         }//超类中有重新加载明细资料
         SalesOrderDetail s;
+        SalesTransaction st;
         for (SalesShipmentDetail detail : detailList) {
+            //出货单可还原数量检查
             s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
             if ((s == null) || s.getStatus().equals("10")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单明细状态错误"));
+                showErrorMsg("Error", detail.getItemno() + "订单明细状态错误");
                 return false;
             } else if (s.getShipqty().compareTo(detail.getQty()) == -1) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单可还原量不足"));
+                showErrorMsg("Error", detail.getItemno() + "订单可还原量不足");
+                return false;
+            }
+            //出货单立账状态检查
+            st = salesTransactionBean.findByFormidAndSeq(detail.getPid(), detail.getSeq());
+            if (st != null && !st.getStatus().equals("50")) {
+                showErrorMsg("Error", detail.getPid()+ "出货单已立账不可还原");
                 return false;
             }
         }
@@ -123,23 +134,23 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             return false;
         }//超类中有重新加载明细资料
         if (detailList == null || detailList.isEmpty()) {
-            showMsg(FacesMessage.SEVERITY_ERROR, "Error", "没有出货明细");
+            showErrorMsg("Error", "没有出货明细");
             return false;
         }
         SalesOrderDetail s;
         for (SalesShipmentDetail detail : detailList) {
             s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
             if ((s == null) || s.getStatus().equals("AC") || s.getStatus().endsWith("MC")) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单明细状态错误");
+                showErrorMsg("Error", detail.getItemno() + "订单明细状态错误");
                 return false;
             } else if ((s.getQty().subtract(s.getShipqty()).compareTo(detail.getQty()) == -1)) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "订单可出货量不足");
+                showErrorMsg("Error", detail.getItemno() + "订单可出货量不足");
                 return false;
             }
             if (detail.getItemmaster().isInvtype()) {
                 ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
                 if ((i == null) || (i.getQty().compareTo(detail.getQty()) == -1)) {
-                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "库存可使用量不足");
+                    showErrorMsg("Error", detail.getItemno() + "库存可使用量不足");
                     return false;
                 }
             }
@@ -303,9 +314,9 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
 
     @Override
     public void init() {
-        setSuperEJB(salesShipBean);
+        setSuperEJB(salesShipmentBean);
         setDetailEJB(salesShipmentDetailBean);
-        setModel(new SalesShipmentModel(salesShipBean, null));
+        setModel(new SalesShipmentModel(salesShipmentBean, null));
         getModel().getFilterFields().put("status", "N");
         salesTypeList = salesTypeBean.findAll();
         super.init();
@@ -368,12 +379,6 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                 this.model.getFilterFields().put("status", queryState);
             }
         }
-    }
-
-    @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, SalesShipmentReport.class.getClassLoader());
     }
 
     @Override
