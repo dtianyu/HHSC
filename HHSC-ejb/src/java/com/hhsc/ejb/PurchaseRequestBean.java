@@ -31,6 +31,10 @@ public class PurchaseRequestBean extends SuperBean<PurchaseRequest> {
         super(PurchaseRequest.class);
     }
 
+    public int getRowCountBySalesOrderFormid(String formid) {
+        return purchaseRequestDetailBean.findBySalesOrderFormid(formid).size();
+    }
+
     public void initRequest(PurchaseRequest p, List<PurchaseRequestDetail> detailList) {
         try {
             detailList.stream().map((d) -> {

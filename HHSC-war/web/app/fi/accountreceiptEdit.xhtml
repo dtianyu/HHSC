@@ -7,7 +7,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="content">
-        <h:form id="formNewEdit">
+        <h:form id="formEdit">
             <h:outputScript name="detailEdit.js" library="js" /> 
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
@@ -16,7 +16,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{accountReceiptManagedBean.update()}" icon="ui-icon-disk" 
-                                     process="@this,plgHead"  update="formNewEdit"/>                                
+                                     process="@this,plgHead"  update="formEdit"/>                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售收款－修改">
@@ -77,12 +77,12 @@
                                              process="@this"   update="plgDetail"/>
                             <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{accountReceiptManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             process="@this" update="plgDetail,formNewEdit:tabView:detailList,"/>  
+                                             process="@this" update="plgDetail,formEdit:tabView:detailList,"/>  
                         </f:facet>
                         <f:facet name="right">                        
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{accountReceiptManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             process="@this,plgDetail,formNewEdit:plgHead" update="plgDetail,formNewEdit:tabView:detailList,formNewEdit:plgHead" />                                
+                                             process="@this,plgDetail,formEdit:plgHead" update="plgDetail,formEdit:tabView:detailList,formEdit:plgHead" />                                
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail">
@@ -130,8 +130,8 @@
                         </p:panelGrid>
                         <p:dataTable id="detailList" value="#{accountReceiptManagedBean.detailList}" var="item" tableStyleClass="tableList" 
                                      selectionMode="single"  selection="#{accountReceiptManagedBean.currentDetail}" rowKey="#{item.seq}" >           
-                            <p:ajax event="rowSelect"  update="formNewEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
-                            <p:ajax event="rowUnselect" update="formNewEdit:tabView:plgDetail" />
+                            <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect" update="formEdit:tabView:plgDetail" />
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="发票编号"/>
@@ -164,7 +164,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formNewEdit" trigger="btnSave">
+            <p:blockUI id="blockUI" block="formEdit" trigger="btnSave">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

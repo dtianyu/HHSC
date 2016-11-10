@@ -7,6 +7,7 @@ package com.hhsc.entity;
 
 import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,8 +75,8 @@ public class ProductionPickingDetail extends FormDetailEntity {
     @NotNull
     @Column(name = "qty")
     private BigDecimal qty;
-    @JoinColumn(name = "warehouseno",referencedColumnName="warehouseno")
-    @ManyToOne(optional=false)
+    @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
     private Warehouse warehouse;
     @Size(max = 100)
     @Column(name = "srcapi")
@@ -266,10 +267,19 @@ public class ProductionPickingDetail extends FormDetailEntity {
             return false;
         }
         ProductionPickingDetail other = (ProductionPickingDetail) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (this.itemmaster != other.itemmaster) {
             return false;
         }
-        return true;
+        if (!Objects.equals(this.srcformid, other.srcformid)) {
+            return false;
+        }
+        if (Objects.equals(this.srcformid, other.srcformid) && !Objects.equals(this.srcseq, other.srcseq)) {
+            return false;
+        }
+        if (Objects.equals(this.srcformid, other.srcformid) && Objects.equals(this.srcseq, other.srcseq)) {
+            return true;
+        }
+        return (Objects.equals(this.pid, other.pid) && (this.seq == other.seq));
     }
 
     @Override

@@ -148,7 +148,7 @@
                         <p:column>
                             <h:outputText value="#{itemTransactionManagedBean.currentDetail.colorno}" title="Colorid"/>   
                         </p:column>
-                        <p:column><h:outputText value="成分"/></p:column>
+                        <p:column><h:outputText value="成份"/></p:column>
                         <p:column>
                             <h:outputText id="itemmake" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
                         </p:column>
@@ -199,7 +199,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

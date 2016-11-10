@@ -166,6 +166,11 @@
             <from-outcome>customer</from-outcome>
             <to-view-id>/app/sd/customer.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>salesdetail</from-outcome>
+            <to-view-id>/app/sd/salesdetail</to-view-id>
+            <redirect/>
         </navigation-case> 
         <!--销货发票-->
         <navigation-case>
@@ -326,7 +331,12 @@
             <from-outcome>itemdesign</from-outcome>
             <to-view-id>/app/mm/itemdesign.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>       
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>itemexchange</from-outcome>
+            <to-view-id>/app/mm/itemexchange.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>              
         <navigation-case>
             <from-outcome>itemfinished</from-outcome>
             <to-view-id>/app/mm/itemfinished.xhtml</to-view-id>
@@ -475,7 +485,26 @@
             <to-view-id>/app/mm/itemdesignView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>  
+    </navigation-rule>   
+    <navigation-rule>
+        <description>库存转换</description>
+        <from-view-id>/app/mm/itemexchange.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>itemexchangeNew</from-outcome>
+            <to-view-id>/app/mm/itemexchangeNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemexchangeEdit</from-outcome>
+            <to-view-id>/app/mm/itemexchangeEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemexchangeView</from-outcome>
+            <to-view-id>/app/mm/itemexchangeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>   
     <navigation-rule>
         <description>外发成品</description>
         <from-view-id>/app/mm/itemfinished.xhtml</from-view-id>
@@ -1285,6 +1314,11 @@
         <navigation-case>
             <from-outcome>itemmasterSelect</from-outcome>
             <to-view-id>/app/df/itemmasterSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemprocessSelect</from-outcome>
+            <to-view-id>/app/df/itemprocessSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

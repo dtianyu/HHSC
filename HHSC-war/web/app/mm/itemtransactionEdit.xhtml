@@ -108,10 +108,6 @@
                 </p:toolbar>
                 <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="来源对象"/></p:column>
-                        <p:column styleClass="Wid30">
-                            
-                        </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="来源单号" for="srcformid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="srcformid" value="#{itemTransactionManagedBean.currentDetail.srcformid}" title="srcid" styleClass="inputWithButton"
@@ -121,6 +117,10 @@
                                 <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnObjectWhenDetailEdit}" 
                                         update="plgDetail" />
                             </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="来源对象"/></p:column>
+                        <p:column styleClass="Wid30">
+                            
                         </p:column>
                     </p:row>
                     <p:row>
@@ -144,7 +144,7 @@
                         <p:column>
                             <p:inputText value="#{itemTransactionManagedBean.currentDetail.colorno}" title="Colorid"/>   
                         </p:column>
-                        <p:column><h:outputText value="成分"/></p:column>
+                        <p:column><h:outputText value="成份"/></p:column>
                         <p:column>
                             <h:outputText id="itemmake" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
                         </p:column>

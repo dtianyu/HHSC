@@ -214,6 +214,9 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                     d.setSrcseq(entity.getSeq());
                     purchaseList.add(d);
                     entity.setStatus("V");
+                    entity.setRelapi("purchaseorder");
+                    entity.setRelformid(formid);
+                    entity.setRelseq(seq);
                     seq++;
                 }
 

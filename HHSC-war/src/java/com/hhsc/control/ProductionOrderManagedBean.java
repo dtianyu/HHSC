@@ -16,6 +16,7 @@ import com.hhsc.entity.Customer;
 import com.hhsc.entity.ProductionOrder;
 import com.hhsc.entity.ProductionOrderDetail;
 import com.hhsc.entity.ItemMaster;
+import com.hhsc.entity.ItemProcess;
 import com.hhsc.entity.ProcessDetail;
 import com.hhsc.entity.ProcessGroup;
 import com.hhsc.entity.ProcessResource;
@@ -26,6 +27,7 @@ import com.hhsc.entity.SalesType;
 import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.ProductionOrderModel;
 import com.hhsc.web.FormMulti3Bean;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +38,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.beanutils.BeanUtils;
 import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
@@ -76,6 +79,72 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
      */
     public ProductionOrderManagedBean() {
         super(ProductionOrder.class, ProductionOrderDetail.class, ProductionResource.class, ProductionPrint.class);
+    }
+
+    public String copyEntity(String path) {
+        if (this.currentEntity != null && this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+            //获得原来的明细
+            productionOrderBean.setDetail(currentEntity.getFormid());
+            if (productionOrderBean.getDetailList().isEmpty()) {
+                showWarnMsg("Warn", "没有明细无法复制");
+                return "";
+            }
+            //清空明细新增列表
+            if (!this.addedDetailList.isEmpty()) {
+                this.addedDetailList.clear();
+            }
+            try {
+                String formid = productionOrderBean.getFormId(getDate(), currentSysprg.getNolead(), currentSysprg.getNoformat(), currentSysprg.getNoseqlen());
+                if (!formid.equals("")) {
+                    //设定主表
+                    ProductionOrder entity = (ProductionOrder) BeanUtils.cloneBean(currentEntity);
+                    entity.setId(null);
+                    entity.setFormid(formid);
+                    entity.setFormdate(getDate());
+                    entity.setFormkind("补单");
+                    entity.setCreator(this.userManagedBean.getCurrentUser().getUsername());
+                    entity.setCredate(getDate());
+                    entity.setStatus("N");
+                    entity.setSalesstatus("N");
+                    entity.setJhstatus("N");
+                    entity.setJhreaded(Boolean.FALSE);
+                    entity.setHgstatus("N");
+                    entity.setHgreaded(Boolean.FALSE);
+                    entity.setZbstatus("N");
+                    entity.setZbreaded(Boolean.FALSE);
+                    entity.setPsstatus("N");
+                    entity.setPsreaded(Boolean.FALSE);
+                    entity.setYhstatus("N");
+                    entity.setYhreaded(Boolean.FALSE);
+                    entity.setZhstatus("N");
+                    entity.setZhreaded(Boolean.FALSE);
+                    entity.setSxstatus("N");
+                    entity.setSxreaded(Boolean.FALSE);
+                    entity.setDxstatus("N");
+                    entity.setDxreaded(Boolean.FALSE);
+                    entity.setCkstatus("N");
+                    entity.setCkreaded(Boolean.FALSE);
+                    //设定明细                  
+                    for (ProductionOrderDetail detail : productionOrderBean.getDetailList()) {
+                        ProductionOrderDetail d = (ProductionOrderDetail) BeanUtils.cloneBean(detail);
+                        d.setId(null);
+                        d.setPid(formid);
+                        d.setIssqty(BigDecimal.ZERO);
+                        d.setFinqty(BigDecimal.ZERO);
+                        d.setStatus("00");
+                        this.addedDetailList.add(d);
+                    }
+                    //保存资料
+                    productionOrderBean.persist(entity, detailAdded, null, null);
+                    //清空明细新增列表
+                    this.addedDetailList.clear();
+                    return path;
+                }
+            } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
+                showErrorMsg("Error", ex.getMessage());
+            }
+        }
+        return null;
     }
 
     @Override
@@ -214,7 +283,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
         for (ProductionOrderDetail d : this.detailList) {
             qty = qty.add(d.getQty());
         }
-        currentEntity.setQty(qty.toString());       
+        currentEntity.setQty(qty.toString());
     }
 
     @Override
@@ -241,6 +310,20 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
         handleDialogReturnCustomerWhenEdit(event);
     }
 
+    public void handleDialogReturnProcessWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            ItemProcess entity = (ItemProcess) event.getObject();
+            this.currentEntity.setHgreq(entity.getHgreq());
+            this.currentEntity.setZbreq(entity.getZbreq());
+            this.currentEntity.setPsreq(entity.getPsreq());
+            this.currentEntity.setYhreq(entity.getYhreq());
+            this.currentEntity.setZhreq(entity.getZhreq());
+            this.currentEntity.setSxreq(entity.getSxreq());
+            this.currentEntity.setDxreq(entity.getDxreq());
+            this.currentEntity.setCkreq(entity.getCkreq());
+        }
+    }
+
     public void handleDialogReturnSalesmanWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             SystemUser entity = (SystemUser) event.getObject();
@@ -254,7 +337,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
 
     @Override
     public void handleDialogReturnWhenEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && currentEntity != null) {
             ItemMaster entity = (ItemMaster) event.getObject();
             this.currentEntity.setDesign(entity);
             this.currentEntity.setDesignno(entity.getItemno());
@@ -276,7 +359,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
 
     @Override
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && currentDetail != null) {
             SalesOrderDetailForQuery entity = (SalesOrderDetailForQuery) event.getObject();
             currentDetail.setColorno(entity.getColorno());
             currentDetail.setCustomercolorno(entity.getCustomercolorno());
@@ -293,24 +376,44 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
             currentDetail.setSrcapi("salesorder");
             currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
             currentDetail.setSrcseq(entity.getSeq());
+            currentDetail.setRemark(entity.getRemark());
             currentEntity.setSalesman(entity.getSalesOrder().getSalesman().getUsername());
-            if (currentEntity.getSalesremark() == null) {
-                currentEntity.setSalesremark("");
-            }
-            if (entity.getSalesOrder().getSalesremark() != null) {
-                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getSalesremark());
-            }
-            if (entity.getSalesOrder().getTestremark() != null) {
-                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getTestremark());
-            }
-            if (entity.getSalesOrder().getProductremark() != null) {
-                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getProductremark());
-            }
-            if (entity.getSalesOrder().getPackremark() != null) {
-                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getPackremark());
-            }
-            if (currentDetail.getRemark() != null) {
-                currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getRemark());
+            if (detailList.isEmpty()) {
+                if (currentEntity.getSalesremark() == null) {
+                    currentEntity.setSalesremark("");
+                }
+                if (entity.getSalesOrder().getSalesremark() != null) {
+                    currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getSalesremark());
+                }
+                if (entity.getSalesOrder().getTestremark() != null) {
+                    currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getTestremark());
+                }
+                if (entity.getSalesOrder().getProductremark() != null) {
+                    currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getProductremark());
+                }
+                if (entity.getSalesOrder().getPackremark() != null) {
+                    currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getPackremark());
+                }
+            } else {
+                detailList.stream().forEach((e) -> {
+                    if (e.getSrcformid() != null && !e.getSrcformid().equals(entity.getSalesOrder().getFormid())) {
+                        if (currentEntity.getSalesremark() == null) {
+                            currentEntity.setSalesremark("");
+                        }
+                        if (entity.getSalesOrder().getSalesremark() != null) {
+                            currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getSalesremark());
+                        }
+                        if (entity.getSalesOrder().getTestremark() != null) {
+                            currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getTestremark());
+                        }
+                        if (entity.getSalesOrder().getProductremark() != null) {
+                            currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getProductremark());
+                        }
+                        if (entity.getSalesOrder().getPackremark() != null) {
+                            currentEntity.setSalesremark(currentEntity.getSalesremark() + entity.getSalesOrder().getPackremark());
+                        }
+                    }
+                });
             }
         }
     }
@@ -393,35 +496,47 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
 
     @Override
     public void openDialog(String view) {
-        if ("salesorderproductionSelect".equals(view)) {
-            if (currentEntity.getFormtype() == null) {
-                showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入工单类别");
-                return;
+        if (null != view) {
+            switch (view) {
+                case "salesorderproductionSelect": {
+                    if (currentEntity.getFormtype() == null) {
+                        showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入工单类别");
+                        return;
+                    }
+                    if (currentEntity.getDesignno() == null) {
+                        showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入华卉花号");
+                        return;
+                    }
+                    Map<String, Object> options = new HashMap<>();
+                    options.put("modal", true);
+                    options.put("contentWidth", 800);
+                    Map<String, List<String>> params = new HashMap<>();
+                    List<String> formtype = new ArrayList<>();
+                    formtype.add(currentEntity.getFormtype().getType());
+                    params.put("formtype", formtype);
+                    List<String> itemno = new ArrayList<>();
+                    itemno.add(currentEntity.getDesignno());
+                    params.put("designno", itemno);
+                    if (currentEntity.getCustomerno() != null) {
+                        List<String> customerno = new ArrayList<>();
+                        customerno.add(currentEntity.getCustomerno());
+                        params.put("customerno", customerno);
+                    }
+                    super.openDialog(view, options, params);
+                    break;
+                }
+                case "itemprocessSelect": {
+                    Map<String, List<String>> params = new HashMap<>();
+                    List<String> itemno = new ArrayList<>();
+                    itemno.add(currentEntity.getDesignno());
+                    params.put("itemno", itemno);
+                    super.openDialog(view, params);
+                    break;
+                }
+                default:
+                    super.openDialog(view);
+                    break;
             }
-            if (currentEntity.getDesignno() == null) {
-                showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入华卉花号");
-                return;
-            }
-            Map<String, Object> options = new HashMap<>();
-            options.put("modal", true);
-            options.put("contentWidth", 800);
-
-            Map<String, List<String>> params = new HashMap<>();
-            List<String> formtype = new ArrayList<>();
-            formtype.add(currentEntity.getFormtype().getType());
-            params.put("formtype", formtype);
-
-            List<String> itemno = new ArrayList<>();
-            itemno.add(currentEntity.getDesignno());
-            params.put("designno", itemno);
-            if (currentEntity.getCustomerno() != null) {
-                List<String> customerno = new ArrayList<>();
-                customerno.add(currentEntity.getCustomerno());
-                params.put("customerno", customerno);
-            }
-            super.openDialog(view, options, params);
-        } else {
-            super.openDialog(view);
         }
     }
 

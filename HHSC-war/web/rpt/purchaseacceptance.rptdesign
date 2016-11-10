@@ -160,7 +160,7 @@
                 </structure>
                 <structure>
                     <property name="position">22</property>
-                    <property name="name">itemweigth</property>
+                    <property name="name">itemweight</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -269,7 +269,7 @@
                     <property name="columnName">itemyarncount</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itemweigth</property>
+                    <property name="columnName">itemweight</property>
                 </structure>
                 <structure>
                     <property name="columnName">vendoritemno</property>
@@ -405,7 +405,7 @@
                     </structure>
                     <structure>
                         <property name="position">22</property>
-                        <property name="name">itemweigth</property>
+                        <property name="name">itemweight</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -836,12 +836,6 @@ return false;]]></method>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="name">itemweigth</property>
-                    <text-property name="displayName">itemweigth</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["itemweigth"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
                     <property name="name">dremark</property>
                     <text-property name="displayName">dremark</text-property>
                     <expression name="expression" type="javascript">dataSetRow["dremark"]</expression>
@@ -1028,9 +1022,6 @@ return false;]]></method>
                     <cell id="448">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="588">
-                            <property name="resultSetColumn">itemweigth</property>
-                        </data>
                     </cell>
                     <cell id="620">
                         <property name="borderRightStyle">solid</property>

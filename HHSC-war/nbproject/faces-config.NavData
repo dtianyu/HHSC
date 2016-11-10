@@ -4,21 +4,21 @@
     <Scope Scope="Project">
         <Node id="app/df/sysuserSelect.xhtml" x="2150" y="1950" zoom="true"/>
         <Node id="app/df/trtypeSelect" x="150" y="1350" zoom="true"/>
-        <Node id="app/mm/iteminventoryView.xhtml" x="1400" y="2250" zoom="true"/>
         <Node id="app/pp/processEdit.xhtml" x="3900" y="900" zoom="true"/>
+        <Node id="app/mm/iteminventoryView.xhtml" x="1400" y="2250" zoom="true"/>
         <Node id="app/df/sysuserSelect" x="3900" y="450" zoom="true"/>
         <Node id="app/pp/zbEdit.xhtml" x="1650" y="1200" zoom="true"/>
         <Node id="app/fi/accountreceipt.xhtml" x="4400" y="300" zoom="true"/>
         <Node id="app/sys/transactiontypeEdit.xhtml" x="150" y="1500" zoom="true"/>
-        <Node id="resources/ezui/inputButton.xhtml" x="2150" y="150" zoom="true"/>
         <Node id="sys/sysgrantmoduleEdit.xhtml" x="2400" y="1200" zoom="true"/>
-        <Node id="app/pp/hgView.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="resources/ezui/inputButton.xhtml" x="2150" y="150" zoom="true"/>
         <Node id="app/lm/purchaseinit.xhtml" x="1650" y="900" zoom="true"/>
-        <Node id="app/pp/productionpickingEdit.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="app/pp/hgView.xhtml" x="400" y="1350" zoom="true"/>
         <Node id="app/pp/dxEdit.xhtml" x="2400" y="900" zoom="true"/>
+        <Node id="app/pp/productionpickingEdit.xhtml" x="1150" y="900" zoom="true"/>
         <Node id="app/pp/productionorderNew.xhtml" x="4150" y="750" zoom="true"/>
-        <Node id="sys/sysgrantmodule.xhtml" x="900" y="1200" zoom="true"/>
         <Node id="app/sd/salesorderEdit.xhtml" x="1650" y="1500" zoom="true"/>
+        <Node id="sys/sysgrantmodule.xhtml" x="900" y="1200" zoom="true"/>
         <Node id="app/sd/customerEdit.xhtml" x="1150" y="2400" zoom="true"/>
         <Node id="app/cpEdit.xhtml" x="1150" y="1800" zoom="true"/>
         <Node id="app/df/deptSelect" x="650" y="150" zoom="false"/>
@@ -28,8 +28,8 @@
         <Node id="*" x="3150" y="600" zoom="false"/>
         <Node id="app/mm/itemdesignEdit.xhtml" x="1900" y="1800" zoom="true"/>
         <Node id="app/pp/zhView.xhtml" x="650" y="1950" zoom="true"/>
-        <Node id="app/lm/purchasedetailView.xhtml" x="1900" y="1200" zoom="true"/>
         <Node id="app/mm/salesshipmentEdit.xhtml" x="1900" y="1650" zoom="true"/>
+        <Node id="app/lm/purchasedetailView.xhtml" x="1900" y="1200" zoom="true"/>
         <Node id="app/sd/shipmentadviceView.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="app/lm/itemrequestView.xhtml" x="2650" y="750" zoom="true"/>
         <Node id="app/mm/itemacceptance.xhtml" x="3900" y="300" zoom="true"/>
@@ -40,8 +40,8 @@
         <Node id="app/sys/salestypeNew.xhtml" x="4400" y="450" zoom="true"/>
         <Node id="app/df/itemmasterSelect.xhtml" x="2150" y="1800" zoom="true"/>
         <Node id="app/lm/vendorEdit.xhtml" x="150" y="900" zoom="true"/>
-        <Node id="app/fi/accountreceivable.xhtml" x="1150" y="1200" zoom="true"/>
         <Node id="app/mm/itemcustomerNew.xhtml" x="3150" y="1350" zoom="true"/>
+        <Node id="app/fi/accountreceivable.xhtml" x="1150" y="1200" zoom="true"/>
         <Node id="app/sys/currency.xhtml" x="1400" y="1800" zoom="true"/>
         <Node id="app/df/productionorderdetailSelect.xhtml" x="900" y="2550" zoom="true"/>
         <Node id="app/pp/processNew.xhtml" x="150" y="2850" zoom="true"/>
@@ -50,12 +50,12 @@
         <Node id="app/pp/itemprocessView.xhtml" x="3400" y="300" zoom="true"/>
         <Node id="app/pp/psView.xhtml" x="150" y="2250" zoom="true"/>
         <Node id="app/sd/shipmentadvice.xhtml" x="3650" y="750" zoom="true"/>
-        <Node id="app/df/salesorderdetailSelect.xhtml" x="1150" y="450" zoom="true"/>
         <Node id="app/pp/jhEdit.xhtml" x="2900" y="1050" zoom="true"/>
-        <Node id="app/sys/departmentView.xhtml" x="650" y="1650" zoom="true"/>
+        <Node id="app/df/salesorderdetailSelect.xhtml" x="1150" y="450" zoom="true"/>
         <Node id="app/lm/itemfinishedrequestEdit.xhtml" x="3150" y="1200" zoom="true"/>
-        <Node id="app/mm/unitNew.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="app/sys/departmentView.xhtml" x="650" y="1650" zoom="true"/>
         <Node id="sys/sysprgView.xhtml" x="3150" y="150" zoom="true"/>
+        <Node id="app/mm/unitNew.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="app/pp/itemprocessNew.xhtml" x="650" y="2100" zoom="true"/>
         <Node id="app/sys/areaView.xhtml" x="3650" y="300" zoom="true"/>
         <Node id="app/sys/currencyView.xhtml" x="150" y="2550" zoom="true"/>
@@ -84,24 +84,24 @@
         <Node id="app/sys/salestypeView.xhtml" x="650" y="1500" zoom="true"/>
         <Node id="resetPwd.xhtml" x="400" y="600" zoom="true"/>
         <Node id="app/sys/transactiontype.xhtml" x="3900" y="150" zoom="true"/>
-        <Node id="app/pp/ps.xhtml" x="2650" y="150" zoom="true"/>
         <Node id="sys/sysgrantmoduleNew.xhtml" x="4150" y="600" zoom="true"/>
+        <Node id="app/pp/ps.xhtml" x="2650" y="150" zoom="true"/>
         <Node id="app/pp/productionorder.xhtml" x="2400" y="300" zoom="true"/>
         <Node id="app/df/salesorderdetailSelect" x="150" y="2400" zoom="true"/>
         <Node id="app/df/warehouseSelect.xhtml" x="150" y="2100" zoom="true"/>
         <Node id="app/mm/itemfinished.xhtml" x="1900" y="1950" zoom="true"/>
         <Node id="app/pp/productionfinish.xhtml" x="2900" y="150" zoom="true"/>
         <Node id="app/cp.xhtml" x="2650" y="450" zoom="true"/>
-        <Node id="app/pp/processgroupView.xhtml" x="400" y="1950" zoom="true"/>
         <Node id="app/lm/itemmasterrequest.xhtml" x="900" y="1800" zoom="true"/>
+        <Node id="app/pp/processgroupView.xhtml" x="400" y="1950" zoom="true"/>
         <Node id="app/fi/accountreceiptView.xhtml" x="2400" y="1350" zoom="true"/>
         <Node id="app/df/customerSelect.xhtml" x="900" y="1500" zoom="true"/>
         <Node id="app/mm/itemcategoryNew.xhtml" x="650" y="2700" zoom="true"/>
         <Node id="app/lm/vendorView.xhtml" x="650" y="600" zoom="true"/>
         <Node id="app/sys/transactiontypeNew.xhtml" x="2400" y="450" zoom="true"/>
         <Node id="app/pp/ckEdit.xhtml" x="900" y="1650" zoom="true"/>
-        <Node id="app/pp/jhView.xhtml" x="900" y="1950" zoom="true"/>
         <Node id="app/sys/currencyNew.xhtml" x="2650" y="1650" zoom="true"/>
+        <Node id="app/pp/jhView.xhtml" x="900" y="1950" zoom="true"/>
         <Node id="app/pp/sxView.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="app/df/deptSelect.xhtml" x="4650" y="150" zoom="true"/>
         <Node id="app/mm/itemtransactionEdit.xhtml" x="400" y="2850" zoom="true"/>
@@ -117,20 +117,20 @@
         <Node id="app/df/salesordermaterialSelect.xhtml" x="1650" y="1800" zoom="true"/>
         <Node id="app/mm/itempurchase.xhtml" x="150" y="1950" zoom="true"/>
         <Node id="app/pp/processgroupEdit.xhtml" x="1650" y="1950" zoom="true"/>
-        <Node id="sys/sysgrantmoduleView.xhtml" x="900" y="900" zoom="true"/>
         <Node id="app/pp/dxView.xhtml" x="650" y="2550" zoom="true"/>
-        <Node id="app/sys/area.xhtml" x="3150" y="300" zoom="true"/>
+        <Node id="sys/sysgrantmoduleView.xhtml" x="900" y="900" zoom="true"/>
         <Node id="app/pp/productionpicking.xhtml" x="400" y="2700" zoom="true"/>
+        <Node id="app/sys/area.xhtml" x="3150" y="300" zoom="true"/>
         <Node id="app/lm/itemrequest.xhtml" x="650" y="1350" zoom="true"/>
         <Node id="app/pp/process.xhtml" x="2900" y="300" zoom="true"/>
         <Node id="app/pp/processView.xhtml" x="2900" y="1500" zoom="true"/>
-        <Node id="app/sd/salesinvoice.xhtml" x="400" y="1650" zoom="true"/>
         <Node id="app/sd/shipmentadviceEdit.xhtml" x="4150" y="300" zoom="true"/>
+        <Node id="app/sd/salesinvoice.xhtml" x="400" y="1650" zoom="true"/>
         <Node id="app/pp/zbView.xhtml" x="1150" y="750" zoom="true"/>
         <Node id="app/mm/itemmasterEdit.xhtml" x="900" y="450" zoom="true"/>
         <Node id="app/sys/currencyEdit.xhtml" x="1900" y="2100" zoom="true"/>
-        <Node id="app/sd/customerView.xhtml" x="1900" y="1500" zoom="true"/>
         <Node id="app/df/itemfinishedSelect.xhtml" x="3650" y="600" zoom="true"/>
+        <Node id="app/sd/customerView.xhtml" x="1900" y="1500" zoom="true"/>
         <Node id="app/pp/processgroupNew.xhtml" x="4650" y="300" zoom="true"/>
         <Node id="app/lm/purchaseinitView.xhtml" x="400" y="1800" zoom="true"/>
         <Node id="app/sd/shipmentadviceNew.xhtml" x="400" y="450" zoom="true"/>
@@ -171,8 +171,8 @@
         <Node id="app/lm/itemfinishedrequest.xhtml" x="650" y="1050" zoom="true"/>
         <Node id="app/pp/zhEdit.xhtml" x="3150" y="450" zoom="true"/>
         <Node id="app/lm/itemmasterrequestView.xhtml" x="2150" y="1650" zoom="true"/>
-        <Node id="app/mm/itemdesignView.xhtml" x="1150" y="1050" zoom="true"/>
         <Node id="sys/sysmoduleEdit.xhtml" x="1400" y="1500" zoom="true"/>
+        <Node id="app/mm/itemdesignView.xhtml" x="1150" y="1050" zoom="true"/>
         <Node id="app/mm/itemcategory.xhtml" x="2150" y="1350" zoom="true"/>
         <Node id="app/lm/purchasedetail.xhtml" x="2150" y="1200" zoom="true"/>
         <Node id="app/sys/areaNew.xhtml" x="900" y="600" zoom="true"/>
@@ -198,8 +198,8 @@
         <Node id="sys/systemuserView.xhtml" x="900" y="2250" zoom="true"/>
         <Node id="app/lm/itemmasterrequestNew.xhtml" x="4400" y="600" zoom="true"/>
         <Node id="app/pp/productionfinishNew.xhtml" x="4400" y="150" zoom="true"/>
-        <Node id="app/sd/customerNew.xhtml" x="3150" y="900" zoom="true"/>
         <Node id="app/lm/vendor.xhtml" x="2150" y="1500" zoom="true"/>
+        <Node id="app/sd/customerNew.xhtml" x="3150" y="900" zoom="true"/>
         <Node id="app/mm/itemfinishedEdit.xhtml" x="400" y="2400" zoom="true"/>
         <Node id="404.xhtml" x="650" y="1800" zoom="true"/>
         <Node id="app/df/unitSelect.xhtml" x="1400" y="1650" zoom="true"/>

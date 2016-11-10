@@ -72,6 +72,9 @@ public class SalesOrderDetailForInventoryQueryBean extends SuperQueryBean<SalesO
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("salesOrder.formid", this.queryFormId);
             }
+            if (this.queryName != null && !"".equals(this.queryName)) {
+                this.model.getFilterFields().put("itemno", this.queryName);
+            }
             if (this.shiptype != null) {
                 this.model.getFilterFields().put("salesOrder.ordertype", shiptype);
             }

@@ -129,6 +129,13 @@
                             </p:inputText>
                         </p:column>
                         <p:column colspan="2"></p:column>
+                    </p:row>                    
+                    <p:row>
+                        <p:column><p:outputLabel value="染色备注" for="jhremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="jhremark" rows="2" value="#{jhManagedBean.currentEntity.jhremark}" title="jhremark" 
+                                             styleClass="Wid90" />
+                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
@@ -184,13 +191,6 @@
                         <p:column colspan="3">
                             <p:inputTextarea id="ckreq" rows="2" value="#{jhManagedBean.currentEntity.ckreq}" title="ckreq" 
                                              styleClass="Wid90"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><p:outputLabel value="计划备注" for="jhremark" /></p:column>
-                        <p:column colspan="3">
-                            <p:inputTextarea id="jhremark" rows="2" value="#{jhManagedBean.currentEntity.jhremark}" title="jhremark" 
-                                             styleClass="Wid90" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

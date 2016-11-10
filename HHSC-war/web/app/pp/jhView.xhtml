@@ -111,21 +111,20 @@
                         <p:column colspan="3">
                             <h:outputText id="salesremark"  value="#{jhManagedBean.currentEntity.salesremark}" title="Salesremark"/>
                         </p:column>
-                    </p:row> 
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="染色备注" for="jhremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="jhremark" rows="2" value="#{jhManagedBean.currentEntity.jhremark}" title="jhremark" 
+                                             styleClass="Wid90" />
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab id="tab1" title="备注信息">
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="计划备注" for="jhremark" /></p:column>
-                                <p:column styleClass="Wid60" colspan="2">
-                                    <p:inputTextarea id="jhremark" rows="3" value="#{jhManagedBean.currentEntity.jhremark}" title="jhremark" 
-                                                     styleClass="Wid90" readonly="true"/>
-                                </p:column>
-                                <p:column styleClass="Wid20"><h:outputText value="预计交期"/></p:column>
-                            </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
                                 <p:column styleClass="Wid60" colspan="2">

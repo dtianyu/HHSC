@@ -48,7 +48,7 @@
                         </p:column>  
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="成分"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="成份"/></p:column>
                         <p:column colspan="3">
                             <h:outputText id="itemmake" value="#{itemMasterManagedBean.currentEntity.itemmake}" title="Itemmake" />
                         </p:column>
@@ -108,7 +108,7 @@
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
-                <p:tab title="成分信息">
+                <p:tab title="成份信息">
                     <p:panel id="panelDetail">
                         <p:dataTable id="tableList" value="#{itemMasterManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                                      selectionMode="single" selection="#{itemMasterManagedBean.currentDetail}" rowKey="#{item.seq}" >
@@ -122,7 +122,7 @@
                             </p:column>
                             <p:column styleClass="Wid90">
                                 <f:facet name="header">
-                                    <h:outputText value="成分"/>
+                                    <h:outputText value="成份"/>
                                 </f:facet>
                                 <h:outputText value="#{item.make}"/>
                             </p:column>

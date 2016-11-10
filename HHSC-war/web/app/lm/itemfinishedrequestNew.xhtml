@@ -17,7 +17,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{itemFinishedRequestManagedBean.persist()}" icon="ui-icon-disk" 
-                                     process="@this,plgHead,:formNew:tabView:plgDetail" update="plgHead,:formNew:tabView:plgDetail,:formNew:tabView:detailList"/>                                
+                                     process="@this,plgHead" update="formNew"/>                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="成品请购－新增">
@@ -69,7 +69,7 @@
                         </p:column>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column>
-                            <p:inputText id="remark" value="#{itemFinishedRequestManagedBean.newDetail.remark}" title="Remark" />
+                            <p:inputText id="remark" value="#{itemFinishedRequestManagedBean.newEntity.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -133,7 +133,7 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column><h:outputText value="成分"/></p:column>
+                                <p:column><h:outputText value="成份"/></p:column>
                                 <p:column>
                                     <h:outputText id="itemmake" value="#{itemFinishedRequestManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
                                 </p:column>

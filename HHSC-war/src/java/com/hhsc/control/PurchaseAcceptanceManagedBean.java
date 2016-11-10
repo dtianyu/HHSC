@@ -144,6 +144,7 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         superEJB = purchaseAcceptanceBean;
         detailEJB = purchaseAcceptanceDetailBean;
         setModel(new PurchaseAcceptanceModel(purchaseAcceptanceBean));
+        this.model.getFilterFields().put("status", "N");
         super.init();
     }
 
@@ -280,6 +281,12 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
                 this.model.getFilterFields().put("status", queryState);
             }
         }
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("status", "N");
     }
 
     /**

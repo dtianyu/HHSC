@@ -27,10 +27,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
@@ -100,17 +98,17 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
     @Override
     protected boolean doBeforePersist() throws Exception {
         if (this.getNewEntity() != null && this.getNewEntity().getVendor() == null) {
-            showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入供应商");
+            showErrorMsg("Error", "请输入供应商");
             return false;
         }
         if (this.detailList != null && !this.detailList.isEmpty()) {
             for (PurchaseOrderDetail detail : detailList) {
                 if (detail.getItemmaster() == null) {
-                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入品号");
+                    showErrorMsg("Error", "请输入品号");
                     return false;
                 }
                 if ((detail.getQty().compareTo(BigDecimal.ZERO) == 1) || (detail.getPrice().compareTo(BigDecimal.ZERO) == 1)) {
-                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入数量或单价");
+                    showErrorMsg("Error", "请输入数量或单价");
                     return false;
                 }
             }
@@ -125,7 +123,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         }//超类中有重新加载明细资料
         for (PurchaseOrderDetail detail : this.detailList) {
             if ((detail.getInqty().compareTo(BigDecimal.ZERO) == 1) || (!detail.getStatus().equals("10"))) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已入库不可还原"));
+                showWarnMsg("Warn", "已入库不可还原");
                 return false;
             }
         }
@@ -138,12 +136,12 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
             return false;
         }//超类中有重新加载明细资料
         if (this.detailList == null || this.detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有采购明细!"));
+            showErrorMsg("Error", "没有采购明细!");
             return false;
         }
         for (PurchaseOrderDetail detail : this.detailList) {
             if ((detail.getQty().compareTo(BigDecimal.ZERO) < 1) || (detail.getPrice().compareTo(BigDecimal.ZERO) < 1)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "数量或单件不能为零!"));
+                showErrorMsg("Error", "数量或单价不能为零!");
                 return false;
             }
         }
@@ -271,7 +269,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
     public void print() throws Exception {
 
         if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
+            showWarnMsg("Warn", "没有可打印数据!");
             return;
         }
         //设置报表参数

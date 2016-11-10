@@ -77,9 +77,16 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
     }
 
     @Override
+    protected boolean doAfterPersist() throws Exception {
+        //新增后即审核2016/10/31
+        this.verify();
+        return super.doAfterPersist(); 
+    }
+
+    @Override
     protected boolean doBeforePersist() throws Exception {
         if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            if (this.getCurrentSysprg().getNoauto()) {
+            if (this.getCurrentSysprg().getNoauto() && !this.getCurrentSysprg().getNochange()) {
                 String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
                 if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
@@ -88,20 +95,20 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
                     }
                 }
                 if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                    for (CustomerItem detail : this.editedDetailList) {
+                    this.editedDetailList.stream().forEach((detail) -> {
                         detail.setItemno(formid);
-                    }
+                    });
                 }
             } else {
                 if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                    for (CustomerItem detail : this.addedDetailList) {
+                    this.addedDetailList.stream().forEach((detail) -> {
                         detail.setItemno(newEntity.getItemno());
-                    }
+                    });
                 }
                 if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                    for (CustomerItem detail : this.editedDetailList) {
+                    this.editedDetailList.stream().forEach((detail) -> {
                         detail.setItemno(newEntity.getItemno());
-                    }
+                    });
                 }
             }
             return true;

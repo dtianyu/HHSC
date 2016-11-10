@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="itemexchange" icon="ui-icon-arrowreturn-1-w"  />                          
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{itemExchangeManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{itemExchangeManagedBean.doCfm}" process="@this" update="formView"/>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{itemExchangeManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{itemExchangeManagedBean.doPrt}"/>                                  
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelHead" header="库存转换-查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">     
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="转换单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{itemExchangeManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="转换日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{itemExchangeManagedBean.currentEntity.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="需求部门"/></p:column>
+                        <p:column>
+                            <h:outputText id="deptid" value="#{itemExchangeManagedBean.currentEntity.dept.dept}" title="Deptid" />
+                        </p:column>
+                        <p:column><h:outputText value="需求人"/></p:column>
+                        <p:column>
+                            <h:outputText id="userid" value="#{itemExchangeManagedBean.currentEntity.systemUser.username}" title="SystemUser"/>                           
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark" value="#{itemExchangeManagedBean.currentEntity.remark}" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="转换明细">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="转出仓库" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="warehouse1" value="#{itemExchangeManagedBean.currentEntity.warehouseFrom.name}" title="warehouse"/>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="转入仓库"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="warehouse2" value="#{itemExchangeManagedBean.currentEntity.warehouseTo.name}" title="warehouse" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="转出品号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemno1" value="#{itemExchangeManagedBean.currentEntity.itemnofrom}" title="ItemMaster" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="转入品号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemno2" value="#{itemExchangeManagedBean.currentEntity.itemnoto}" title="ItemMaster" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="转出名称"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc1" value="#{itemExchangeManagedBean.currentEntity.itemMasterFrom.itemdesc}"/>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="转入名称"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc2" value="#{itemExchangeManagedBean.currentEntity.itemMasterTo.itemdesc}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="转出规格"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemspec1" value="#{itemExchangeManagedBean.currentEntity.itemMasterFrom.itemspec}"/>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="转入名称"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemspec2" value="#{itemExchangeManagedBean.currentEntity.itemMasterTo.itemspec}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="转出色号" /></p:column>
+                                <p:column>
+                                    <h:outputText id="colorno1" value="#{itemExchangeManagedBean.currentEntity.colornofrom}" title="Colorid"/>   
+                                </p:column>
+                                <p:column><h:outputText value="转入色号" /></p:column>
+                                <p:column>
+                                    <h:outputText id="colorno2" value="#{itemExchangeManagedBean.currentEntity.colornoto}" title="Colorid"/>   
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="转出批号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="batch1" value="#{itemExchangeManagedBean.currentEntity.batchfrom}" title="batch"/>
+                                </p:column>
+                                <p:column><h:outputText value="转入批号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="batch2" value="#{itemExchangeManagedBean.currentEntity.batchto}" title="batch" />
+                                </p:column>
+                            </p:row>
+                            <p:row>                   
+                                <p:column styleClass="Wid20"><h:outputText value="转出数量"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="qty1" value="#{itemExchangeManagedBean.currentEntity.qtyfrom}" title="Qty"/>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="转入数量"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="qty2" value="#{itemExchangeManagedBean.currentEntity.qtyto}" title="Qty"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="转出单位"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="unit1" value="#{itemExchangeManagedBean.currentEntity.unitfrom}"  title="Unit" />
+                                </p:column>
+                                <p:column><h:outputText value="转入单位"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="unit2" value="#{itemExchangeManagedBean.currentEntity.unitto}"  title="Unit" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

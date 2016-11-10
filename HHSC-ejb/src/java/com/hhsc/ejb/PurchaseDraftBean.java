@@ -8,6 +8,7 @@ package com.hhsc.ejb;
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.PurchaseDraft;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.Query;
@@ -19,6 +20,10 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class PurchaseDraftBean extends SuperBean<PurchaseDraft> {
+
+    @EJB
+    private PurchaseOrderDetailBean purchaseOrderDetailBean;
+
 
     public PurchaseDraftBean() {
         super(PurchaseDraft.class);
@@ -37,4 +42,7 @@ public class PurchaseDraftBean extends SuperBean<PurchaseDraft> {
         return query.getResultList();
     }
 
+    public boolean hasPurchaseOrder(String formid) {
+        return !purchaseOrderDetailBean.findBySrcformid(formid).isEmpty();
+    }
 }

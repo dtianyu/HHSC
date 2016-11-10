@@ -103,6 +103,12 @@
                             <h:outputText id="refno" value="#{purchaseOrderManagedBean.currentEntity.refno}" title="Refno" />
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark" value="#{purchaseOrderManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
@@ -321,7 +327,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

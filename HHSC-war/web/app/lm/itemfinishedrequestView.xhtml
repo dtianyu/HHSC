@@ -63,7 +63,7 @@
                         </p:column>
                         <p:column><h:outputText value="请购备注"/></p:column>
                         <p:column>
-                            <h:outputText id="remark" value="#{itemMasterRequestManagedBean.currentEntity.remark}" title="Remark" />
+                            <h:outputText id="remark" value="#{itemFinishedRequestManagedBean.currentEntity.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -157,7 +157,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="成分"/></p:column>
+                        <p:column><h:outputText value="成份"/></p:column>
                         <p:column>
                             <h:outputText id="itemmake" value="#{itemFinishedRequestManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
                         </p:column>
@@ -250,7 +250,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

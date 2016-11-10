@@ -208,6 +208,16 @@
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
                 </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">srcformid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
+                    <property name="name">srcseq</property>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
@@ -302,6 +312,12 @@
                 </structure>
                 <structure>
                     <property name="columnName">amts</property>
+                </structure>
+                <structure>
+                    <property name="columnName">srcformid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">srcseq</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -461,6 +477,16 @@
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
                     </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">srcformid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
+                        <property name="name">srcseq</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
@@ -502,12 +528,14 @@ if (currentRow < detail.size()){
 		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
 		dataSetRow["price"] = detail.get(currentRow).getPrice();	
 		dataSetRow["amts"] = detail.get(currentRow).getAmts();	
+		dataSetRow["srcformid"] = detail.get(currentRow).getSrcformid();				
+		dataSetRow["srcseq"] = detail.get(currentRow).getSrcseq();	
+		
 		dataSetRow["shipadd"] = master.getShipadd();				
 		dataSetRow["remark"] = master.getRemark();	
 	
 		currentRow++;
-		return true;	
-	
+		return true;		
 }
 return false;]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>
@@ -983,28 +1011,36 @@ return false;]]></method>
                     </list-property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">srcformid</property>
+                    <text-property name="displayName">srcformid</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["srcformid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
-                <property name="width">0.2in</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="618">
+                <property name="repeat">1</property>
+                <property name="width">1in</property>
             </column>
             <column id="351">
                 <property name="width">1in</property>
             </column>
-            <column id="353">
-                <property name="width">0.4in</property>
-            </column>
-            <column id="355">
-                <property name="width">1.5in</property>
-            </column>
+            <column id="355"/>
             <column id="357">
                 <property name="width">0.8in</property>
             </column>
             <column id="358">
-                <property name="width">0.6in</property>
+                <property name="width">1in</property>
             </column>
             <column id="359">
-                <property name="width">0.2in</property>
+                <property name="width">0.4in</property>
+            </column>
+            <column id="630">
+                <property name="width">1in</property>
             </column>
             <header>
                 <row id="287">
@@ -1017,6 +1053,13 @@ return false;]]></method>
                             <text-property name="text">序号</text-property>
                         </label>
                     </cell>
+                    <cell id="619">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="620">
+                            <text-property name="text">色号</text-property>
+                        </label>
+                    </cell>
                     <cell id="290">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
@@ -1024,18 +1067,11 @@ return false;]]></method>
                             <text-property name="text">品号</text-property>
                         </label>
                     </cell>
-                    <cell id="294">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <label id="295">
-                            <text-property name="text">色号</text-property>
-                        </label>
-                    </cell>
                     <cell id="298">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="299">
-                            <text-property name="text">名称/成分</text-property>
+                            <text-property name="text">名称/成份</text-property>
                         </label>
                     </cell>
                     <cell id="302">
@@ -1059,6 +1095,13 @@ return false;]]></method>
                             <text-property name="text">单位</text-property>
                         </label>
                     </cell>
+                    <cell id="626">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="631">
+                            <text-property name="text">来源单号</text-property>
+                        </label>
+                    </cell>
                 </row>
             </header>
             <detail>
@@ -1072,18 +1115,18 @@ return false;]]></method>
                             <property name="resultSetColumn">seq</property>
                         </data>
                     </cell>
+                    <cell id="621">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="622">
+                            <property name="resultSetColumn">colorno</property>
+                        </data>
+                    </cell>
                     <cell id="315">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="320">
                             <property name="resultSetColumn">itemno</property>
-                        </data>
-                    </cell>
-                    <cell id="319">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="318">
-                            <property name="resultSetColumn">colorno</property>
                         </data>
                     </cell>
                     <cell id="323">
@@ -1119,6 +1162,13 @@ return false;]]></method>
                             <property name="resultSetColumn">unit</property>
                         </data>
                     </cell>
+                    <cell id="627">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="632">
+                            <property name="resultSetColumn">srcformid</property>
+                        </data>
+                    </cell>
                 </row>
                 <row id="443">
                     <property name="borderBottomStyle">solid</property>
@@ -1127,18 +1177,18 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                     </cell>
+                    <cell id="623">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="624">
+                            <property name="resultSetColumn">customercolorno</property>
+                        </data>
+                    </cell>
                     <cell id="445">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="584">
                             <property name="resultSetColumn">customeritemno</property>
-                        </data>
-                    </cell>
-                    <cell id="446">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="316">
-                            <property name="resultSetColumn">customercolorno</property>
                         </data>
                     </cell>
                     <cell id="447">
@@ -1164,13 +1214,17 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                     </cell>
+                    <cell id="628">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                    </cell>
                 </row>
             </detail>
             <footer>
                 <row id="337">
                     <cell id="338"/>
+                    <cell id="625"/>
                     <cell id="339"/>
-                    <cell id="341"/>
                     <cell id="343"/>
                     <cell id="345">
                         <property name="borderRightStyle">solid</property>
@@ -1189,6 +1243,10 @@ return false;]]></method>
                         </data>
                     </cell>
                     <cell id="347">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                    </cell>
+                    <cell id="629">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                     </cell>

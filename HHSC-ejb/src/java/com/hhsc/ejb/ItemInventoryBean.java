@@ -8,7 +8,6 @@ package com.hhsc.ejb;
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.ItemInventory;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.TransactionAttribute;
@@ -52,7 +51,8 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
         query.setParameter("sn", sn);
         query.setParameter("warehouseno", warehousno);
         try {
-            return (ItemInventory) query.getSingleResult();
+            Object o = query.getSingleResult();
+            return (ItemInventory) o;
         } catch (Exception e) {
             return null;
 

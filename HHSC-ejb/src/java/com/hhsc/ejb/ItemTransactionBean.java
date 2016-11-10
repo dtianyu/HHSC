@@ -65,7 +65,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
 
             //删除库存交易
             List<InventoryTransaction> transactionList = inventoryTransactionBean.findByFormid(e.getFormid());
-            if (transactionList != null) {
+            if (transactionList != null && !transactionList.isEmpty()) {
                 inventoryTransactionBean.delete(transactionList);
             }
 

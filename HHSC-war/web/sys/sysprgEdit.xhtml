@@ -65,6 +65,8 @@
                     <p:outputLabel value="流号长度" for="noseqlen" rendered="#{sysprgManagedBean.currentEntity.noauto}" />
                     <p:spinner id="noseqlen" value="#{sysprgManagedBean.currentEntity.noseqlen}" 
                                rendered="#{sysprgManagedBean.currentEntity.noauto}" required="true" requiredMessage="流号长度不可空白"/>
+                    <p:outputLabel value="更改编号" for="nochange" />
+                    <p:inputSwitch id="nochange" value="#{sysprgManagedBean.currentEntity.nochange}" required="nochange"/>
                     <p:outputLabel value="报表类" for="rptclazz" />
                     <p:inputText id="rptclazz" value="#{sysprgManagedBean.currentEntity.rptclazz}" title="rptclazz"/> 
                     <p:outputLabel value="报表文件" for="rptdesign" />

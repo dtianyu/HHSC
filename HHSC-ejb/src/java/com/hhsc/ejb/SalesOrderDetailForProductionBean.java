@@ -28,7 +28,7 @@ public class SalesOrderDetailForProductionBean extends SuperBean<SalesOrderDetai
     @Override
     public int getRowCount(Map<String, Object> filters) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT COUNT(e) FROM SalesOrderDetailForQuery e WHERE ((e.issqty - e.proqty) > 0) AND ((e.qty - e.shipqty) > 0) ");
+        sb.append("SELECT COUNT(e) FROM SalesOrderDetailForQuery e WHERE ((e.issqty - e.proqty) > 0)  ");
         sb.append(" AND (e.salesOrder.status <>'N') AND (e.status<>'AC') AND (e.status<>'MC') ");
         if (filters != null) {
             this.setQueryFilter(sb, filters);
@@ -45,7 +45,7 @@ public class SalesOrderDetailForProductionBean extends SuperBean<SalesOrderDetai
     @Override
     public List<SalesOrderDetailForQuery> findByFilters(Map<String, Object> filters, int first, int pageSize, Map<String, String> orderBy) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT e FROM SalesOrderDetailForQuery e WHERE ((e.issqty - e.proqty) > 0) AND ((e.qty - e.shipqty) > 0) ");
+        sb.append("SELECT e FROM SalesOrderDetailForQuery e WHERE ((e.issqty - e.proqty) > 0)  ");
         sb.append(" AND (e.salesOrder.status<>'N') AND (e.status<>'AC') AND (e.status<>'MC') ");
         if (filters != null) {
             this.setQueryFilter(sb, filters);

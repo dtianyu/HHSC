@@ -6,6 +6,7 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
+import com.hhsc.entity.ItemProcess;
 import com.hhsc.entity.ItemResource;
 import com.hhsc.entity.ProductionOrder;
 import com.hhsc.entity.ProductionOrderDetail;
@@ -27,6 +28,9 @@ import javax.ejb.LocalBean;
 public class ProductionOrderBean extends SuperBean<ProductionOrder> {
 
     @EJB
+    private ItemProcessBean itemProcessBean;
+
+    @EJB
     private ItemResourceBean itemResourceBean;
 
     @EJB
@@ -43,6 +47,22 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
 
     public ProductionOrderBean() {
         super(ProductionOrder.class);
+    }
+
+    public void initProcess(ProductionOrder entity) {
+        ItemProcess e = itemProcessBean.findLastByItemno(entity.getDesignno());
+        if (e != null) {
+            entity.setDesignspec(e.getItemspec());
+            entity.setHgsets(e.getDesignsets());
+            entity.setHgreq(e.getHgreq());
+            entity.setZbreq(e.getZbreq());
+            entity.setPsreq(e.getPsreq());
+            entity.setYhreq(e.getYhreq());
+            entity.setZhreq(e.getZhreq());
+            entity.setSxreq(e.getSxreq());
+            entity.setDxreq(e.getDxreq());
+            entity.setCkreq(e.getCkreq());
+        }
     }
 
     public void initResource(ProductionOrder entity) {
@@ -68,15 +88,6 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
                 r.setRemark(e.getRemark());
                 productionResourceBean.persist(r);
             }
-            ItemResource e = itemResourceList.get(0);
-            entity.setHgreq(e.getItemProcess().getHgreq());
-            entity.setZbreq(e.getItemProcess().getZbreq());
-            entity.setPsreq(e.getItemProcess().getPsreq());
-            entity.setYhreq(e.getItemProcess().getYhreq());
-            entity.setZhreq(e.getItemProcess().getZhreq());
-            entity.setSxreq(e.getItemProcess().getSxreq());
-            entity.setDxreq(e.getItemProcess().getDxreq());
-            entity.setCkreq(e.getItemProcess().getCkreq());
         }
 
     }
@@ -84,6 +95,7 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
     @Override
     public void persist(ProductionOrder entity) {
         super.persist(entity);
+        initProcess(entity);
         initResource(entity);
         update(entity);
     }
@@ -108,20 +120,18 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
         try {
             ProductionOrder e = this.getEntityManager().merge(entity);
             setDetailList(productionOrderDetailBean.findByPId(e.getFormid()));
-            for (ProductionOrderDetail d : detailList) {
-                if (d.getSrcformid() != null && !"".equals(d.getSrcformid())) {
-                    SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
-                    if (s != null) {
-                        s.setProqty(s.getProqty().subtract(d.getQty()));
-                        if (s.getProqty().compareTo(BigDecimal.ZERO) == 0) {
-                            s.setStatus("10");
-                        } else {
-                            s.setStatus("20");
-                        }
-                        salesOrderDetailBean.update(s);
+            detailList.stream().filter((d) -> (d.getSrcformid() != null && !"".equals(d.getSrcformid()))).forEach((d) -> {
+                SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
+                if (s != null) {
+                    s.setProqty(s.getProqty().subtract(d.getQty()));
+                    if (s.getProqty().compareTo(BigDecimal.ZERO) == 0) {
+                        s.setStatus("10");
+                    } else {
+                        s.setStatus("20");
                     }
+                    salesOrderDetailBean.update(s);
                 }
-            }
+            });
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -133,16 +143,14 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
         try {
             ProductionOrder e = this.getEntityManager().merge(entity);
             setDetailList(productionOrderDetailBean.findByPId(e.getFormid()));
-            for (ProductionOrderDetail d : detailList) {
-                if (d.getSrcformid() != null && !"".equals(d.getSrcformid())) {
-                    SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
-                    if (s != null) {
-                        s.setProqty(s.getProqty().add(d.getQty()));
-                        s.setStatus("20");
-                        salesOrderDetailBean.update(s);
-                    }
+            detailList.stream().filter((d) -> (d.getSrcformid() != null && !"".equals(d.getSrcformid()))).forEach((d) -> {
+                SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
+                if (s != null) {
+                    s.setProqty(s.getProqty().add(d.getQty()));
+                    s.setStatus("20");
+                    salesOrderDetailBean.update(s);
                 }
-            }
+            });
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);

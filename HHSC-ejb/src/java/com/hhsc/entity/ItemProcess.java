@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemProcess.getRowCount", query = "SELECT COUNT(i) FROM ItemProcess i"),
     @NamedQuery(name = "ItemProcess.findAll", query = "SELECT i FROM ItemProcess i"),
     @NamedQuery(name = "ItemProcess.findById", query = "SELECT i FROM ItemProcess i WHERE i.id = :id"),
+    @NamedQuery(name = "ItemProcess.findByItemno", query = "SELECT i FROM ItemProcess i WHERE i.itemno = :itemno ORDER BY i.id DESC"),
     @NamedQuery(name = "ItemProcess.findByStatus", query = "SELECT i FROM ItemProcess i WHERE i.status = :status")})
 public class ItemProcess extends SuperEntity {
 
@@ -39,7 +40,8 @@ public class ItemProcess extends SuperEntity {
     @Size(max = 20)
     @Column(name = "colorno")
     private String colorno;
-
+    @Column(name = "designsets")
+    private Integer designsets;
     @Size(max = 400)
     @Column(name = "fyreq")
     private String fyreq;
@@ -243,6 +245,20 @@ public class ItemProcess extends SuperEntity {
      */
     public void setColorno(String colorno) {
         this.colorno = colorno;
+    }
+
+    /**
+     * @return the designsets
+     */
+    public Integer getDesignsets() {
+        return designsets;
+    }
+
+    /**
+     * @param designsets the designsets to set
+     */
+    public void setDesignsets(Integer designsets) {
+        this.designsets = designsets;
     }
 
 }

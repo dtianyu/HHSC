@@ -30,19 +30,31 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "purchaseDraftManagedBean")
 @SessionScoped
 public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
-    
+
     @EJB
     private VendorItemBean vendorItemBean;
-    
+
     @EJB
     private PurchaseDraftBean purchaseDraftBean;
-    
+
     protected String queryItemno;
-    
+
     public PurchaseDraftManagedBean() {
         super(PurchaseDraft.class);
     }
-    
+
+    @Override
+    protected boolean doBeforeUnverify() throws Exception {
+        if (!super.doBeforeUnverify()) {
+            return false;
+        }
+        if (purchaseDraftBean.hasPurchaseOrder(currentEntity.getPurchaserequest().getFormid())) {
+            showErrorMsg("Error", "已有采购资料无法还原");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     protected boolean doBeforeUpdate() throws Exception {
         if (this.currentEntity.getVendor() == null) {
@@ -63,7 +75,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
         this.currentEntity.setTaxes(t.getTaxes());
         return super.doBeforeUpdate();
     }
-    
+
     public void findVendorItem() {
         if (currentEntity.getItemno() != null && currentEntity.getVendor() != null) {
             VendorItem entity = vendorItemBean.findByItemnoAndVendorno(currentEntity.getItemno(), currentEntity.getVendor().getVendorno());
@@ -72,7 +84,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             }
         }
     }
-    
+
     public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             Currency entity = (Currency) event.getObject();
@@ -80,7 +92,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             this.currentEntity.setExchange(entity.getExchange());
         }
     }
-    
+
     public void handleDialogReturnVendorWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             Vendor entity = (Vendor) event.getObject();
@@ -92,7 +104,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             this.currentEntity.setPayment(entity.getPayment());
         }
     }
-    
+
     @Override
     public void init() {
         this.superEJB = purchaseDraftBean;
@@ -100,7 +112,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
         this.model.getFilterFields().put("status", "N");
         super.init();
     }
-    
+
     @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
@@ -125,7 +137,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             }
         }
     }
-    
+
     @Override
     public void reset() {
         super.reset();
@@ -145,5 +157,5 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
     public void setQueryItemno(String queryItemno) {
         this.queryItemno = queryItemno;
     }
-    
+
 }

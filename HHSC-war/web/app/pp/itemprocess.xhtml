@@ -53,25 +53,31 @@
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
                     <h:outputText value="#{item.itemno}"/>
                 </p:column>
-                <p:column styleClass="Ｗid30">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="名称"/>
                     </f:facet>
                     <h:outputText value="#{item.itemmaster.itemdesc}"/>
                 </p:column>
-                <p:column styleClass="Ｗid10">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="色号"/>
                     </f:facet>
                     <h:outputText value="#{item.colorno}"/>
                 </p:column>
-                <p:column styleClass="Ｗid30">
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="套数"/>
+                    </f:facet>
+                    <h:outputText value="#{item.designsets}"/>
+                </p:column>
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="规格"/>
                     </f:facet>

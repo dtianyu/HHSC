@@ -60,7 +60,7 @@
                         </p:column>  
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="成分" for="itemmake" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="成份" for="itemmake" /></p:column>
                         <p:column colspan="3">
                             <p:inputText id="itemmake" value="#{itemCustomerManagedBean.currentEntity.itemmake}" title="Itemmake" />
                         </p:column>
@@ -118,7 +118,7 @@
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
-                <p:tab title="成分信息">
+                <p:tab title="成份信息">
                     <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                         <f:facet name="left">
                             <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{itemCustomerManagedBean.createDetail()}" icon="ui-icon-plus" 
@@ -136,9 +136,9 @@
                     </p:toolbar>
                     <p:panel id="panelDetail">
                         <p:panelGrid id="plgEditDetail" columns="2" columnClasses="Wid20,Wid80" styleClass="plgEdit Wid100">
-                            <p:outputLabel value="成分" for="make" />
+                            <p:outputLabel value="成份" for="make" />
                             <p:inputText id="make" value="#{itemCustomerManagedBean.currentDetail.make}" title="make"  
-                                         required="true" requiredMessage="请输入成分" />
+                                         required="true" requiredMessage="请输入成份" />
                         </p:panelGrid>
                         <p:dataTable id="tableList" value="#{itemCustomerManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                                      selectionMode="single" selection="#{itemCustomerManagedBean.currentDetail}" rowKey="#{item.seq}" >
@@ -152,7 +152,7 @@
                             </p:column>
                             <p:column styleClass="Wid90">
                                 <f:facet name="header">
-                                    <h:outputText value="成分"/>
+                                    <h:outputText value="成份"/>
                                 </f:facet>
                                 <h:outputText value="#{item.make}"/>
                             </p:column>

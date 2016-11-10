@@ -41,7 +41,8 @@ public class CustomerItemBean extends SuperBean<CustomerItem> {
         query.setParameter("itemno", itemno);
         query.setParameter("customerno", customerno);
         try {
-            return (CustomerItem) query.getSingleResult();
+            Object o = query.getSingleResult();
+            return (CustomerItem) o;
         } catch (NullPointerException e) {
             return null;
         }

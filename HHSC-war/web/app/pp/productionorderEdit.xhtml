@@ -46,6 +46,7 @@
                                              required="true" requiredMessage="请输入工单分类">
                                 <f:selectItem itemLabel="大货" itemValue="大货" /> 
                                 <f:selectItem itemLabel="小样" itemValue="小样" /> 
+                                <f:selectItem itemLabel="补单" itemValue="补单" /> 
                             </p:selectOneMenu>
                         </p:column>
                     </p:row>
@@ -64,8 +65,14 @@
                             <h:outputText id="designdesc" value="#{productionOrderManagedBean.currentEntity.design.itemdesc}" title="designdesc"/>
                         </p:column>
                     </p:row>
+                    <p:row>                     
+                        <p:column><h:outputText value="成品规格" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{productionOrderManagedBean.currentEntity.design.itemspec}" title="Itemspec" />
+                        </p:column>
+                    </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="成品规格" for="designspec" /></p:column>
+                        <p:column><p:outputLabel value="制版规格" for="designspec" /></p:column>
                         <p:column>
                             <p:inputText id="designspec" value="#{productionOrderManagedBean.currentEntity.designspec}" title="Itemspec" 
                                          required="true" requiredMessage="规格不能为空."/>
@@ -84,7 +91,7 @@
                                          required="true" requiredMessage="请输入业务员" readonly="true"/>
                             <p:commandButton id="btnSelectSalesman" actionListener="#{productionOrderManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnSalesmanWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnSalesmanWhenEdit}" 
                                         update="salesman" />
                             </p:commandButton>
                         </p:column>
@@ -96,9 +103,13 @@
                                          styleClass="inputWithButton" readonly="true"/>
                             <p:commandButton id="btnSelect" actionListener="#{productionOrderManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
                                              process="@this,formtype" >
-                                <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnCustomerWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnCustomerWhenEdit}" 
                                         update="customer" />
                             </p:commandButton>
+                        </p:column>
+                        <p:column></p:column>
+                        <p:column>
+
                         </p:column>
                     </p:row>
                     <p:row>
@@ -123,23 +134,32 @@
                             <p:inputTextarea id="salesremark" rows="3" value="#{productionOrderManagedBean.currentEntity.salesremark}" title="Salesremark" 
                                              styleClass="Wid90" />
                         </p:column>
-                    </p:row> 
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="染色备注" for="jhremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea id="jhremark" rows="2" value="#{productionOrderManagedBean.currentEntity.jhremark}" title="jhremark" 
+                                             styleClass="Wid90" />
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
-                <p:fileUpload id="fileUpload" fileUploadListener="#{productionOrderManagedBean.handleFileUploadWhenNew}" styleClass="fileUpload"
+                <p:fileUpload id="fileUpload" fileUploadListener="#{productionOrderManagedBean.handleFileUploadWhenEdit}" styleClass="fileUpload"
                               label="选择" uploadLabel="上传" cancelLabel="取消" sizeLimit="5000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
                               update=":formEdit:designimg" process="@this"/>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab title="备注信息">
+                    <p:toolbar id="baseToolbar" styleClass="detailToolbar">
+                        <f:facet name="right">   
+                            <p:commandButton id="btnProcessSelect" widgetVar="btnProcessSelect" value="工艺" actionListener="#{productionOrderManagedBean.openDialog('itemprocessSelect')}" icon="ui-icon-plus" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{productionOrderManagedBean.handleDialogReturnProcessWhenEdit}" 
+                                        update="formEdit:tabView:plgBase"/>  
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="计划备注" for="jhremark" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="jhremark" rows="3" value="#{productionOrderManagedBean.currentEntity.jhremark}" title="jhremark" 
-                                                     styleClass="Wid90" />
-                                </p:column>
-                            </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
@@ -212,7 +232,7 @@
                         <f:facet name="right">                        
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{productionOrderManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             process="@this,plgDetail" update="formEdit:qty,formNew:salesremark,formEdit:tabView:plgDetail,formEdit:tabView:tableList"/>                                
+                                             process="@this,plgDetail" update="formEdit:qty,formEdit:salesremark,formEdit:tabView:plgDetail,formEdit:tabView:tableList"/>                                
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail">
@@ -293,6 +313,12 @@
                                 <p:column>
                                     <p:inputText id="unit" value="#{productionOrderManagedBean.currentDetail.unit}" title="unit"
                                                  required="true" requiredMessage="请输入单位"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="dremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="dremark" value="#{productionOrderManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

@@ -3,7 +3,7 @@
   <persistence-unit name="HHSC-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/hhsc</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
     <properties/>
   </persistence-unit>

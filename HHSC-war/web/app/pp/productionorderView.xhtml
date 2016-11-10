@@ -22,7 +22,11 @@
                                      rendered="#{productionOrderManagedBean.hasNext}"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" value="审核" action="#{productionOrderManagedBean.verify()}" icon="ui-icon-locked"
+                    <p:commandButton id="btnCopy" value="复制" action="#{productionOrderManagedBean.copyEntity('productionorder')}" icon="ui-icon-copy"
+                                     rendered="true" process="@this">
+                        <p:confirm header="系统提示" message="复制吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnVerify" value="审核" actionListener="#{productionOrderManagedBean.verify()}" icon="ui-icon-locked"
                                      rendered="#{productionOrderManagedBean.doCfm}" process="@this" update="formView">
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
@@ -69,8 +73,14 @@
                             <h:outputText id="designdesc" value="#{productionOrderManagedBean.currentEntity.design.itemdesc}" title="designdesc"/>
                         </p:column>
                     </p:row>
-                    <p:row>
+                    <p:row>                     
                         <p:column><h:outputText value="成品规格" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{productionOrderManagedBean.currentEntity.design.itemspec}" title="Itemspec" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="制版规格" /></p:column>
                         <p:column>
                             <h:outputText id="designspec" value="#{productionOrderManagedBean.currentEntity.designspec}" title="Itemspec" />
                         </p:column>
@@ -92,6 +102,10 @@
                         <p:column>
                             <h:outputText id="customer" value="#{productionOrderManagedBean.currentEntity.customer}" title="customer" />
                         </p:column>
+                        <p:column></p:column>
+                        <p:column>
+
+                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="印花交期"/></p:column>
@@ -112,20 +126,19 @@
                         <p:column colspan="3">
                             <h:outputText id="salesremark"  value="#{productionOrderManagedBean.currentEntity.salesremark}" title="Salesremark"/>
                         </p:column>
-                    </p:row> 
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="染色备注" for="jhremark" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="jhremark" value="#{productionOrderManagedBean.currentEntity.jhremark}" title="jhremark"/>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab title="备注信息">
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="计划备注" for="jhremark" /></p:column>
-                                <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="jhremark" rows="3" value="#{productionOrderManagedBean.currentEntity.jhremark}" title="jhremark" 
-                                                     styleClass="Wid90" readonly="true"/>
-                                </p:column>
-                            </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
@@ -304,6 +317,12 @@
                                     <p:column><h:outputText value="发料单位"/></p:column>
                                     <p:column>
                                         <h:outputText id="unit" value="#{productionOrderManagedBean.currentDetail.unit}" title="unit"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><h:outputText value="备注" /></p:column>
+                                    <p:column colspan="3">
+                                        <h:outputText id="dremark" value="#{productionOrderManagedBean.currentDetail.remark}" title="Remark" />
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
@@ -558,7 +577,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnCopy">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>   
         </h:form>

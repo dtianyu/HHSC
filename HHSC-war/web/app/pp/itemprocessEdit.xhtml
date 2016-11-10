@@ -34,13 +34,20 @@
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="色号" for="colorno"/></p:column>
-                         <p:column>
+                        <p:column>
                             <p:inputText id="colorno" value="#{itemProcessManagedBean.currentEntity.colorno}" title="colorno" />
                         </p:column>
-                        <p:column><p:outputLabel value="规格" for="itemspec"/></p:column>
+                        <p:column><p:outputLabel value="套数" for="designsets"/></p:column>
                         <p:column>
-                            <p:inputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemmaster.itemspec}" title="itemspec" 
-                                         required="true" requiredMessage="请输入规格" />
+                            <p:inputText id="designsets" value="#{itemProcessManagedBean.currentEntity.designsets}" title="designsets" 
+                                         required="true" requiredMessage="请输入套数" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="制版规格" for="itemspec"/></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemspec}" title="itemspec" 
+                                         required="true" requiredMessage="请输入制版规格" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -132,7 +139,7 @@
                                              process="@this" update="formEdit:tabView:plgDetail1,:formEdit:tabView:tableList1" />  
                         </f:facet>
                         <f:facet name="right">
-                             <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{productionOrderManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
+                            <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{productionOrderManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{itemProcessManagedBean.handleDialogReturnGroupWhenDetailEdit}" 
                                         update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1,formEdit:tabView:tableList2,formEdit:tabView:tableList3,formEdit:tabView:tableList4"/>  

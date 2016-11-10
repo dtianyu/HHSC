@@ -195,12 +195,16 @@ public class PurchaseDraft extends SuperEntity {
     @Size(max = 20)
     @Column(name = "srcformid")
     private String srcformid;
+    @Column(name = "srcseq")
+    private Integer srcseq;
     @Size(max = 100)
     @Column(name = "relapi")
     private String relapi;
     @Size(max = 20)
     @Column(name = "relformid")
     private String relformid;
+    @Column(name = "relseq")
+    private Integer relseq;
 
     public PurchaseDraft() {
     }
@@ -650,6 +654,34 @@ public class PurchaseDraft extends SuperEntity {
      */
     public void setDesignno(String designno) {
         this.designno = designno;
+    }
+
+    /**
+     * @return the srcseq
+     */
+    public Integer getSrcseq() {
+        return srcseq;
+    }
+
+    /**
+     * @param srcseq the srcseq to set
+     */
+    public void setSrcseq(Integer srcseq) {
+        this.srcseq = srcseq;
+    }
+
+    /**
+     * @return the relseq
+     */
+    public Integer getRelseq() {
+        return relseq;
+    }
+
+    /**
+     * @param relseq the relseq to set
+     */
+    public void setRelseq(Integer relseq) {
+        this.relseq = relseq;
     }
 
 }

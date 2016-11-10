@@ -275,7 +275,7 @@
                 </structure>
                 <structure>
                     <property name="position">45</property>
-                    <property name="name">itemweigth</property>
+                    <property name="name">itemweight</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -312,6 +312,11 @@
                     <property name="position">52</property>
                     <property name="name">dremark</property>
                     <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">53</property>
+                    <property name="name">requestdate</property>
+                    <property name="dataType">date</property>
                 </structure>
             </list-property>
             <list-property name="columnHints">
@@ -448,7 +453,7 @@
                     <property name="columnName">itemyarncount</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itemweigth</property>
+                    <property name="columnName">itemweight</property>
                 </structure>
                 <structure>
                     <property name="columnName">vendoritemno</property>
@@ -470,6 +475,9 @@
                 </structure>
                 <structure>
                     <property name="columnName">dremark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">requestdate</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -696,7 +704,7 @@
                     </structure>
                     <structure>
                         <property name="position">45</property>
-                        <property name="name">itemweigth</property>
+                        <property name="name">itemweight</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -733,6 +741,11 @@
                         <property name="position">52</property>
                         <property name="name">dremark</property>
                         <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">53</property>
+                        <property name="name">requestdate</property>
+                        <property name="dataType">date</property>
                     </structure>
                 </list-property>
             </structure>
@@ -774,7 +787,15 @@ currentRow = 0;]]></method>
 		dataSetRow["totaldesign"] = master.getTotaldesign();
 		dataSetRow["totalextax"] = master.getTotalextax();
 		dataSetRow["totaltaxes"] = master.getTotaltaxes();
-		dataSetRow["totalamts"] = master.getTotalamts();		
+		dataSetRow["totalamts"] = master.getTotalamts();	
+		dataSetRow["remark"] = master.getRemark();	
+		dataSetRow["testremark"] = master.getTestremark();	
+		dataSetRow["productremark"] = master.getProductremark();
+		dataSetRow["packremark"] = master.getPackremark();	
+		dataSetRow["shipadd"] = master.getShpadd();				
+		dataSetRow["shipmarks"] = master.getShipmarks();	
+		
+			
 		dataSetRow["seq"] = detail.get(currentRow).getSeq();	
 		dataSetRow["itemno"] = detail.get(currentRow).getItemno();
 		dataSetRow["colorno"] = detail.get(currentRow).getColorno();
@@ -790,6 +811,7 @@ currentRow = 0;]]></method>
 		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
 		dataSetRow["price"] = detail.get(currentRow).getPrice();	
 		dataSetRow["amts"] = detail.get(currentRow).getAmts();
+		dataSetRow["requestdate"] = detail.get(currentRow).getRequestdate();		
 		dataSetRow["dremark"] = detail.get(currentRow).getRemark();					
 		currentRow++;
 		return true;	
@@ -1326,8 +1348,16 @@ return false;]]></method>
                         <property name="resultSetColumn">taxrate</property>
                     </data>
                 </cell>
-                <cell id="374"/>
-                <cell id="375"/>
+                <cell id="374">
+                    <label id="621">
+                        <text-property name="text">品质要求</text-property>
+                    </label>
+                </cell>
+                <cell id="375">
+                    <label id="622">
+                        <text-property name="text">A级</text-property>
+                    </label>
+                </cell>
             </row>
             <row id="489">
                 <property name="borderLeftStyle">solid</property>
@@ -1335,11 +1365,29 @@ return false;]]></method>
                 <property name="borderRightStyle">solid</property>
                 <property name="borderRightWidth">thin</property>
                 <cell id="490">
-                    <label id="496"/>
+                    <label id="496">
+                        <text-property name="text">需求日期</text-property>
+                    </label>
                 </cell>
                 <cell id="491">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
+                    <data id="618">
+                        <structure name="dateTimeFormat">
+                            <property name="category">Custom</property>
+                            <property name="pattern">yyyy/MM/dd</property>
+                        </structure>
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">requestdate</property>
+                                <text-property name="displayName">requestdate</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["requestdate"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">requestdate</property>
+                    </data>
                 </cell>
                 <cell id="492"/>
                 <cell id="493"/>
@@ -1411,12 +1459,6 @@ return false;]]></method>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">itemweigth</property>
-                    <text-property name="displayName">itemweigth</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["itemweigth"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
                     <property name="name">vendoritemno</property>
                     <text-property name="displayName">vendoritemno</text-property>
                     <expression name="expression" type="javascript">dataSetRow["vendoritemno"]</expression>
@@ -1482,20 +1524,24 @@ return false;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["dremark"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">itemweight</property>
+                    <text-property name="displayName">itemweight</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itemweight"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
-                <property name="width">0.4in</property>
+                <property name="width">0.6in</property>
             </column>
             <column id="351">
-                <property name="width">0.6in</property>
+                <property name="width">1in</property>
             </column>
             <column id="353">
                 <property name="width">1in</property>
             </column>
-            <column id="355">
-                <property name="width">1.1111111111111112in</property>
-            </column>
+            <column id="355"/>
             <column id="357">
                 <property name="width">0.8in</property>
             </column>
@@ -1533,14 +1579,14 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="295">
-                            <text-property name="text">面料编号/名称</text-property>
+                            <text-property name="text">品号</text-property>
                         </label>
                     </cell>
                     <cell id="298">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <label id="299">
-                            <text-property name="text">成分/纱线</text-property>
+                            <text-property name="text">品名/成份</text-property>
                         </label>
                     </cell>
                     <cell id="302">
@@ -1592,8 +1638,8 @@ return false;]]></method>
                     <cell id="315">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="316">
-                            <property name="resultSetColumn">vendorcolorno</property>
+                        <data id="318">
+                            <property name="resultSetColumn">colorno</property>
                         </data>
                     </cell>
                     <cell id="319">
@@ -1606,9 +1652,8 @@ return false;]]></method>
                     <cell id="323">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="326">
-                            <property name="whiteSpace">nowrap</property>
-                            <property name="resultSetColumn">itemmake</property>
+                        <data id="322">
+                            <property name="resultSetColumn">itemdesc</property>
                         </data>
                     </cell>
                     <cell id="327">
@@ -1670,18 +1715,11 @@ return false;]]></method>
                     <cell id="445">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="318">
-                            <property name="resultSetColumn">colorno</property>
+                        <data id="316">
+                            <property name="resultSetColumn">vendorcolorno</property>
                         </data>
                     </cell>
                     <cell id="446">
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <data id="322">
-                            <property name="resultSetColumn">itemdesc</property>
-                        </data>
-                    </cell>
-                    <cell id="447">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="324">
@@ -1689,11 +1727,19 @@ return false;]]></method>
                             <property name="resultSetColumn">itemyarncount</property>
                         </data>
                     </cell>
+                    <cell id="447">
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <data id="326">
+                            <property name="whiteSpace">nowrap</property>
+                            <property name="resultSetColumn">itemmake</property>
+                        </data>
+                    </cell>
                     <cell id="448">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="581">
-                            <property name="resultSetColumn">itemweigth</property>
+                        <data id="596">
+                            <property name="resultSetColumn">itemweight</property>
                         </data>
                     </cell>
                     <cell id="449">
@@ -1716,6 +1762,9 @@ return false;]]></method>
                     <cell id="586">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
+                        <label id="619">
+                            <text-property name="text">备注</text-property>
+                        </label>
                     </cell>
                     <cell id="587">
                         <property name="colSpan">8</property>
@@ -1796,7 +1845,7 @@ return false;]]></method>
                     <property name="borderRightWidth">thin</property>
                     <property name="paddingTop">1pt</property>
                     <label id="411">
-                        <text-property name="text">备注</text-property>
+                        <text-property name="text">采购备注</text-property>
                     </label>
                 </cell>
                 <cell id="393">
@@ -1812,6 +1861,141 @@ return false;]]></method>
                             </structure>
                         </list-property>
                         <property name="resultSetColumn">remark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="597">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="598">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="612">
+                        <text-property name="text">测试要求</text-property>
+                    </label>
+                </cell>
+                <cell id="599">
+                    <property name="paddingTop">1pt</property>
+                    <data id="606">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">testremark</property>
+                                <text-property name="displayName">testremark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["testremark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">testremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="600">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="601">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="412">
+                        <text-property name="text">成品制作要求</text-property>
+                    </label>
+                </cell>
+                <cell id="602">
+                    <property name="paddingTop">1pt</property>
+                    <data id="607">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">productremark</property>
+                                <text-property name="displayName">productremark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productremark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">productremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="603">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="604">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="413">
+                        <text-property name="text">包装要求</text-property>
+                    </label>
+                </cell>
+                <cell id="605">
+                    <property name="paddingTop">1pt</property>
+                    <data id="608">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">packremark</property>
+                                <text-property name="displayName">packremark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["packremark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">packremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="609">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="610">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="414">
+                        <text-property name="text">出货方式</text-property>
+                    </label>
+                </cell>
+                <cell id="611">
+                    <property name="paddingTop">1pt</property>
+                    <data id="616">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">shipadd</property>
+                                <text-property name="displayName">shipadd</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["shipadd"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">shipadd</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="613">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="614">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="415">
+                        <text-property name="text">箱麦</text-property>
+                    </label>
+                </cell>
+                <cell id="615">
+                    <property name="paddingTop">1pt</property>
+                    <data id="617">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">shipmarks</property>
+                                <text-property name="displayName">shipmarks</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["shipmarks"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">shipmarks</property>
                     </data>
                 </cell>
             </row>
@@ -1835,15 +2019,17 @@ return false;]]></method>
                     <property name="rowSpan">1</property>
                     <text id="512">
                         <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[一、质量与验收标准：                          为标准，根据《GB/T 17760-1999印染布布面疵点检验方法》或《GB/T 18132-2000丝绸服装》检验，一等品        ％，二等品        ％。二等品超出双方约定可协商解决。面料开剪后我司将不承担任何责任。
+                        <text-property name="content"><![CDATA[一、质量标准：中华人民共和国国家标准GB/T1551-1995“桑蚕丝织物”
 
-二、数量超差幅度：            ％
+二、由乙方负责送货至甲方，运费由乙方承担
 
-三、本合同自：            之日起生效，合同执行期内甲乙双方均不得随意变更或解除合同。如有变化须经双方共同协商，并作出书面补充，补充内容与本合同具有同等效力。
+三、乙方应根据甲方出具的进仓单、退仓单开具发票，甲方收到乙方发票后按合同付款条件付款。
 
 四、违约责任：按照《中华人民共和国合同法》有关规定执行。
 
-五、根据《中华人民共和国合同法》规定，经双方协商一致，签订本合同，以资共同信守。本合同一式二份，甲乙双方各执一份。
+五、纠纷解决方式：在履行合同过程中如遇到纠纷，双方应友好协商，协商不成，可向甲方所在地人民法院起诉。
+
+六、本合同一式两份，双方签字后生效，甲乙双方各执一份。
 ]]></text-property>
                     </text>
                 </cell>

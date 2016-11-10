@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ProductionOrderDetail.findAll", query = "SELECT p FROM ProductionOrderDetail p"),
     @NamedQuery(name = "ProductionOrderDetail.findById", query = "SELECT p FROM ProductionOrderDetail p WHERE p.id = :id"),
     @NamedQuery(name = "ProductionOrderDetail.findByPId", query = "SELECT p FROM ProductionOrderDetail p WHERE p.pid = :pid"),
-    @NamedQuery(name = "ProductionOrderDetail.findByPIdAndSeq", query = "SELECT p FROM ProductionOrderDetail p WHERE p.pid = :pid AND p.seq=:seq")})
+    @NamedQuery(name = "ProductionOrderDetail.findByPIdAndSeq", query = "SELECT p FROM ProductionOrderDetail p WHERE p.pid = :pid AND p.seq=:seq"),
+    @NamedQuery(name = "ProductionOrderDetail.findBySrcformid", query = "SELECT p FROM ProductionOrderDetail p WHERE p.srcformid = :srcformid")})
 public class ProductionOrderDetail extends FormDetailEntity {
 
     @Size(max = 20)

@@ -26,12 +26,9 @@ import com.hhsc.rpt.PurchaseRequestReport;
 import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
@@ -108,7 +105,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
             }
         }
         if (!flag) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已转采购不能还原!"));
+            showWarnMsg("Warn", "已转采购不能还原!");
             return false;
         }
         return true;
@@ -120,7 +117,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
             return false;
         }
         if (this.detailList == null || this.detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有请购明细!"));
+            showErrorMsg("Error", "没有请购明细!");
             return false;
         }
         return true;
@@ -231,7 +228,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
     public void print() throws Exception {
 
         if (currentEntity == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据!"));
+            showWarnMsg("Warn", "没有可打印数据!");
             return;
         }
         //设置报表参数

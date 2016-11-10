@@ -42,10 +42,17 @@
                          <p:column>
                             <p:inputText id="colorno" value="#{itemProcessManagedBean.newEntity.colorno}" title="colorno" />
                         </p:column>
-                        <p:column><p:outputLabel value="规格" for="itemspec"/></p:column>
+                        <p:column><p:outputLabel value="套数" for="designsets"/></p:column>
                         <p:column>
+                            <p:inputText id="designsets" value="#{itemProcessManagedBean.newEntity.designsets}" title="designsets" 
+                                         required="true" requiredMessage="请输入套数" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="制版规格" for="itemspec"/></p:column>
+                        <p:column colspan="3">
                             <p:inputText id="itemspec" value="#{itemProcessManagedBean.newEntity.itemspec}" title="itemspec" 
-                                         required="true" requiredMessage="请输入规格" />
+                                         required="true" requiredMessage="请输入制版规格" />
                         </p:column>
                     </p:row>
                     <p:row>

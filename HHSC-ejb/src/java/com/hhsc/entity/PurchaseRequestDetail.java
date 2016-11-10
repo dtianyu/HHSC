@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseRequestDetail.findByItemId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemmaster.id = :itemmasterid"),
     @NamedQuery(name = "PurchaseRequestDetail.findByItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemno = :itemno"),
     @NamedQuery(name = "PurchaseRequestDetail.findByCustomerId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.customer.id = :customerid"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByVendorId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.vendor.id = :vendorid")})
+    @NamedQuery(name = "PurchaseRequestDetail.findByVendorId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.vendor.id = :vendorid"),
+    @NamedQuery(name = "PurchaseRequestDetail.findBySrcformid", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.srcformid = :srcformid")})
 public class PurchaseRequestDetail extends FormDetailEntity {
 
     @Basic(optional = false)

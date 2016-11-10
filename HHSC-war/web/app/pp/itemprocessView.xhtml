@@ -47,8 +47,14 @@
                         <p:column>
                             <h:outputText id="colorno" value="#{itemProcessManagedBean.currentEntity.colorno}" title="colorno" />
                         </p:column>
-                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column><h:outputText value="套数"/></p:column>
                         <p:column>
+                            <h:outputText id="designsets" value="#{itemProcessManagedBean.currentEntity.designsets}" title="designsets" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column colspan="3">
                             <h:outputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemspec}" title="itemspec" />
                         </p:column>
                     </p:row>

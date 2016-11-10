@@ -21,6 +21,10 @@
                                      rendered="#{salesOrderManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnCopy" value="复制" action="#{salesOrderManagedBean.copyEntity('salesorder')}" icon="ui-icon-copy"
+                                     rendered="true" process="@this">
+                        <p:confirm header="系统提示" message="复制吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnTrans1" value="成品请购" action="#{salesOrderManagedBean.transferToPurchaseRequest('100')}" icon="ui-icon-locked"
                                      rendered="#{salesOrderManagedBean.doTransfer}" process="@this" update="formView">
                         <p:confirm header="系统提示" message="成品请购?" icon="ui-icon-alert" />
@@ -272,7 +276,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="成分"/></p:column>
+                        <p:column><h:outputText value="成份"/></p:column>
                         <p:column>
                             <h:outputText id="itemmake" value="#{salesOrderManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
                         </p:column>
@@ -319,7 +323,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnPrint2,btnTrans1,btnTrans2">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnPrint2,btnTrans1,btnTrans2,btnCopy">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

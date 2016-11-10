@@ -91,10 +91,17 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
     }
 
     @Override
+    protected boolean doAfterPersist() throws Exception {
+        //新增后即审核2016/10/31
+        this.verify();
+        return super.doAfterPersist();
+    }
+
+    @Override
     protected boolean doBeforePersist() throws Exception {
         if (this.newEntity != null && this.getCurrentSysprg() != null) {
             StringBuilder sb = new StringBuilder();
-            if (this.getCurrentSysprg().getNoauto()) {
+            if (this.getCurrentSysprg().getNoauto() && !this.getCurrentSysprg().getNochange()) {
                 String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
             }
@@ -188,7 +195,7 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
 
     @Override
     public void handleDialogReturnWhenDetail2Edit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && this.currentDetail2 != null) {
             Vendor entity = (Vendor) event.getObject();
             this.currentDetail2.setPid(entity.getId());
             this.currentDetail2.setVendor(entity);
@@ -230,38 +237,46 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
                     this.superEJB.persist(newEntity);
                     int pid = newEntity.getId();
                     if (getEditedDetailList() != null && !getEditedDetailList().isEmpty()) {
-                        for (ItemMake detail : this.editedDetailList) {
+                        this.editedDetailList.stream().map((detail) -> {
                             detail.setPid(pid);
+                            return detail;
+                        }).forEach((detail) -> {
                             this.detailEJB.update(detail);
-                        }
+                        });
                     }
                     if (getDeletedDetailList() != null && !getDeletedDetailList().isEmpty()) {
-                        for (ItemMake detail : this.deletedDetailList) {
+                        this.deletedDetailList.stream().forEach((detail) -> {
                             this.detailEJB.delete(detail);
-                        }
+                        });
                     }
                     if (getAddedDetailList() != null && !getAddedDetailList().isEmpty()) {
-                        for (ItemMake detail : this.addedDetailList) {
+                        this.addedDetailList.stream().map((detail) -> {
                             detail.setPid(pid);
+                            return detail;
+                        }).forEach((detail) -> {
                             this.detailEJB.persist(detail);
-                        }
+                        });
                     }
                     if (getEditedDetailList2() != null && !getEditedDetailList2().isEmpty()) {
-                        for (VendorItem detail : this.editedDetailList2) {
+                        this.editedDetailList2.stream().map((detail) -> {
                             detail.setItemid(pid);
+                            return detail;
+                        }).forEach((detail) -> {
                             this.detailEJB2.update(detail);
-                        }
+                        });
                     }
                     if (getDeletedDetailList2() != null && !getDeletedDetailList2().isEmpty()) {
-                        for (VendorItem detail : this.deletedDetailList2) {
+                        this.deletedDetailList2.stream().forEach((detail) -> {
                             this.detailEJB2.delete(detail);
-                        }
+                        });
                     }
                     if (getAddedDetailList2() != null && !getAddedDetailList2().isEmpty()) {
-                        for (VendorItem detail : this.addedDetailList2) {
+                        this.addedDetailList2.stream().map((detail) -> {
                             detail.setItemid(pid);
+                            return detail;
+                        }).forEach((detail) -> {
                             this.detailEJB2.persist(detail);
-                        }
+                        });
                     }
                     doAfterPersist();
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));

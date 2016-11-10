@@ -30,12 +30,23 @@ public class SalesOrderBean extends SuperBean<SalesOrder> {
     private PurchaseRequestBean purchaseRequestBean;
 
     @EJB
+    private ProductionOrderDetailBean productionOrderDetailBean;
+
+    @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
 
     protected List<SalesOrderDetail> detailList;
 
     public SalesOrderBean() {
         super(SalesOrder.class);
+    }
+
+    public boolean hasPurchaseRequest(String formid) {
+        return purchaseRequestBean.getRowCountBySalesOrderFormid(formid) != 0;
+    }
+
+    public boolean hasProductionOrder(String formid) {
+        return !productionOrderDetailBean.findBySalesOrderFormid(formid).isEmpty();
     }
 
     @Override

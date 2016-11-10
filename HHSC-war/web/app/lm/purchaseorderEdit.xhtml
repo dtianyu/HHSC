@@ -1,4 +1,4 @@
-colo<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../../WEB-INF/template.xhtml"
@@ -123,6 +123,12 @@ colo<?xml version='1.0' encoding='UTF-8' ?>
                         <p:column><p:outputLabel value="关联单号" for="refno" /></p:column>
                         <p:column>
                             <p:inputText id="refno" value="#{purchaseOrderManagedBean.currentEntity.refno}" title="Refno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="remark" value="#{purchaseOrderManagedBean.currentEntity.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
