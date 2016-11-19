@@ -6,6 +6,7 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.VendorBean;
+import com.hhsc.entity.Currency;
 import com.hhsc.entity.Vendor;
 import com.hhsc.lazy.CustomerModel;
 import com.hhsc.lazy.VendorModel;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -52,6 +54,20 @@ public class VendorManagedBean extends SuperSingleBean<Vendor> {
             return true;
         }
         return false;
+    }
+
+    public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            Currency entity = (Currency) event.getObject();
+            this.currentEntity.setCurrency(entity.getCurrency());
+        }
+    }
+
+    public void handleDialogReturnCurrencyWhenNew(SelectEvent event) {
+        if (event.getObject() != null) {
+            Currency entity = (Currency) event.getObject();
+            this.newEntity.setCurrency(entity.getCurrency());
+        }
     }
 
     @Override

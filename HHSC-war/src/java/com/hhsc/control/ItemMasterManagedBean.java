@@ -26,6 +26,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -215,6 +216,22 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
         if (event.getObject() != null) {
             Unit entity = (Unit) event.getObject();
             this.newEntity.setUnit(entity.getUnit());
+        }
+    }
+
+    @Override
+    public void handleFileUploadWhenNew(FileUploadEvent event) {
+        super.handleFileUploadWhenNew(event);
+        if (this.fileName != null && this.newEntity != null) {
+            this.newEntity.setImg1(fileName);
+        }
+    }
+
+    @Override
+    public void handleFileUploadWhenEdit(FileUploadEvent event) {
+        super.handleFileUploadWhenEdit(event);
+        if (this.fileName != null && this.currentEntity != null) {
+            this.currentEntity.setImg1(fileName);
         }
     }
 

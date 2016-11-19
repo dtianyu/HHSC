@@ -24,8 +24,8 @@ public class PurchaseOrderDetailForStorageQueryBean extends SuperQueryBean<Purch
 
     @EJB
     private PurchaseOrderDetailForStorageBean purchaseOrderDetailForStorageBean;
-
-    protected String vendorno;
+    private String querySrcformid;
+    private String vendorno;
 
     public PurchaseOrderDetailForStorageQueryBean() {
         super(PurchaseOrderDetailForStorage.class);
@@ -46,11 +46,18 @@ public class PurchaseOrderDetailForStorageQueryBean extends SuperQueryBean<Purch
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
+            if (this.vendorno != null) {
+                this.model.getFilterFields().put("purchaseOrder.vendor.vendorno", vendorno);
+            }
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("purchaseOrder.formid", this.queryFormId);
             }
-            if (this.vendorno != null) {
-                this.model.getFilterFields().put("purchaseOrder.vendor.vendorno", vendorno);
+            if (this.queryName != null && !"".equals(this.queryName)) {
+                this.model.getFilterFields().put("itemno", this.queryName);
+            }
+            if (this.querySrcformid != null && !"".equals(this.querySrcformid)) {
+                this.model.getFilterFields().put("srcformid", this.querySrcformid);
             }
         }
     }
@@ -75,6 +82,20 @@ public class PurchaseOrderDetailForStorageQueryBean extends SuperQueryBean<Purch
      */
     public void setVendorno(String vendorno) {
         this.vendorno = vendorno;
+    }
+
+    /**
+     * @return the querySrcformid
+     */
+    public String getQuerySrcformid() {
+        return querySrcformid;
+    }
+
+    /**
+     * @param querySrcformid the querySrcformid to set
+     */
+    public void setQuerySrcformid(String querySrcformid) {
+        this.querySrcformid = querySrcformid;
     }
 
 }

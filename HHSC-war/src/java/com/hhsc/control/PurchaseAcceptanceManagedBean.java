@@ -15,6 +15,7 @@ import com.hhsc.entity.PurchaseAcceptance;
 import com.hhsc.entity.PurchaseAcceptanceDetail;
 import com.hhsc.entity.PurchaseOrderDetail;
 import com.hhsc.entity.PurchaseOrderDetailForStorage;
+import com.hhsc.entity.Unit;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.PurchaseAcceptanceModel;
@@ -94,12 +95,12 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         }//超类中有重新加载明细资料
         for (PurchaseAcceptanceDetail detail : detailList) {
             if (detail.getStatus().equals("50")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", detail.getItemno() + "已入库不可还原"));
+                showWarnMsg("Warn", detail.getItemno() + "已入库不可还原");
                 return false;
             }
             ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
             if ((i == null) || (i.getPreqty().compareTo(detail.getQty()) == -1)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "库存可还原量不足"));
+                showErrorMsg("Error", detail.getItemno() + "库存可还原量不足");
                 return false;
             }
         }
@@ -112,17 +113,17 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
             return false;
         }//超类中有重新加载明细资料
         if (detailList == null || detailList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "没有点收明细"));
+            showErrorMsg("Error", "没有点收明细");
             return false;
         }
         PurchaseOrderDetail p;
         for (PurchaseAcceptanceDetail detail : detailList) {
             p = purchaseOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
             if ((p == null) || p.getStatus().equals("AC") || p.getStatus().endsWith("MC")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "采购明细状态错误"));
+                showErrorMsg("Error", detail.getItemno() + "采购明细状态错误");
                 return false;
             } else if ((p.getQty().subtract(p.getInqty()).compareTo(detail.getQty()) == -1)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", detail.getItemno() + "点收数量大于采购数量"));
+                showErrorMsg("Error", detail.getItemno() + "点收数量大于采购数量");
                 //允许超点 2016/9/10
                 //return false;
             }
@@ -204,6 +205,13 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
         }
     }
 
+    public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentDetail != null) {
+            Unit u = (Unit) event.getObject();
+            currentDetail.setUnit(u.getUnit());
+        }
+    }
+
     @Override
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         //返回采购明细进行填充
@@ -252,7 +260,10 @@ public class PurchaseAcceptanceManagedBean extends FormMultiBean<PurchaseAccepta
                     List<String> vendorno = new ArrayList<>();
                     vendorno.add(currentEntity.getVendor().getVendorno());
                     params.put("vendorno", vendorno);
-                    openDialog(view, params);
+                    Map<String, Object> options = new HashMap<>();
+                    options.put("modal", true);
+                    options.put("contentWidth", 800);
+                    openDialog(view, options, params);
                 } else if (currentEntity.getVendor() == null) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入供应商"));
                 } else if (currentEntity.getWarehouse() == null) {

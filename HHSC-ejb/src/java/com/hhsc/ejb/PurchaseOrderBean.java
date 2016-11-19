@@ -34,10 +34,12 @@ public class PurchaseOrderBean extends SuperBean<PurchaseOrder> {
     public void initPurchase(PurchaseOrder p, List<PurchaseOrderDetail> detailList) {
         try {
             getEntityManager().persist(p);
-            for (PurchaseOrderDetail d : detailList) {
+            detailList.stream().map((d) -> {
                 d.setPid(p.getFormid());
+                return d;
+            }).forEachOrdered((d) -> {
                 purchaseOrderDetailBean.persist(d);
-            }
+            });
         } catch (Exception e) {
             this.delete(p);
             throw new RuntimeException(e);

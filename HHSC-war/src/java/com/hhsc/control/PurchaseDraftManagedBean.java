@@ -9,6 +9,7 @@ import com.hhsc.ejb.PurchaseDraftBean;
 import com.hhsc.ejb.VendorItemBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.PurchaseDraft;
+import com.hhsc.entity.Unit;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.PurchaseDraftModel;
@@ -69,7 +70,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入采购单价!"));
             return false;
         }
-        this.currentEntity.setAmts(this.currentEntity.getQty().multiply(this.currentEntity.getPrice()));
+        this.currentEntity.setAmts(this.currentEntity.getPurqty().multiply(this.currentEntity.getPrice()));
         Tax t = BaseLib.getTaxes(this.currentEntity.getTaxtype(), this.currentEntity.getTaxkind(), this.currentEntity.getTaxrate(), this.currentEntity.getAmts(), 2);
         this.currentEntity.setExtax(t.getExtax());
         this.currentEntity.setTaxes(t.getTaxes());
@@ -102,6 +103,13 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             this.currentEntity.setTaxkind(entity.getTaxkind());
             this.currentEntity.setTaxrate(entity.getTaxrate());
             this.currentEntity.setPayment(entity.getPayment());
+        }
+    }
+    
+    public void handleDialogReturnUnitWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            Unit entity = (Unit) event.getObject();
+            this.currentEntity.setUnit(entity.getUnit());
         }
     }
 

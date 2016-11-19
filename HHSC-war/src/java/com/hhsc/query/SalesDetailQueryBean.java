@@ -24,7 +24,9 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
     @EJB
     private SalesOrderDetailForQueryBean salesOrderDetailForQueryBean;
 
+    private String queryDesignno;
     private String queryItemno;
+    private String queryCustomeritemno;
 
     public SalesDetailQueryBean() {
         super(SalesOrderDetailForQuery.class);
@@ -50,8 +52,14 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
             if (queryName != null && !"".equals(queryName)) {
                 this.model.getFilterFields().put("salesOrder.customer.customer", queryName);
             }
+            if (queryDesignno != null && !"".equals(queryDesignno)) {
+                this.model.getFilterFields().put("salesOrder.itemno", queryDesignno);
+            }
+            if (queryCustomeritemno != null && !"".equals(queryCustomeritemno)) {
+                this.model.getFilterFields().put("salesOrder.customeritemno", queryCustomeritemno);
+            }
             if (queryItemno != null && !"".equals(queryItemno)) {
-                this.model.getFilterFields().put("salesOrder.itemno", queryItemno);
+                this.model.getFilterFields().put("itemno", queryItemno);
             }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("salesOrder.formdateBegin", queryDateBegin);
@@ -88,6 +96,34 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
      */
     public void setQueryItemno(String queryItemno) {
         this.queryItemno = queryItemno;
+    }
+
+    /**
+     * @return the queryDesignno
+     */
+    public String getQueryDesignno() {
+        return queryDesignno;
+    }
+
+    /**
+     * @param queryDesignno the queryDesignno to set
+     */
+    public void setQueryDesignno(String queryDesignno) {
+        this.queryDesignno = queryDesignno;
+    }
+
+    /**
+     * @return the queryCustomeritemno
+     */
+    public String getQueryCustomeritemno() {
+        return queryCustomeritemno;
+    }
+
+    /**
+     * @param queryCustomeritemno the queryCustomeritemno to set
+     */
+    public void setQueryCustomeritemno(String queryCustomeritemno) {
+        this.queryCustomeritemno = queryCustomeritemno;
     }
 
 }

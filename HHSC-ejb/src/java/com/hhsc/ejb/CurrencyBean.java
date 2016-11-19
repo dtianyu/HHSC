@@ -9,6 +9,7 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.Currency;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +22,16 @@ public class CurrencyBean extends SuperBean<Currency> {
     public CurrencyBean() {
         super(Currency.class);
     }
-    
+
+    public Currency findByCurrency(String value) {
+        Query query = getEntityManager().createNamedQuery("Currency.findByCurrency");
+        query.setParameter("currency", value);
+        try {
+            Object o = query.getSingleResult();
+            return (Currency) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
 }

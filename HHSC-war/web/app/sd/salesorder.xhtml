@@ -14,10 +14,14 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="花号" for="designid" />
-                    <p:inputText id="designid" value="#{salesOrderManagedBean.queryItemno}" title="花号" />
-                    <h:outputLabel value="订单状态" for="state" />
-                    <p:selectOneMenu id="state" value="#{salesOrderManagedBean.queryState}" title="状态" >
+                    <h:outputLabel value="花号" for="queryItemno" />
+                    <p:inputText id="queryItemno" value="#{salesOrderManagedBean.queryItemno}" title="花号" />
+                    <h:outputLabel value="客户简称" for="queryName" />
+                    <p:inputText id="queryName" value="#{salesOrderManagedBean.queryName}" title="客户简称" />
+                    <h:outputLabel value="合同编号" for="queryFormId" />
+                    <p:inputText id="queryFormId" value="#{salesOrderManagedBean.queryFormId}" title="合同编号" />
+                    <h:outputLabel value="订单状态" for="queryState" />
+                    <p:selectOneMenu id="queryState" value="#{salesOrderManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
                         <f:selectItem itemLabel="未提交" itemValue="N"/>
                         <f:selectItem itemLabel="已提交" itemValue="V"/>

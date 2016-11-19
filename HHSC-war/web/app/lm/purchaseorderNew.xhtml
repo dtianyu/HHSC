@@ -284,9 +284,15 @@
                                     <p:inputText id="qty" value="#{purchaseOrderManagedBean.currentDetail.qty}" title="Qty" 
                                                  required="true" requiredMessage="请输入数量"/>
                                 </p:column>
-                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column><p:outputLabel value="单位" for="unit"/></p:column>
                                 <p:column>
-                                    <h:outputText id="unit" value="#{purchaseOrderManagedBean.currentDetail.unit}" title="unit"/>
+                                    <p:inputText id="unit" value="#{purchaseOrderManagedBean.currentDetail.unit}" title="unit" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入单位"/>
+                                    <p:commandButton id="btnUnitSelect" actionListener="#{purchaseOrderManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
+                                                update="unit" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>

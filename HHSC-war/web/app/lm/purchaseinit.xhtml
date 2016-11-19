@@ -40,9 +40,9 @@
                         <p:column>
                             <p:inputText id="queryItemno" value="#{purchaseInitManagedBean.queryFormId}" title="品号" />
                         </p:column> 
-                        <p:column><p:outputLabel value="品名" for="queryName" /></p:column>
+                        <p:column><p:outputLabel value="合并" for="queryMerga" /></p:column>
                         <p:column>
-                            <p:inputText id="queryName" value="#{purchaseInitManagedBean.queryName}" title="品名" />
+                            <p:inputSwitch id="queryMerga" value="#{purchaseInitManagedBean.queryMerga}" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -60,13 +60,14 @@
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{purchaseInitManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{purchaseInitManagedBean.view('purchaseinitView')}" icon="ui-icon-document"/>
+                    <p:commandButton id="btnView" value="查看" action="#{purchaseInitManagedBean.view('purchaseinitView')}" icon="ui-icon-document"
+                                     rendered="false"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" action="#{purchaseInitManagedBean.edit('purchaseinitEdit')}" icon="ui-icon-pencil" value="编辑" 
-                                     rendered="#{purchaseInitManagedBean.doEdit}" />                                                     
+                                     rendered="false" />                                                     
                     <p:commandButton id="btnDelete" actionListener="#{purchaseInitManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
-                                     rendered="#{purchaseInitManagedBean.doDel}" update=":formList">
+                                     rendered="false" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnVerify" value="抛转" action="#{purchaseInitManagedBean.verify()}" icon="ui-icon-locked"
@@ -93,7 +94,7 @@
                 <p:column selectionMode="multiple" style="width:28px;text-align:center"/>
                 <p:ajax event="rowSelect" listener="#{purchaseInitManagedBean.handleRowSelect}" update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="请购单号"/>
                     </f:facet>
@@ -129,7 +130,7 @@
                     <f:facet name="header">
                         <h:outputText value="数量"/>
                     </f:facet>
-                    <h:outputText value="#{item.qty}"/>
+                    <h:outputText value="#{item.purqty}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">

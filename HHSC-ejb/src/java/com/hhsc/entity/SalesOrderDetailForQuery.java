@@ -54,7 +54,7 @@ public class SalesOrderDetailForQuery extends BaseEntity {
     @Size(min = 1, max = 20)
     @Column(name = "colorno")
     private String colorno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
 
@@ -99,6 +99,9 @@ public class SalesOrderDetailForQuery extends BaseEntity {
     private BigDecimal extax;
     @Column(name = "taxes")
     private BigDecimal taxes;
+    @Column(name = "printdate")
+    @Temporal(TemporalType.DATE)
+    private Date printdate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deliverydate")
@@ -111,7 +114,7 @@ public class SalesOrderDetailForQuery extends BaseEntity {
     @NotNull
     @Column(name = "issqty")
     private BigDecimal issqty;
-     @Basic(optional = false)
+    @Basic(optional = false)
     @NotNull
     @Column(name = "proqty")
     private BigDecimal proqty;
@@ -492,6 +495,21 @@ public class SalesOrderDetailForQuery extends BaseEntity {
      */
     public void setProqty(BigDecimal proqty) {
         this.proqty = proqty;
+    }
+
+    
+    /**
+     * @return the printdate
+     */
+    public Date getPrintdate() {
+        return printdate;
+    }
+
+    /**
+     * @param printdate the printdate to set
+     */
+    public void setPrintdate(Date printdate) {
+        this.printdate = printdate;
     }
 
 }

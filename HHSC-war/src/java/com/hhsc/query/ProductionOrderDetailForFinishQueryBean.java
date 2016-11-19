@@ -57,6 +57,7 @@ public class ProductionOrderDetailForFinishQueryBean extends SuperQueryBean<Prod
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
             if (formtype != null) {
                 this.model.getFilterFields().put("productionOrder.formtype.type", formtype);
             }

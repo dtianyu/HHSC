@@ -289,9 +289,9 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         if (currentEntity != null && currentEntity.getItemno() != null && currentEntity.getCustomer() != null) {
             CustomerItem o = customerItemBean.findByItemnoAndCustomerno(currentEntity.getItemno(), currentEntity.getCustomer().getCustomerno());
             if (o != null) {
-                this.newEntity.setCustomeritemno(o.getCustomeritemno());
+                this.currentEntity.setCustomeritemno(o.getCustomeritemno());
             } else {
-                this.newEntity.setCustomeritemno("");
+                this.currentEntity.setCustomeritemno("");
             }
         }
     }
@@ -356,13 +356,35 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     public void openDialog(String view) {
         if (null != view) {
             switch (view) {
+                case "designspecSelect":
+                    if (currentEntity.getItemno() != null) {
+                        Map<String, List<String>> designspecParams = new HashMap<>();
+                        List<String> itemno = new ArrayList<>();
+                        itemno.add(currentEntity.getItemno());
+                        designspecParams.put("itemno", itemno);
+                        super.openDialog(view, designspecParams);
+                    }
+                    break;
                 case "itemmasterSelect":
+                    /*
+                    不再限制类别TS成品也可以作为明细
                     Map<String, List<String>> params = new HashMap<>();
                     List<String> itemcategory = new ArrayList<>();
                     itemcategory.add("300");
                     itemcategory.add("999");
                     params.put("itemcategory", itemcategory);
                     super.openDialog(view, params);
+                     */
+                    super.openDialog(view);
+                    break;
+                case "itemdesignSelect":
+                    Map<String, List<String>> itemdesignParams = new HashMap<>();
+                    List<String> itemcategory = new ArrayList<>();
+                    itemcategory.add("100");
+                    itemcategory.add("200");
+                    itemdesignParams.put("itemcategory", itemcategory);
+                    super.openDialog(view, itemdesignParams);
+                    break;
                 default:
                     super.openDialog(view);
             }
@@ -407,6 +429,9 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("formid", queryFormId);
+            }
+            if (queryName != null && !"".equals(queryName)) {
+                this.model.getFilterFields().put("customer.customer", queryName);
             }
             if (queryItemno != null && !"".equals(queryItemno)) {
                 this.model.getFilterFields().put("itemno", queryItemno);
@@ -464,20 +489,20 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                 break;
         }
         if (purchaserequestSysprg == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购作业设定错误"));
+            showErrorMsg("Error", "请购作业设定错误");
             return;
         }
         if (!purchaserequestSysprg.getNoauto()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购单不是自动编号"));
+            showErrorMsg("Error", "请购单不是自动编号");
             return;
         }
         if (this.userManagedBean.getCurrentUser().getDept() == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购人部门未设定"));
+            showErrorMsg("Error", "请购人部门未设定");
             return;
         }
         String formid = purchaseRequestBean.getFormId(getDate(), purchaserequestSysprg.getNolead(), purchaserequestSysprg.getNoformat(), purchaserequestSysprg.getNoseqlen());
         if (formid == null || "".equals(formid)) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请购单无法自动编号"));
+            showErrorMsg("Error", "请购单无法自动编号");
             return;
         }
         try {
@@ -489,7 +514,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             pr.setPurtype(purtype);
             pr.setRemark(currentEntity.getItemno() + "订单抛转");
             pr.setStatus("N");
-            pr.setCreator(this.userManagedBean.getCurrentUser().getUserid());
+            pr.setCreator(this.userManagedBean.getCurrentUser().getUsername());
             pr.setCredateToNow();
 
             List<PurchaseRequestDetail> requestList = new ArrayList<>();
@@ -505,6 +530,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                     d.setDesignspec(currentEntity.getItemspec());
                     d.setCustomeritemno(currentEntity.getCustomeritemno());
                     d.setColorno(entity.getColorno());
+                    d.setShipmarks(currentEntity.getShipmarks());
+                    d.setTestremark(currentEntity.getTestremark());
+                    d.setProductremark(currentEntity.getProductremark());
+                    d.setPackremark(currentEntity.getPackremark());
                 }
                 d.setItemmaster(entity.getItemmaster());
                 d.setItemno(entity.getItemno());

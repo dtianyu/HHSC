@@ -523,7 +523,7 @@ return false;]]></method>
                     <label id="383">
                         <property name="fontSize">12pt</property>
                         <property name="textAlign">center</property>
-                        <text-property name="text">发印染色任务单</text-property>
+                        <text-property name="text">生产领料单</text-property>
                     </label>
                 </cell>
                 <cell id="381"/>

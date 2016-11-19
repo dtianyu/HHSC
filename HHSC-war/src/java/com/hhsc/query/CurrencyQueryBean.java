@@ -38,6 +38,7 @@ public class CurrencyQueryBean extends SuperQueryBean<Currency> {
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("currency", this.queryFormId);
             }

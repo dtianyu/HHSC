@@ -10,6 +10,7 @@ import com.hhsc.entity.ItemMaster;
 import com.hhsc.lazy.ItemMasterModel;
 import com.hhsc.web.SuperQueryBean;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -39,9 +40,7 @@ public class ItemMasterQueryBean extends SuperQueryBean<ItemMaster> {
         if (params != null) {
             if (params.containsKey("itemcategory")) {
                 List<String> v = new ArrayList<>();
-                for (int i = 0; i < params.get("itemcategory").length; i++) {
-                    v.add(params.get("itemcategory")[i]);
-                }
+                v.addAll(Arrays.asList(params.get("itemcategory")));
                 this.model.getFilterFields().put("itemcategory.category IN ", v);
             }
         }
@@ -51,6 +50,7 @@ public class ItemMasterQueryBean extends SuperQueryBean<ItemMaster> {
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("itemno", this.queryFormId);
             }

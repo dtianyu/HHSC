@@ -32,6 +32,10 @@ li{
     width: 80%;
 }
 
+button.inputWithButton{
+    float: right;    
+}
+
 .topToolbar{
     margin-bottom: 10px;
 }

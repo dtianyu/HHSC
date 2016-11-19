@@ -39,6 +39,7 @@ public class ProductionDetailQueryBean extends SuperQueryBean<ProductionOrderDet
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("productionOrder.formid", queryFormId);
             }

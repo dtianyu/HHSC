@@ -128,9 +128,17 @@
                                 </p:column>
                             </p:row>
                             <p:row>
+                                <p:column><h:outputText value="品名"/></p:column>
+                                <p:column>
+                                    <h:outputText id="designdesc" value="#{salesOrderManagedBean.currentEntity.itemmaster.itemdesc}" title="designdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column><h:outputText value="成品规格" /></p:column>
                                 <p:column>
                                     <h:outputText  value="#{salesOrderManagedBean.currentEntity.itemspec}" title="itemdesignspec" />
+                                    <p:commandButton id="btnDesignspecSelect" actionListener="#{salesOrderManagedBean.openDialog('designspecSelect')}" icon="ui-icon-extlink" 
+                                                      styleClass="inputWithButton" process="@this" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -138,23 +146,10 @@
                                 <p:column styleClass="Wid30">
                                     <h:outputText id="customeritemno" value="#{salesOrderManagedBean.currentEntity.customeritemno}" title="Customeritemno" />
                                 </p:column>
-                            </p:row>                 
-                            <p:row>
-                                <p:column><h:outputText value="套数"/></p:column>
-                                <p:column>
-                                    <h:outputText id="designsets" value="#{salesOrderManagedBean.currentEntity.designsets}" title="Designsets" />
-                                </p:column>
                             </p:row>
                             <p:row>
-                                <p:column><h:outputText value="版费单价"/></p:column>
+                                <p:column></p:column>
                                 <p:column>
-                                    <h:outputText id="designprice" value="#{salesOrderManagedBean.currentEntity.designprice}" title="Designprice" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><h:outputText value="合计版费" /></p:column>
-                                <p:column>
-                                    <h:outputText id="totaldesign" value="#{salesOrderManagedBean.currentEntity.totaldesign}" title="totaldesign"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -186,7 +181,7 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="箱麦"/></p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="箱唛"/></p:column>
                                 <p:column colspan="3">
                                     <p:inputTextarea rows="2" id="shipmarks" value="#{salesOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks" 
                                                      styleClass="Wid100" readonly="true"/>
@@ -304,16 +299,24 @@
                         <p:column>
                             <h:outputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price" />
                         </p:column>
-                    </p:row>
+                    </p:row>                 
                     <p:row>
+                        <p:column><h:outputText value="印花交期" /></p:column>
+                        <p:column>
+                            <h:outputText id="printdate" value="#{salesOrderManagedBean.currentDetail.printdate}" title="printdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
                         <p:column><h:outputText value="预计交期" /></p:column>
                         <p:column>
                             <h:outputText id="deliverydate" value="#{salesOrderManagedBean.currentDetail.deliverydate}" title="Deliverydate" >
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column><h:outputText value="明细备注" /></p:column>
-                        <p:column>
+                        <p:column colspan="3">
                             <h:outputText id="dremark" value="#{salesOrderManagedBean.currentDetail.remark}" title="Remark" />
                         </p:column>
                     </p:row>

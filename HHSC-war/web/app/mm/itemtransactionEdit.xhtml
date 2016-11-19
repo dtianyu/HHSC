@@ -120,7 +120,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="来源对象"/></p:column>
                         <p:column styleClass="Wid30">
-                            
+
                         </p:column>
                     </p:row>
                     <p:row>
@@ -184,9 +184,13 @@
                         </p:column>
                         <p:column><p:outputLabel value="单位" for="unit"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="unit" value="#{itemTransactionManagedBean.currentDetail.unit}" title="Qty"
-                                         required="true" requiredMessage="请输入单位">
-                            </p:inputText>
+                            <p:inputText id="unit" value="#{itemTransactionManagedBean.currentDetail.unit}" title="unit" styleClass="inputWithButton" 
+                                         required="true" requiredMessage="请输入单位"/>
+                            <p:commandButton id="btnUnitSelect" actionListener="#{itemTransactionManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
+                                        update="unit" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -210,7 +214,7 @@
                              selectionMode="single" selection="#{itemTransactionManagedBean.currentDetail}" rowKey="#{item.seq}" >
                     <p:ajax event="rowSelect"  update=":formEdit:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
                     <p:ajax event="rowUnselect"  update=":formEdit:plgDetail" />                           
-                     <p:column styleClass="Wid20">
+                    <p:column styleClass="Wid20">
                         <f:facet name="header">
                             <h:outputText value="品号"/>
                         </f:facet>

@@ -64,7 +64,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                         <p:column><p:outputLabel value="异动对象" for="objno" /></p:column>
+                        <p:column><p:outputLabel value="异动对象" for="objno" /></p:column>
                         <p:column>
                             <p:inputText id="objno" value="#{itemTransactionManagedBean.newEntity.objno}" styleClass="inputWithButton" />
                             <p:commandButton id="btnSelectObject" actionListener="#{itemTransactionManagedBean.openDialog('objSelect')}" icon="ui-icon-extlink" 
@@ -121,7 +121,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="来源对象"/></p:column>
                         <p:column styleClass="Wid30">
-                            
+
                         </p:column>
                     </p:row>
                     <p:row>
@@ -177,17 +177,21 @@
                         </p:column>
                     </p:row>
                     <p:row>                   
-                        <p:column styleClass="Wid20"><p:outputLabel value="数量" for="qty"/></p:column>
-                        <p:column styleClass="Wid30">
+                        <p:column><p:outputLabel value="数量" for="qty"/></p:column>
+                        <p:column>
                             <p:inputText id="qty" value="#{itemTransactionManagedBean.currentDetail.qty}" title="Qty"
                                          required="true" requiredMessage="请输入数量">
                             </p:inputText>
                         </p:column>
                         <p:column><p:outputLabel value="单位" for="unit"/></p:column>
-                        <p:column styleClass="Wid30">
-                            <p:inputText id="unit" value="#{itemTransactionManagedBean.currentDetail.unit}" title="Qty"
-                                         required="true" requiredMessage="请输入单位">
-                            </p:inputText>
+                        <p:column>
+                            <p:inputText id="unit" value="#{itemTransactionManagedBean.currentDetail.unit}" title="unit" styleClass="inputWithButton" 
+                                         required="true" requiredMessage="请输入单位"/>
+                            <p:commandButton id="btnUnitSelect" actionListener="#{itemTransactionManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
+                                        update="unit" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -211,7 +215,7 @@
                              selectionMode="single" selection="#{itemTransactionManagedBean.currentDetail}" rowKey="#{item.seq}" >
                     <p:ajax event="rowSelect"  update=":formNew:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
                     <p:ajax event="rowUnselect"  update=":formNew:plgDetail" />                           
-                     <p:column styleClass="Wid20">
+                    <p:column styleClass="Wid20">
                         <f:facet name="header">
                             <h:outputText value="品号"/>
                         </f:facet>

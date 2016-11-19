@@ -189,7 +189,13 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="单位"/></p:column>
                                 <p:column>
-                                    <p:inputText id="unit" value="#{purchaseDraftManagedBean.currentEntity.unit}" title="Unit" />
+                                    <p:inputText id="unit" value="#{purchaseDraftManagedBean.currentEntity.unit}" title="Unit" styleClass="inputWithButton" 
+                                                 required="true" requiredMessage="请输入单位"/>
+                                    <p:commandButton id="btnUnitSelect" actionListener="#{purchaseDraftManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseDraftManagedBean.handleDialogReturnUnitWhenEdit}" 
+                                                update="unit" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>

@@ -64,7 +64,13 @@
                     </f:facet>
                     <p:selectBooleanCheckbox value="#{item.hascost}"  disabled="true"/>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="系统别"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sysid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="对象类别"/>
                     </f:facet>

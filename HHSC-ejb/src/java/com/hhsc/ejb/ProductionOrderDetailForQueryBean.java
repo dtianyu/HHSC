@@ -7,11 +7,8 @@ package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.ProductionOrderDetailForQuery;
-import java.util.List;
-import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.Query;
 
 /**
  *

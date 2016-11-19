@@ -121,7 +121,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             //出货单立账状态检查
             st = salesTransactionBean.findByFormidAndSeq(detail.getPid(), detail.getSeq());
             if (st != null && !st.getStatus().equals("50")) {
-                showErrorMsg("Error", detail.getPid()+ "出货单已立账不可还原");
+                showErrorMsg("Error", detail.getPid() + "出货单已立账不可还原");
                 return false;
             }
         }
@@ -344,17 +344,20 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                     List<String> taxrate = new ArrayList<>();
                     taxrate.add(currentEntity.getTaxrate().toString());
                     params.put("taxrate", taxrate);
-                    openDialog(view, params);
+                    Map<String, Object> options = new HashMap<>();
+                    options.put("modal", true);
+                    options.put("contentWidth", 800);
+                    openDialog(view, options, params);
                 } else if (currentEntity.getShiptype() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入出货类别"));
+                    showWarnMsg("Warn", "请输入出货类别");
                 } else if (currentEntity.getCustomer() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入客户"));
+                    showWarnMsg("Warn", "请输入客户");
                 } else if (currentEntity.getCurrency() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入币别"));
+                    showWarnMsg("Warn", "请输入币别");
                 } else if (currentEntity.getTaxkind() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入税别"));
+                    showWarnMsg("Warn", "请输入税别");
                 } else if (currentEntity.getWarehouse() == null) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "请输入默认仓库"));
+                    showWarnMsg("Warn", "请输入默认仓库");
                 }
                 break;
             default:

@@ -12,7 +12,7 @@
     <component>
         <component-type>org.primefaces.component.SentinelMenu</component-type>
         <component-class>org.primefaces.sentinel.component.menu.SentinelMenu</component-class>
-    </component>   
+    </component>
     <render-kit>
         <renderer>
             <component-family>org.primefaces.component</component-family>
@@ -30,7 +30,7 @@
         <view-handler>
             org.primefaces.application.DialogViewHandler
         </view-handler>
-    </application>     
+    </application>
     <navigation-rule>
         <description>系统入口导航</description>
         <from-view-id>/*</from-view-id>
@@ -68,7 +68,7 @@
             <from-outcome>area</from-outcome>
             <to-view-id>/app/sys/area.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>       
+        </navigation-case>
         <navigation-case>
             <from-outcome>currency</from-outcome>
             <to-view-id>/app/sys/currency.xhtml</to-view-id>
@@ -86,7 +86,7 @@
         </navigation-case> 
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/app/sys/area.xhtml</from-view-id>      
+        <from-view-id>/app/sys/area.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>areaNew</from-outcome>
             <to-view-id>/app/sys/areaNew.xhtml</to-view-id>
@@ -145,7 +145,7 @@
             <from-outcome>transactiontypeNew</from-outcome>
             <to-view-id>/app/sys/transactiontypeNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>transactiontypeEdit</from-outcome>
             <to-view-id>/app/sys/transactiontypeEdit.xhtml</to-view-id>
@@ -161,7 +161,7 @@
     <!--SD NavStart-->
     <navigation-rule>
         <description>销售模块一级导航</description>
-        <from-view-id>/*</from-view-id>     
+        <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>customer</from-outcome>
             <to-view-id>/app/sd/customer.xhtml</to-view-id>
@@ -205,7 +205,7 @@
     </navigation-rule>
     <navigation-rule>
         <description>客户登记</description>
-        <from-view-id>/app/sd/customer.xhtml</from-view-id>     
+        <from-view-id>/app/sd/customer.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>customerNew</from-outcome>
             <to-view-id>/app/sd/customerNew.xhtml</to-view-id>
@@ -238,12 +238,12 @@
     </navigation-rule>
     <navigation-rule>
         <description>订单维护</description>
-        <from-view-id>/app/sd/salesorder.xhtml</from-view-id>       
+        <from-view-id>/app/sd/salesorder.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>salesorderNew</from-outcome>
             <to-view-id>/app/sd/salesorderNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>salesorderEdit</from-outcome>
             <to-view-id>/app/sd/salesorderEdit.xhtml</to-view-id>
@@ -257,12 +257,12 @@
     </navigation-rule>
     <navigation-rule>
         <description>出货通知</description>
-        <from-view-id>/app/sd/shipmentadvice.xhtml</from-view-id>       
+        <from-view-id>/app/sd/shipmentadvice.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>shipmentadviceNew</from-outcome>
             <to-view-id>/app/sd/shipmentadviceNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>shipmentadviceEdit</from-outcome>
             <to-view-id>/app/sd/shipmentadviceEdit.xhtml</to-view-id>
@@ -276,7 +276,7 @@
     </navigation-rule>
     <navigation-rule>
         <description>销售出货</description>
-        <from-view-id>/app/mm/salesshipment.xhtml</from-view-id>                
+        <from-view-id>/app/mm/salesshipment.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>salesshipmentEdit</from-outcome>
             <to-view-id>/app/mm/salesshipmentEdit.xhtml</to-view-id>
@@ -289,12 +289,12 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/app/sys/salestype.xhtml</from-view-id>            
+        <from-view-id>/app/sys/salestype.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>salestypeNew</from-outcome>
             <to-view-id>/app/sys/salestypeNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>    
+        </navigation-case>
         <navigation-case>
             <from-outcome>salestypeEdit</from-outcome>
             <to-view-id>/app/sys/salestypeEdit.xhtml</to-view-id>
@@ -307,11 +307,17 @@
         </navigation-case>
     </navigation-rule>
     <!--SD NavEnd-->
-    <!--MM NavStart-->   
+    <!--MM NavStart-->
     <navigation-rule>
         <description>库存模块一级导航</description>
         <from-view-id>/*</from-view-id>
         <!--点验明细查询-->
+        <navigation-case>
+            <description>库存交易过程</description>
+            <from-outcome>inventorytransaction</from-outcome>
+            <to-view-id>/app/mm/inventorytransaction.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemacceptance</from-outcome>
             <to-view-id>/app/mm/itemacceptance.xhtml</to-view-id>
@@ -331,17 +337,17 @@
             <from-outcome>itemdesign</from-outcome>
             <to-view-id>/app/mm/itemdesign.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemexchange</from-outcome>
             <to-view-id>/app/mm/itemexchange.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>              
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemfinished</from-outcome>
             <to-view-id>/app/mm/itemfinished.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>iteminventory</from-outcome>
             <to-view-id>/app/mm/iteminventory.xhtml</to-view-id>
@@ -369,8 +375,8 @@
             <from-outcome>itemtransaction</from-outcome>
             <to-view-id>/app/mm/itemtransaction.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>    
-        <!--进货点收-->       
+        </navigation-case>
+        <!--进货点收-->
         <navigation-case>
             <from-outcome>purchaseacceptance</from-outcome>
             <to-view-id>/app/mm/purchaseacceptance.xhtml</to-view-id>
@@ -393,7 +399,7 @@
             <to-view-id>/app/lm/purchaseinit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        <!--采购维护-->    
+        <!--采购维护-->
         <navigation-case>
             <from-outcome>purchaseorder</from-outcome>
             <to-view-id>/app/lm/purchaseorder.xhtml</to-view-id>
@@ -403,7 +409,7 @@
             <from-outcome>purchasestorage</from-outcome>
             <to-view-id>/app/mm/purchasestorage.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>unit</from-outcome>
             <to-view-id>/app/mm/unit.xhtml</to-view-id>
@@ -418,11 +424,11 @@
             <from-outcome>vendor</from-outcome>
             <to-view-id>/app/lm/vendor.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>     
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <description>点验明细查询</description>
-        <from-view-id>/app/mm/itemacceptance.xhtml</from-view-id>               
+        <from-view-id>/app/mm/itemacceptance.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>itemacceptanceView</from-outcome>
             <to-view-id>/app/mm/itemacceptanceView.xhtml</to-view-id>
@@ -485,7 +491,7 @@
             <to-view-id>/app/mm/itemdesignView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>   
+    </navigation-rule>
     <navigation-rule>
         <description>库存转换</description>
         <from-view-id>/app/mm/itemexchange.xhtml</from-view-id>
@@ -504,7 +510,7 @@
             <to-view-id>/app/mm/itemexchangeView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>   
+    </navigation-rule>
     <navigation-rule>
         <description>外发成品</description>
         <from-view-id>/app/mm/itemfinished.xhtml</from-view-id>
@@ -560,7 +566,7 @@
             <to-view-id>/app/mm/itempurchaseView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>        
+    </navigation-rule>
     <navigation-rule>
         <description>请购明细查询</description>
         <from-view-id>/app/lm/itemrequest.xhtml</from-view-id>
@@ -633,7 +639,7 @@
     </navigation-rule>
     <navigation-rule>
         <description>采购维护</description>
-        <from-view-id>/app/lm/purchaseorder.xhtml</from-view-id>      
+        <from-view-id>/app/lm/purchaseorder.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>purchaseorderNew</from-outcome>
             <to-view-id>/app/lm/purchaseorderNew.xhtml</to-view-id>
@@ -663,7 +669,7 @@
             <to-view-id>/app/mm/purchasestorageView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>   
+    </navigation-rule>
     <navigation-rule>
         <description>单位维护</description>
         <from-view-id>/app/mm/unit.xhtml</from-view-id> 
@@ -671,7 +677,7 @@
             <from-outcome>unitNew</from-outcome>
             <to-view-id>/app/mm/unitNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>unitEdit</from-outcome>
             <to-view-id>/app/mm/unitEdit.xhtml</to-view-id>
@@ -690,7 +696,7 @@
             <from-outcome>warehouseNew</from-outcome>
             <to-view-id>/app/mm/warehouseNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>warehouseEdit</from-outcome>
             <to-view-id>/app/mm/warehouseEdit.xhtml</to-view-id>
@@ -708,7 +714,7 @@
             <from-outcome>vendorNew</from-outcome>
             <to-view-id>/app/lm/vendorNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>vendorEdit</from-outcome>
             <to-view-id>/app/lm/vendorEdit.xhtml</to-view-id>
@@ -757,6 +763,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>pickingdetail</from-outcome>
+            <to-view-id>/app/pp/pickingdetail.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>process</from-outcome>
             <to-view-id>/app/pp/process.xhtml</to-view-id>
             <redirect/>
@@ -790,7 +801,7 @@
             <from-outcome>ps</from-outcome>
             <to-view-id>/app/pp/ps.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>      
+        </navigation-case>
         <navigation-case>
             <from-outcome>sx</from-outcome>
             <to-view-id>/app/pp/sx.xhtml</to-view-id>
@@ -805,12 +816,12 @@
             <from-outcome>zb</from-outcome>
             <to-view-id>/app/pp/zb.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>   
+        </navigation-case>
         <navigation-case>
             <from-outcome>zh</from-outcome>
             <to-view-id>/app/pp/zh.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>                            
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/app/pp/ck.xhtml</from-view-id>  
@@ -839,7 +850,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/app/pp/dx.xhtm</from-view-id>    
+        <from-view-id>/app/pp/dx.xhtm</from-view-id>
         <navigation-case>
             <from-outcome>dxEdit</from-outcome>
             <to-view-id>/app/pp/dxEdit.xhtml</to-view-id>
@@ -1007,7 +1018,7 @@
         </navigation-case> 
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/app/pp/sx.xhtml</from-view-id>    
+        <from-view-id>/app/pp/sx.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>sxEdit</from-outcome>
             <to-view-id>/app/pp/sxEdit.xhtml</to-view-id>
@@ -1060,7 +1071,7 @@
     </navigation-rule>
     <!--PP NavEnd-->
     <navigation-rule>
-        <from-view-id>/*</from-view-id>                   
+        <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>itemfinishedrequest</from-outcome>
             <to-view-id>/app/lm/itemfinishedrequest.xhtml</to-view-id>
@@ -1080,7 +1091,7 @@
             <from-outcome>itemfinishedrequestView</from-outcome>
             <to-view-id>/app/lm/itemfinishedrequestView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>                
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemmasterrequest</from-outcome>
             <to-view-id>/app/lm/itemmasterrequest.xhtml</to-view-id>
@@ -1100,12 +1111,12 @@
             <from-outcome>itemmasterrequestView</from-outcome>
             <to-view-id>/app/lm/itemmasterrequestView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
     </navigation-rule>
     <!--SYS NavStart-->
     <navigation-rule>
         <description>系统模块一级导航</description>
-        <from-view-id>/*</from-view-id>       
+        <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>sysmodule</from-outcome>
             <to-view-id>/sys/sysmodule.xhtml</to-view-id>
@@ -1120,7 +1131,7 @@
             <from-outcome>sysgrantmodule</from-outcome>
             <to-view-id>/sys/sysgrantmodule.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>   
+        </navigation-case>
         <navigation-case>
             <from-outcome>sysgrantprg</from-outcome>
             <to-view-id>/sys/sysgrantprg.xhtml</to-view-id>
@@ -1139,7 +1150,7 @@
             <from-outcome>sysmoduleNew</from-outcome>
             <to-view-id>/sys/sysmoduleNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>sysmoduleEdit</from-outcome>
             <to-view-id>/sys/sysmoduleEdit.xhtml</to-view-id>
@@ -1158,7 +1169,7 @@
             <from-outcome>sysprgNew</from-outcome>
             <to-view-id>/sys/sysprgNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>sysprgEdit</from-outcome>
             <to-view-id>/sys/sysprgEdit.xhtml</to-view-id>
@@ -1177,7 +1188,7 @@
             <from-outcome>sysgrantmoduleNew</from-outcome>
             <to-view-id>/sys/sysgrantmoduleNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>sysgrantmoduleEdit</from-outcome>
             <to-view-id>/sys/sysgrantmoduleEdit.xhtml</to-view-id>
@@ -1188,7 +1199,7 @@
             <to-view-id>/sys/sysgrantmoduleView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>   
+    </navigation-rule>
     <navigation-rule>
         <description>程序授权</description>
         <from-view-id>/*</from-view-id> 
@@ -1196,7 +1207,7 @@
             <from-outcome>sysgrantprgNew</from-outcome>
             <to-view-id>/sys/sysgrantprgNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>sysgrantprgEdit</from-outcome>
             <to-view-id>/sys/sysgrantprgEdit.xhtml</to-view-id>
@@ -1215,7 +1226,7 @@
             <from-outcome>systemuserNew</from-outcome>
             <to-view-id>/sys/systemuserNew.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>
         <navigation-case>
             <from-outcome>systemuserEdit</from-outcome>
             <to-view-id>/sys/systemuserEdit.xhtml</to-view-id>
@@ -1240,6 +1251,16 @@
         <navigation-case>
             <from-outcome>accountreceivable</from-outcome>
             <to-view-id>/app/fi/accountreceivable.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>purchasepay</from-outcome>
+            <to-view-id>/app/fi/purchasepay.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>salestransaction</from-outcome>
+            <to-view-id>/app/fi/salestransaction.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -1271,6 +1292,15 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <description>出货未开票</description>
+        <from-view-id>/app/fi/salestransaction.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>salestransactionView</from-outcome>
+            <to-view-id>/app/fi/salestransactionView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
     <!--FI NavEnd-->
     <!--DF NavStart-->
     <navigation-rule>
@@ -1285,27 +1315,37 @@
             <from-outcome>currencySelect</from-outcome>
             <to-view-id>/app/df/currencySelect.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>   
+        </navigation-case>
         <navigation-case>
             <from-outcome>customerSelect</from-outcome>
             <to-view-id>/app/df/customerSelect.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>   
+        </navigation-case>
         <navigation-case>
             <from-outcome>deptSelect</from-outcome>
             <to-view-id>/app/df/deptSelect</to-view-id>
             <redirect/>
-        </navigation-case>                                                
+        </navigation-case>
         <navigation-case>
             <from-outcome>factoryorderdetailSelect</from-outcome>
             <to-view-id>/app/df/factoryorderdetailSelect.xhtml</to-view-id>
             <redirect/>
-        </navigation-case> 
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>designspecSelect</from-outcome>
+            <to-view-id>/app/df/designspecSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcolornoSelect</from-outcome>
+            <to-view-id>/app/df/itemcolornoSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemdesignSelect</from-outcome>
             <to-view-id>/app/df/itemdesignSelect.xhtml</to-view-id>
             <redirect/>
-        </navigation-case> 
+        </navigation-case>
         <navigation-case>
             <from-outcome>itemfinishedSelect</from-outcome>
             <to-view-id>/app/df/itemfinishedSelect.xhtml</to-view-id>
@@ -1387,5 +1427,5 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-    <!--DF NavEnd-->                                            
+    <!--DF NavEnd-->
 </faces-config>

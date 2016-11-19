@@ -42,12 +42,26 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrderDetail.findByDeliverydate", query = "SELECT s FROM SalesOrderDetail s WHERE s.deliverydate = :deliverydate")})
 public class SalesOrderDetail extends FormDetailEntity {
 
+    /**
+     * @return the printdate
+     */
+    public Date getPrintdate() {
+        return printdate;
+    }
+
+    /**
+     * @param printdate the printdate to set
+     */
+    public void setPrintdate(Date printdate) {
+        this.printdate = printdate;
+    }
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "colorno")
     private String colorno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
 
@@ -92,6 +106,9 @@ public class SalesOrderDetail extends FormDetailEntity {
     private BigDecimal extax;
     @Column(name = "taxes")
     private BigDecimal taxes;
+    @Column(name = "printdate")
+    @Temporal(TemporalType.DATE)
+    private Date printdate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deliverydate")

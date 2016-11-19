@@ -23,8 +23,10 @@
                 <f:facet name="right">
                     <p:commandButton id="btnVerify" value="审核" action="#{purchaseOrderManagedBean.verify()}" icon="ui-icon-locked"
                                      rendered="#{purchaseOrderManagedBean.doCfm}" process="@this" update="formView"/>
-                    <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseOrderManagedBean.print()}" icon="ui-icon-print"
-                                     rendered="#{purchaseOrderManagedBean.doPrt}"/> 
+                    <p:commandButton id="btnPrint" value="打印合同" actionListener="#{purchaseOrderManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchaseOrderManagedBean.doPrt}"/>
+                    <p:commandButton id="btnPrint2" value="打印通知" actionListener="#{purchaseOrderManagedBean.print('purchasenotice')}" icon="ui-icon-print"
+                                     rendered="#{purchaseOrderManagedBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="采购合同－查看">
@@ -191,8 +193,8 @@
                     <p:panel id="panelDetail">                        
                         <p:dataTable id="detailList" value="#{purchaseOrderManagedBean.detailList}" var="item" styleClass="tableList"
                                      selectionMode="single" selection="#{purchaseOrderManagedBean.currentDetail}" rowKey="#{item.seq}" >
-                            <p:ajax event="rowSelect" update=":formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
-                            <p:ajax event="rowUnselect" update=":formView:plgDetail" oncomplete="" />
+                            <p:ajax event="rowSelect" update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect" update="formView:plgDetail" oncomplete="" />
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="品号"/>
@@ -327,7 +329,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnPrint2">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

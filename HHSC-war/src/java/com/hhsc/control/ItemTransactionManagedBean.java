@@ -16,6 +16,7 @@ import com.hhsc.entity.ItemTransaction;
 import com.hhsc.entity.ItemTransactionDetail;
 import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.hhsc.entity.TransactionType;
+import com.hhsc.entity.Unit;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.ItemTransactionModel;
 import com.hhsc.web.FormMultiBean;
@@ -218,6 +219,13 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
         }
     }
 
+    public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentDetail != null) {
+            Unit u = (Unit) event.getObject();
+            currentDetail.setUnit(u.getUnit());
+        }
+    }
+
     public void handleDialogReturnWarehouseWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
             Warehouse entity = (Warehouse) event.getObject();
@@ -262,7 +270,7 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
             Map<String, List<String>> params = new HashMap<>();
             List<String> sysid = new ArrayList<>();
             sysid.add("MM");
-            params.put("sysid", sysid);           
+            params.put("sysid", sysid);
             super.openDialog(view, params);
         } else {
             if (currentEntity.getTransactionType() == null) {

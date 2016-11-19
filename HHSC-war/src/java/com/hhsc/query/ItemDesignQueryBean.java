@@ -9,9 +9,13 @@ import com.hhsc.ejb.ItemMasterBean;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.lazy.ItemDesignModel;
 import com.hhsc.web.SuperQueryBean;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -32,12 +36,21 @@ public class ItemDesignQueryBean extends SuperQueryBean<ItemMaster> {
     public void init() {
         setSuperEJB(itemMasterBean);
         setModel(new ItemDesignModel(itemMasterBean));
+        params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();
+        if (params != null) {
+            if (params.containsKey("itemcategory")) {
+                List<String> v = new ArrayList<>();
+                v.addAll(Arrays.asList(params.get("itemcategory")));
+                this.model.getFilterFields().put("itemcategory.category IN ", v);
+            }
+        }
         super.init();
     }
 
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("itemno", this.queryFormId);
             }

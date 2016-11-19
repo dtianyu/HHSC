@@ -18,6 +18,7 @@ import com.hhsc.entity.ProductionPicking;
 import com.hhsc.entity.ProductionPickingDetail;
 import com.hhsc.entity.SalesType;
 import com.hhsc.entity.TransactionType;
+import com.hhsc.entity.Unit;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.ProductionPickingModel;
 import com.hhsc.rpt.ProductionPickingReport;
@@ -177,6 +178,13 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
         if (event.getObject() != null) {
             ItemMaster e = (ItemMaster) event.getObject();
             currentDetail.setBatch(e.getItemno());
+        }
+    }
+    
+    public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentDetail != null) {
+            Unit u = (Unit) event.getObject();
+            currentDetail.setUnit(u.getUnit());
         }
     }
 

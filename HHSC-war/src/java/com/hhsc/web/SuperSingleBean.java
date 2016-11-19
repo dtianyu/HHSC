@@ -10,6 +10,7 @@ import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.SuperSingleManagedBean;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -106,7 +107,34 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
 
     @Override
     public void print() throws Exception {
-
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + this.currentSysprg.getRptdesign();
+        String outputName = reportOutputPath + currentSysprg.getApi() + currentEntity.getId() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentSysprg.getApi() + currentEntity.getId() + "." + reportFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override

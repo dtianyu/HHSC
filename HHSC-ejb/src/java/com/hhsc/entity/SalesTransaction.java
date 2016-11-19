@@ -42,6 +42,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesTransaction.findByStatus", query = "SELECT s FROM SalesTransaction s WHERE s.status = :status")})
 public class SalesTransaction extends FormDetailEntity {
 
+    @JoinColumn(name = "salerid", referencedColumnName = "id", updatable = false, insertable = false)
+    @ManyToOne(optional = false)
+    private SystemUser systemUser;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -132,7 +136,7 @@ public class SalesTransaction extends FormDetailEntity {
     @Size(max = 45)
     @Column(name = "customeritemno")
     private String customeritemno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
     @Size(max = 45)
@@ -620,6 +624,20 @@ public class SalesTransaction extends FormDetailEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.SalesTransaction[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the systemUser
+     */
+    public SystemUser getSystemUser() {
+        return systemUser;
+    }
+
+    /**
+     * @param systemUser the systemUser to set
+     */
+    public void setSystemUser(SystemUser systemUser) {
+        this.systemUser = systemUser;
     }
 
 }

@@ -205,6 +205,7 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
         this.superEJB = itemMasterBean;
         setModel(new ItemDesignModel(itemMasterBean));
         this.detailEJB = customerItemBean;
+        this.model.getFilterFields().put("itemcategory.category", "200");
         itemCategoryList = itemCategoryBean.findAll();
         super.init();
     }
@@ -261,8 +262,17 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
             if (queryItemspec != null && !"".equals(queryItemspec)) {
                 this.model.getFilterFields().put("itemspec", queryItemspec);
             }
+            this.model.getFilterFields().put("itemcategory.category", "200");
         }
     }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("itemcategory.category", "200");
+    }
+    
+    
 
     @Override
     public void update() {

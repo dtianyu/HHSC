@@ -55,25 +55,42 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
-                        <p:column>
-                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec" 
-                                         required="true" requiredMessage="请输入规格"/>
-                        </p:column>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column>
                             <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark" 
                                          required="true" requiredMessage="请输入备注"/>
                         </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="图片" for="filename" /></p:column>         
-                        <p:column styleClass="Wid30">            
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">            
                             <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.newEntity.img1}"/>
                         </p:column>
-                        <p:column styleClass="Wid20"></p:column>
-                        <p:column styleClass="Wid30">
-
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec" 
+                                         required="true" requiredMessage="请输入规格"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="纱线描述" for="itemyarncount" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemyarncount" value="#{itemDesignManagedBean.newEntity.itemyarncount}" title="Itemyarncount" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="门幅" for="itemwidth" /></p:column>
+                        <p:column><p:inputText id="itemwidth" value="#{itemDesignManagedBean.newEntity.itemwidth}" title="Itemwidth" /></p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="克重" for="itemweight" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemweight" value="#{itemDesignManagedBean.newEntity.itemweight}" title="Itemweight" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="密度" for="itemdensity" /></p:column>
+                        <p:column>
+                            <p:inputText id="itemdensity" value="#{itemDesignManagedBean.newEntity.itemdensity}" title="Itemdensity" />
                         </p:column>
                     </p:row>
                     <p:row>

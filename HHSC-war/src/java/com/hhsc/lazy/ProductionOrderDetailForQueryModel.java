@@ -22,11 +22,4 @@ public class ProductionOrderDetailForQueryModel extends BaseLazyModel<Production
         this.superEJB = superEJB;
     }
 
-    @Override
-    public List<ProductionOrderDetailForQuery> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        return super.load(first, pageSize, sortField, sortOrder, filters); 
-    }
-    
-    
-
 }

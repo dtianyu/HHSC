@@ -69,20 +69,24 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
     @Override
     public void query() {
         if (this.model != null) {
+            this.model.getFilterFields().clear();
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
                 this.model.getFilterFields().put("salesOrder.formid", this.queryFormId);
             }
-            if (this.shiptype != null) {
-                this.model.getFilterFields().put("salesOrder.ordertype", shiptype);
+            if (this.queryName != null && !"".equals(this.queryName)) {
+                this.model.getFilterFields().put("salesOrder.itemno", this.queryName);
             }
-            if (this.customerno != null) {
+            if (this.shiptype != null && !"".equals(this.shiptype)) {
+                this.model.getFilterFields().put("salesOrder.ordertype.type", shiptype);
+            }
+            if (this.customerno != null && !"".equals(this.customerno)) {
                 this.model.getFilterFields().put("salesOrder.customer.customerno", customerno);
             }
-            if (this.currency != null) {
+            if (this.currency != null && !"".equals(this.currency)) {
                 this.model.getFilterFields().put("salesOrder.currency", currency);
             }
-            if (this.taxtype != null) {
-                this.model.getFilterFields().put("salesOrder.taxkind", taxtype);
+            if (this.taxtype != null && !"".equals(this.taxtype)) {
+                this.model.getFilterFields().put("salesOrder.taxtype", taxtype);
             }
             if (this.taxrate != null) {
                 this.model.getFilterFields().put("salesOrder.taxrate", taxrate);
@@ -93,8 +97,20 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
     @Override
     public void reset() {
         super.reset();
-        if (this.customerno != null) {
+        if (this.shiptype != null && !"".equals(this.shiptype)) {
+            this.model.getFilterFields().put("salesOrder.ordertype.type", shiptype);
+        }
+        if (this.customerno != null && !"".equals(this.customerno)) {
             this.model.getFilterFields().put("salesOrder.customer.customerno", customerno);
+        }
+        if (this.currency != null && !"".equals(this.currency)) {
+            this.model.getFilterFields().put("salesOrder.currency", currency);
+        }
+        if (this.taxtype != null && !"".equals(this.taxtype)) {
+            this.model.getFilterFields().put("salesOrder.taxtype", taxtype);
+        }
+        if (this.taxrate != null) {
+            this.model.getFilterFields().put("salesOrder.taxrate", taxrate);
         }
     }
 

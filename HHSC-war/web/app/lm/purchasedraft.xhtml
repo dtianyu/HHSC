@@ -98,9 +98,15 @@
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="数量"/>
+                        <h:outputText value="请购数量"/>
                     </f:facet>
                     <h:outputText value="#{item.qty}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="采购数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.purqty}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
@@ -108,7 +114,7 @@
                     </f:facet>
                     <h:outputText value="#{item.unit}"/>
                 </p:column>
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="供应商"/>
                     </f:facet>

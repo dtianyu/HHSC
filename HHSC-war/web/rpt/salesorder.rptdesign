@@ -1792,7 +1792,7 @@ return false;]]></method>
                     <property name="borderRightWidth">thin</property>
                     <property name="paddingTop">1pt</property>
                     <label id="415">
-                        <text-property name="text">箱麦</text-property>
+                        <text-property name="text">箱唛</text-property>
                     </label>
                 </cell>
                 <cell id="402">

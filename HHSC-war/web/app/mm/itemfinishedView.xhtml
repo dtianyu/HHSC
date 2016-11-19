@@ -42,14 +42,17 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="规格"/></p:column>
-                        <p:column colspan="3">
+                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column>
                             <h:outputText id="itemspec" value="#{itemFinishedManagedBean.currentEntity.itemspec}" title="Itemspec" />
-                        </p:column>  
+                        </p:column>
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                            <p:graphicImage id="itemimg" value="/resources/upload/img/#{itemFinishedManagedBean.currentEntity.img1}"/>
+                        </p:column>   
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="成份"/></p:column>
-                        <p:column colspan="3">
+                        <p:column><h:outputText value="成份"/></p:column>
+                        <p:column>
                             <h:outputText id="itemmake" value="#{itemFinishedManagedBean.currentEntity.itemmake}" title="Itemmake" />
                         </p:column>
                     </p:row>
@@ -58,19 +61,11 @@
                         <p:column>
                             <h:outputText id="itemyarncount" value="#{itemFinishedManagedBean.currentEntity.itemyarncount}" title="Itemyarncount" />
                         </p:column>
-                        <p:column><h:outputText value="匹样周期"/></p:column>
-                        <p:column>
-                            <h:outputText id="sampleperiod" value="#{itemFinishedManagedBean.currentEntity.sampleperiod}" title="Sampleperiod" />
-                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="门幅" /></p:column>
                         <p:column>
                             <h:outputText id="itemwidth" value="#{itemFinishedManagedBean.currentEntity.itemwidth}" title="Itemwidth" />
-                        </p:column>
-                        <p:column><h:outputText value="大货周期"/></p:column>
-                        <p:column>
-                            <h:outputText id="deliveryperiod" value="#{itemFinishedManagedBean.currentEntity.deliveryperiod}" title="Deliveryperiod" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -78,9 +73,21 @@
                         <p:column>
                             <h:outputText id="itemweight" value="#{itemFinishedManagedBean.currentEntity.itemweight}" title="Itemweight" />
                         </p:column>
+                    </p:row>
+                    <p:row>                        
                         <p:column><h:outputText value="密度"/></p:column>
                         <p:column>
                             <h:outputText id="itemdensity" value="#{itemFinishedManagedBean.currentEntity.itemdensity}" title="Itemdensity" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="匹样周期"/></p:column>
+                        <p:column>
+                            <h:outputText id="sampleperiod" value="#{itemFinishedManagedBean.currentEntity.sampleperiod}" title="Sampleperiod" />
+                        </p:column>
+                        <p:column><h:outputText value="大货周期"/></p:column>
+                        <p:column>
+                            <h:outputText id="deliveryperiod" value="#{itemFinishedManagedBean.currentEntity.deliveryperiod}" title="Deliveryperiod" />
                         </p:column>
                     </p:row>
                     <p:row>

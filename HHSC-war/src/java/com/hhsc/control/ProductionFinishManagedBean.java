@@ -97,22 +97,22 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
                     d.setPid(this.currentEntity.getFormid());
 
                     if (d.getBadqty().compareTo(BigDecimal.ZERO) == 1 && d.getWarehouse2() == null) {
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入不良仓库");
+                        showErrorMsg("Error", "请输入不良仓库");
                         return false;
                     }
                     if (d.getQty().compareTo(d.getQcqty().add(d.getBadqty())) != 0) {
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "良品数量+不良数量<>入库数量");
+                        showErrorMsg("Error", "良品数量+不良数量<>入库数量");
                         return false;
                     }
                     if (d.getAllowqty().compareTo(d.getQty()) == -1) {
                         d.setQty(d.getAllowqty());
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "入库数量大于可入库数量");
+                        showErrorMsg("Error", "入库数量大于可入库数量");
                         //允许超产 2016/9/10
                         //return false;
                     }
                     s = productionOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
                     if (s == null) {
-                        showMsg(FacesMessage.SEVERITY_WARN, "Warn", "找不到流转单");
+                        showWarnMsg("Warn", "找不到流转单");
                         return false;
                     } else {
                         //允许大于计划数
@@ -128,21 +128,21 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
                     d.setPid(this.currentEntity.getFormid());
 
                     if (d.getBadqty().compareTo(BigDecimal.ZERO) == 1 && d.getWarehouse2() == null) {
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入不良仓库");
+                        showErrorMsg("Error", "请输入不良仓库");
                         return false;
                     }
                     if (d.getQty().compareTo(d.getQcqty().add(d.getBadqty())) != 0) {
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "良品数量+不良数量<>入库数量");
+                        showErrorMsg("Error", "良品数量+不良数量<>入库数量");
                         return false;
                     }
                     if (d.getAllowqty().compareTo(d.getQty()) == -1) {
                         d.setQty(d.getAllowqty());
-                        showMsg(FacesMessage.SEVERITY_ERROR, "Error", "入库数量不能大于可入库数量");
+                        showErrorMsg("Error", "入库数量不能大于可入库数量");
                         return false;
                     }
                     s = productionOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
                     if (s == null) {
-                        showMsg(FacesMessage.SEVERITY_WARN, "Warn", "找不到流转单");
+                        showWarnMsg("Warn", "找不到流转单");
                         return false;
                     } else {
                         //if (s.getOrderqty().subtract(s.getFinqty()).compareTo(d.getQty()) == -1) {
@@ -168,16 +168,16 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
             for (ProductionFinishDetail d : this.detailList) {
                 s = productionOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
                 if (s == null) {
-                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "找不到流转单");
+                    showWarnMsg("Warn", "找不到流转单");
                     return false;
                 }
                 if (s.getFinqty().compareTo(d.getQty()) < 0) {
-                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "可还原数量不足");
+                    showWarnMsg("Warn", "可还原数量不足");
                     return false;
                 }
                 i = itemInventoryBean.findItemInventory(d.getDesignno(), d.getColorno(), d.getBrand(), d.getItemno(), d.getSn(), d.getWarehouse().getWarehouseno());
                 if ((i == null) || (i.getQty().compareTo(d.getQcqty()) == -1)) {
-                    showMsg(FacesMessage.SEVERITY_ERROR, "Error", d.getDesignno() + "库存数量不足");
+                    showErrorMsg("Error", d.getDesignno() + "库存数量不足");
                     return false;
                 }
             }
@@ -194,28 +194,29 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
             return false;
         }
         if (this.detailList == null || this.detailList.isEmpty()) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有入库明细");
+            showWarnMsg("Warn", "没有入库明细");
             return false;
         }
         ProductionOrderDetail productionOrderDetail;
         for (ProductionFinishDetail d : this.detailList) {
             if (d.getBadqty().compareTo(BigDecimal.ZERO) == 1 && d.getWarehouse2() == null) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入不良仓库");
+                showErrorMsg("Error", "请输入不良仓库");
                 return false;
             }
             if (d.getQty().compareTo(d.getQcqty().add(d.getBadqty())) != 0) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", "良品数量+不良数量<>入库数量");
+                showErrorMsg("Error", "良品数量+不良数量<>入库数量");
                 return false;
             }
             if (d.getAllowqty().compareTo(d.getQty()) == -1) {
-                d.setQty(d.getAllowqty());
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", "入库数量不能大于可入库数量");
-                return false;
+                //允许超产
+                //d.setQty(d.getAllowqty());
+                showWarnMsg("Warn", "入库数量大于可入库数量");
+                //return false;
             }
             try {
                 productionOrderDetail = productionOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
                 if (productionOrderDetail == null) {
-                    showMsg(FacesMessage.SEVERITY_WARN, "Warn", "找不到流转单");
+                    showWarnMsg("Warn", "找不到流转单");
                     return false;
                 }
                 //if (s.getOrderqty().subtract(s.getFinqty()).compareTo(d.getQty()) < 0) {
@@ -234,21 +235,23 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
         if (currentDetail != null) {
             currentDetail.setTransactionType(currentEntity.getTransactionType());
             if (currentDetail.getBadqty().compareTo(BigDecimal.ZERO) == 1 && currentDetail.getWarehouse2() == null) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", "请输入不良仓库");
+                showErrorMsg("Error", "请输入不良仓库");
                 return;
             }
             if (currentDetail.getQty().compareTo(currentDetail.getQcqty().add(currentDetail.getBadqty())) != 0) {
-                showMsg(FacesMessage.SEVERITY_ERROR, "Error", "良品数量+不良数量<>入库数量");
+                showErrorMsg("Error", "良品数量+不良数量<>入库数量");
                 return;
             }
             if (currentDetail.getAllowqty().compareTo(currentDetail.getQty()) == -1) {
-                currentDetail.setQty(currentDetail.getAllowqty());
-                showMsg(FacesMessage.SEVERITY_WARN, "Warn", "入库数量不能大于可入库数量");
+                //允许超产
+                //currentDetail.setQty(currentDetail.getAllowqty());
+                showWarnMsg("Warn", "入库数量大于可入库数量");
+                super.doConfirmDetail();
             } else {
                 super.doConfirmDetail();
             }
         } else {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有入库明细");
+            showWarnMsg("Warn", "没有入库明细");
         }
     }
 
@@ -360,11 +363,11 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
     public void openDialog(String view) {
         if ("productionorderdetailSelect".equals(view)) {
             if (currentEntity.getSrcformtype() == null) {
-                showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入工单类型");
+                showWarnMsg("Warn", "请输入工单类型");
                 return;
             }
             if (currentEntity.getWarehouse() == null) {
-                showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入默认仓库");
+                showWarnMsg("Warn", "请输入默认仓库");
                 return;
             }
             Map<String, Object> options = new HashMap<>();

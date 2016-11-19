@@ -29,6 +29,7 @@ public class InventoryTransactionBean extends SuperBean<InventoryTransaction> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public List<InventoryTransaction> findByFormid(String formid) {
         Query query = this.getEntityManager().createNamedQuery("InventoryTransaction.findByFormid");
         query.setParameter("formid", formid);

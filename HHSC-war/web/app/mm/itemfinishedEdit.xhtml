@@ -30,10 +30,9 @@
                                 <f:selectItems value="#{itemFinishedManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
                             </p:selectOneMenu>
                         </p:column>
-                        <p:column styleClass="Wid20"><p:outputLabel value="编号" for="itemno" /></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="品号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="itemno" value="#{itemFinishedManagedBean.currentEntity.itemno}" title="Itemno" 
-                                         required="true" requiredMessage="请输入编号" disabled="#{itemFinishedManagedBean.currentSysprg.noauto}"/>
+                            <h:outputText id="itemno" value="#{itemFinishedManagedBean.currentEntity.itemno}" title="Itemno" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -55,13 +54,16 @@
                     </p:row>
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="规格" for="itemspec" /></p:column>
-                        <p:column colspan="3">
+                        <p:column>
                             <p:inputText id="itemspec" value="#{itemFinishedManagedBean.currentEntity.itemspec}" title="Itemspec" />
+                        </p:column>
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                            <p:graphicImage id="itemimg" value="/resources/upload/img/#{itemFinishedManagedBean.currentEntity.img1}"/>
                         </p:column>  
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="成份" for="itemmake" /></p:column>
-                        <p:column colspan="3">
+                        <p:column><p:outputLabel value="成份" for="itemmake" /></p:column>
+                        <p:column>
                             <p:inputText id="itemmake" value="#{itemFinishedManagedBean.currentEntity.itemmake}" title="Itemmake" />
                         </p:column>
                     </p:row>
@@ -70,28 +72,32 @@
                         <p:column>
                             <p:inputText id="itemyarncount" value="#{itemFinishedManagedBean.currentEntity.itemyarncount}" title="Itemyarncount" />
                         </p:column>
-                        <p:column><p:outputLabel value="匹样周期" for="sampleperiod" /></p:column>
-                        <p:column>
-                            <p:inputText id="sampleperiod" value="#{itemFinishedManagedBean.currentEntity.sampleperiod}" title="Sampleperiod" />
-                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="门幅" for="itemwidth" /></p:column>
                         <p:column><p:inputText id="itemwidth" value="#{itemFinishedManagedBean.currentEntity.itemwidth}" title="Itemwidth" /></p:column>
-                        <p:column><p:outputLabel value="大货周期" for="deliveryperiod" /></p:column>
-                        <p:column>
-                            <p:inputText id="deliveryperiod" value="#{itemFinishedManagedBean.currentEntity.deliveryperiod}" title="Deliveryperiod" />
-                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="克重" for="itemweight" /></p:column>
                         <p:column>
                             <p:inputText id="itemweight" value="#{itemFinishedManagedBean.currentEntity.itemweight}" title="Itemweight" />
                         </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column><p:outputLabel value="密度" for="itemdensity" /></p:column>
                         <p:column>
                             <p:inputText id="itemdensity" value="#{itemFinishedManagedBean.currentEntity.itemdensity}" title="Itemdensity" />
                         </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="匹样周期" for="sampleperiod" /></p:column>
+                        <p:column>
+                            <p:inputText id="sampleperiod" value="#{itemFinishedManagedBean.currentEntity.sampleperiod}" title="Sampleperiod" />
+                        </p:column>
+                        <p:column><p:outputLabel value="大货周期" for="deliveryperiod" /></p:column>
+                        <p:column>
+                            <p:inputText id="deliveryperiod" value="#{itemFinishedManagedBean.currentEntity.deliveryperiod}" title="Deliveryperiod" />
+                        </p:column> 
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
@@ -233,6 +239,11 @@
                     </p:panel>
                 </p:tab>
             </p:tabView>
+        </h:form>
+        <h:form id="formUpload">
+            <p:fileUpload id="fileUpload" fileUploadListener="#{itemFinishedManagedBean.handleFileUploadWhenEdit}"  styleClass="fileUpload"
+                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000" 
+                          label="选择" uploadLabel="上传" cancelLabel="还原" update="formEdit:itemimg"/> 
         </h:form>
     </ui:define>
 

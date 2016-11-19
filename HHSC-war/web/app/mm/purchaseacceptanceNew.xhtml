@@ -98,6 +98,16 @@
                             <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemno}" title="Itemno"/>  
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="品名"/></p:column>
+                        <p:column>
+                            <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemmaster.itemspec}" title="itemspec"/>  
+                        </p:column>
+                        <p:column><h:outputText value="门幅"/></p:column>
+                        <p:column>
+                            <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemmaster.itemwidth}" title="Itemno"/>  
+                        </p:column>
+                    </p:row>
                     <p:row>                      
                         <p:column styleClass="Wid20"><h:outputText value="色号"/></p:column>
                         <p:column styleClass="Wid30">
@@ -129,6 +139,16 @@
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{purchaseAcceptanceManagedBean.handleDialogReturnWarehouseWhenDetailEdit}" 
                                         update="warehouseno" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="单位" for="unit" /></p:column>
+                        <p:column>
+                            <p:inputText id="unit" value="#{purchaseAcceptanceManagedBean.currentDetail.unit}" title="unit" styleClass="inputWithButton" 
+                                         required="true" requiredMessage="请输入单位"/>
+                            <p:commandButton id="btnUnitSelect" actionListener="#{purchaseAcceptanceManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{purchaseAcceptanceManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
+                                        update="unit" />
                             </p:commandButton>
                         </p:column>
                     </p:row>

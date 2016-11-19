@@ -1592,6 +1592,10 @@ return false;]]></method>
                         <property name="rowSpan">1</property>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
+                        <data id="324">
+                            <property name="whiteSpace">nowrap</property>
+                            <property name="resultSetColumn">itemyarncount</property>
+                        </data>
                     </cell>
                     <cell id="451">
                         <property name="borderRightStyle">solid</property>
@@ -1624,12 +1628,7 @@ return false;]]></method>
                 <row id="337">
                     <cell id="338"/>
                     <cell id="339"/>
-                    <cell id="343">
-                        <data id="324">
-                            <property name="whiteSpace">nowrap</property>
-                            <property name="resultSetColumn">itemyarncount</property>
-                        </data>
-                    </cell>
+                    <cell id="343"/>
                     <cell id="345">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>

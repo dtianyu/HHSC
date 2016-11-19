@@ -42,23 +42,42 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="规格" /></p:column>
-                        <p:column>
-                            <h:outputText id="itemspec" value="#{itemDesignManagedBean.currentEntity.itemspec}" title="itemspec" />
-                        </p:column>
                         <p:column><h:outputText value="备注"/></p:column>
                         <p:column>
                             <h:outputText id="remark" value="#{itemDesignManagedBean.currentEntity.remark}" title="Remark" /> 
                         </p:column>
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.currentEntity.img1}"/>
+                        </p:column> 
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="图片"/></p:column>                   
-                        <p:column styleClass="Wid30">
-                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.currentEntity.img1}"/>
+                        <p:column><h:outputText value="规格" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{itemDesignManagedBean.currentEntity.itemspec}" title="itemspec" />
                         </p:column>
-                        <p:column styleClass="Wid20"></p:column>
-                        <p:column styleClass="Wid30">
-
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="纱线描述"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemyarncount" value="#{itemDesignManagedBean.currentEntity.itemyarncount}" title="Itemyarncount" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="门幅" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemwidth" value="#{itemDesignManagedBean.currentEntity.itemwidth}" title="Itemwidth" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="克重"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemweight" value="#{itemDesignManagedBean.currentEntity.itemweight}" title="Itemweight" />
+                        </p:column>
+                    </p:row>
+                    <p:row>                        
+                        <p:column><h:outputText value="密度"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemdensity" value="#{itemDesignManagedBean.currentEntity.itemdensity}" title="Itemdensity" />
                         </p:column>
                     </p:row>
                     <p:row>

@@ -31,8 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionOrderDetailForQuery.findAll", query = "SELECT p FROM ProductionOrderDetailForQuery p"),
-    @NamedQuery(name = "ProductionOrderDetailForQuery.findById", query = "SELECT p FROM ProductionOrderDetailForQuery p WHERE p.id = :id"),
+    @NamedQuery(name = "ProductionOrderDetailForQuery.findAll", query = "SELECT p FROM ProductionOrderDetailForQuery p")
+    ,
+    @NamedQuery(name = "ProductionOrderDetailForQuery.findById", query = "SELECT p FROM ProductionOrderDetailForQuery p WHERE p.id = :id")
+    ,
     @NamedQuery(name = "ProductionOrderDetailForQuery.findByPId", query = "SELECT p FROM ProductionOrderDetailForQuery p WHERE p.productionOrder.id = :pid")})
 public class ProductionOrderDetailForQuery extends BaseEntity {
 
@@ -320,19 +322,7 @@ public class ProductionOrderDetailForQuery extends BaseEntity {
             return false;
         }
         ProductionOrderDetailForQuery other = (ProductionOrderDetailForQuery) object;
-        if (!Objects.equals(this.srcformid, other.srcformid)) {
-            return false;
-        }
-        if (Objects.equals(this.srcformid, other.srcformid) && !Objects.equals(this.srcseq, other.srcseq)) {
-            return false;
-        }
-        if (Objects.equals(this.srcformid, other.srcformid) && Objects.equals(this.srcseq, other.srcseq)) {
-            return true;
-        }
-        if (this.itemno != other.itemno) {
-            return false;
-        }
-        return this.getSeq() == other.getSeq();
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

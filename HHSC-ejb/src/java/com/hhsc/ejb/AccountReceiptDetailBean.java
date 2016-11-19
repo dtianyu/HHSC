@@ -21,7 +21,5 @@ public class AccountReceiptDetailBean extends SuperBean<AccountReceiptDetail> {
     public AccountReceiptDetailBean() {
         super(AccountReceiptDetail.class);
     }
-    
-    
 
 }

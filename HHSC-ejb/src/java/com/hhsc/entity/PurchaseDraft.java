@@ -31,17 +31,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaserequestdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseDraft.getRowCount", query = "SELECT COUNT(p) FROM PurchaseDraft p"),
-    @NamedQuery(name = "PurchaseDraft.findAll", query = "SELECT p FROM PurchaseDraft p"),
-    @NamedQuery(name = "PurchaseDraft.findById", query = "SELECT p FROM PurchaseDraft p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseDraft.findByPId", query = "SELECT p FROM PurchaseDraft p WHERE p.purchaserequest.formid = :pid"),
-    @NamedQuery(name = "PurchaseDraft.findByPurtype", query = "SELECT p FROM PurchaseDraft p WHERE p.purtype = :purtype"),
-    @NamedQuery(name = "PurchaseDraft.findByPurkind", query = "SELECT p FROM PurchaseDraft p WHERE p.purkind = :purkind"),
-    @NamedQuery(name = "PurchaseDraft.findByAbroad", query = "SELECT p FROM PurchaseDraft p WHERE p.abroad = :abroad"),
-    @NamedQuery(name = "PurchaseDraft.findByItemId", query = "SELECT p FROM PurchaseDraft p WHERE p.itemmaster.id = :itemmasterid"),
-    @NamedQuery(name = "PurchaseDraft.findByItemno", query = "SELECT p FROM PurchaseDraft p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseDraft.findByCustomerId", query = "SELECT p FROM PurchaseDraft p WHERE p.customer.id = :customerid"),
-    @NamedQuery(name = "PurchaseDraft.findByVendorId", query = "SELECT p FROM PurchaseDraft p WHERE p.vendor.id = :vendorid AND p.status='N' "),
+    @NamedQuery(name = "PurchaseDraft.getRowCount", query = "SELECT COUNT(p) FROM PurchaseDraft p")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findAll", query = "SELECT p FROM PurchaseDraft p")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findById", query = "SELECT p FROM PurchaseDraft p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByPId", query = "SELECT p FROM PurchaseDraft p WHERE p.purchaserequest.formid = :pid")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByPurtype", query = "SELECT p FROM PurchaseDraft p WHERE p.purtype = :purtype")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByPurkind", query = "SELECT p FROM PurchaseDraft p WHERE p.purkind = :purkind")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByAbroad", query = "SELECT p FROM PurchaseDraft p WHERE p.abroad = :abroad")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByItemId", query = "SELECT p FROM PurchaseDraft p WHERE p.itemmaster.id = :itemmasterid")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByItemno", query = "SELECT p FROM PurchaseDraft p WHERE p.itemno = :itemno")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByCustomerId", query = "SELECT p FROM PurchaseDraft p WHERE p.customer.id = :customerid")
+    ,
+    @NamedQuery(name = "PurchaseDraft.findByVendorId", query = "SELECT p FROM PurchaseDraft p WHERE p.vendor.id = :vendorid AND p.status='N' ")
+    ,
     @NamedQuery(name = "PurchaseDraft.findByVendorIdAndItemno", query = "SELECT p FROM PurchaseDraft p WHERE p.vendor.id = :vendorid AND p.itemno=:itemno AND p.status='N' ")})
 public class PurchaseDraft extends SuperEntity {
 
@@ -186,6 +197,20 @@ public class PurchaseDraft extends SuperEntity {
     @Size(max = 200)
     @Column(name = "deliveryadd")
     private String deliveryadd;
+
+    @Size(max = 200)
+    @Column(name = "shipmarks")
+    private String shipmarks;
+    @Size(max = 200)
+    @Column(name = "testremark")
+    private String testremark;
+    @Size(max = 200)
+    @Column(name = "productremark")
+    private String productremark;
+    @Size(max = 200)
+    @Column(name = "packremark")
+    private String packremark;
+
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
@@ -682,6 +707,62 @@ public class PurchaseDraft extends SuperEntity {
      */
     public void setRelseq(Integer relseq) {
         this.relseq = relseq;
+    }
+
+    /**
+     * @return the shipmarks
+     */
+    public String getShipmarks() {
+        return shipmarks;
+    }
+
+    /**
+     * @param shipmarks the shipmarks to set
+     */
+    public void setShipmarks(String shipmarks) {
+        this.shipmarks = shipmarks;
+    }
+
+    /**
+     * @return the testremark
+     */
+    public String getTestremark() {
+        return testremark;
+    }
+
+    /**
+     * @param testremark the testremark to set
+     */
+    public void setTestremark(String testremark) {
+        this.testremark = testremark;
+    }
+
+    /**
+     * @return the productremark
+     */
+    public String getProductremark() {
+        return productremark;
+    }
+
+    /**
+     * @param productremark the productremark to set
+     */
+    public void setProductremark(String productremark) {
+        this.productremark = productremark;
+    }
+
+    /**
+     * @return the packremark
+     */
+    public String getPackremark() {
+        return packremark;
+    }
+
+    /**
+     * @param packremark the packremark to set
+     */
+    public void setPackremark(String packremark) {
+        this.packremark = packremark;
     }
 
 }

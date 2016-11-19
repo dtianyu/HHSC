@@ -145,7 +145,7 @@
                                 <p:column>
                                     <p:inputText id="unit" value="#{itemMasterRequestManagedBean.currentDetail.unit}" title="Unit"  styleClass="inputWithButton" 
                                                  required="true" requiredMessage="请输入单位"/>
-                                    <p:commandButton id="btnUnit" actionListener="#{itemMasterRequestManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnUnitSelect" actionListener="#{itemMasterRequestManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnUnitWhenDetailEdit}" 
                                                 update="unit" />

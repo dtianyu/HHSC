@@ -188,6 +188,26 @@
                     <property name="name">dremark</property>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">testremark</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">packremark</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">30</property>
+                    <property name="name">productremark</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">31</property>
+                    <property name="name">shipmarks</property>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
@@ -270,6 +290,18 @@
                 </structure>
                 <structure>
                     <property name="columnName">dremark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">testremark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">packremark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productremark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipmarks</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -409,6 +441,26 @@
                         <property name="name">dremark</property>
                         <property name="dataType">string</property>
                     </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">testremark</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">packremark</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">30</property>
+                        <property name="name">productremark</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">31</property>
+                        <property name="name">shipmarks</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
@@ -449,7 +501,12 @@ if(currentRow < detail.size()){
 		dataSetRow["requestdate"] = detail.get(currentRow).getRequestdate();
 		dataSetRow["srcformid"] = detail.get(currentRow).getSrcformid();
 		dataSetRow["srcseq"] = detail.get(currentRow).getSrcseq();			
-		dataSetRow["dremark"] = detail.get(currentRow).getRemark();			
+		dataSetRow["dremark"] = detail.get(currentRow).getRemark();	
+		
+		dataSetRow["testremark"] = detail.get(currentRow).getTestremark();	
+		dataSetRow["productremark"] = detail.get(currentRow).getProductremark();
+		dataSetRow["packremark"] = detail.get(currentRow).getPackremark();				
+		dataSetRow["shipmarks"] = detail.get(currentRow).getShipmarks();			
 		currentRow++;
 		return true;	
 }
@@ -1357,6 +1414,114 @@ return false;]]></method>
                             </structure>
                         </list-property>
                         <property name="resultSetColumn">remark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="635">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="636">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="647">
+                        <text-property name="text">测试要求</text-property>
+                    </label>
+                </cell>
+                <cell id="637">
+                    <property name="paddingTop">1pt</property>
+                    <data id="651">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">testremark</property>
+                                <text-property name="displayName">testremark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["testremark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">testremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="638">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="639">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="412">
+                        <text-property name="text">成品制作要求</text-property>
+                    </label>
+                </cell>
+                <cell id="640">
+                    <property name="paddingTop">1pt</property>
+                    <data id="648">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">productremark</property>
+                                <text-property name="displayName">productremark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productremark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">productremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="644">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="645">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="413">
+                        <text-property name="text">包装要求</text-property>
+                    </label>
+                </cell>
+                <cell id="646">
+                    <property name="paddingTop">1pt</property>
+                    <data id="649">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">packremark</property>
+                                <text-property name="displayName">packremark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["packremark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">packremark</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="641">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <cell id="642">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="paddingTop">1pt</property>
+                    <label id="415">
+                        <text-property name="text">箱唛</text-property>
+                    </label>
+                </cell>
+                <cell id="643">
+                    <property name="paddingTop">1pt</property>
+                    <data id="650">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">shipmarks</property>
+                                <text-property name="displayName">shipmarks</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["shipmarks"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">shipmarks</property>
                     </data>
                 </cell>
             </row>

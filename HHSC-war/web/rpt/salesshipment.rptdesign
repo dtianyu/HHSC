@@ -507,7 +507,7 @@ if (currentRow < detail.size()){
 		dataSetRow["formdate"] = master.getFormdate();
 		dataSetRow["formtype"] = master.getShiptype().getName();
 		dataSetRow["customerno"] = master.getCustomer().getCustomerno();
-		dataSetRow["customer"] = master.getCustomer().getCustomer();
+		dataSetRow["customer"] = master.getCustomer().getFullname();
 		dataSetRow["dept"] = master.getDept().getDept();
 		dataSetRow["salesman"] = master.getSalesman().getUsername();
 		dataSetRow["currency"] = master.getCurrency();
@@ -688,6 +688,8 @@ return false;]]></method>
                 <property name="borderRightWidth">thin</property>
                 <property name="borderTopStyle">none</property>
                 <cell id="235">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
                     <label id="267">
                         <text-property name="text">出货单号</text-property>
                     </label>
@@ -709,6 +711,8 @@ return false;]]></method>
                     </data>
                 </cell>
                 <cell id="237">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
                     <label id="268">
                         <text-property name="text">出货日期</text-property>
                     </label>
@@ -736,6 +740,8 @@ return false;]]></method>
                 <cell id="239">
                     <property name="colSpan">1</property>
                     <property name="rowSpan">1</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
                     <label id="262">
                         <text-property name="text">出货类型</text-property>
                     </label>
@@ -763,11 +769,15 @@ return false;]]></method>
                 <property name="borderRightStyle">solid</property>
                 <property name="borderRightWidth">thin</property>
                 <cell id="363">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
                     <label id="265">
-                        <text-property name="text">客户简称</text-property>
+                        <text-property name="text">客户名称</text-property>
                     </label>
                 </cell>
                 <cell id="364">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <data id="281">
@@ -783,28 +793,9 @@ return false;]]></method>
                         <property name="resultSetColumn">customer</property>
                     </data>
                 </cell>
-                <cell id="365">
-                    <label id="269">
-                        <text-property name="text">负责部门</text-property>
-                    </label>
-                </cell>
-                <cell id="366">
+                <cell id="574">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <data id="441">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">dept</property>
-                                <text-property name="displayName">dept</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["dept"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">dept</property>
-                    </data>
-                </cell>
-                <cell id="574">
                     <label id="266">
                         <text-property name="text">负责业务</text-property>
                     </label>
@@ -824,64 +815,14 @@ return false;]]></method>
                     </data>
                 </cell>
             </row>
-            <row id="424">
-                <property name="borderBottomStyle">solid</property>
-                <property name="borderBottomWidth">thin</property>
-                <property name="borderLeftStyle">solid</property>
-                <property name="borderLeftWidth">thin</property>
-                <property name="borderRightStyle">solid</property>
-                <property name="borderRightWidth">thin</property>
-                <cell id="425">
-                    <label id="431">
-                        <text-property name="text">币别</text-property>
-                    </label>
-                </cell>
-                <cell id="426">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <data id="439">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">currency</property>
-                                <text-property name="displayName">currency</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["currency"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">currency</property>
-                    </data>
-                </cell>
-                <cell id="427">
-                    <label id="432">
-                        <text-property name="text">汇率</text-property>
-                    </label>
-                </cell>
-                <cell id="428">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <data id="438">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">exchange</property>
-                                <text-property name="displayName">exchange</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["exchange"]</expression>
-                                <property name="dataType">float</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">exchange</property>
-                    </data>
-                </cell>
-                <cell id="582"/>
-                <cell id="583"/>
-            </row>
             <row id="489">
                 <property name="borderLeftStyle">solid</property>
                 <property name="borderLeftWidth">thin</property>
                 <property name="borderRightStyle">solid</property>
                 <property name="borderRightWidth">thin</property>
                 <cell id="490">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
                     <label id="496">
                         <text-property name="text">送货地址</text-property>
                     </label>

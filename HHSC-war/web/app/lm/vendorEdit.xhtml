@@ -78,7 +78,13 @@
                         <p:row>
                             <p:column><p:outputLabel value="交易币别" for="currency"/></p:column>
                             <p:column>
-                                <p:inputText id="currency" value="#{vendorManagedBean.currentEntity.currency}" title="currency" />
+                                <p:inputText id="currency" value="#{vendorManagedBean.currentEntity.currency}" title="currency" styleClass="inputWithButton" 
+                                             required="true" requiredMessage="请输入币别"/>
+                                <p:commandButton id="btnCurrencySelect" actionListener="#{vendorManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
+                                                 process="@this" >
+                                    <p:ajax event="dialogReturn" listener="#{vendorManagedBean.handleDialogReturnCurrencyWhenEdit}" 
+                                            update="currency" />
+                                </p:commandButton>
                             </p:column>
                             <p:column><p:outputLabel value="付款条件" for="payment" /></p:column>
                             <p:column>

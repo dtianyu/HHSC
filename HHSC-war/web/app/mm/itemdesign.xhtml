@@ -15,7 +15,7 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="花卉花号" for="queryFormId" />
+                    <h:outputLabel value="花号" for="queryFormId" />
                     <p:inputText id="queryFormId" value="#{itemDesignManagedBean.queryFormId}" title="花号" />
                     <h:outputLabel value="名称" for="queryName" />
                     <p:inputText id="queryName" value="#{itemDesignManagedBean.queryName}" title="名称" />
@@ -63,21 +63,19 @@
                     </f:facet>
                     <h:outputText value="#{item.itemno}"/>
                 </p:column>
-                <p:column styleClass="Ｗid30">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="名称"/>
                     </f:facet>
                     <h:outputText value="#{item.itemdesc}"/>
                 </p:column>
-                <p:column styleClass="Ｗid20">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
-                        <h:outputText value="制版日期"/>
+                        <h:outputText value="规格"/>
                     </f:facet>
-                    <h:outputText value="#{item.opendate}">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
-                    </h:outputText>
+                    <h:outputText value="#{item.itemspec}"/>
                 </p:column>
-                <p:column styleClass="Ｗid20">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="登记人"/>
                     </f:facet>

@@ -5,8 +5,10 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.ejb.CurrencyBean;
 import com.hhsc.ejb.PurchaseOrderBean;
 import com.hhsc.ejb.PurchaseDraftBean;
+import com.hhsc.entity.Currency;
 import com.hhsc.entity.PurchaseOrder;
 import com.hhsc.entity.PurchaseOrderDetail;
 import com.hhsc.entity.PurchaseDraft;
@@ -17,11 +19,13 @@ import com.hhsc.web.SuperSingleBean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.beanutils.BeanUtils;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -33,6 +37,9 @@ import org.primefaces.event.SelectEvent;
 public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
 
     @EJB
+    private CurrencyBean currencyBean;
+
+    @EJB
     private PurchaseDraftBean purchaseDraftBean;
     @EJB
     private PurchaseOrderBean purchaseOrderBean;
@@ -41,6 +48,7 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
 
     private String queryItemno;
     private Vendor queryVendor;
+    private Boolean queryMerga;
 
     public PurchaseInitManagedBean() {
         super(PurchaseDraft.class);
@@ -50,33 +58,33 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
     protected boolean doBeforeVerify() throws Exception {
 
         if (getEntityList() == null || entityList.isEmpty()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可抛转数据"));
+            showWarnMsg("Warn", "没有可抛转数据");
             return false;
         }
         purchaseorderSysprg = sysprgBean.findByAPI("purchaseorder");
         if (purchaseorderSysprg == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "采购作业设定错误"));
+            showErrorMsg("Error", "采购作业设定错误");
             return false;
         }
         if (!purchaseorderSysprg.getNoauto()) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "采购单不是自动编号"));
+            showErrorMsg("Error", "采购单不是自动编号");
             return false;
         }
         PurchaseDraft d = entityList.get(0);
         for (PurchaseDraft entity : entityList) {
             if (!entity.getVendor().equals(queryVendor)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "供应商信息不一致"));
+                showErrorMsg("Error", "供应商信息不一致");
                 return false;
             }
             if ("100".equals(queryState)) {
                 if (!d.getDesignno().equals(entity.getDesignno())) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "相同成品才能产生一笔采购"));
+                    showErrorMsg("Error", "相同成品才能产生一笔采购");
                     return false;
                 }
             }
         }
         if (this.userManagedBean.getCurrentUser().getDept() == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "采购员没有设置部门"));
+            showErrorMsg("Error", "采购员没有设置部门");
             return false;
         }
         return super.doBeforeVerify();
@@ -142,12 +150,23 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
 
     @Override
     public void verify() {
+        Currency c;
+        PurchaseDraft detail;
+        List<PurchaseDraft> draftList = new ArrayList();
         try {
             if (doBeforeVerify()) {
                 String formid = purchaseOrderBean.getFormId(getDate(), purchaseorderSysprg.getNolead(), purchaseorderSysprg.getNoformat(), purchaseorderSysprg.getNoseqlen());
                 if (formid == null || "".equals(formid)) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "采购单无法自动编号"));
+                    showErrorMsg("Error", "采购单无法自动编号");
                     return;
+                }
+                for (PurchaseDraft entity : entityList) {
+                    PurchaseDraft pd = (PurchaseDraft) BeanUtils.cloneBean(entity);
+                    draftList.add(pd);
+                    entity.setStatus("V");
+                    entity.setRelapi("purchaseorder");
+                    entity.setRelformid(formid);
+                    entity.setRelseq(0);
                 }
                 PurchaseOrder p = new PurchaseOrder();
                 p.setFormid(formid);
@@ -162,9 +181,37 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                     p.setItemspec(entityList.get(0).getDesignspec());
                     p.setItemimg(entityList.get(0).getItemdesign().getImg1());
                     p.setVendoritemno(entityList.get(0).getVendoritemno());
+                    p.setShipmarks(entityList.get(0).getShipmarks());
+                    p.setTestremark(entityList.get(0).getTestremark());
+                    p.setProductremark(entityList.get(0).getProductremark());
+                    p.setPackremark(entityList.get(0).getPackremark());
+                } else {
+                    if (draftList.size() > 1 && queryMerga) {
+                        for (int i = 0; i < draftList.size() - 1; i++) {
+                            for (int j = i + 1; j < draftList.size(); j++) {
+                                PurchaseDraft e1 = draftList.get(i);
+                                PurchaseDraft e2 = draftList.get(j);
+                                if ((e1.getItemno().equals(e2.getItemno()))
+                                        && (e1.getTaxtype().equals(e2.getTaxtype())) && (e1.getPrice().compareTo(e2.getPrice()) == 0)) {
+                                    e1.setQty(e1.getQty().add(e2.getQty()));
+                                    e1.setPurqty(e1.getPurqty().add(e2.getPurqty()));
+                                    e1.setAmts(e1.getAmts().add(e2.getAmts()));
+                                    e1.setExtax(e1.getExtax().add(e2.getExtax()));
+                                    e1.setTaxes(e1.getTaxes().add(e2.getTaxes()));
+                                    draftList.remove(j);
+                                    j--;
+                                }
+                            }
+                        }
+                    }
                 }
                 p.setCurrency(queryVendor.getCurrency());
-                p.setExchange(BigDecimal.ONE);//需要替换
+                c = currencyBean.findByCurrency(queryVendor.getCurrency());
+                if (c != null) {
+                    p.setExchange(c.getExchange());
+                } else {
+                    p.setExchange(BigDecimal.ONE);
+                }
                 p.setTaxtype(queryVendor.getTaxtype());
                 p.setTaxkind(queryVendor.getTaxkind());
                 p.setTaxrate(queryVendor.getTaxrate());
@@ -182,52 +229,55 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
 
                 List<PurchaseOrderDetail> purchaseList = new ArrayList<>();
                 int seq = 1;
-                for (PurchaseDraft entity : entityList) {
+                int i = -1;
+                for (PurchaseDraft pd : draftList) {
                     PurchaseOrderDetail d = new PurchaseOrderDetail();
                     d.setSeq(seq);
-                    d.setItemmaster(entity.getItemmaster());
-                    d.setItemno(entity.getItemno());
-                    d.setColorno(entity.getColorno());
-                    if (entity.getCustomer() != null) {
-                        d.setCustomerid(entity.getCustomer().getId());
+                    d.setItemmaster(pd.getItemmaster());
+                    d.setItemno(pd.getItemno());
+                    d.setColorno(pd.getColorno());
+                    if (pd.getCustomer() != null) {
+                        d.setCustomerid(pd.getCustomer().getId());
                     }
-                    d.setCustomeritemno(entity.getCustomeritemno());
-                    d.setCustomercolorno(entity.getCustomercolorno());
-                    d.setVendoritemno(entity.getVendoritemno());
-                    d.setVendorcolorno(entity.getVendorcolorno());
-                    d.setQty(entity.getPurqty());
-                    d.setPrice(entity.getPrice());
-                    d.setUnit(entity.getUnit());
-                    d.setAmts(entity.getAmts());
-                    d.setExtax(entity.getExtax());
-                    d.setTaxes(entity.getTaxes());
-                    d.setRequestdate(entity.getRequestdate());
-                    d.setRequesttime(entity.getRequesttime());
-                    d.setDeliverydate(entity.getDeliverydate());
-                    d.setDeliverytime(entity.getDeliverytime());
-                    d.setDeliveryadd(entity.getDeliveryadd());
-                    d.setRemark(entity.getRemark());
+                    d.setCustomeritemno(pd.getCustomeritemno());
+                    d.setCustomercolorno(pd.getCustomercolorno());
+                    d.setVendoritemno(pd.getVendoritemno());
+                    d.setVendorcolorno(pd.getVendorcolorno());
+                    d.setQty(pd.getPurqty());
+                    d.setPrice(pd.getPrice());
+                    d.setUnit(pd.getUnit());
+                    d.setAmts(pd.getAmts());
+                    d.setExtax(pd.getExtax());
+                    d.setTaxes(pd.getTaxes());
+                    d.setRequestdate(pd.getRequestdate());
+                    d.setRequesttime(pd.getRequesttime());
+                    d.setDeliverydate(pd.getDeliverydate());
+                    d.setDeliverytime(pd.getDeliverytime());
+                    d.setDeliveryadd(pd.getDeliveryadd());
+                    d.setRemark(pd.getRemark());
                     d.setInqty(BigDecimal.ZERO);
                     d.setStatus("00");
                     d.setSrcapi(this.currentSysprg.getApi());
-                    d.setSrcformid(entity.getPurchaserequest().getFormid());
-                    d.setSrcseq(entity.getSeq());
+                    d.setSrcformid(pd.getPurchaserequest().getFormid());
+                    d.setSrcseq(pd.getSeq());
                     purchaseList.add(d);
-                    entity.setStatus("V");
-                    entity.setRelapi("purchaseorder");
-                    entity.setRelformid(formid);
-                    entity.setRelseq(seq);
+                    //请购明细对应采购明细
+                    i = entityList.indexOf(pd);
+                    if (i > -1) {
+                        detail = entityList.get(i);
+                        detail.setRelseq(seq);
+                    }
                     seq++;
                 }
 
                 purchaseOrderBean.initPurchase(p, purchaseList);
-                for (PurchaseDraft entity : entityList) {
+                entityList.forEach((entity) -> {
                     superEJB.verify(entity);
-                }
+                });
                 doAfterVerify();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功!"));
+                showInfoMsg("Info", "更新成功!");
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "审核前检查失败!"));
+                showWarnMsg("Warn", "审核前检查失败!");
             }
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
@@ -260,6 +310,20 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
      */
     public void setQueryVendor(Vendor queryVendor) {
         this.queryVendor = queryVendor;
+    }
+
+    /**
+     * @return the queryMerga
+     */
+    public Boolean getQueryMerga() {
+        return queryMerga;
+    }
+
+    /**
+     * @param queryMerga the queryMerga to set
+     */
+    public void setQueryMerga(Boolean queryMerga) {
+        this.queryMerga = queryMerga;
     }
 
 }

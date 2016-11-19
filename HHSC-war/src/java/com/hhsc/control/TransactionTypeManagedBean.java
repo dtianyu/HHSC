@@ -32,6 +32,8 @@ public class TransactionTypeManagedBean extends SuperSingleBean<TransactionType>
     public void init() {
         this.superEJB = transactionTypeBean;
         setModel(new TransactionTypeModel(transactionTypeBean));
+        this.model.getSortFields().put("sysid", "ASC");
+        this.model.getSortFields().put("trtype", "ASC");
         super.init();
     }
 

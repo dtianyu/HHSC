@@ -142,7 +142,7 @@
                                     <p:commandButton id="btnItemDesign" actionListener="#{salesOrderManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenEdit}" 
-                                                update="itemdesign,itemdesignimg,itemdesignspec" oncomplete="findCustomerItem();"/>
+                                                update="itemdesign,itemdesigndesc,itemdesignimg,itemdesignspec" oncomplete="findCustomerItem();"/>
                                     </p:commandButton>
                                     <p:remoteCommand id="findCustomerItem" name="findCustomerItem" actionListener="#{salesOrderManagedBean.findCustomerItem()}" 
                                                      process="@this" update="customeritemno"/>
@@ -152,9 +152,18 @@
                                 </p:column>
                             </p:row>
                             <p:row>
+                                <p:column><p:outputLabel value="品名" for="itemdesigndesc" /></p:column>
+                                <p:column>
+                                    <h:outputText id="itemdesigndesc" value="#{salesOrderManagedBean.currentEntity.itemmaster.itemdesc}" title="designdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column><p:outputLabel value="成品规格" for="itemdesignspec" /></p:column>
                                 <p:column>
-                                    <p:inputText id="itemdesignspec"  value="#{salesOrderManagedBean.currentEntity.itemspec}" title="itemdesignspec" />
+                                    <p:inputText id="itemdesignspec"  value="#{salesOrderManagedBean.currentEntity.itemspec}" title="itemdesignspec" styleClass="inputWithButton" 
+                                                 required="true" requiredMessage="请输入成品规格"/>
+                                    <p:commandButton id="btnDesignspecSelect" actionListener="#{salesOrderManagedBean.openDialog('designspecSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this,itemdesign" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -162,24 +171,15 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="customeritemno" value="#{salesOrderManagedBean.currentEntity.customeritemno}" title="Customeritemno" />
                                 </p:column>
-                            </p:row>                 
+                            </p:row>
                             <p:row>
-                                <p:column><p:outputLabel value="套数" for="designsets" /></p:column>
+                                <p:column></p:column>
                                 <p:column>
-                                    <p:inputText id="designsets" value="#{salesOrderManagedBean.currentEntity.designsets}" title="Designsets" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column><p:outputLabel value="版费单价" for="designprice" /></p:column>
+                                <p:column></p:column>
                                 <p:column>
-                                    <p:inputText id="designprice" value="#{salesOrderManagedBean.currentEntity.designprice}" title="Designprice" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="合计版费" for="totaldesign" /></p:column>
-                                <p:column>
-                                    <p:inputText id="totaldesign" value="#{salesOrderManagedBean.currentEntity.totaldesign}" title="totaldesign" 
-                                                 disabled="true"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -207,7 +207,7 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="箱麦" for="shipmarks" /></p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="箱唛" for="shipmarks" /></p:column>
                                 <p:column colspan="3">
                                     <p:inputTextarea rows="2" id="shipmarks" value="#{salesOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks" styleClass="Wid100"/>
                                 </p:column>
@@ -300,6 +300,13 @@
                                 </p:column>
                             </p:row>
                             <p:row>
+                                <p:column><p:outputLabel value="印花交期" for="printdate" /></p:column>
+                                <p:column>
+                                    <p:calendar id="printdate" value="#{salesOrderManagedBean.currentDetail.printdate}" title="printdate" 
+                                                pattern="yyyy/MM/dd">
+                                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                                    </p:calendar>
+                                </p:column>
                                 <p:column><p:outputLabel value="预计交期" for="deliverydate" /></p:column>
                                 <p:column>
                                     <p:calendar id="deliverydate" value="#{salesOrderManagedBean.currentDetail.deliverydate}" title="Deliverydate" 
@@ -307,11 +314,14 @@
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </p:calendar>
                                 </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column><p:outputLabel value="明细备注" for="dremark" /></p:column>
-                                <p:column>
+                                <p:column colspan="3">
                                     <p:inputText id="dremark" value="#{salesOrderManagedBean.currentDetail.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
+
                         </p:panelGrid>
                         <p:dataTable id="detailList" value="#{salesOrderManagedBean.detailList}" var="item" styleClass="tableList"
                                      selectionMode="single" selection="#{salesOrderManagedBean.currentDetail}" rowKey="#{item.seq}" >

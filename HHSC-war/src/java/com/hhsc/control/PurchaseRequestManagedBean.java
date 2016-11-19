@@ -210,7 +210,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
     }
 
     public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && currentDetail != null) {
             Unit entity = (Unit) event.getObject();
             this.currentDetail.setUnit(entity.getUnit());
         }

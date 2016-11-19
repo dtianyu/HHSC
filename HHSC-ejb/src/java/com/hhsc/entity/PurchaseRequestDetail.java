@@ -178,6 +178,20 @@ public class PurchaseRequestDetail extends FormDetailEntity {
     @Size(max = 200)
     @Column(name = "deliveryadd")
     private String deliveryadd;
+    
+    @Size(max = 200)
+    @Column(name = "shipmarks")
+    private String shipmarks;
+    @Size(max = 200)
+    @Column(name = "testremark")
+    private String testremark;
+    @Size(max = 200)
+    @Column(name = "productremark")
+    private String productremark;
+    @Size(max = 200)
+    @Column(name = "packremark")
+    private String packremark;
+        
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
@@ -767,6 +781,62 @@ public class PurchaseRequestDetail extends FormDetailEntity {
      */
     public void setDesignno(String designno) {
         this.designno = designno;
+    }
+
+    /**
+     * @return the shipmarks
+     */
+    public String getShipmarks() {
+        return shipmarks;
+    }
+
+    /**
+     * @param shipmarks the shipmarks to set
+     */
+    public void setShipmarks(String shipmarks) {
+        this.shipmarks = shipmarks;
+    }
+
+    /**
+     * @return the testremark
+     */
+    public String getTestremark() {
+        return testremark;
+    }
+
+    /**
+     * @param testremark the testremark to set
+     */
+    public void setTestremark(String testremark) {
+        this.testremark = testremark;
+    }
+
+    /**
+     * @return the productremark
+     */
+    public String getProductremark() {
+        return productremark;
+    }
+
+    /**
+     * @param productremark the productremark to set
+     */
+    public void setProductremark(String productremark) {
+        this.productremark = productremark;
+    }
+
+    /**
+     * @return the packremark
+     */
+    public String getPackremark() {
+        return packremark;
+    }
+
+    /**
+     * @param packremark the packremark to set
+     */
+    public void setPackremark(String packremark) {
+        this.packremark = packremark;
     }
 
 }

@@ -15,30 +15,29 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="原始单号" for="queryformid" />
-                    <p:inputText id="queryformid" value="#{accountReceivableQueryBean.queryFormId}" title="原始单号" />
+                    <h:outputLabel value="发票编号" for="queryformid" />
+                    <p:inputText id="queryformid" value="#{accountReceivableQueryBean.queryFormId}" title="发票编号" />
                     <h:outputLabel value="状态" for="queryState" />
                     <p:selectOneMenu id="queryState" value="#{accountReceivableQueryBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
-                        <f:selectItem itemLabel="已验收" itemValue="50"/>
-                        <f:selectItem itemLabel="已开票" itemValue="BF"/>
-                        <f:selectItem itemLabel="已收款" itemValue="R0"/>
+                        <f:selectItem itemLabel="未结清" itemValue="V"/>
                         <f:selectItem itemLabel="已结清" itemValue="RF"/>
                     </p:selectOneMenu>
-                    <h:outputLabel value="品号" for="queryItemno" />
-                    <p:inputText id="queryItemno" value="#{accountReceivableQueryBean.queryItemno}" title="品号" />
-                    <h:outputLabel value="品名" for="queryName" />
-                    <p:inputText id="queryName" value="#{accountReceivableQueryBean.queryName}" title="品名" />
-                    <h:outputLabel value="原始日期" for="queryDateBegin" />
-                    <p:calendar id="queryDateBegin" value="#{accountReceivableQueryBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="客户编号" for="queryItemno" />
+                    <p:inputText id="queryItemno" value="#{accountReceivableQueryBean.queryCustomerno}" title="客户编号" />
+                    <h:outputLabel value="客户简称" for="queryName" />
+                    <p:inputText id="queryName" value="#{accountReceivableQueryBean.queryName}" title="客户简称" />
+                    <h:outputLabel value="发票日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{accountReceivableQueryBean.queryDateBegin}" title="发票日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
-                    <p:calendar id="queryDateEnd" value="#{accountReceivableQueryBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <p:calendar id="queryDateEnd" value="#{accountReceivableQueryBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{accountReceivableQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{accountReceivableQueryBean.view('')}" icon="ui-icon-document"/>
+                    <p:commandButton id="btnView" value="查看" action="#{accountReceivableQueryBean.view('')}" icon="ui-icon-document"
+                                     rendered="false"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" value="编辑" action="#{accountReceivableQueryBean.edit('')}" icon="ui-icon-pencil"
@@ -62,65 +61,65 @@
                          rowsPerPageTemplate="15,30,45"  lazy="true" 
                          selectionMode="single" selection="#{accountReceivableQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    原始明细查询
+                    应收账款查询
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="原始单号"/>
+                        <h:outputText value="发票编号"/>
                     </f:facet>
-                    <h:outputText value="#{item.purchaseOrder.formid}"/>
+                    <h:outputText value="#{item.formid}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="原始日期"/>
+                        <h:outputText value="发票日期"/>
                     </f:facet>
-                    <h:outputText value="#{item.purchaseOrder.formdate}">
+                    <h:outputText value="#{item.formdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
-                <p:column styleClass="Wid10">
+                <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        <h:outputText value="供应商"/>
+                        <h:outputText value="客户"/>
                     </f:facet>
-                    <h:outputText value="#{item.purchaseOrder.vendor.vendor}"/>
+                    <h:outputText value="#{item.customer.customer}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="品号"/>
+                        <h:outputText value="币别"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemno}"/>
-                </p:column>
-                <p:column styleClass="Wid10">
+                    <h:outputText value="#{item.currency}"/>
+                </p:column>                 
+                <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="品名"/>
+                        <h:outputText value="金额"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemmaster.itemdesc}"/>
+                    <h:outputText value="#{item.extaxs}"/>
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="数量"/>
+                        <h:outputText value="税额"/>
                     </f:facet>
-                    <h:outputText value="#{item.qty}"/>
-                </p:column>
-                <p:column styleClass="Wid10">
-                    <f:facet name="header">
-                        <h:outputText value="单位"/>
-                    </f:facet>
-                    <h:outputText value="#{item.unit}"/>
+                    <h:outputText value="#{item.taxess}"/>
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="已验收"/>
+                        <h:outputText value="应收"/>
                     </f:facet>
-                    <h:outputText value="#{item.inqty}"/>
+                    <h:outputText value="#{item.amts}"/>
                 </p:column>
-                <p:column styleClass="Wid10">
+                <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
-                        <h:outputText value="状态"/>
+                        <h:outputText value="已收"/>
                     </f:facet>
-                    <h:outputText value="#{item.status}"/>
+                    <h:outputText value="#{item.recamts}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="余额"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amts - item.recamts}"/>
                 </p:column>
             </p:dataTable>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

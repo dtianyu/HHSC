@@ -16,6 +16,7 @@ import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.PurchaseOrder;
 import com.hhsc.entity.PurchaseOrderDetail;
 import com.hhsc.entity.SystemUser;
+import com.hhsc.entity.Unit;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.PurchaseOrderModel;
@@ -243,6 +244,13 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         }
     }
 
+    public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentDetail != null) {
+            Unit entity = (Unit) event.getObject();
+            this.currentDetail.setUnit(entity.getUnit());
+        }
+    }
+
     @Override
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
@@ -260,6 +268,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         this.superEJB = purchaseOrderBean;
         this.detailEJB = purchaseOrderDetailBean;
         setModel(new PurchaseOrderModel(purchaseOrderBean));
+        this.model.getFilterFields().put("status", "N");
         setSystemUserList(systemUserBean.findAll());
         setDeptList(departmentBean.findAll());
         super.init();
@@ -299,6 +308,38 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         }
 
     }
+    
+    public void print(String reportDesignFile) throws Exception {
+        if (currentEntity == null) {
+            showWarnMsg("Warn", "没有可打印数据");
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("formid", currentEntity.getFormid());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + reportDesignFile + currentEntity.getPurtype() + ".rptdesign";;
+        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
+        try {
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
 
     @Override
     public void query() {
@@ -329,6 +370,12 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
     protected void reportInitAndConfig() {
         super.reportInitAndConfig();
         reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, PurchaseOrderReport.class.getClassLoader());
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        this.model.getFilterFields().put("status", "N");
     }
 
     /**
