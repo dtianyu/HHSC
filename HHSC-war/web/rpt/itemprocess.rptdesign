@@ -65,17 +65,17 @@
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">itemdesigndesc</property>
+                    <property name="name">itemdesc</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
-                    <property name="name">itemdesignspec</property>
+                    <property name="name">itemspec</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">5</property>
-                    <property name="name">itemdesignmake</property>
+                    <property name="name">itemmake</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -128,6 +128,21 @@
                     <property name="name">ckreq</property>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">colorno</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">designspec</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">remark</property>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
@@ -137,13 +152,13 @@
                     <property name="columnName">itemdesign</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itemdesigndesc</property>
+                    <property name="columnName">itemdesc</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itemdesignspec</property>
+                    <property name="columnName">itemspec</property>
                 </structure>
                 <structure>
-                    <property name="columnName">itemdesignmake</property>
+                    <property name="columnName">itemmake</property>
                 </structure>
                 <structure>
                     <property name="columnName">itemdesignimg</property>
@@ -175,6 +190,15 @@
                 <structure>
                     <property name="columnName">ckreq</property>
                 </structure>
+                <structure>
+                    <property name="columnName">colorno</property>
+                </structure>
+                <structure>
+                    <property name="columnName">designspec</property>
+                </structure>
+                <structure>
+                    <property name="columnName">remark</property>
+                </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
@@ -190,17 +214,17 @@
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">itemdesigndesc</property>
+                        <property name="name">itemdesc</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">itemdesignspec</property>
+                        <property name="name">itemspec</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">5</property>
-                        <property name="name">itemdesignmake</property>
+                        <property name="name">itemmake</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -253,6 +277,21 @@
                         <property name="name">ckreq</property>
                         <property name="dataType">string</property>
                     </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">colorno</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">designspec</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">remark</property>
+                        <property name="dataType">string</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
@@ -269,10 +308,13 @@ currentRow = 0;]]></method>
 if(currentRow == 0){
 
 	dataSetRow["itemdesign"] = master.getItemno();
-	dataSetRow["itemdesigndesc"] = master.getItemmaster().getItemdesc();
-	dataSetRow["itemdesignspec"] = master.getItemmaster().getItemspec();
+	dataSetRow["itemdesc"] = master.getItemmaster().getItemdesc();
+	dataSetRow["itemspec"] = master.getItemmaster().getItemspec();
 	dataSetRow["itemdesignimg"] = "http://localhost:8480/HHSC-war/resources/upload/img/" + master.getItemmaster().getImg1();
-	
+	dataSetRow["itemmake"] = master.getItemmaster().getItemmake();
+	dataSetRow["colorno"] = master.getColorno();
+	dataSetRow["designspec"] = master.getItemspec();
+	dataSetRow["remark"] = master.getRemark();
 	dataSetRow["hgreq"] = master.getHgreq();
 	dataSetRow["zbreq"] = master.getZbreq();
 	dataSetRow["psreq"] = master.getPsreq();		
@@ -569,6 +611,18 @@ return false;]]></method>
                 <cell id="238">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
+                    <data id="771">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">colorno</property>
+                                <text-property name="displayName">colorno</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["colorno"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">colorno</property>
+                    </data>
                 </cell>
                 <cell id="239">
                     <property name="colSpan">2</property>
@@ -609,17 +663,17 @@ return false;]]></method>
                     <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <data id="703">
+                    <data id="772">
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>
-                                <property name="name">itemdesigndesc</property>
-                                <text-property name="displayName">itemdesigndesc</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["itemdesigndesc"]</expression>
+                                <property name="name">itemdesc</property>
+                                <text-property name="displayName">itemdesc</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemdesc"]</expression>
                                 <property name="dataType">string</property>
                             </structure>
                         </list-property>
-                        <property name="resultSetColumn">itemdesigndesc</property>
+                        <property name="resultSetColumn">itemdesc</property>
                     </data>
                 </cell>
             </row>
@@ -642,17 +696,17 @@ return false;]]></method>
                     <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <data id="440">
+                    <data id="773">
                         <property name="dataSet">dataDetail</property>
                         <list-property name="boundDataColumns">
                             <structure>
-                                <property name="name">itemdesignspec</property>
-                                <text-property name="displayName">itemdesignspec</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["itemdesignspec"]</expression>
+                                <property name="name">itemspec</property>
+                                <text-property name="displayName">itemspec</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemspec"]</expression>
                                 <property name="dataType">string</property>
                             </structure>
                         </list-property>
-                        <property name="resultSetColumn">itemdesignspec</property>
+                        <property name="resultSetColumn">itemspec</property>
                     </data>
                 </cell>
             </row>
@@ -675,6 +729,18 @@ return false;]]></method>
                     <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
+                    <data id="774">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">itemmake</property>
+                                <text-property name="displayName">itemmake</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["itemmake"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">itemmake</property>
+                    </data>
                 </cell>
             </row>
             <row id="255">
@@ -687,8 +753,8 @@ return false;]]></method>
                 <cell id="256">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <label id="269">
-                        <text-property name="text">其他</text-property>
+                    <label id="705">
+                        <text-property name="text">制版规格</text-property>
                     </label>
                 </cell>
                 <cell id="257">
@@ -696,6 +762,18 @@ return false;]]></method>
                     <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
+                    <data id="775">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">designspec</property>
+                                <text-property name="displayName">designspec</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["designspec"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">designspec</property>
+                    </data>
                 </cell>
             </row>
             <row id="424">
@@ -708,16 +786,25 @@ return false;]]></method>
                 <cell id="425">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <label id="705"/>
+                    <label id="699">
+                        <text-property name="text">工艺</text-property>
+                    </label>
                 </cell>
                 <cell id="426">
-                    <property name="colSpan">1</property>
+                    <property name="colSpan">3</property>
                     <property name="rowSpan">1</property>
-                </cell>
-                <cell id="706"/>
-                <cell id="707">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
+                    <data id="776">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">remark</property>
+                                <text-property name="displayName">remark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">remark</property>
+                    </data>
                 </cell>
             </row>
             <row id="369">
@@ -730,7 +817,9 @@ return false;]]></method>
                 <cell id="370">
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
-                    <label id="699"/>
+                    <label id="269">
+                        <text-property name="text">其他</text-property>
+                    </label>
                 </cell>
                 <cell id="371"/>
                 <cell id="372"/>
@@ -1015,7 +1104,7 @@ return false;]]></method>
                     <property name="borderRightWidth">thin</property>
                     <property name="paddingTop">1pt</property>
                     <label id="412">
-                        <text-property name="text">放样要求</text-property>
+                        <text-property name="text">染色要求</text-property>
                     </label>
                 </cell>
                 <cell id="396">

@@ -26,7 +26,7 @@
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{accountReceiptManagedBean.print()}" icon="ui-icon-print"
-                                     rendered="#{accountReceiptManagedBean.doPrt}"/> 
+                                     rendered="#{accountReceiptManagedBean.doPrt}" process="@this"/> 
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售收款－查看">

@@ -74,6 +74,19 @@ public class AccountReceiptManagedBean extends FormMultiBean<AccountReceipt, Acc
         currentEntity.setRecamt(amt);
     }
 
+    @Override
+    public void deleteDetail() {
+        super.deleteDetail();
+        BigDecimal amts = BigDecimal.ZERO;
+        BigDecimal amt = BigDecimal.ZERO;
+        for (AccountReceiptDetail ar : detailList) {
+            amts = amts.add(ar.getRecamts());
+            amt = amt.add(ar.getRecamt());
+        }
+        currentEntity.setRecamts(amts);
+        currentEntity.setRecamt(amt);
+    }
+
     public void handleDialogReturnCurrencyWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
             Currency entity = (Currency) event.getObject();

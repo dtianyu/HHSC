@@ -17,7 +17,8 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.persist()}" icon="ui-icon-disk" 
-                                     process="@this,plgNew,:formNew:tabView:plgEdit" update="plgNew,:formNew:tabView:plgEdit,:formNew:tabView:tableList"/>                                
+                                     rendered="#{customerManagedBean.doAdd}"
+                                     process="@this,plgNew,:formNew:tabView:plgEdit" update="formNew"/>                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelNew" header="客户登记－新增">

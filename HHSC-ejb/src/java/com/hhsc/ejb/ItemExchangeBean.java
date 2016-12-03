@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -34,6 +35,16 @@ public class ItemExchangeBean extends SuperBean<ItemExchange> {
 
     public ItemExchangeBean() {
         super(ItemExchange.class);
+    }
+
+    public List<ItemExchange> findByReason(String value) {
+        Query query = this.getEntityManager().createNamedQuery("ItemExchange.findByReason");
+        query.setParameter("reason", value);
+        try {
+            return query.getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override

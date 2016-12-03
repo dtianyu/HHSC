@@ -12,6 +12,7 @@ import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMulti3ManagedBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -132,7 +133,38 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, V extends SuperDeta
 
     @Override
     public void print() throws Exception {
-
+        if (currentEntity == null) {
+            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            return;
+        }
+        //设置报表参数
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", currentEntity.getId());
+        params.put("pid", currentEntity.getId());
+        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        //设置报表名称
+        String reportFormat;
+        if (this.currentSysprg.getRptformat() != null) {
+            reportFormat = this.currentSysprg.getRptformat();
+        } else {
+            reportFormat = reportOutputFormat;
+        }
+        String reportName = reportPath + this.currentSysprg.getRptdesign();
+        String outputName = reportOutputPath + currentEntity.getId() + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getId() + "." + reportFormat;
+        try {
+            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            }
+            //初始配置
+            this.reportInitAndConfig();
+            //生成报表
+            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            //预览报表
+            this.preview();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
@@ -148,18 +180,6 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, V extends SuperDeta
     @Override
     public void push() {
         buildJsonArray();
-    }
-
-    @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-            try {
-                reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, Class.forName(this.currentSysprg.getRptclazz()).getClassLoader());
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(SuperSingleBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
     @Override

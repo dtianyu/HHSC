@@ -14,18 +14,20 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="花号" for="designid" />
-                    <p:inputText id="designid" value="#{productionOrderManagedBean.designno}" title="花号" />
-                    <h:outputLabel value="订单状态" for="queryState" />
-                    <p:selectOneMenu id="queryState" value="#{productionOrderManagedBean.queryState}" title="状态" >
-                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
-                        <f:selectItem itemLabel="未提交" itemValue="N"/>
-                        <f:selectItem itemLabel="已提交" itemValue="V"/>
-                    </p:selectOneMenu>
+                    <h:outputLabel value="花号" for="queryDesignno" />
+                    <p:inputText id="queryDesignno" value="#{productionOrderManagedBean.queryDesignno}" title="花号" />
+                    <h:outputLabel value="单号" for="queryFormId" />
+                    <p:inputText id="queryFormId" value="#{productionOrderManagedBean.queryFormId}" title="单号" />
                     <h:outputLabel value="制令日期" for="queryDateBegin" />
                     <p:calendar id="queryDateBegin" value="#{productionOrderManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
-                    <p:calendar id="queryDateEnd" value="#{productionOrderManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <p:calendar id="queryDateEnd" value="#{productionOrderManagedBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="订单状态" for="queryState" />
+                    <p:selectOneMenu id="queryState" value="#{productionOrderManagedBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="未审核" itemValue="N"/>
+                        <f:selectItem itemLabel="已审核" itemValue="V"/>
+                    </p:selectOneMenu>
                 </p:panelGrid>
             </p:panel>
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>

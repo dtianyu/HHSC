@@ -1,0 +1,276 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="出货单号" for="queryFormId" />
+                    <p:inputText id="queryFormId" value="#{salesShipmentDetailQueryBean.queryFormId}" title="出货单号" />
+                    <h:outputLabel value="客户简称" for="queryCustomer" />
+                    <p:inputText id="queryCustomer" value="#{salesShipmentDetailQueryBean.queryCustomer}" title="客户简称" />
+                    <h:outputLabel value="品号" for="queryItemno" />
+                    <p:inputText id="queryItemno" value="#{salesShipmentDetailQueryBean.queryItemno}" title="品号" />
+                    <h:outputLabel value="品名" for="queryName" />
+                    <p:inputText id="queryName" value="#{salesShipmentDetailQueryBean.queryName}" title="品名" />
+                    <h:outputLabel value="出货日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{salesShipmentDetailQueryBean.queryDateBegin}" title="出货日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="截止日期" for="queryDateEnd" />
+                    <p:calendar id="queryDateEnd" value="#{salesShipmentDetailQueryBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="状态" for="queryState" />
+                    <p:selectOneMenu id="queryState" value="#{salesShipmentDetailQueryBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="未提交" itemValue="N"/>
+                        <f:selectItem itemLabel="已提交" itemValue="V"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </p:panel>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{salesShipmentDetailQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{salesShipmentDetailQueryBean.view('')}" icon="ui-icon-document"
+                                     rendered="false"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnEdit" value="编辑" action="#{salesShipmentDetailQueryBean.edit('')}" icon="ui-icon-pencil"
+                                     rendered="false" />
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{salesShipmentDetailQueryBean.delete()}" icon="ui-icon-trash"
+                                     rendered="false" update=":formList">
+                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{salesShipmentDetailQueryBean.unverify()}" icon="ui-icon-unlocked"
+                                     rendered="false"  update=":formList"/>
+                    <p:commandButton id="btnCreate" value="新增" action="#{salesShipmentDetailQueryBean.create('')}" icon="ui-icon-plus"
+                                     rendered="false"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{salesShipmentDetailQueryBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{salesShipmentDetailQueryBean.query()}"  icon="ui-icon-search"
+                                     update=":formList"/>
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable id="detailList" value="#{salesShipmentDetailQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
+                         selectionMode="single"  selection="#{salesShipmentDetailQueryBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    出货明细查询
+                </f:facet>
+                <p:ajax event="rowSelect"  update="formList:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="出货单号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.salesShipment.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="华卉品号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemno}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="华卉色号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.colorno}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="面料编号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.batch}"/>
+                </p:column>
+                <p:column  styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qty}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="单位"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unit}"/>
+                </p:column>
+                <p:column  styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="仓库"/>
+                    </f:facet>
+                    <h:outputText value="#{item.warehouse.name}"/>
+                </p:column>
+                <p:column  styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="不良"/>
+                    </f:facet>
+                    <h:outputText value="#{item.badqty}"/>
+                </p:column>
+                <p:column  styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="不良仓库"/>
+                    </f:facet>
+                    <h:outputText value="#{item.warehouse2.name}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="合同编号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.srcformid}"/>
+                </p:column>
+            </p:dataTable>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
+                <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="出货日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="出货类型" /></p:column>
+                        <p:column>
+                            <h:outputText id="shiptype" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.shiptype.name}" title="type" />
+                        </p:column>
+                        <p:column><h:outputText value="部门" /></p:column>
+                        <p:column>
+                            <h:outputText id="deptid" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.dept.dept}" title="Deptid" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="客户" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customer" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.customer.customer}" title="customer"  />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="业务员"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="salesman" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.salesman.username}"  title="Salesman" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="币别" /></p:column>
+                        <p:column>
+                            <h:outputText id="currency" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.currency}" title="Currency" />
+                        </p:column>
+                        <p:column><h:outputText value="汇率" /></p:column>
+                        <p:column>
+                            <h:outputText id="exchange" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.exchange}" title="Exchange"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="税别" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="taxtype" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.taxtype}" title="Taxtype"
+                                             required="true" requiredMessage="请输入税别" disabled="true">
+                                <f:selectItem itemLabel="内含" itemValue="0" />
+                                <f:selectItem itemLabel="外加" itemValue="1" />
+                                <f:selectItem itemLabel="零税" itemValue="2" />
+                                <f:selectItem itemLabel="免税" itemValue="3" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="税率"/></p:column>
+                        <p:column>
+                            <h:outputText id="taxrate" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.taxrate}" title="taxrate" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="出货地址" for="shipadd" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="shipadd" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.shipadd}" title="Shpadd" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="出货备注" for="remark" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark" value="#{salesShipmentDetailQueryBean.currentEntity.salesShipment.remark}" title="remark" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="客户品号"/></p:column>
+                        <p:column>
+                            <h:outputText id="customeritemno" value="#{salesShipmentDetailQueryBean.currentEntity.customeritemno}" title="customeritemno" />
+                        </p:column>
+                        <p:column><h:outputText value="华卉品号"/></p:column>
+                        <p:column>
+                            <h:outputText value="#{salesShipmentDetailQueryBean.currentEntity.itemno}" title="Itemno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customercolorno" value="#{salesShipmentDetailQueryBean.currentEntity.customercolorno}" title="Customercolorno" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="华卉色号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="colorno" value="#{salesShipmentDetailQueryBean.currentEntity.colorno}" title="Colorno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="面料编号" /></p:column>
+                        <p:column>
+                            <h:outputText id="batch" value="#{salesShipmentDetailQueryBean.currentEntity.batch}" />
+                        </p:column>
+                        <p:column><h:outputText value="面料品名" /></p:column>
+                        <p:column>
+                            <h:outputText id="itemBatch" value="#{salesShipmentDetailQueryBean.currentEntity.itemBatch.itemdesc}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="可出数量" /></p:column>
+                        <p:column>
+                            <h:outputText id="allowqty" value="#{salesShipmentDetailQueryBean.currentEntity.allowqty}" title="allowqty" />
+                        </p:column>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{salesShipmentDetailQueryBean.currentEntity.unit}" title="Unit" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="仓库" for="warehouse" /></p:column>
+                        <p:column>
+                            <h:outputText id="warehouse" value="#{salesShipmentDetailQueryBean.currentEntity.warehouse.name}" title="warehouse"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="数量" for="qty" /></p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{salesShipmentDetailQueryBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="不良仓库" for="warehouse2" /></p:column>
+                        <p:column>
+                            <h:outputText id="warehouse2" value="#{salesShipmentDetailQueryBean.currentEntity.warehouse2.name}" title="warehouse2" />
+                        </p:column>
+                        <p:column><p:outputLabel value="不良数量" for="badqty"/></p:column>
+                        <p:column>
+                            <h:outputText id="badqty" value="#{salesShipmentDetailQueryBean.currentEntity.badqty}" title="badqty"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

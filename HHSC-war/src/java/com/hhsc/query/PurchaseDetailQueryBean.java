@@ -25,6 +25,7 @@ public class PurchaseDetailQueryBean extends SuperQueryBean<PurchaseDetail> {
     private PurchaseDetailBean purchaseDetailBean;
 
     protected String queryItemno;
+    private String queryVendor;
 
     public PurchaseDetailQueryBean() {
         super(PurchaseDetail.class);
@@ -43,6 +44,9 @@ public class PurchaseDetailQueryBean extends SuperQueryBean<PurchaseDetail> {
             this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("purchaseOrder.formid", queryFormId);
+            }
+            if (queryVendor != null && !"".equals(queryVendor)) {
+                this.model.getFilterFields().put("purchaseOrder.vendor.vendor", queryVendor);
             }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("purchaseOrder.formdateBegin", queryDateBegin);
@@ -79,6 +83,20 @@ public class PurchaseDetailQueryBean extends SuperQueryBean<PurchaseDetail> {
      */
     public void setQueryItemno(String queryItemno) {
         this.queryItemno = queryItemno;
+    }
+
+    /**
+     * @return the queryVendor
+     */
+    public String getQueryVendor() {
+        return queryVendor;
+    }
+
+    /**
+     * @param queryVendor the queryVendor to set
+     */
+    public void setQueryVendor(String queryVendor) {
+        this.queryVendor = queryVendor;
     }
 
 }

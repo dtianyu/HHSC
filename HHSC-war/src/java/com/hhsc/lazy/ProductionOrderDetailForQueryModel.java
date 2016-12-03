@@ -8,9 +8,6 @@ package com.hhsc.lazy;
 import com.hhsc.entity.ProductionOrderDetailForQuery;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
-import java.util.List;
-import java.util.Map;
-import org.primefaces.model.SortOrder;
 
 /**
  *

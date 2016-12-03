@@ -30,19 +30,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "accountreceivable")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AccountReceivable.findAll", query = "SELECT a FROM AccountReceivable a"),
-    @NamedQuery(name = "AccountReceivable.findById", query = "SELECT a FROM AccountReceivable a WHERE a.id = :id"),
-    @NamedQuery(name = "AccountReceivable.findByFormid", query = "SELECT a FROM AccountReceivable a WHERE a.formid = :formid"),
-    @NamedQuery(name = "AccountReceivable.findByFormdate", query = "SELECT a FROM AccountReceivable a WHERE a.formdate = :formdate"),
-    @NamedQuery(name = "AccountReceivable.findByCustomerid", query = "SELECT a FROM AccountReceivable a WHERE a.customer.id = :customerid"),
-    @NamedQuery(name = "AccountReceivable.findByDeptid", query = "SELECT a FROM AccountReceivable a WHERE a.deptid = :deptid"),
-    @NamedQuery(name = "AccountReceivable.findBySalerid", query = "SELECT a FROM AccountReceivable a WHERE a.salerid = :salerid"),
+    @NamedQuery(name = "AccountReceivable.findAll", query = "SELECT a FROM AccountReceivable a")
+    ,
+    @NamedQuery(name = "AccountReceivable.findById", query = "SELECT a FROM AccountReceivable a WHERE a.id = :id")
+    ,
+    @NamedQuery(name = "AccountReceivable.findByFormid", query = "SELECT a FROM AccountReceivable a WHERE a.formid = :formid")
+    ,
+    @NamedQuery(name = "AccountReceivable.findByFormdate", query = "SELECT a FROM AccountReceivable a WHERE a.formdate = :formdate")
+    ,
+    @NamedQuery(name = "AccountReceivable.findByCustomerid", query = "SELECT a FROM AccountReceivable a WHERE a.customer.id = :customerid")
+    ,
+    @NamedQuery(name = "AccountReceivable.findByDeptid", query = "SELECT a FROM AccountReceivable a WHERE a.deptid = :deptid")
+    ,
+    @NamedQuery(name = "AccountReceivable.findBySalerid", query = "SELECT a FROM AccountReceivable a WHERE a.salerid = :salerid")
+    ,
     @NamedQuery(name = "AccountReceivable.findByStatus", query = "SELECT a FROM AccountReceivable a WHERE a.status = :status")})
 public class AccountReceivable extends FormEntity {
+
+    @JoinColumn(name = "salerid", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private SystemUser systemUser;
 
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Customer customer;
+
     @Column(name = "deptid")
     private Integer deptid;
     @Basic(optional = true)
@@ -368,6 +380,20 @@ public class AccountReceivable extends FormEntity {
      */
     public void setTaxrate(BigDecimal taxrate) {
         this.taxrate = taxrate;
+    }
+
+    /**
+     * @return the systemUser
+     */
+    public SystemUser getSystemUser() {
+        return systemUser;
+    }
+
+    /**
+     * @param systemUser the systemUser to set
+     */
+    public void setSystemUser(SystemUser systemUser) {
+        this.systemUser = systemUser;
     }
 
     public void calcLocalAmounts() {

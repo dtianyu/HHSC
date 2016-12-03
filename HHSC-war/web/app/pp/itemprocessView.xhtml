@@ -53,7 +53,7 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column><h:outputText value="制版规格"/></p:column>
                         <p:column colspan="3">
                             <h:outputText id="itemspec" value="#{itemProcessManagedBean.currentEntity.itemspec}" title="itemspec" />
                         </p:column>
@@ -61,7 +61,7 @@
                     <p:row>
                         <p:column><h:outputText value="备注" /></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="remark" value="#{processManagedBean.currentEntity.remark}" title="Remark" />
+                            <h:outputText id="remark" value="#{itemProcessManagedBean.currentEntity.remark}" title="Remark" />
                         </p:column>                   
                     </p:row>                   
                 </p:panelGrid>
@@ -71,7 +71,7 @@
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100" >
                             <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="放样要求" for="fyreq" /></p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="染色要求" for="fyreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
                                     <p:inputTextarea id="fyreq" rows="3" value="#{itemProcessManagedBean.currentEntity.fyreq}" title="fyreq" 
                                                      styleClass="Wid90" readonly="true" />

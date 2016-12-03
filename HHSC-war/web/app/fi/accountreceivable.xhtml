@@ -40,25 +40,19 @@
                                      rendered="false"/>
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{accountReceivableQueryBean.print()}"  icon="ui-icon-print"
+                                     rendered="#{accountReceivableQueryBean.doPrt}" process="@this"/>
                     <p:commandButton id="btnEdit" value="编辑" action="#{accountReceivableQueryBean.edit('')}" icon="ui-icon-pencil"
-                                     rendered="false" />                                                     
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{accountReceivableQueryBean.delete()}" icon="ui-icon-trash" 
-                                     rendered="false" update=":formList">
-                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{accountReceivableQueryBean.unverify()}" icon="ui-icon-unlocked" 
-                                     rendered="#{accountReceivableQueryBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{accountReceivableQueryBean.create('')}" icon="ui-icon-plus"
-                                     rendered="#{accountReceivableQueryBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{accountReceivableQueryBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{accountReceivableQueryBean.query()}"  icon="ui-icon-search"  
+                                     rendered="false" />
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{accountReceivableQueryBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{accountReceivableQueryBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar> 
-            <p:dataTable value="#{accountReceivableQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{accountReceivableQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{accountReceivableQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     应收账款查询
@@ -90,7 +84,7 @@
                         <h:outputText value="币别"/>
                     </f:facet>
                     <h:outputText value="#{item.currency}"/>
-                </p:column>                 
+                </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
                         <h:outputText value="金额"/>
@@ -126,7 +120,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

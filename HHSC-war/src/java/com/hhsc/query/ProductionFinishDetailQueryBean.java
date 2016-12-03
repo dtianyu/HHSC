@@ -5,9 +5,9 @@
  */
 package com.hhsc.query;
 
-import com.hhsc.ejb.ProductionPickingDetailForQueryBean;
-import com.hhsc.entity.ProductionPickingDetailForQuery;
-import com.hhsc.lazy.ProductionPickingDetailForQueryModel;
+import com.hhsc.ejb.ProductionFinishDetailForQueryBean;
+import com.hhsc.entity.ProductionFinishDetailForQuery;
+import com.hhsc.lazy.ProductionFinishDetailForQueryModel;
 import com.hhsc.web.SuperQueryBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -17,25 +17,25 @@ import javax.faces.bean.ViewScoped;
  *
  * @author kevindong
  */
-@ManagedBean(name = "productionPickingQueryBean")
+@ManagedBean(name = "productionFinishDetailQueryBean")
 @ViewScoped
-public class ProductionPickingQueryBean extends SuperQueryBean<ProductionPickingDetailForQuery> {
+public class ProductionFinishDetailQueryBean extends SuperQueryBean<ProductionFinishDetailForQuery> {
 
     @EJB
-    private ProductionPickingDetailForQueryBean productionPickingDetailForQueryBean;
+    private ProductionFinishDetailForQueryBean productionFinishDetailForQueryBean;
 
     private String queryItemno;
     private String querySrcformid;
 
-    public ProductionPickingQueryBean() {
-        super(ProductionPickingDetailForQuery.class);
+    public ProductionFinishDetailQueryBean() {
+        super(ProductionFinishDetailForQuery.class);
     }
 
     @Override
     public void init() {
-        setSuperEJB(productionPickingDetailForQueryBean);
-        setModel(new ProductionPickingDetailForQueryModel(productionPickingDetailForQueryBean));
-        this.model.getSortFields().put("productionPicking.formid", "DESC");
+        setSuperEJB(productionFinishDetailForQueryBean);
+        setModel(new ProductionFinishDetailForQueryModel(productionFinishDetailForQueryBean));
+        this.model.getSortFields().put("productionFinish.formid", "DESC");
         super.init();
     }
 
@@ -44,10 +44,10 @@ public class ProductionPickingQueryBean extends SuperQueryBean<ProductionPicking
         if (this.model != null) {
             this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(this.queryFormId)) {
-                this.model.getFilterFields().put("productionPicking.formid", queryFormId);
+                this.model.getFilterFields().put("productionFinish.formid", queryFormId);
             }
             if (queryName != null && !"".equals(this.queryName)) {
-                this.model.getFilterFields().put("productionPicking.srcitemno", queryName);
+                this.model.getFilterFields().put("productionFinish.srcitemno", queryName);
             }
             if (queryItemno != null && !"".equals(this.queryItemno)) {
                 this.model.getFilterFields().put("itemno", queryItemno);
@@ -56,13 +56,13 @@ public class ProductionPickingQueryBean extends SuperQueryBean<ProductionPicking
                 this.model.getFilterFields().put("srcformid", querySrcformid);
             }
             if (queryDateBegin != null) {
-                this.model.getFilterFields().put("productionPicking.formdateBegin", queryDateBegin);
+                this.model.getFilterFields().put("productionFinish.formdateBegin", queryDateBegin);
             }
             if (queryDateEnd != null) {
-                this.model.getFilterFields().put("productionPicking.formdateEnd", queryDateEnd);
+                this.model.getFilterFields().put("productionFinish.formdateEnd", queryDateEnd);
             }
             if (queryState != null && !"ALL".equals(this.queryState)) {
-                this.model.getFilterFields().put("productionPicking.status", queryState);
+                this.model.getFilterFields().put("productionFinish.status", queryState);
             }
         }
     }

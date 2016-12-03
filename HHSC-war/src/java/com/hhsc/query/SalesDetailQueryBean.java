@@ -9,6 +9,8 @@ import com.hhsc.ejb.SalesOrderDetailForQueryBean;
 import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.hhsc.lazy.SalesOrderDetailForQueryModel;
 import com.hhsc.web.SuperQueryBean;
+import com.lightshell.comm.BaseLib;
+import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,11 +24,11 @@ import javax.faces.bean.SessionScoped;
 public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuery> {
 
     @EJB
-    private SalesOrderDetailForQueryBean salesOrderDetailForQueryBean;
+    protected SalesOrderDetailForQueryBean salesOrderDetailForQueryBean;
 
-    private String queryDesignno;
-    private String queryItemno;
-    private String queryCustomeritemno;
+    protected String queryDesignno;
+    protected String queryItemno;
+    protected String queryCustomeritemno;
 
     public SalesDetailQueryBean() {
         super(SalesOrderDetailForQuery.class);
@@ -70,6 +72,7 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("salesOrder.status", queryState);
             }
+            //查询权限
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("salesOrder.salesman.id", userManagedBean.getCurrentUser().getId());
             }

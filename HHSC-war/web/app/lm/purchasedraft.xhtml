@@ -39,25 +39,25 @@
                     <p:commandButton id="btnView" value="查看" action="#{purchaseDraftManagedBean.view('purchasedraftView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{purchaseDraftManagedBean.edit('purchasedraftEdit')}" icon="ui-icon-pencil" value="编辑" 
-                                     rendered="#{purchaseDraftManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{purchaseDraftManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnEdit" action="#{purchaseDraftManagedBean.edit('purchasedraftEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{purchaseDraftManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" actionListener="#{purchaseDraftManagedBean.delete()}" icon="ui-icon-trash" value="删除"
                                      rendered="#{purchaseDraftManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{purchaseDraftManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
+                    <p:commandButton id="btnUnverify" actionListener="#{purchaseDraftManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
                                      rendered="#{purchaseDraftManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{purchaseDraftManagedBean.create('purchasedraftNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{purchaseDraftManagedBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseDraftManagedBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{purchaseDraftManagedBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{purchaseDraftManagedBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{purchaseDraftManagedBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar> 
-            <p:dataTable value="#{purchaseDraftManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{purchaseDraftManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{purchaseDraftManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     采购草稿维护

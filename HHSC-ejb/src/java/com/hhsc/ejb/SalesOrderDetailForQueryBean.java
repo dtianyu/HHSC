@@ -7,8 +7,11 @@ package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.SalesOrderDetailForQuery;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -20,6 +23,29 @@ public class SalesOrderDetailForQueryBean extends SuperBean<SalesOrderDetailForQ
 
     public SalesOrderDetailForQueryBean() {
         super(SalesOrderDetailForQuery.class);
+    }
+
+    public List<SalesOrderDetailForQuery> findByNotDelivery(Map<String, Object> filters, Map<String, String> orderBy) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT e FROM SalesOrderDetailForQuery e WHERE ((e.qty - e.shipqty) > 0)  ");
+        sb.append(" AND (e.status<>'MC') ");
+        if (filters != null) {
+            this.setQueryFilter(sb, filters);
+        }
+        if ((orderBy != null) && (orderBy.size() > 0)) {
+            sb.append(" ORDER BY ");
+            for (Map.Entry<String, String> o : orderBy.entrySet()) {
+                sb.append(" e.").append(o.getKey()).append(" ").append(o.getValue()).append(",");
+            }
+            sb.deleteCharAt(sb.lastIndexOf(","));
+        }
+        //生成SQL
+        Query query = getEntityManager().createQuery(sb.toString());
+        //参数赋值
+        if (filters != null) {
+            this.setQueryParam(query, filters);
+        }
+        return query.getResultList();
     }
 
 }

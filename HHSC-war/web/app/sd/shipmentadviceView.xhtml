@@ -131,11 +131,17 @@
                                 </f:facet>
                                 <h:outputText value="#{item.srcformid}-#{item.srcseq}"/>
                             </p:column>
-                            <p:column styleClass="Wid20">
+                            <p:column styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="华卉品号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemmaster.itemdesc}"/>
                             </p:column>
                             <p:column styleClass="Wid10">
                                 <f:facet name="header">
@@ -160,18 +166,6 @@
                                     <h:outputText value="单位"/>
                                 </f:facet>
                                 <h:outputText value="#{item.unit}"/>
-                            </p:column>
-                            <p:column  styleClass="Wid10 TexAlRight">
-                                <f:facet name="header">
-                                    <h:outputText value="单价"/>
-                                </f:facet>
-                                <h:outputText value="#{item.price}"/>
-                            </p:column>
-                            <p:column  styleClass="Wid10 TexAlRight">
-                                <f:facet name="header">
-                                    <h:outputText value="金额"/>
-                                </f:facet>
-                                <h:outputText value="#{item.amts}"/>
                             </p:column>
                         </p:dataTable>
                     </p:panel>

@@ -9,7 +9,11 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.SalesShipment;
 import com.hhsc.entity.SalesShipmentDetail;
 import com.hhsc.entity.SalesTransaction;
+import com.lightshell.comm.BaseLib;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.Query;
@@ -92,6 +96,18 @@ public class SalesTransactionBean extends SuperBean<SalesTransaction> {
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    public List<SalesTransaction> findByNotInvoice(String filterString, String sortString) {
+        Map<String, Object> filters = null;
+        Map<String, String> sorts = null;
+        if (filterString != null && !"".equals(filterString)) {
+            filters = BaseLib.createHashMap(filterString, true);
+        }
+        if (sortString != null && !"".equals(sortString)) {
+            sorts = BaseLib.createLinkedHashMap(sortString);
+        }
+        return findByFilters(filters, sorts);
     }
 
 }

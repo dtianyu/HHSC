@@ -1016,33 +1016,13 @@ return false;]]></method>
                 <property name="borderRightStyle">solid</property>
                 <property name="borderRightWidth">thin</property>
                 <cell id="363">
-                    <label id="262">
-                        <text-property name="text">合同类型</text-property>
+                    <label id="265">
+                        <text-property name="text">供应商</text-property>
                     </label>
                 </cell>
                 <cell id="364">
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                    <data id="437">
-                        <property name="dataSet">dataDetail</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">purtype</property>
-                                <text-property name="displayName">purtype</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["purtype"]</expression>
-                                <property name="dataType">string</property>
-                                <property name="allowExport">true</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">purtype</property>
-                    </data>
-                </cell>
-                <cell id="365">
-                    <label id="265">
-                        <text-property name="text">供应商简称</text-property>
-                    </label>
-                </cell>
-                <cell id="366">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <data id="281">
@@ -1349,14 +1329,24 @@ return false;]]></method>
                     </data>
                 </cell>
                 <cell id="374">
-                    <label id="621">
-                        <text-property name="text">品质要求</text-property>
+                    <label id="262">
+                        <text-property name="text">合同类型</text-property>
                     </label>
                 </cell>
                 <cell id="375">
-                    <label id="622">
-                        <text-property name="text">A级</text-property>
-                    </label>
+                    <data id="437">
+                        <property name="dataSet">dataDetail</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">purtype</property>
+                                <text-property name="displayName">purtype</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["purtype"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">purtype</property>
+                    </data>
                 </cell>
             </row>
             <row id="489">
@@ -1391,8 +1381,16 @@ return false;]]></method>
                 </cell>
                 <cell id="492"/>
                 <cell id="493"/>
-                <cell id="494"/>
-                <cell id="495"/>
+                <cell id="494">
+                    <label id="621">
+                        <text-property name="text">品质要求</text-property>
+                    </label>
+                </cell>
+                <cell id="495">
+                    <label id="622">
+                        <text-property name="text">A级</text-property>
+                    </label>
+                </cell>
             </row>
         </grid>
         <table id="286">

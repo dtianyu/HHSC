@@ -9,11 +9,16 @@ import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.BaseEntity;
+import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.SuperSingleManagedBean;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
@@ -63,6 +68,9 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
         reportOutputPath = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
         reportViewContext = fc.getExternalContext().getInitParameter("com.hhsc.web.reportviewcontext");
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
+        int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
+        int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
+        currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
         super.construct();
     }
 
@@ -98,12 +106,49 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     public void print() throws Exception {
-
+        if (currentSysprg != null && currentSysprg.getDoprt()) {
+            HashMap<String, Object> reportParams = new HashMap<>();
+            reportParams.put("JNDIName", this.currentSysprg.getRptjndi());
+            if (!this.model.getFilterFields().isEmpty()) {
+                reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
+            } else {
+                reportParams.put("filterFields", "");
+            }
+            if (!this.model.getSortFields().isEmpty()) {
+                reportParams.put("sortFields", BaseLib.convertMapToString(this.model.getSortFields()));
+            } else {
+                reportParams.put("sortFields", "");
+            }
+            //设置报表名称
+            String reportFormat;
+            if (this.currentSysprg.getRptformat() != null) {
+                reportFormat = this.currentSysprg.getRptformat();
+            } else {
+                reportFormat = reportOutputFormat;
+            }
+            this.fileName = this.currentSysprg.getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + this.currentSysprg.getRptdesign();
+            String outputName = reportOutputPath + this.fileName;
+            this.reportViewPath = reportViewContext + this.fileName;
+            try {
+                if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+                }
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
+                //预览报表
+                this.preview();
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
     }
 
     @Override
     public void preview() throws Exception {
-        //FacesContext.getCurrentInstance().getExternalContext().redirect(this.reportViewPath);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(this.reportViewPath);
     }
 
     @Override
@@ -118,7 +163,14 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     protected void setToolBar() {
-
+        if (this.currentSysprg != null) {
+            this.doAdd = false;
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+            this.doPrt = this.currentSysprg.getDoprt();
+        }
     }
 
     @Override

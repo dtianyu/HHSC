@@ -14,8 +14,8 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="花号" for="designno" />
-                    <p:inputText id="designno" value="#{dxManagedBean.designno}" title="花号" />
+                    <h:outputLabel value="花号" for="queryDesignno" />
+                    <p:inputText id="queryDesignno" value="#{dxManagedBean.queryDesignno}" title="花号" />
                     <h:outputLabel value="定型状态" for="state" />
                     <p:selectOneMenu id="state" value="#{dxManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
@@ -33,17 +33,17 @@
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{dxManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
                 </f:facet>
-                <f:facet name="right">                                  
-                    <p:commandButton id="btnCreate" action="#{dxManagedBean.create('dxNew')}" icon="ui-icon-plus" value="新增" 
+                <f:facet name="right">
+                    <p:commandButton id="btnCreate" action="#{dxManagedBean.create('dxNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{dxManagedBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{dxManagedBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{dxManagedBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{dxManagedBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{dxManagedBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataGrid value="#{dxManagedBean.model}" var="item" layout="grid" paginator="true" paginatorPosition="bottom" rows="12"  columns="3" 
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            </p:toolbar>
+            <p:dataGrid value="#{dxManagedBean.model}" var="item" layout="grid" paginator="true" paginatorPosition="bottom" rows="12"  columns="3"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,18"  lazy="true"  >
                 <p:column>
                     <p:panel header="#{item.formid}-#{item.designno}" styleClass="panelView TexAlCenter">
@@ -67,7 +67,7 @@
                                 </p:column>
                                 <p:column styleClass="Wid50">
                                     <p:commandButton id="btnEdit" value="编辑" action="#{dxManagedBean.edit(item,'dxEdit')}" icon="ui-icon-pencil"
-                                                     rendered="#{item.dxstatus!='V'}"/> 
+                                                     rendered="#{item.dxstatus!='V'}"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

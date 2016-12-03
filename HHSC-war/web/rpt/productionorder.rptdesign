@@ -253,6 +253,16 @@
                     <property name="name">srcseq</property>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="position">41</property>
+                    <property name="name">cfmuser</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">42</property>
+                    <property name="name">cfmdate</property>
+                    <property name="dataType">date</property>
+                </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
@@ -374,6 +384,12 @@
                 </structure>
                 <structure>
                     <property name="columnName">srcseq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">cfmuser</property>
+                </structure>
+                <structure>
+                    <property name="columnName">cfmdate</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -578,6 +594,16 @@
                         <property name="name">srcseq</property>
                         <property name="dataType">string</property>
                     </structure>
+                    <structure>
+                        <property name="position">41</property>
+                        <property name="name">cfmuser</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">42</property>
+                        <property name="name">cfmdate</property>
+                        <property name="dataType">date</property>
+                    </structure>
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
@@ -636,7 +662,8 @@ if(currentRow < detail.size()){
 		
 		dataSetRow["shipdate"] = master.getShipdate();
 		dataSetRow["printdate"] = master.getPrintdate();
-						
+		dataSetRow["cfmuser"] = master.getCfmuser();
+		dataSetRow["cfmdate"] = master.getCfmdate();					
 		currentRow++;	
 		return true;	
 			
@@ -784,19 +811,63 @@ return false;]]></method>
             </page-header>
             <page-footer>
                 <grid id="544">
-                    <property name="width">7.583333333333333in</property>
-                    <column id="545">
-                        <property name="width">2.5277777777777777in</property>
-                    </column>
-                    <column id="546">
-                        <property name="width">3.3472222222222223in</property>
-                    </column>
+                    <property name="width">7.7in</property>
+                    <column id="545"/>
+                    <column id="765"/>
+                    <column id="767"/>
+                    <column id="546"/>
+                    <column id="760"/>
+                    <column id="758"/>
                     <column id="547">
                         <property name="width">1.7083333333333333in</property>
                     </column>
                     <row id="548">
                         <cell id="549"/>
-                        <cell id="550"/>
+                        <cell id="764"/>
+                        <cell id="766">
+                            <label id="761">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">审核人</text-property>
+                            </label>
+                        </cell>
+                        <cell id="550">
+                            <data id="756">
+                                <property name="dataSet">dataDetail</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">cfmuser</property>
+                                        <text-property name="displayName">cfmuser</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["cfmuser"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">cfmuser</property>
+                            </data>
+                        </cell>
+                        <cell id="759">
+                            <label id="762">
+                                <property name="textAlign">right</property>
+                                <text-property name="text">审核日期</text-property>
+                            </label>
+                        </cell>
+                        <cell id="757">
+                            <data id="763">
+                                <structure name="dateTimeFormat">
+                                    <property name="category">Custom</property>
+                                    <property name="pattern">yyyy/MM/dd</property>
+                                </structure>
+                                <property name="dataSet">dataDetail</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">cfmdate</property>
+                                        <text-property name="displayName">cfmdate</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["cfmdate"]</expression>
+                                        <property name="dataType">date</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">cfmdate</property>
+                            </data>
+                        </cell>
                         <cell id="551">
                             <grid id="552">
                                 <property name="width">1.625in</property>

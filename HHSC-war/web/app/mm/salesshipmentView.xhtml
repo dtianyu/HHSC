@@ -30,7 +30,7 @@
                                      rendered="#{salesShipmentManagedBean.doPrt}"/>                               
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="出货通知－查看">
+            <p:panel id="panelHead" header="订单出货－查看">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
@@ -133,7 +133,7 @@
                                 </f:facet>
                                 <h:outputText value="#{item.srcformid}-#{item.srcseq}"/>
                             </p:column>
-                            <p:column styleClass="Wid20">
+                            <p:column styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="华卉品号"/>
                                 </f:facet>
@@ -163,11 +163,23 @@
                                 </f:facet>
                                 <h:outputText value="#{item.unit}"/>
                             </p:column>
-                            <p:column  styleClass="Wid20">
+                            <p:column  styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="仓库"/>
                                 </f:facet>
                                 <h:outputText value="#{item.warehouse.name}"/>
+                            </p:column>
+                             <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="不良"/>
+                                </f:facet>
+                                <h:outputText value="#{item.badqty}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="不良仓库"/>
+                                </f:facet>
+                                <h:outputText value="#{item.warehouse2.name}"/>
                             </p:column>
                         </p:dataTable>
                     </p:panel>

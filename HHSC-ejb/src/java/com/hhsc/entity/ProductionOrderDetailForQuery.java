@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "ProductionOrderDetailForQuery.findById", query = "SELECT p FROM ProductionOrderDetailForQuery p WHERE p.id = :id")
     ,
-    @NamedQuery(name = "ProductionOrderDetailForQuery.findByPId", query = "SELECT p FROM ProductionOrderDetailForQuery p WHERE p.productionOrder.id = :pid")})
+    @NamedQuery(name = "ProductionOrderDetailForQuery.findByPId", query = "SELECT p FROM ProductionOrderDetailForQuery p WHERE p.productionOrder.formid = :pid")})
 public class ProductionOrderDetailForQuery extends BaseEntity {
 
     @JoinColumn(name = "pid", referencedColumnName = "formid")

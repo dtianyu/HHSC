@@ -1103,6 +1103,7 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="658">
+                            <property name="textAlign">right</property>
                             <property name="resultSetColumn">数量</property>
                         </data>
                     </cell>

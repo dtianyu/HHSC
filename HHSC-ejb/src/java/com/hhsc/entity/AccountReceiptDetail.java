@@ -7,6 +7,7 @@ package com.hhsc.entity;
 
 import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -141,10 +142,16 @@ public class AccountReceiptDetail extends FormDetailEntity {
             return false;
         }
         AccountReceiptDetail other = (AccountReceiptDetail) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (!Objects.equals(this.srcformid, other.srcformid)) {
             return false;
         }
-        return true;
+        if (Objects.equals(this.srcformid, other.srcformid) && !Objects.equals(this.srcseq, other.srcseq)) {
+            return false;
+        }
+        if (Objects.equals(this.srcformid, other.srcformid) && Objects.equals(this.srcseq, other.srcseq)) {
+            return true;
+        }
+        return (Objects.equals(this.pid, other.pid) && (this.seq == other.seq));
     }
 
     @Override

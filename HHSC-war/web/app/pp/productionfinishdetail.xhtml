@@ -16,19 +16,19 @@
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
                     <h:outputLabel value="花号" for="queryName" />
-                    <p:inputText id="queryName" value="#{productionPickingQueryBean.queryName}" title="花号" />
+                    <p:inputText id="queryName" value="#{productionFinishDetailQueryBean.queryName}" title="花号" />
                     <h:outputLabel value="品号" for="queryItemno" />
-                    <p:inputText id="queryItemno" value="#{productionPickingQueryBean.queryItemno}" title="品号" />
-                    <h:outputLabel value="领料单号" for="queryFormId" />
-                    <p:inputText id="queryFormId" value="#{productionPickingQueryBean.queryFormId}" title="领料单号" />
+                    <p:inputText id="queryItemno" value="#{productionFinishDetailQueryBean.queryItemno}" title="品号" />
+                    <h:outputLabel value="入库单号" for="queryFormId" />
+                    <p:inputText id="queryFormId" value="#{productionFinishDetailQueryBean.queryFormId}" title="入库单号" />
                     <h:outputLabel value="来源单号" for="querySrcformid" />
-                    <p:inputText id="querySrcformid" value="#{productionPickingQueryBean.querySrcformid}" title="来源单号" />
-                    <h:outputLabel value="领料日期" for="queryDateBegin" />
-                    <p:calendar id="queryDateBegin" value="#{productionPickingQueryBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <p:inputText id="querySrcformid" value="#{productionFinishDetailQueryBean.querySrcformid}" title="来源单号" />
+                    <h:outputLabel value="入库日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{productionFinishDetailQueryBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
-                    <p:calendar id="queryDateEnd" value="#{productionPickingQueryBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <p:calendar id="queryDateEnd" value="#{productionFinishDetailQueryBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="单据状态" for="queryState" />
-                    <p:selectOneMenu id="queryState" value="#{productionPickingQueryBean.queryState}" title="状态" >
+                    <p:selectOneMenu id="queryState" value="#{productionFinishDetailQueryBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
                         <f:selectItem itemLabel="未审核" itemValue="N"/>
                         <f:selectItem itemLabel="已审核" itemValue="V"/>
@@ -37,63 +37,63 @@
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{productionPickingQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{productionPickingQueryBean.view('')}"  icon="ui-icon-document"
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{productionFinishDetailQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{productionFinishDetailQueryBean.view('')}"  icon="ui-icon-document"
                                      rendered="false"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{productionPickingQueryBean.edit('')}" icon="ui-icon-pencil"
+                    <p:commandButton id="btnEdit" value="编辑" action="#{productionFinishDetailQueryBean.edit('')}" icon="ui-icon-pencil"
                                      rendered="false"/>
-                    <p:commandButton id="btnDelete" value="删除"  actionListener="#{productionPickingQueryBean.delete()}" icon="ui-icon-trash"
+                    <p:commandButton id="btnDelete" value="删除"  actionListener="#{productionFinishDetailQueryBean.delete()}" icon="ui-icon-trash"
                                      rendered="false" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原"  actionListener="#{productionPickingQueryBean.unverify()}" icon="ui-icon-unlocked"
+                    <p:commandButton id="btnUnverify" value="还原"  actionListener="#{productionFinishDetailQueryBean.unverify()}" icon="ui-icon-unlocked"
                                      rendered="false"  update=":formList">
                         <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnCreate" value="新增" action="#{productionPickingQueryBean.create('')}" icon="ui-icon-plus"
+                    <p:commandButton id="btnCreate" value="新增" action="#{productionFinishDetailQueryBean.create('')}" icon="ui-icon-plus"
                                      rendered="false"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{productionPickingQueryBean.reset()}"  icon="ui-icon-refresh"
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{productionFinishDetailQueryBean.reset()}"  icon="ui-icon-refresh"
                                      update=":formList"/>
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{productionPickingQueryBean.query()}"  icon="ui-icon-search"
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{productionFinishDetailQueryBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataTable value="#{productionPickingQueryBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+            <p:dataTable value="#{productionFinishDetailQueryBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="15,30,45"  lazy="true"
-                         selectionMode="single" selection="#{productionPickingQueryBean.currentEntity}" rowKey="#{item.id}" >
+                         selectionMode="single" selection="#{productionFinishDetailQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    生产领料明细查询
+                    生产入库明细查询
                 </f:facet>
                 <p:ajax event="rowSelect"  update="formList:plgDetail" oncomplete="PF('dlgDetail').show();" />
                 <p:ajax event="rowUnselect" update="formList:plgDetail" oncomplete=""/>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="领料单号"/>
+                        <h:outputText value="入库单号"/>
                     </f:facet>
-                    <h:outputText value="#{item.productionPicking.formid}"/>
+                    <h:outputText value="#{item.productionFinish.formid}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="领料日期"/>
+                        <h:outputText value="入库日期"/>
                     </f:facet>
-                    <h:outputText value="#{item.productionPicking.formdate}">
+                    <h:outputText value="#{item.productionFinish.formdate}">
                         <f:convertDateTime pattern="yyyy/MM/dd" />
                     </h:outputText>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="领料类别"/>
+                        <h:outputText value="入库类别"/>
                     </f:facet>
-                    <h:outputText value="#{item.productionPicking.transactionType.trname}"/>
+                    <h:outputText value="#{item.productionFinish.transactionType.trname}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="花号"/>
                     </f:facet>
-                    <h:outputText value="#{item.productionPicking.srcitemno}"/>
+                    <h:outputText value="#{item.productionFinish.srcitemno}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
@@ -117,7 +117,7 @@
                     <f:facet name="header">
                         <h:outputText value="状态"/>
                     </f:facet>
-                    <h:outputText value="#{item.productionPicking.status}"/>
+                    <h:outputText value="#{item.productionFinish.status}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
@@ -129,13 +129,13 @@
             <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
                 <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="领料单号" /></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="入库单号" /></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="formid" value="#{productionPickingQueryBean.currentEntity.productionPicking.formid}" title="Formid"/>
+                            <h:outputText id="formid" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.formid}" title="Formid"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="领料日期"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="入库日期"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="formdate" value="#{productionPickingQueryBean.currentEntity.productionPicking.formdate}" title="Formdate">
+                            <h:outputText id="formdate" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.formdate}" title="Formdate">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
@@ -143,37 +143,37 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="部门" /></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="deptid" value="#{productionPickingQueryBean.currentEntity.productionPicking.dept.dept}" title="Deptid" />
+                            <h:outputText id="deptid" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.dept.dept}" title="Deptid" />
                         </p:column>
                         <p:column><h:outputText value="花号"/></p:column>
                         <p:column>
-                            <h:outputText id="srcitemno" value="#{productionPickingQueryBean.currentEntity.productionPicking.srcitemno}"/>
+                            <h:outputText id="srcitemno" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.srcitemno}"/>
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="领料类型"/></p:column>
+                        <p:column><h:outputText value="入库类型"/></p:column>
                         <p:column>
-                            <h:outputText id="trtype" value="#{productionPickingQueryBean.currentEntity.productionPicking.transactionType.trname}" title="trtype"/>
+                            <h:outputText id="trtype" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.transactionType.trname}" title="trtype"/>
                         </p:column>
                         <p:column><h:outputText value="异动原因"/></p:column>
                         <p:column>
-                            <h:outputText id="reason" value="#{productionPickingQueryBean.currentEntity.productionPicking.reason}" />
+                            <h:outputText id="reason" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.reason}" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="工单类型" /></p:column>
                         <p:column>
-                            <h:outputText value="#{productionPickingQueryBean.currentEntity.productionPicking.srcformtype}" />
+                            <h:outputText value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.srcformtype}" />
                         </p:column>
                         <p:column><h:outputText value="备注" /></p:column>
                         <p:column>
-                            <h:outputText id="remark" value="#{productionPickingQueryBean.currentEntity.productionPicking.remark}" />
+                            <h:outputText id="remark" value="#{productionFinishDetailQueryBean.currentEntity.productionFinish.remark}" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="来源单号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="srcformid" value="#{productionPickingQueryBean.currentEntity.srcformid}" title="srcid" />
+                            <h:outputText id="srcformid" value="#{productionFinishDetailQueryBean.currentEntity.srcformid}" title="srcid" />
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="来源对象"/></p:column>
                         <p:column styleClass="Wid30">
@@ -183,57 +183,57 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="品号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="itemno" value="#{productionPickingQueryBean.currentEntity.itemno}" title="Designid" />
+                            <h:outputText id="itemno" value="#{productionFinishDetailQueryBean.currentEntity.itemno}" title="Designid" />
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="名称"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="itemdesc" value="#{productionPickingQueryBean.currentEntity.itemmaster.itemdesc}"/>
+                            <h:outputText id="itemdesc" value="#{productionFinishDetailQueryBean.currentEntity.itemmaster.itemdesc}"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="色号"/></p:column>
                         <p:column>
-                            <h:outputText value="#{productionPickingQueryBean.currentEntity.colorno}" title="Colorid"/>
+                            <h:outputText value="#{productionFinishDetailQueryBean.currentEntity.colorno}" title="Colorid"/>
                         </p:column>
                         <p:column><h:outputText value="成分"/></p:column>
                         <p:column>
-                            <h:outputText id="itemmake" value="#{productionPickingQueryBean.currentEntity.itemmaster.itemmake}" title="itemmake" />
+                            <h:outputText id="itemmake" value="#{productionFinishDetailQueryBean.currentEntity.itemmaster.itemmake}" title="itemmake" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="品牌"/></p:column>
                         <p:column>
-                            <h:outputText id="brand" value="#{productionPickingQueryBean.currentEntity.brand}" title="brand" />
+                            <h:outputText id="brand" value="#{productionFinishDetailQueryBean.currentEntity.brand}" title="brand" />
                         </p:column>
                         <p:column><h:outputText value="规格"/></p:column>
                         <p:column>
-                            <h:outputText id="itemspec" value="#{productionPickingQueryBean.currentEntity.itemmaster.itemspec}" title="itemspec" />
+                            <h:outputText id="itemspec" value="#{productionFinishDetailQueryBean.currentEntity.itemmaster.itemspec}" title="itemspec" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="批号" /></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="batch" value="#{productionPickingQueryBean.currentEntity.batch}" title="batch" />
+                            <h:outputText id="batch" value="#{productionFinishDetailQueryBean.currentEntity.batch}" title="batch" />
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="序号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="sn" value="#{productionPickingQueryBean.currentEntity.sn}" title="planqty" />
+                            <h:outputText id="sn" value="#{productionFinishDetailQueryBean.currentEntity.sn}" title="planqty" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="数量"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="qty" value="#{productionPickingQueryBean.currentEntity.qty}" title="Qty"/>
+                            <h:outputText id="qty" value="#{productionFinishDetailQueryBean.currentEntity.qty}" title="Qty"/>
                         </p:column>
                         <p:column><h:outputText value="单位"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="unit" value="#{productionPickingQueryBean.currentEntity.unit}" title="Qty"/>
+                            <h:outputText id="unit" value="#{productionFinishDetailQueryBean.currentEntity.unit}" title="Qty"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="仓库"/></p:column>
                         <p:column>
-                            <h:outputText id="warehouse" value="#{productionPickingQueryBean.currentEntity.warehouse.name}" title="warehouse" />
+                            <h:outputText id="warehouse" value="#{productionFinishDetailQueryBean.currentEntity.warehouse.name}" title="warehouse" />
                         </p:column>
                         <p:column></p:column>
                         <p:column>

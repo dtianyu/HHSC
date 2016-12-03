@@ -14,8 +14,8 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="花号" for="designid" />
-                    <p:inputText id="designid" value="#{yhManagedBean.designno}" title="花号" />
+                    <h:outputLabel value="花号" for="queryDesignno" />
+                    <p:inputText id="queryDesignno" value="#{yhManagedBean.queryDesignno}" title="花号" />
                     <h:outputLabel value="印花状态" for="state" />
                     <p:selectOneMenu id="state" value="#{yhManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
@@ -36,20 +36,20 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnEdit" action="#{yhManagedBean.edit('yhEdit')}" icon="ui-icon-pencil" value="编辑"
-                                     rendered="#{yhManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnUnverify" actionListener="#{yhManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
-                                     rendered="#{yhManagedBean.doUnCfm}"  update=":formList"/>                   
-                    <p:commandButton id="btnCreate" action="#{yhManagedBean.create('yhNew')}" icon="ui-icon-plus" value="新增" 
+                                     rendered="#{yhManagedBean.doEdit}" />
+                    <p:commandButton id="btnUnverify" actionListener="#{yhManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
+                                     rendered="#{yhManagedBean.doUnCfm}"  update=":formList"/>
+                    <p:commandButton id="btnCreate" action="#{yhManagedBean.create('yhNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{yhManagedBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{yhManagedBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{yhManagedBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{yhManagedBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{yhManagedBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{yhManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{yhManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{yhManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     印花维护
@@ -109,9 +109,9 @@
                         <h:outputText value="状态"/>
                     </f:facet>
                     <h:outputText value="#{item.yhstatus}"/>
-                </p:column>               
+                </p:column>
             </p:dataTable>
-            
+
         </h:form>
 
     </ui:define>

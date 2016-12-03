@@ -22,9 +22,9 @@ import javax.faces.bean.ViewScoped;
 public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> {
 
     @EJB
-    private SalesTransactionBean salesTransactionBean;
+    protected SalesTransactionBean salesTransactionBean;
 
-    private String queryCustomerno;
+    protected String queryCustomerno;
 
     public SalesTransactionQueryBean() {
         super(SalesTransaction.class);
@@ -35,6 +35,11 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
         this.superEJB = salesTransactionBean;
         setModel(new SalesTransactionModel(salesTransactionBean));
         this.model.getFilterFields().put("status", "50");
+        if (currentSysprg != null && currentSysprg.getApi() == "shipmentnotinvoice") {
+            if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
+                this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
+            }
+        }
         super.init();
     }
 
@@ -60,6 +65,11 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
             if (this.queryState != null && !"ALL".equals(this.queryState)) {
                 this.model.getFilterFields().put("status", queryState);
             }
+            if (currentSysprg != null && currentSysprg.getApi() == "shipmentnotinvoice") {
+                if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
+                    this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
+                }
+            }
         }
     }
 
@@ -67,6 +77,11 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("status", "50");
+        if (currentSysprg != null && currentSysprg.getApi() == "shipmentnotinvoice") {
+            if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
+                this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
+            }
+        }
     }
 
     /**

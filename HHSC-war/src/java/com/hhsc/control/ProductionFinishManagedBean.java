@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.SelectEvent;
@@ -41,6 +40,34 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "productionFinishManagedBean")
 @SessionScoped
 public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish, ProductionFinishDetail> {
+
+    /**
+     * @return the queryItemno
+     */
+    public String getQueryItemno() {
+        return queryItemno;
+    }
+
+    /**
+     * @param queryItemno the queryItemno to set
+     */
+    public void setQueryItemno(String queryItemno) {
+        this.queryItemno = queryItemno;
+    }
+
+    /**
+     * @return the querySrcformid
+     */
+    public String getQuerySrcformid() {
+        return querySrcformid;
+    }
+
+    /**
+     * @param querySrcformid the querySrcformid to set
+     */
+    public void setQuerySrcformid(String querySrcformid) {
+        this.querySrcformid = querySrcformid;
+    }
 
     @EJB
     private SalesTypeBean salesTypeBean;
@@ -61,6 +88,8 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
     private List<TransactionType> transactionTypeList;
 
     private Map<String, Object> trtypeFilter;
+    private String queryItemno;
+    private String querySrcformid;
 
     public ProductionFinishManagedBean() {
         super(ProductionFinish.class, ProductionFinishDetail.class);
@@ -399,14 +428,23 @@ public class ProductionFinishManagedBean extends FormMultiBean<ProductionFinish,
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            if (queryItemno != null && !"".equals(this.queryItemno)) {
+                this.model.getFilterFields().put("srcitemno", queryItemno);
+            }
+            if (queryName != null && !"".equals(this.queryName)) {
+                this.model.getFilterFields().put("reason", queryName);
+            }
+            if (queryFormId != null && !"".equals(queryFormId)) {
+                this.model.getFilterFields().put("formid", queryFormId);
+            }
+            if (querySrcformid != null && !"".equals(this.querySrcformid)) {
+                this.model.getFilterFields().put("srcformid", querySrcformid);
+            }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("formdateBegin", queryDateBegin);
             }
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("formdateEnd", queryDateEnd);
-            }
-            if (queryFormId != null && !"".equals(queryFormId)) {
-                this.model.getFilterFields().put("formid", queryFormId);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("status", queryState);

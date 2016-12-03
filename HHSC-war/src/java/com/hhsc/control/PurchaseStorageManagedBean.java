@@ -42,6 +42,8 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     @EJB
     private PurchaseStorageBean purchaseStorageBean;
 
+    private String queryItemno;
+
     public PurchaseStorageManagedBean() {
         super(PurchaseStorage.class);
     }
@@ -151,8 +153,14 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            if (queryItemno != null && !"".equals(queryItemno)) {
+                this.model.getFilterFields().put("itemno", queryItemno);
+            }
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("purchaseAcceptance.formid", queryFormId);
+            }
+            if (queryName != null && !"".equals(queryName)) {
+                this.model.getFilterFields().put("purchaseAcceptance.vendor.vendor", queryName);
             }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("acceptdateBegin", queryDateBegin);
@@ -254,6 +262,20 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据!"));
         }
+    }
+
+    /**
+     * @return the queryItemno
+     */
+    public String getQueryItemno() {
+        return queryItemno;
+    }
+
+    /**
+     * @param queryItemno the queryItemno to set
+     */
+    public void setQueryItemno(String queryItemno) {
+        this.queryItemno = queryItemno;
     }
 
 }

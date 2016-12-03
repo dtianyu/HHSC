@@ -33,10 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -145,7 +143,8 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                 return false;
             } else if ((s.getQty().subtract(s.getShipqty()).compareTo(detail.getQty()) == -1)) {
                 showErrorMsg("Error", detail.getItemno() + "订单可出货量不足");
-                return false;
+                //允许出货量大于订单可出货量
+                //return false;
             }
             if (detail.getItemmaster().isInvtype()) {
                 ItemInventory i = itemInventoryBean.findItemInventory(detail.getItemno(), detail.getColorno(), detail.getBrand(), detail.getBatch(), detail.getSn(), detail.getWarehouse().getWarehouseno());
@@ -160,6 +159,14 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
 
     @Override
     public void doConfirmDetail() {
+        if (currentDetail.getBadqty().compareTo(BigDecimal.ZERO) != 0 && currentDetail.getWarehouse2() == null) {
+            showErrorMsg("Error", "请输入不良仓库");
+            return;
+        }
+        if (currentDetail.getQty().compareTo(BigDecimal.ZERO) == -1 || currentDetail.getBadqty().compareTo(BigDecimal.ZERO) == -1) {
+            showErrorMsg("Error", "数量不能小于零");
+            return;
+        }
         this.currentDetail.setAmts(this.currentDetail.getQty().multiply(this.currentDetail.getPrice()));
         Tax t = BaseLib.getTaxes(this.currentEntity.getTaxtype(), this.currentEntity.getTaxkind(), this.currentEntity.getTaxrate(), this.currentDetail.getAmts(), 2);
         this.currentDetail.setExtax(t.getExtax());
@@ -256,8 +263,14 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     }
 
     public void handleDialogReturnWarehouseWhenDetailEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && currentDetail != null) {
             currentDetail.setWarehouse((Warehouse) event.getObject());
+        }
+    }
+
+    public void handleDialogReturnWarehouse2WhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentDetail != null) {
+            currentDetail.setWarehouse2((Warehouse) event.getObject());
         }
     }
 
@@ -371,6 +384,9 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             this.model.getFilterFields().clear();
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("formid", queryFormId);
+            }
+            if (queryName != null && !"".equals(queryName)) {
+                this.model.getFilterFields().put("customer.customer", queryName);
             }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("formdateBegin", queryDateBegin);

@@ -16,6 +16,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{salesOrderManagedBean.persist()}" icon="ui-icon-disk" 
+                                     rendered="#{salesOrderManagedBean.doAdd}"
                                      process="@this,plgHead,:formNew:tabView:plgBase" 
                                      update="plgHead,:formNew:tabView:plgBase,:formNew:tabView:plgDetail,:formNew:tabView:detailList"/>                                
                 </f:facet>

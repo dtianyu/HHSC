@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">        
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="purchasepayment" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{purchasePaymentManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchasePaymentManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{purchasePaymentManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchasePaymentManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" actionListener="#{purchasePaymentManagedBean.verify()}" icon="ui-icon-locked" 
+                                     rendered="#{purchasePaymentManagedBean.doCfm}" update="toolbar">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{purchasePaymentManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchasePaymentManagedBean.doPrt}" process="@this"/> 
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="采购付款－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="付款单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{purchasePaymentManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="付款日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{purchasePaymentManagedBean.currentEntity.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="申请部门"/></p:column>
+                        <p:column>
+                            <h:outputText id="deptid" value="#{purchasePaymentManagedBean.currentEntity.dept.dept}" title="Deptid" />
+                        </p:column>
+                        <p:column><h:outputText value="申请人员" /></p:column>
+                        <p:column>
+                            <h:outputText id="systemuser" value="#{purchasePaymentManagedBean.currentEntity.systemUser.username}" title="systemUser" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="供应商" for="vendor" /></p:column>
+                        <p:column>
+                            <h:outputText id="vendor" value="#{purchasePaymentManagedBean.currentEntity.vendor.vendor}" title="vendor"  />
+                        </p:column>
+                        <p:column></p:column>
+                        <p:column>
+
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="摘要"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="summary" value="#{purchasePaymentManagedBean.currentEntity.summary}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="原币总额" for="payamts" /></p:column>
+                        <p:column>
+                            <h:outputText id="payamts" value="#{purchasePaymentManagedBean.currentEntity.payamts}"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="本币总额" for="payamt" /></p:column>
+                        <p:column>
+                            <h:outputText id="payamt" value="#{purchasePaymentManagedBean.currentEntity.payamt}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="付款明细">
+                    <p:panel id="panelDetail">
+                        <p:dataTable id="detailList" value="#{purchasePaymentManagedBean.detailList}" var="item" tableStyleClass="tableList" 
+                                     selectionMode="single"  selection="#{purchasePaymentManagedBean.currentDetail}" rowKey="#{item.seq}" >           
+                            <p:ajax event="rowSelect"  update="" oncomplete="" />
+                            <p:ajax event="rowUnselect" update="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="验收单号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.srcformid}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="摘要"/>
+                                </f:facet>
+                                <h:outputText value="#{item.summary}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="币别"/>
+                                </f:facet>
+                                <h:outputText value="#{item.currency}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="付款原币"/>
+                                </f:facet>
+                                <h:outputText value="#{item.payamts}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="付款本币"/>
+                                </f:facet>
+                                <h:outputText value="#{item.payamt}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -28,12 +28,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salesshipmentdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesShipmentDetail.findAll", query = "SELECT s FROM SalesShipmentDetail s"),
-    @NamedQuery(name = "SalesShipmentDetail.findById", query = "SELECT s FROM SalesShipmentDetail s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesShipmentDetail.findByPId", query = "SELECT s FROM SalesShipmentDetail s WHERE s.pid = :pid"),
+    @NamedQuery(name = "SalesShipmentDetail.findAll", query = "SELECT s FROM SalesShipmentDetail s")
+    ,
+    @NamedQuery(name = "SalesShipmentDetail.findById", query = "SELECT s FROM SalesShipmentDetail s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesShipmentDetail.findByPId", query = "SELECT s FROM SalesShipmentDetail s WHERE s.pid = :pid")
+    ,
     @NamedQuery(name = "SalesShipmentDetail.findByItemno", query = "SELECT s FROM SalesShipmentDetail s WHERE s.itemno = :itemno")})
 public class SalesShipmentDetail extends FormDetailEntity {
 
+    @JoinColumn(name = "batch", referencedColumnName = "itemno", insertable = false, updatable = false)
+    @ManyToOne(optional = true)
+    private ItemMaster itemBatch;
+
+    @Column(name = "badqty")
+    private BigDecimal badqty;
+    @JoinColumn(name = "badwarehouse", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
+    private Warehouse warehouse2;
 
     @JoinColumn(name = "itemid", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -92,9 +104,9 @@ public class SalesShipmentDetail extends FormDetailEntity {
     @NotNull
     @Column(name = "taxes")
     private BigDecimal taxes;
-    
-    @JoinColumn(name = "warehouseno",referencedColumnName="warehouseno")
-    @ManyToOne(optional=false)
+
+    @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
     private Warehouse warehouse;
     @Size(max = 100)
     @Column(name = "srcapi")
@@ -123,6 +135,7 @@ public class SalesShipmentDetail extends FormDetailEntity {
 
     public SalesShipmentDetail() {
         this.status = "00";
+        this.badqty = BigDecimal.ZERO;
     }
 
     public ItemMaster getItemmaster() {
@@ -380,6 +393,48 @@ public class SalesShipmentDetail extends FormDetailEntity {
      */
     public void setCustomerrefno(String customerrefno) {
         this.customerrefno = customerrefno;
+    }
+
+    /**
+     * @return the badqty
+     */
+    public BigDecimal getBadqty() {
+        return badqty;
+    }
+
+    /**
+     * @param badqty the badqty to set
+     */
+    public void setBadqty(BigDecimal badqty) {
+        this.badqty = badqty;
+    }
+
+    /**
+     * @return the warehouse2
+     */
+    public Warehouse getWarehouse2() {
+        return warehouse2;
+    }
+
+    /**
+     * @param warehouse2 the warehouse2 to set
+     */
+    public void setWarehouse2(Warehouse warehouse2) {
+        this.warehouse2 = warehouse2;
+    }
+
+    /**
+     * @return the itemBatch
+     */
+    public ItemMaster getItemBatch() {
+        return itemBatch;
+    }
+
+    /**
+     * @param itemBatch the itemBatch to set
+     */
+    public void setItemBatch(ItemMaster itemBatch) {
+        this.itemBatch = itemBatch;
     }
 
 }

@@ -145,76 +145,86 @@
                 </structure>
                 <structure>
                     <property name="position">19</property>
-                    <property name="name">seq</property>
-                    <property name="dataType">integer</property>
+                    <property name="name">designno</property>
+                    <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">20</property>
-                    <property name="name">itemno</property>
+                    <property name="name">designdesc</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">21</property>
-                    <property name="name">customeritemno</property>
-                    <property name="dataType">string</property>
+                    <property name="name">seq</property>
+                    <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">22</property>
-                    <property name="name">colorno</property>
+                    <property name="name">itemno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">23</property>
-                    <property name="name">customercolorno</property>
+                    <property name="name">customeritemno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">24</property>
-                    <property name="name">itemdesc</property>
+                    <property name="name">colorno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">25</property>
-                    <property name="name">itemyarncount</property>
+                    <property name="name">customercolorno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">26</property>
-                    <property name="name">itemmake</property>
+                    <property name="name">itemdesc</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">27</property>
-                    <property name="name">itemwidth</property>
+                    <property name="name">itemyarncount</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">28</property>
-                    <property name="name">qty</property>
-                    <property name="dataType">float</property>
+                    <property name="name">itemmake</property>
+                    <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">29</property>
-                    <property name="name">unit</property>
+                    <property name="name">itemwidth</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">30</property>
-                    <property name="name">price</property>
+                    <property name="name">qty</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
                     <property name="position">31</property>
+                    <property name="name">unit</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">price</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">32</property>
+                    <property name="position">34</property>
                     <property name="name">srcformid</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">33</property>
+                    <property name="position">35</property>
                     <property name="name">srcseq</property>
                     <property name="dataType">string</property>
                 </structure>
@@ -273,6 +283,12 @@
                 </structure>
                 <structure>
                     <property name="columnName">remark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">designno</property>
+                </structure>
+                <structure>
+                    <property name="columnName">designdesc</property>
                 </structure>
                 <structure>
                     <property name="columnName">seq</property>
@@ -414,76 +430,86 @@
                     </structure>
                     <structure>
                         <property name="position">19</property>
-                        <property name="name">seq</property>
-                        <property name="dataType">integer</property>
+                        <property name="name">designno</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">20</property>
-                        <property name="name">itemno</property>
+                        <property name="name">designdesc</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">21</property>
-                        <property name="name">customeritemno</property>
-                        <property name="dataType">string</property>
+                        <property name="name">seq</property>
+                        <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">22</property>
-                        <property name="name">colorno</property>
+                        <property name="name">itemno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">23</property>
-                        <property name="name">customercolorno</property>
+                        <property name="name">customeritemno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">24</property>
-                        <property name="name">itemdesc</property>
+                        <property name="name">colorno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">25</property>
-                        <property name="name">itemyarncount</property>
+                        <property name="name">customercolorno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">26</property>
-                        <property name="name">itemmake</property>
+                        <property name="name">itemdesc</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">27</property>
-                        <property name="name">itemwidth</property>
+                        <property name="name">itemyarncount</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">28</property>
-                        <property name="name">qty</property>
-                        <property name="dataType">float</property>
+                        <property name="name">itemmake</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">29</property>
-                        <property name="name">unit</property>
+                        <property name="name">itemwidth</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">30</property>
-                        <property name="name">price</property>
+                        <property name="name">qty</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
                         <property name="position">31</property>
+                        <property name="name">unit</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">price</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">32</property>
+                        <property name="position">34</property>
                         <property name="name">srcformid</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">33</property>
+                        <property name="position">35</property>
                         <property name="name">srcseq</property>
                         <property name="dataType">string</property>
                     </structure>
@@ -503,39 +529,44 @@ currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[
 
 if (currentRow < detail.size()){
-		dataSetRow["formid"] = master.getFormid();
-		dataSetRow["formdate"] = master.getFormdate();
-		dataSetRow["formtype"] = master.getShiptype().getName();
-		dataSetRow["customerno"] = master.getCustomer().getCustomerno();
-		dataSetRow["customer"] = master.getCustomer().getFullname();
-		dataSetRow["dept"] = master.getDept().getDept();
-		dataSetRow["salesman"] = master.getSalesman().getUsername();
-		dataSetRow["currency"] = master.getCurrency();
-		dataSetRow["exchange"] = master.getExchange();
-		dataSetRow["taxtype"] = master.getTaxtype();
-		dataSetRow["taxkind"] = master.getTaxkind();
-		dataSetRow["taxrate"] = master.getTaxrate();
-		dataSetRow["seq"] = detail.get(currentRow).getSeq();		
-		dataSetRow["itemno"] = detail.get(currentRow).getItemno();		
-		dataSetRow["customeritemno"] = detail.get(currentRow).getCustomeritemno();
-		dataSetRow["colorno"] = detail.get(currentRow).getColorno();				
-		dataSetRow["customercolorno"] = detail.get(currentRow).getCustomercolorno();
-		dataSetRow["itemdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();	
-		dataSetRow["itemyarncount"] = detail.get(currentRow).getItemmaster().getItemyarncount();	
-		dataSetRow["itemmake"] = detail.get(currentRow).getItemmaster().getItemmake();	
-		dataSetRow["itemwidth"] = detail.get(currentRow).getItemmaster().getItemwidth();	
-		dataSetRow["qty"] = detail.get(currentRow).getQty();	
-		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
-		dataSetRow["price"] = detail.get(currentRow).getPrice();	
-		dataSetRow["amts"] = detail.get(currentRow).getAmts();	
-		dataSetRow["srcformid"] = detail.get(currentRow).getSrcformid();				
-		dataSetRow["srcseq"] = detail.get(currentRow).getSrcseq();	
+	dataSetRow["formid"] = master.getFormid();
+	dataSetRow["formdate"] = master.getFormdate();
+	dataSetRow["formtype"] = master.getShiptype().getName();
+	dataSetRow["customerno"] = master.getCustomer().getCustomerno();
+	dataSetRow["customer"] = master.getCustomer().getFullname();
+	dataSetRow["dept"] = master.getDept().getDept();
+	dataSetRow["salesman"] = master.getSalesman().getUsername();
+	dataSetRow["currency"] = master.getCurrency();
+	dataSetRow["exchange"] = master.getExchange();
+	dataSetRow["taxtype"] = master.getTaxtype();
+	dataSetRow["taxkind"] = master.getTaxkind();
+	dataSetRow["taxrate"] = master.getTaxrate();
+	dataSetRow["seq"] = detail.get(currentRow).getSeq();
+	dataSetRow["designno"] = detail.get(currentRow).getItemno();
+	dataSetRow["designdesc"] = detail.get(currentRow).getItemmaster().getItemdesc();
+						
+	dataSetRow["customeritemno"] = detail.get(currentRow).getCustomeritemno();
+	dataSetRow["colorno"] = detail.get(currentRow).getColorno();
+	dataSetRow["customercolorno"] = detail.get(currentRow).getCustomercolorno();
+	if(detail.get(currentRow).getItemBatch()!=null){
+		dataSetRow["itemno"] = detail.get(currentRow).getBatch();
+		dataSetRow["itemdesc"] = detail.get(currentRow).getItemBatch().getItemdesc();	
+		dataSetRow["itemyarncount"] = detail.get(currentRow).getItemBatch().getItemyarncount();	
+		dataSetRow["itemmake"] = detail.get(currentRow).getItemBatch().getItemmake();	
+		dataSetRow["itemwidth"] = detail.get(currentRow).getItemBatch().getItemwidth();
+	}	
+	dataSetRow["qty"] = detail.get(currentRow).getQty();
+	dataSetRow["unit"] = detail.get(currentRow).getUnit();
+	dataSetRow["price"] = detail.get(currentRow).getPrice();
+	dataSetRow["amts"] = detail.get(currentRow).getAmts();
+	dataSetRow["srcformid"] = detail.get(currentRow).getSrcformid();
+	dataSetRow["srcseq"] = detail.get(currentRow).getSrcseq();	
 		
-		dataSetRow["shipadd"] = master.getShipadd();				
-		dataSetRow["remark"] = master.getRemark();	
+	dataSetRow["shipadd"] = master.getShipadd();
+	dataSetRow["remark"] = master.getRemark();
 	
-		currentRow++;
-		return true;		
+	currentRow++;
+	return true;		
 }
 return false;]]></method>
             <method name="close"><![CDATA[ejbClient = null;]]></method>
@@ -958,6 +989,12 @@ return false;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["srcformid"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">designno</property>
+                    <text-property name="displayName">designno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["designno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
@@ -1066,8 +1103,8 @@ return false;]]></method>
                     <cell id="315">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
-                        <data id="320">
-                            <property name="resultSetColumn">itemno</property>
+                        <data id="633">
+                            <property name="resultSetColumn">designno</property>
                         </data>
                     </cell>
                     <cell id="323">
@@ -1158,6 +1195,9 @@ return false;]]></method>
                     <cell id="628">
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
+                        <data id="320">
+                            <property name="resultSetColumn">itemno</property>
+                        </data>
                     </cell>
                 </row>
             </detail>

@@ -178,6 +178,9 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
+            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            }
             //初始配置
             this.reportInitAndConfig();
             //生成报表
@@ -202,18 +205,6 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
     @Override
     public void push() {
         buildJsonArray();
-    }
-
-    @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-            try {
-                reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, Class.forName(this.currentSysprg.getRptclazz()).getClassLoader());
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(SuperSingleBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
     @Override

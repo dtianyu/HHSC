@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="出货单号" for="queryformid" />
+                    <p:inputText id="queryformid" value="#{salesTransactionQueryBean.queryFormId}" title="出货单号" />
+                    <h:outputLabel value="状态" for="queryState" />
+                    <p:selectOneMenu id="queryState" value="#{salesTransactionQueryBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="未开票" itemValue="50"/>
+                        <f:selectItem itemLabel="已开票" itemValue="BF"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="客户编号" for="queryCustomerno" />
+                    <p:inputText id="queryCustomerno" value="#{salesTransactionQueryBean.queryCustomerno}" title="客户编号" />
+                    <h:outputLabel value="客户简称" for="queryName" />
+                    <p:inputText id="queryName" value="#{salesTransactionQueryBean.queryName}" title="客户简称" />
+                    <h:outputLabel value="出货日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{salesTransactionQueryBean.queryDateBegin}" title="出货日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="截止日期" for="queryDateEnd" />
+                    <p:calendar id="queryDateEnd" value="#{salesTransactionQueryBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{salesTransactionQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{salesTransactionQueryBean.view('shipmentnotinvoice')}" icon="ui-icon-document" 
+                                     rendered="false"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesTransactionQueryBean.print()}"  icon="ui-icon-print"  
+                                     rendered="#{salesTransactionQueryBean.doPrt}" process="@this"/> 
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{salesTransactionQueryBean.reset()}"  icon="ui-icon-refresh"  
+                                     update=":formList"/> 
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{salesTransactionQueryBean.query()}"  icon="ui-icon-search"  
+                                     update=":formList"/>
+                </f:facet>
+            </p:toolbar> 
+            <p:dataTable value="#{salesTransactionQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+                         selectionMode="single" selection="#{salesTransactionQueryBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    未开票明细查询
+                </f:facet>
+                <p:ajax event="rowSelect"  update="formList:toolbar,formList:plgDetail"  oncomplete="PF('dlgDetail').show();"/>
+                <p:ajax event="rowUnselect" update="formList:toolbar,formList:plgDetail" />
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="出货单号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="出货日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="客户"/>
+                    </f:facet>
+                    <h:outputText value="#{item.customer.customer}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="品号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemno}"/>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="品名"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemMaster.itemdesc}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="出货数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qty}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="单位"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unit}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="开票数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.billqty}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="订单"/>
+                    </f:facet>
+                    <h:outputText value="#{item.srcformid}"/>
+                </p:column>
+            </p:dataTable>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
+                <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{salesTransactionQueryBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="出货日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{salesTransactionQueryBean.currentEntity.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="客户" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customer" value="#{salesTransactionQueryBean.currentEntity.customer.customer}" title="customer"  />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="业务员" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="salesman" value="#{salesTransactionQueryBean.currentEntity.systemUser.username}"  title="Salesman" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="币别" /></p:column>
+                        <p:column>
+                            <h:outputText id="currency" value="#{salesTransactionQueryBean.currentEntity.currency}" title="Currency" />
+                        </p:column>
+                        <p:column><h:outputText value="汇率"/></p:column>
+                        <p:column>
+                            <h:outputText id="exchange" value="#{salesTransactionQueryBean.currentEntity.exchange}" title="Exchange" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="税别" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="taxtype" value="#{salesTransactionQueryBean.currentEntity.taxtype}" title="Taxtype" 
+                                             required="true" requiredMessage="请输入税别" disabled="true">
+                                <f:selectItem itemLabel="内含" itemValue="0" />  
+                                <f:selectItem itemLabel="外加" itemValue="1" />  
+                                <f:selectItem itemLabel="零税" itemValue="2" />
+                                <f:selectItem itemLabel="免税" itemValue="3" /> 
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="税率"/></p:column>
+                        <p:column>
+                            <h:outputText id="taxrate" value="#{salesTransactionQueryBean.currentEntity.taxrate}" title="taxrate" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="品号"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemMaster" value="#{salesTransactionQueryBean.currentEntity.itemno}" />
+                        </p:column>
+                        <p:column><h:outputText value="品名"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemyarncount" value="#{salesTransactionQueryBean.currentEntity.itemMaster.itemdesc}" title="itemyarncount" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="成份"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemmake" value="#{salesTransactionQueryBean.currentEntity.itemMaster.itemmake}" title="itemmake" />
+                        </p:column>
+                        <p:column><h:outputText value="门幅"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemwidth" value="#{salesTransactionQueryBean.currentEntity.itemMaster.itemwidth}" title="itemwidth" />
+                        </p:column>
+                    </p:row>                  
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="客户色号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customercolorno" value="#{salesTransactionQueryBean.currentEntity.customercolorno}" title="Customercolorno" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="华卉色号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="colorno" value="#{salesTransactionQueryBean.currentEntity.colorno}" title="Colorno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="出货数量" /></p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{salesTransactionQueryBean.currentEntity.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column><h:outputText value="单位"/></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{salesTransactionQueryBean.currentEntity.unit}" title="Qty"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="开票数量" /></p:column>
+                        <p:column>
+                            <h:outputText id="billqty" value="#{salesTransactionQueryBean.currentEntity.billqty}" title="billqty"/>
+                        </p:column>
+                        <p:column><h:outputText value="单价" /></p:column>
+                        <p:column>
+                            <h:outputText id="price" value="#{salesTransactionQueryBean.currentEntity.price}" title="Price" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="来源单号" /></p:column>
+                        <p:column>
+                            <h:outputText id="srcformid" value="#{salesTransactionQueryBean.currentEntity.srcformid}" title="srcformid" />
+                        </p:column>
+                        <p:column><h:outputText value="来源序号" /></p:column>
+                        <p:column><h:outputText id="srcseq" value="#{salesTransactionQueryBean.currentEntity.srcseq}" title="srcseq" />
+
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

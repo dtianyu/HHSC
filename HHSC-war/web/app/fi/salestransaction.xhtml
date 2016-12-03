@@ -39,17 +39,9 @@
                     <p:commandButton id="btnView" value="查看" action="#{salesTransactionQueryBean.view('salestransaction')}" icon="ui-icon-document" 
                                      rendered="false"/>
                 </f:facet>
-                <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{salesTransactionQueryBean.edit('')}" icon="ui-icon-pencil"
-                                     rendered="false" />                                                     
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{salesTransactionQueryBean.delete()}" icon="ui-icon-trash" 
-                                     rendered="false" update=":formList">
-                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{salesTransactionQueryBean.unverify()}" icon="ui-icon-unlocked" 
-                                     rendered="#{salesTransactionQueryBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{salesTransactionQueryBean.create('')}" icon="ui-icon-plus"
-                                     rendered="#{salesTransactionQueryBean.doAdd}"/>
+                <f:facet name="right">                
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesTransactionQueryBean.print()}"  icon="ui-icon-print"  
+                                     rendered="#{salesTransactionQueryBean.doPrt}" process="@this"/>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{salesTransactionQueryBean.reset()}"  icon="ui-icon-refresh"  
                                      update=":formList"/> 
                     <p:commandButton id="btnQuery" value="查询" actionListener="#{salesTransactionQueryBean.query()}"  icon="ui-icon-search"  
@@ -238,7 +230,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

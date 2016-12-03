@@ -180,7 +180,7 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
             currentDetail.setBatch(e.getItemno());
         }
     }
-    
+
     public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null && currentDetail != null) {
             Unit u = (Unit) event.getObject();
@@ -293,12 +293,6 @@ public class ProductionPickingManagedBean extends FormMultiBean<ProductionPickin
                 this.model.getFilterFields().put("status", queryState);
             }
         }
-    }
-
-    @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, ProductionPickingReport.class.getClassLoader());
     }
 
     /**

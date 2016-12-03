@@ -6,7 +6,6 @@
 package com.hhsc.entity;
 
 import com.lightshell.comm.BaseEntity;
-import com.lightshell.comm.FormDetailEntity;
 import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Basic;

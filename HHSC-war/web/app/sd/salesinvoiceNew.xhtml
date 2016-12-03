@@ -16,11 +16,11 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{salesInvoiceManagedBean.persist()}" icon="ui-icon-disk" 
-                                     process="@this,plgHead"  update="formNew"/>                                
+                                     rendered="#{salesInvoiceManagedBean.doAdd}" process="@this,plgHead"  update="formNew"/>                                
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="销售发票－新增">
-                <p:panelGrid id="plgHead" styleClass="plgNew Wid100">
+            <p:panel id="panelHead" header="销售开票－新增">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="发票编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
@@ -124,9 +124,9 @@
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelBase">
-                        <p:dataTable value="#{salesInvoiceManagedBean.shipmentModel}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
+                        <p:dataTable value="#{salesInvoiceManagedBean.shipmentModel}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="150"  
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                                     rowsPerPageTemplate="15,30,45" lazy="true" selection="#{salesInvoiceManagedBean.shipmentList}" rowKey="#{item.id}" >
+                                     rowsPerPageTemplate="150,300,450" lazy="true" selection="#{salesInvoiceManagedBean.shipmentList}" rowKey="#{item.id}" >
                             <f:facet name="header">
                                 出货开票
                             </f:facet>

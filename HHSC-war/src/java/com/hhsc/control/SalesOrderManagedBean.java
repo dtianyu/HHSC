@@ -102,7 +102,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                     entity.setCreator(this.userManagedBean.getCurrentUser().getUsername());
                     entity.setCredate(getDate());
                     entity.setStatus("N");
-                    //设定明细                  
+                    //设定明细
                     for (SalesOrderDetail detail : salesOrderBean.getDetailList()) {
                         SalesOrderDetail d = (SalesOrderDetail) BeanUtils.cloneBean(detail);
                         d.setId(null);
@@ -412,6 +412,9 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
+            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            }
             //初始配置
             this.reportInitAndConfig();
             //生成报表

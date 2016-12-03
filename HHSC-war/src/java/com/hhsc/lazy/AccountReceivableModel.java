@@ -8,9 +8,6 @@ package com.hhsc.lazy;
 import com.hhsc.entity.AccountReceivable;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
-import java.util.List;
-import java.util.Map;
-import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -20,13 +17,6 @@ public class AccountReceivableModel extends BaseLazyModel<AccountReceivable> {
 
     public AccountReceivableModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
-    }
-
-    @Override
-    public List<AccountReceivable> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        this.sortFields.put("status", "ASC");
-        this.sortFields.put("formid", "DESC");
-        return super.load(first, pageSize, sortField, sortOrder, filters);
     }
 
 }

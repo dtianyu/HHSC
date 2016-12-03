@@ -26,7 +26,7 @@
                                      update="formEdit"/>                                
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="出货通知－修改">
+            <p:panel id="panelHead" header="订单出货－修改">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
@@ -184,9 +184,19 @@
                                 <p:column>
                                     <h:outputText id="batch" value="#{salesShipmentManagedBean.currentDetail.batch}" />
                                 </p:column>
+                                <p:column><h:outputText value="面料品名" /></p:column>
+                                <p:column>
+                                    <h:outputText id="itemBatch" value="#{salesShipmentManagedBean.currentDetail.itemBatch.itemdesc}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>                                
                                 <p:column><h:outputText value="可出数量" /></p:column>
                                 <p:column>
                                     <h:outputText id="allowqty" value="#{salesShipmentManagedBean.currentDetail.allowqty}" title="allowqty" />
+                                </p:column>
+                                <p:column><h:outputText value="单位" /></p:column>
+                                <p:column>
+                                    <h:outputText id="unit" value="#{salesShipmentManagedBean.currentDetail.unit}" title="Unit" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -207,13 +217,21 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column></p:column>
+                                <p:column><p:outputLabel value="不良仓库" for="warehouse2" /></p:column>
                                 <p:column>
-
+                                    <p:inputText id="warehouse2" value="#{salesShipmentManagedBean.currentDetail.warehouse2.name}" title="warehouse2" 
+                                                 styleClass="inputWithButton" required="true" requiredMessage="请输入不良仓库"  readonly="true"/>
+                                    <p:commandButton id="btnSelectWarehouse2" actionListener="#{salesShipmentManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesShipmentManagedBean.handleDialogReturnWarehouse2WhenDetailEdit}" 
+                                                update="warehouse2" />
+                                    </p:commandButton>
                                 </p:column>
-                                <p:column><h:outputText value="单位" /></p:column>
+                                <p:column><p:outputLabel value="不良数量" for="badqty"/></p:column>
                                 <p:column>
-                                    <h:outputText id="unit" value="#{salesShipmentManagedBean.currentDetail.unit}" title="Unit" />
+                                    <p:inputText id="badqty" value="#{salesShipmentManagedBean.currentDetail.badqty}" title="badqty"
+                                                 required="true" requiredMessage="请输入不良数量">
+                                    </p:inputText>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

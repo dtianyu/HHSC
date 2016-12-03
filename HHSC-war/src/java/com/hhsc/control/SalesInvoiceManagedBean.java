@@ -27,18 +27,18 @@ import org.primefaces.event.SelectEvent;
  *
  * @author kevindong
  */
-@ManagedBean(name="salesInvoiceManagedBean")
+@ManagedBean(name = "salesInvoiceManagedBean")
 @SessionScoped
 public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, SalesTransaction> {
 
     @EJB
-    private AccountReceivableBean accoutReceivableBean;
+    protected AccountReceivableBean accoutReceivableBean;
 
     @EJB
-    private SalesTransactionBean salesTransactionBean;
+    protected SalesTransactionBean salesTransactionBean;
 
-    private BaseLazyModel shipmentModel;
-    private List<SalesTransaction> shipmentList;
+    protected BaseLazyModel shipmentModel;
+    protected List<SalesTransaction> shipmentList;
 
     public SalesInvoiceManagedBean() {
         super(AccountReceivable.class, SalesTransaction.class);
@@ -105,6 +105,7 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
         });
         if (newEntity != null) {
             newEntity.calcLocalAmounts();
+            newEntity.setSalerid(shipmentList.get(0).getSalerid());
         }
         return super.doBeforePersist();
     }
@@ -271,6 +272,9 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("formid", queryFormId);
             }
+             if (queryName != null && !"".equals(queryName)) {
+                this.model.getFilterFields().put("customer.customer", queryName);
+            }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("formdateBegin", queryDateBegin);
             }
@@ -286,9 +290,6 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
     @Override
     public void reset() {
         super.reset();
-        this.model.getSortFields().put("status", "ASC");
-        this.model.getSortFields().put("formdate", "DESC");
-        this.model.getSortFields().put("formid", "DESC");
         this.shipmentModel.getFilterFields().clear();
         this.shipmentModel.getFilterFields().put("customer.id", -1);
     }

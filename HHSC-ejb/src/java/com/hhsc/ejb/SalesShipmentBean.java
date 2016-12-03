@@ -7,11 +7,13 @@ package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.InventoryTransaction;
+import com.hhsc.entity.ItemExchange;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.SalesShipment;
 import com.hhsc.entity.SalesShipmentDetail;
 import com.hhsc.entity.SalesTransaction;
+import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.TransactionType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,6 +29,12 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class SalesShipmentBean extends SuperBean<SalesShipment> {
+
+    @EJB
+    private SysprgBean sysprgBean;
+
+    @EJB
+    private ItemExchangeBean itemExchangeBean;
 
     @EJB
     private SalesTransactionBean salesTransactionBean;
@@ -73,19 +81,26 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
         try {
             SalesShipment e = this.getEntityManager().merge(entity);
             //删除库存交易
-            List<InventoryTransaction> it = inventoryTransactionBean.findByFormid(e.getFormid());
-            if (it != null && !it.isEmpty()) {
-                inventoryTransactionBean.delete(it);
+            List<InventoryTransaction> itList = inventoryTransactionBean.findByFormid(e.getFormid());
+            if (itList != null && !itList.isEmpty()) {
+                inventoryTransactionBean.delete(itList);
             }
             //删除出货立账记录
-            List<SalesTransaction> st = salesTransactionBean.findByFormid(e.getFormid());
-            if (st != null && !st.isEmpty()) {
-                salesTransactionBean.delete(st);
+            List<SalesTransaction> stList = salesTransactionBean.findByFormid(e.getFormid());
+            if (stList != null && !stList.isEmpty()) {
+                salesTransactionBean.delete(stList);
             }
-
+            //删除不良数量记录
+            List<ItemExchange> ieList = itemExchangeBean.findByReason(e.getFormid());
+            if (ieList != null && !ieList.isEmpty()) {
+                ieList.forEach((ie) -> {
+                    itemExchangeBean.unverify(ie);
+                    itemExchangeBean.delete(ie);
+                });
+            }
             detailList = salesShipmentDetailBean.findByPId(e.getFormid());
             for (SalesShipmentDetail detail : detailList) {
-                //更新库存数量       
+                //更新库存数量
                 ItemInventory i = new ItemInventory();
                 i.setItemmaster(detail.getItemmaster());
                 i.setColorno(detail.getColorno());
@@ -96,7 +111,7 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 i.setPreqty(BigDecimal.ZERO);
                 i.setQty(detail.getQty());
                 itemInventoryBean.add(i);
-                //更新订单状态 
+                //更新订单状态
                 s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
                 s.setShipqty(s.getShipqty().subtract(detail.getQty()));
                 if (s.getShipqty().compareTo(BigDecimal.ZERO) == 0) {
@@ -112,7 +127,7 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
             }
             itemInventoryBean.add(inventoryList);
             salesShipmentDetailBean.update(detailList);
-            
+
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -149,7 +164,7 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 t.setSn(detail.getSn());
                 t.setQty(detail.getQty());
                 t.setUnit(detail.getUnit());
-                t.setWarehouse(e.getWarehouse());
+                t.setWarehouse(detail.getWarehouse());
                 t.setIocode(transactionType.getIocode());
                 t.setProptype(detail.getItemmaster().getProptype());
                 t.setMaketype(detail.getItemmaster().getMaketype());
@@ -175,7 +190,7 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                 //更新订单状态
                 s = salesOrderDetailBean.findByPIdAndSeq(detail.getSrcformid(), detail.getSrcseq());
                 s.setShipqty(s.getShipqty().add(detail.getQty()));
-                if (s.getShipqty().compareTo(s.getQty()) == 0) {
+                if (s.getShipqty().compareTo(s.getQty()) >= 0) {
                     s.setStatus("AC");
                 } else {
                     s.setStatus("50");
@@ -188,12 +203,56 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
 
                 st = salesTransactionBean.createFromSalesShipment(entity, detail);
                 salesTransactionBean.persist(st);
+                //处理不良数量
+                if (detail.getBadqty().compareTo(BigDecimal.ZERO) == 1) {
+                    TransactionType exchangeType = transactionTypeBean.findByTrtype("IAE");
+                    if (exchangeType == null) {
+                        throw new RuntimeException("IAE交易类别没有定义");
+                    }
+                    Sysprg prg = sysprgBean.findByAPI("itemexchange");
+                    String formid = itemExchangeBean.getFormId(entity.getFormdate(), prg.getNolead(), prg.getNoformat(), prg.getNoseqlen());
+                    ItemExchange ie = new ItemExchange();
+                    ie.setFormid(formid);
+                    ie.setFormdate(entity.getFormdate());
+                    ie.setTransactionType(exchangeType);
+                    ie.setDept(entity.getDept());
+                    ie.setSystemUser(entity.getSalesman());
+                    ie.setItemMasterFrom(detail.getItemmaster());
+                    ie.setItemnofrom(detail.getItemno());
+                    ie.setColornofrom(detail.getColorno());
+                    ie.setBrandfrom(detail.getBrand());
+                    ie.setBatchfrom(detail.getBatch());
+                    ie.setSnfrom(detail.getSn());
+                    ie.setQtyfrom(detail.getBadqty());
+                    ie.setUnitfrom(detail.getUnit());
+                    ie.setWarehouseFrom(detail.getWarehouse());
+
+                    ie.setItemMasterTo(detail.getItemmaster());
+                    ie.setItemnoto(detail.getItemno());
+                    ie.setColornoto(detail.getColorno());
+                    ie.setBrandto(detail.getBrand());
+                    ie.setBatchto(detail.getBatch());
+                    ie.setSnto(detail.getSn());
+                    ie.setQtyto(detail.getBadqty());
+                    ie.setUnitto(detail.getUnit());
+                    ie.setWarehouseTo(detail.getWarehouse2());
+                    ie.setReason(entity.getFormid());
+                    ie.setRemark("出货单不良数量直接转换");
+                    ie.setStatus("V");
+                    ie.setCreator(entity.getCreator());
+                    ie.setCredate(entity.getCredate());
+                    ie.setCfmuser(entity.getCfmuser());
+                    ie.setCfmdate(entity.getCfmdate());
+
+                    itemExchangeBean.persist(ie);
+                    itemExchangeBean.verify(ie);
+                }
             }
             itemInventoryBean.subtract(inventoryList);
             salesShipmentDetailBean.update(detailList);
-            
+
             return e;
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             throw new RuntimeException(ex);
         }
     }

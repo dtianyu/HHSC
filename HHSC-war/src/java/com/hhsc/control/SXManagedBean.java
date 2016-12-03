@@ -110,8 +110,8 @@ public class SXManagedBean extends ProductionOrderManagedBean {
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("sxdeldateEnd", queryDateEnd);
             }
-            if (designno != null && !"".equals(designno)) {
-                this.model.getFilterFields().put("designno", designno);
+            if (queryDesignno != null && !"".equals(queryDesignno)) {
+                this.model.getFilterFields().put("designno", queryDesignno);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("sxstatus", queryState);

@@ -77,7 +77,7 @@
                                              process="@this"   update="plgDetail"/>
                             <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{accountReceiptManagedBean.deleteDetail()}" icon="ui-icon-trash" 
                                              oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             process="@this" update="plgDetail,formEdit:tabView:detailList,"/>  
+                                             process="@this" update="plgDetail,formEdit:tabView:detailList,formEdit:plgHead"/>  
                         </f:facet>
                         <f:facet name="right">                        
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{accountReceiptManagedBean.doConfirmDetail()}" icon="ui-icon-disk"

@@ -6,7 +6,6 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
-import com.hhsc.entity.PurchaseAcceptanceDetail;
 import com.hhsc.entity.PurchaseStorage;
 import com.hhsc.entity.PurchaseTransaction;
 import java.math.BigDecimal;

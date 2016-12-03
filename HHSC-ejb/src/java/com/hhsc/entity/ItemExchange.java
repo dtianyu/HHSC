@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemExchange.findById", query = "SELECT i FROM ItemExchange i WHERE i.id = :id"),
     @NamedQuery(name = "ItemExchange.findByFormid", query = "SELECT i FROM ItemExchange i WHERE i.formid = :formid"),
     @NamedQuery(name = "ItemExchange.findByFormdate", query = "SELECT i FROM ItemExchange i WHERE i.formdate = :formdate"),
+    @NamedQuery(name = "ItemExchange.findByReason", query = "SELECT i FROM ItemExchange i WHERE i.reason = :reason"),
     @NamedQuery(name = "ItemExchange.findByStatus", query = "SELECT i FROM ItemExchange i WHERE i.status = :status")})
 public class ItemExchange extends FormEntity {
 

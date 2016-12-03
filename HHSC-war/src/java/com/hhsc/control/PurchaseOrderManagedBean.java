@@ -20,7 +20,6 @@ import com.hhsc.entity.Unit;
 import com.hhsc.entity.Vendor;
 import com.hhsc.entity.VendorItem;
 import com.hhsc.lazy.PurchaseOrderModel;
-import com.hhsc.rpt.PurchaseOrderReport;
 import com.hhsc.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
@@ -30,7 +29,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -297,6 +295,9 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
+            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            }
             //初始配置
             this.reportInitAndConfig();
             //生成报表
@@ -308,7 +309,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         }
 
     }
-    
+
     public void print(String reportDesignFile) throws Exception {
         if (currentEntity == null) {
             showWarnMsg("Warn", "没有可打印数据");
@@ -330,6 +331,9 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
+            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            }
             //初始配置
             this.reportInitAndConfig();
             //生成报表
@@ -364,12 +368,6 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
                 this.model.getFilterFields().put("status", queryState);
             }
         }
-    }
-
-    @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, PurchaseOrderReport.class.getClassLoader());
     }
 
     @Override

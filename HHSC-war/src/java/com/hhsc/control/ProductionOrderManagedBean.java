@@ -72,7 +72,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
 
     protected List<SalesType> salesTypeList;
 
-    protected String designno;
+    protected String queryDesignno;
 
     /**
      * Creates a new instance of SalesOrderManagedBean
@@ -124,7 +124,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
                     entity.setDxreaded(Boolean.FALSE);
                     entity.setCkstatus("N");
                     entity.setCkreaded(Boolean.FALSE);
-                    //设定明细                  
+                    //设定明细
                     for (ProductionOrderDetail detail : productionOrderBean.getDetailList()) {
                         ProductionOrderDetail d = (ProductionOrderDetail) BeanUtils.cloneBean(detail);
                         d.setId(null);
@@ -544,25 +544,22 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            if (queryFormId != null && !"".equals(queryFormId)) {
+                this.model.getFilterFields().put("formid", queryFormId);
+            }
             if (queryDateBegin != null) {
                 this.model.getFilterFields().put("formdateBegin", queryDateBegin);
             }
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("formdateEnd", queryDateEnd);
             }
-            if (designno != null && !"".equals(designno)) {
-                this.model.getFilterFields().put("designno", designno);
+            if (queryDesignno != null && !"".equals(queryDesignno)) {
+                this.model.getFilterFields().put("designno", queryDesignno);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("salesstatus", queryState);
             }
         }
-    }
-
-    @Override
-    protected void reportInitAndConfig() {
-        super.reportInitAndConfig();
-        reportEngineConfig.getAppContext().put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, ProductionOrderReport.class.getClassLoader());
     }
 
     @Override
@@ -645,8 +642,10 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
                 if (doBeforeUnverify()) {
                     currentEntity.setSalesstatus("N");
                     currentEntity.setJhrecdate(null);
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
+                    currentEntity.setCfmuser("");
+                    currentEntity.setCfmdate(null);
                     currentEntity.setStatus("工艺");
                     superEJB.unverify(currentEntity);
                     doAfterUnverify();
@@ -669,8 +668,10 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
                 if (doBeforeVerify()) {
                     currentEntity.setSalesstatus("V");
                     currentEntity.setJhrecdate(getDate());
-                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUserid());
+                    currentEntity.setOptuser(getUserManagedBean().getCurrentUser().getUsername());
                     currentEntity.setOptdateToNow();
+                    currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUsername());
+                    currentEntity.setCfmdateToNow();
                     currentEntity.setStatus("计划");
                     superEJB.verify(currentEntity);
                     doAfterVerify();
@@ -687,17 +688,17 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
     }
 
     /**
-     * @return the designno
+     * @return the queryDesignno
      */
-    public String getDesignno() {
-        return designno;
+    public String getQueryDesignno() {
+        return queryDesignno;
     }
 
     /**
-     * @param designno the designno to set
+     * @param queryDesignno the queryDesignno to set
      */
-    public void setDesignno(String designno) {
-        this.designno = designno;
+    public void setQueryDesignno(String queryDesignno) {
+        this.queryDesignno = queryDesignno;
     }
 
     /**

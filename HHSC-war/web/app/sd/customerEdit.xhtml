@@ -23,7 +23,8 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.update()}" icon="ui-icon-disk" 
-                                     process="@this,plgEdit,:formEdit:tabView:plgEdit" update="plgEdit,:formEdit:tabView:plgEdit,:formEdit:tabView:tableList"/>                                
+                                     rendered="#{customerManagedBean.doEdit}"
+                                     process="@this,plgEdit,:formEdit:tabView:plgEdit" update="formEdit"/>                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelEdit" header="客户登记－修改">
