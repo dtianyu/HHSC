@@ -17,7 +17,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
@@ -76,18 +75,13 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
 
     @Override
     public void create() {
-        if (getNewEntity() == null) {
-            T entity;
-            try {
-                entity = entityClass.newInstance();
-                entity.setStatus("N");
-                entity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
-                entity.setCredateToNow();
-                setNewEntity(entity);
-            } catch (InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(SuperSingleBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        super.create();
+        if (newEntity != null) {
+            newEntity.setStatus("N");
+            newEntity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
+            newEntity.setCredateToNow();
         }
+        setCurrentEntity(newEntity);
     }
 
     @Override

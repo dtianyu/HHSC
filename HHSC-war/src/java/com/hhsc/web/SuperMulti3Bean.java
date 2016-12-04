@@ -11,15 +11,11 @@ import com.hhsc.ejb.SysprgBean;
 import com.hhsc.entity.Sysprg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMulti3ManagedBean;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
@@ -87,31 +83,11 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, V extends SuperDeta
 
     @Override
     public void create() {
-        if (this.detailList != null && !this.detailList.isEmpty()) {
-            this.detailList.clear();
-        } else if (this.detailList == null) {
-            this.detailList = new ArrayList<>();
-        }
-        if (this.detailList2 != null && !this.detailList2.isEmpty()) {
-            this.detailList2.clear();
-        } else if (this.detailList2 == null) {
-            this.detailList2 = new ArrayList<>();
-        }
-        if (this.detailList3 != null && !this.detailList3.isEmpty()) {
-            this.detailList3.clear();
-        } else if (this.detailList3 == null) {
-            this.detailList3 = new ArrayList<>();
-        }
-        if (getNewEntity() == null) {
-            try {
-                T entity = entityClass.newInstance();
-                entity.setStatus("N");
-                entity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
-                entity.setCredateToNow();
-                setNewEntity(entity);
-            } catch (InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(SuperMulti3Bean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        super.create();
+        if (newEntity != null) {
+            newEntity.setStatus("N");
+            newEntity.setCreator(getUserManagedBean().getCurrentUser().getUsername());
+            newEntity.setCredateToNow();
         }
         setCurrentEntity(newEntity);
     }

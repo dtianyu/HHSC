@@ -13,12 +13,9 @@ import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.SuperSingleManagedBean;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 
 /**
  *
