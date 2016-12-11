@@ -109,6 +109,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                         d.setPid(formid);
                         d.setProqty(BigDecimal.ZERO);
                         d.setInqty(BigDecimal.ZERO);
+                        d.setShipqty(BigDecimal.ZERO);
+                        d.setRelapi("");
+                        d.setRelformid("");
+                        d.setRelseq(-1);
                         d.setStatus("00");
                         this.addedDetailList.add(d);
                     }

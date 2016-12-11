@@ -2,15 +2,15 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <context-param>
         <param-name>com.hhsc.web.appdatapath</param-name>
-        <param-value>//Users//kevindong//GitHub//HHSC//HHSC-war//web//resources//data</param-value>
+        <param-value>resources//data</param-value>
     </context-param>
     <context-param>
         <param-name>com.hhsc.web.appimgpath</param-name>
-        <param-value>//Users//kevindong//GitHub//HHSC//HHSC-war//web//resources//upload//img</param-value>
+        <param-value>resources//upload//img</param-value>
     </context-param>
     <context-param>
         <param-name>com.hhsc.web.reportpath</param-name>
-        <param-value>//Users//kevindong//GitHub//HHSC//HHSC-war//web//rpt//</param-value>
+        <param-value>rpt//</param-value>
     </context-param>
     <context-param>
         <param-name>com.hhsc.web.reportoutputformat</param-name>
@@ -18,7 +18,7 @@
     </context-param>
     <context-param>
         <param-name>com.hhsc.web.reportoutputpath</param-name>
-        <param-value>//Users//kevindong//GitHub//HHSC//HHSC-war//web//rpt//output//</param-value>
+        <param-value>rpt//output//</param-value>
     </context-param>
     <context-param>
         <param-name>com.hhsc.web.reportviewcontext</param-name>

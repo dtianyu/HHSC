@@ -5,13 +5,15 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.ejb.PurchaseDraftBean;
 import com.hhsc.ejb.VendorBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Vendor;
-import com.hhsc.lazy.CustomerModel;
 import com.hhsc.lazy.VendorModel;
 import com.hhsc.web.SuperSingleBean;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,6 +26,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "vendorManagedBean")
 @SessionScoped
 public class VendorManagedBean extends SuperSingleBean<Vendor> {
+
+    @EJB
+    private PurchaseDraftBean purchaseDraftBean;
 
     @EJB
     private VendorBean vendorBean;
@@ -41,6 +46,19 @@ public class VendorManagedBean extends SuperSingleBean<Vendor> {
         this.newEntity.setTaxrate(BigDecimal.valueOf(17));
         this.newEntity.setTradetype("C&F");
         this.newEntity.setAbroad(false);
+    }
+
+    @Override
+    protected boolean doBeforeDelete(Vendor entity) throws Exception {
+        if (entity != null) {
+            Map<String, Object> filters = new HashMap<>();
+            filters.put("vendor.vendorno", entity.getVendorno());
+            if (purchaseDraftBean.getRowCount(filters) > 0) {
+                showErrorMsg("Error", "已有交易记录不能删除");
+                return false;
+            }
+        }
+        return super.doBeforeDelete(entity);
     }
 
     @Override

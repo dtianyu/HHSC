@@ -6,7 +6,6 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.ProcessDetailBean;
-import com.hhsc.rpt.ProductionOrderReport;
 import com.hhsc.ejb.ProductionOrderBean;
 import com.hhsc.ejb.ProductionOrderDetailBean;
 import com.hhsc.ejb.ProductionPrintBean;
@@ -39,7 +38,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.beanutils.BeanUtils;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.SelectEvent;
 

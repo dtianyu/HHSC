@@ -7,12 +7,15 @@ package com.hhsc.control;
 
 import com.hhsc.ejb.CustomerBean;
 import com.hhsc.ejb.CustomerContacterBean;
+import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerContacter;
 import com.hhsc.lazy.CustomerModel;
 import com.hhsc.web.SuperMultiBean;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -25,6 +28,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "customerManagedBean")
 @SessionScoped
 public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContacter> {
+
+    @EJB
+    private SalesOrderBean salesOrderBean;
 
     @EJB
     private CustomerBean customerBean;
@@ -49,6 +55,19 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
     public void createDetail() {
         super.createDetail();
         newDetail.setMajor(false);
+    }
+
+    @Override
+    protected boolean doBeforeDelete(Customer entity) throws Exception {
+        if (entity != null) {
+            Map<String, Object> filters = new HashMap<>();
+            filters.put("customer.customerno", entity.getCustomerno());
+            if (salesOrderBean.getRowCount(filters) > 0) {
+                showErrorMsg("Error", "已有交易记录不能删除");
+                return false;
+            }
+        }
+        return super.doBeforeDelete(entity);
     }
 
     @Override

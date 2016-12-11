@@ -8,6 +8,7 @@ package com.hhsc.control;
 import com.hhsc.ejb.CustomerItemBean;
 import com.hhsc.ejb.ItemCategoryBean;
 import com.hhsc.ejb.ItemMasterBean;
+import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerItem;
 import com.hhsc.entity.ItemCategory;
@@ -17,7 +18,9 @@ import com.hhsc.lazy.ItemDesignModel;
 import com.hhsc.web.SuperMultiBean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -33,6 +36,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "itemDesignManagedBean")
 @SessionScoped
 public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerItem> {
+
+    @EJB
+    private SalesOrderBean salesOrderBean;
 
     @EJB
     private ItemCategoryBean itemCategoryBean;
@@ -80,7 +86,20 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
     protected boolean doAfterPersist() throws Exception {
         //新增后即审核2016/10/31
         this.verify();
-        return super.doAfterPersist(); 
+        return super.doAfterPersist();
+    }
+
+    @Override
+    protected boolean doBeforeDelete(ItemMaster entity) throws Exception {
+        if (entity != null) {
+            Map<String, Object> filters = new HashMap<>();
+            filters.put("itemno", entity.getItemno());
+            if (salesOrderBean.getRowCount(filters) > 0) {
+                showErrorMsg("Error", "已有交易记录不能删除");
+                return false;
+            }
+        }
+        return super.doBeforeDelete(entity);
     }
 
     @Override
@@ -89,27 +108,23 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
             if (this.getCurrentSysprg().getNoauto() && !this.getCurrentSysprg().getNochange()) {
                 String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
-                if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                    for (CustomerItem detail : this.addedDetailList) {
-                        detail.setItemno(formid);
-                    }
-                }
-                if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                    this.editedDetailList.stream().forEach((detail) -> {
-                        detail.setItemno(formid);
-                    });
-                }
             } else {
-                if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                    this.addedDetailList.stream().forEach((detail) -> {
-                        detail.setItemno(newEntity.getItemno());
-                    });
+                Map<String, Object> filters = new HashMap<>();
+                filters.put("itemno", this.newEntity.getItemno());
+                if (itemMasterBean.getRowCount(filters) > 0) {
+                    showErrorMsg("Error", "品号已存在无法保存");
+                    return false;
                 }
-                if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                    this.editedDetailList.stream().forEach((detail) -> {
-                        detail.setItemno(newEntity.getItemno());
-                    });
-                }
+            }
+            if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
+                this.addedDetailList.forEach((detail) -> {
+                    detail.setItemno(newEntity.getItemno());
+                });
+            }
+            if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
+                this.editedDetailList.forEach((detail) -> {
+                    detail.setItemno(newEntity.getItemno());
+                });
             }
             return true;
         }
@@ -271,8 +286,6 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
         super.reset();
         this.model.getFilterFields().put("itemcategory.category", "200");
     }
-    
-    
 
     @Override
     public void update() {

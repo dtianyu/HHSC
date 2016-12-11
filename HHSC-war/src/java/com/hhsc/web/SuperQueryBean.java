@@ -58,11 +58,11 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     public void construct() {
         //不需要进行操作权限设置
         FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
-        appImgPath = fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
-        reportPath = fc.getExternalContext().getInitParameter("com.hhsc.web.reportpath");
+        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
+        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
+        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportpath");
         reportOutputFormat = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
+        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
         reportViewContext = fc.getExternalContext().getInitParameter("com.hhsc.web.reportviewcontext");
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;

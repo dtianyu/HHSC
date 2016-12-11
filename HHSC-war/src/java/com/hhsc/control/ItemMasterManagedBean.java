@@ -9,6 +9,7 @@ import com.hhsc.ejb.ItemCategoryBean;
 import com.hhsc.ejb.ItemMakeBean;
 import com.hhsc.ejb.ItemMasterBean;
 import com.hhsc.ejb.ItemUnitTypeBean;
+import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.VendorItemBean;
 import com.hhsc.entity.ItemCategory;
 import com.hhsc.entity.ItemMake;
@@ -20,7 +21,9 @@ import com.hhsc.lazy.ItemMasterModel;
 import com.hhsc.web.SuperMulti2Bean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -36,6 +39,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "itemMasterManagedBean")
 @SessionScoped
 public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake, VendorItem> {
+
+    @EJB
+    private SalesOrderDetailBean salesOrderDetailBean;
 
     @EJB
     protected ItemCategoryBean itemCategoryBean;
@@ -99,37 +105,57 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
     }
 
     @Override
+    protected boolean doBeforeDelete(ItemMaster entity) throws Exception {
+        if (entity != null) {
+            Map<String, Object> filters = new HashMap<>();
+            filters.put("itemno", entity.getItemno());
+            if (salesOrderDetailBean.getRowCount(filters) > 0) {
+                showErrorMsg("Error", "已有交易记录不能删除");
+                return false;
+            }
+        }
+        return super.doBeforeDelete(entity);
+    }
+
+    @Override
     protected boolean doBeforePersist() throws Exception {
         if (this.newEntity != null && this.getCurrentSysprg() != null) {
             StringBuilder sb = new StringBuilder();
             if (this.getCurrentSysprg().getNoauto() && !this.getCurrentSysprg().getNochange()) {
                 String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
+            } else {
+                Map<String, Object> filters = new HashMap<>();
+                filters.put("itemno", this.newEntity.getItemno());
+                if (itemMasterBean.getRowCount(filters) > 0) {
+                    showErrorMsg("Error", "品号已存在无法保存");
+                    return false;
+                }
             }
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (ItemMake detail : this.addedDetailList) {
+                this.addedDetailList.forEach((detail) -> {
                     detail.setItemno(newEntity.getItemno());
-                }
+                });
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (ItemMake detail : this.editedDetailList) {
+                this.editedDetailList.forEach((detail) -> {
                     detail.setItemno(newEntity.getItemno());
-                }
+                });
             }
             if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
-                for (VendorItem detail : this.addedDetailList2) {
+                this.addedDetailList2.forEach((detail) -> {
                     detail.setItemno(newEntity.getItemno());
-                }
+                });
             }
             if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
-                for (VendorItem detail : this.editedDetailList2) {
+                this.editedDetailList2.forEach((detail) -> {
                     detail.setItemno(newEntity.getItemno());
-                }
+                });
             }
             if (this.detailList != null && !this.detailList.isEmpty()) {
-                for (ItemMake detail : this.detailList) {
+                this.detailList.forEach((detail) -> {
                     sb.append(detail.getMake()).append(";");
-                }
+                });
             }
             this.newEntity.setItemmake(sb.toString());
             return true;
