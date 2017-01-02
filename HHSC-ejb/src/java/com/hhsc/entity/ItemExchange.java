@@ -27,11 +27,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "itemexchange")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemExchange.findAll", query = "SELECT i FROM ItemExchange i"),
-    @NamedQuery(name = "ItemExchange.findById", query = "SELECT i FROM ItemExchange i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemExchange.findByFormid", query = "SELECT i FROM ItemExchange i WHERE i.formid = :formid"),
-    @NamedQuery(name = "ItemExchange.findByFormdate", query = "SELECT i FROM ItemExchange i WHERE i.formdate = :formdate"),
-    @NamedQuery(name = "ItemExchange.findByReason", query = "SELECT i FROM ItemExchange i WHERE i.reason = :reason"),
+    @NamedQuery(name = "ItemExchange.findAll", query = "SELECT i FROM ItemExchange i")
+    ,
+    @NamedQuery(name = "ItemExchange.findById", query = "SELECT i FROM ItemExchange i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemExchange.findByFormid", query = "SELECT i FROM ItemExchange i WHERE i.formid = :formid")
+    ,
+    @NamedQuery(name = "ItemExchange.findByFormdate", query = "SELECT i FROM ItemExchange i WHERE i.formdate = :formdate")
+    ,
+    @NamedQuery(name = "ItemExchange.findByReason", query = "SELECT i FROM ItemExchange i WHERE i.reason = :reason")
+    ,
     @NamedQuery(name = "ItemExchange.findByStatus", query = "SELECT i FROM ItemExchange i WHERE i.status = :status")})
 public class ItemExchange extends FormEntity {
 
@@ -44,6 +49,13 @@ public class ItemExchange extends FormEntity {
     @JoinColumn(name = "userid", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private SystemUser systemUser;
+
+    @Size(max = 45)
+    @Column(name = "objtype")
+    private String objtype;
+    @Size(max = 20)
+    @Column(name = "objno")
+    private String objno;
 
     @JoinColumn(name = "itemidfrom", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -329,6 +341,34 @@ public class ItemExchange extends FormEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.ItemExchange[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the objtype
+     */
+    public String getObjtype() {
+        return objtype;
+    }
+
+    /**
+     * @param objtype the objtype to set
+     */
+    public void setObjtype(String objtype) {
+        this.objtype = objtype;
+    }
+
+    /**
+     * @return the objno
+     */
+    public String getObjno() {
+        return objno;
+    }
+
+    /**
+     * @param objno the objno to set
+     */
+    public void setObjno(String objno) {
+        this.objno = objno;
     }
 
 }

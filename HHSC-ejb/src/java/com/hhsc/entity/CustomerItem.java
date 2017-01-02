@@ -26,14 +26,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "customeritem")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CustomerItem.getRowCount", query = "SELECT COUNT(c) FROM CustomerItem c"),
-    @NamedQuery(name = "CustomerItem.findAll", query = "SELECT c FROM CustomerItem c"),
-    @NamedQuery(name = "CustomerItem.findById", query = "SELECT c FROM CustomerItem c WHERE c.id = :id"),
-    @NamedQuery(name = "CustomerItem.findByPId", query = "SELECT c FROM CustomerItem c WHERE c.pid = :pid"),
-    @NamedQuery(name = "CustomerItem.findByCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.customer.customerno = :customerno"),
-    @NamedQuery(name = "CustomerItem.findByItemId", query = "SELECT c FROM CustomerItem c WHERE c.itemid = :itemid"),
-    @NamedQuery(name = "CustomerItem.findByItemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno"),
-    @NamedQuery(name = "CustomerItem.findByItemnoAndCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customer.customerno=:customerno"),
+    @NamedQuery(name = "CustomerItem.getRowCount", query = "SELECT COUNT(c) FROM CustomerItem c")
+    ,
+    @NamedQuery(name = "CustomerItem.findAll", query = "SELECT c FROM CustomerItem c")
+    ,
+    @NamedQuery(name = "CustomerItem.findById", query = "SELECT c FROM CustomerItem c WHERE c.id = :id")
+    ,
+    @NamedQuery(name = "CustomerItem.findByPId", query = "SELECT c FROM CustomerItem c WHERE c.pid = :pid")
+    ,
+    @NamedQuery(name = "CustomerItem.findByCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.customer.customerno = :customerno")
+    ,
+    @NamedQuery(name = "CustomerItem.findByItemId", query = "SELECT c FROM CustomerItem c WHERE c.itemid = :itemid")
+    ,
+    @NamedQuery(name = "CustomerItem.findByItemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno")
+    ,
+    @NamedQuery(name = "CustomerItem.findByItemnoAndCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customer.customerno=:customerno")
+    ,
+    @NamedQuery(name = "CustomerItem.findByItemnoAndCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customeritemno=:customeritemno")
+    ,
     @NamedQuery(name = "CustomerItem.findByCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.customeritemno = :customeritemno")})
 public class CustomerItem extends SuperDetailEntity {
 

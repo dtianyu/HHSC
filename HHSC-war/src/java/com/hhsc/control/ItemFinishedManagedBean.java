@@ -29,18 +29,27 @@ public class ItemFinishedManagedBean extends ItemMasterManagedBean {
     public void init() {
         super.init();
         this.model.getFilterFields().put("itemcategory.category", "100");
+        if (this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+            this.model.getFilterFields().put("itemno", this.currentSysprg.getNolead());
+        }
     }
 
     @Override
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("itemcategory.category", "100");
+        if (this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+            this.model.getFilterFields().put("itemno", this.currentSysprg.getNolead());
+        }
     }
 
     @Override
     public void query() {
         super.query();
         this.model.getFilterFields().put("itemcategory.category", "100");
+        if (this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+            this.model.getFilterFields().put("itemno", this.currentSysprg.getNolead());
+        }
     }
 
 }

@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ProductionOrder.findByStatus", query = "SELECT p FROM ProductionOrder p WHERE p.status = :status")})
 public class ProductionOrder extends FormEntity {
 
+    @Column(name = "itemprocessid")
+    private Integer itemprocessid;
+
     @JoinColumn(name = "formtype", referencedColumnName = "type")
     @ManyToOne(optional = false)
     private SalesType formtype;
@@ -1189,6 +1192,20 @@ public class ProductionOrder extends FormEntity {
      */
     public void setFormkind(String formkind) {
         this.formkind = formkind;
+    }
+
+    /**
+     * @return the itemprocessid
+     */
+    public Integer getItemprocessid() {
+        return itemprocessid;
+    }
+
+    /**
+     * @param itemprocessid the itemprocessid to set
+     */
+    public void setItemprocessid(Integer itemprocessid) {
+        this.itemprocessid = itemprocessid;
     }
 
 }

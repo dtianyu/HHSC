@@ -800,7 +800,9 @@ return false;]]></method>
     </data-sets>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
-            <property name="type">a4</property>
+            <property name="type">custom</property>
+            <property name="height">290mm</property>
+            <property name="width">210mm</property>
             <page-header>
                 <label id="6">
                     <property name="fontFamily">"Microsoft YaHei"</property>

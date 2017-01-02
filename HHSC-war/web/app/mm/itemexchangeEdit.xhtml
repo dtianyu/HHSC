@@ -9,19 +9,19 @@
     <ui:define name="content">
 
         <h:form id="formEdit">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="itemexchange" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="itemexchange" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{itemExchangeManagedBean.update()}" icon="ui-icon-disk" 
-                                     process="formEdit" update="formEdit"/>                                
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{itemExchangeManagedBean.update()}" icon="ui-icon-disk"
+                                     process="formEdit" update="formEdit"/>
                 </f:facet>
-            </p:toolbar>  
+            </p:toolbar>
             <p:panel id="panelHead" header="库存转换－修改">
-                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">     
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="转换单号"/></p:column>
                         <p:column styleClass="Wid30">
@@ -29,7 +29,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="转换日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:calendar id="formdate" value="#{itemExchangeManagedBean.currentEntity.formdate}" title="Formdate" 
+                            <p:calendar id="formdate" value="#{itemExchangeManagedBean.currentEntity.formdate}" title="Formdate"
                                         pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="日期不能为空.">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
@@ -38,11 +38,11 @@
                     <p:row>
                         <p:column><p:outputLabel value="需求部门" for="deptid" /></p:column>
                         <p:column>
-                            <p:inputText id="deptid" value="#{itemExchangeManagedBean.currentEntity.dept.dept}" title="Deptid" 
+                            <p:inputText id="deptid" value="#{itemExchangeManagedBean.currentEntity.dept.dept}" title="Deptid"
                                          styleClass="inputWithButton" required="true" requiredMessage="请输入部门" readonly="true"/>
-                            <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWhenEdit}" 
+                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWhenEdit}"
                                         update="deptid" />
                             </p:commandButton>
                         </p:column>
@@ -50,11 +50,31 @@
                         <p:column>
                             <p:inputText id="userid" value="#{itemExchangeManagedBean.currentEntity.systemUser.username}" title="Salesman" styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入业务员" readonly="true"/>
-                            <p:commandButton id="btnSelectSalesman" actionListener="#{itemExchangeManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnSelectSalesman" actionListener="#{itemExchangeManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUserWhenEdit}" 
+                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUserWhenEdit}"
                                         update="userid" />
-                            </p:commandButton>                           
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="异动对象" for="objno" /></p:column>
+                        <p:column>
+                            <p:inputText id="objno" value="#{itemExchangeManagedBean.currentEntity.objno}" styleClass="inputWithButton" />
+                            <p:commandButton id="btnObjectSelect" actionListener="#{itemExchangeManagedBean.openDialog('objSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnObjectWhenEdit}"
+                                        update="objno,remark" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="异动原因" for="reason" /></p:column>
+                        <p:column>
+                            <p:inputText id="reason" value="#{itemExchangeManagedBean.currentEntity.reason}" styleClass="inputWithButton" />
+                            <p:commandButton id="btnReasonSelect" actionListener="#{itemExchangeManagedBean.openDialog('')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnReasonWhenEdit}"
+                                        update="reason" />
+                            </p:commandButton>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -72,21 +92,21 @@
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="转出仓库" for="warehouse1" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="warehouse1" value="#{itemExchangeManagedBean.currentEntity.warehouseFrom.name}" title="warehouse" 
+                                    <p:inputText id="warehouse1" value="#{itemExchangeManagedBean.currentEntity.warehouseFrom.name}" title="warehouse"
                                                  styleClass="inputWithButton" required="true" requiredMessage="请输入转出仓库" readonly="true"/>
-                                    <p:commandButton id="btnSelectWarehouse1" actionListener="#{itemExchangeManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnSelectWarehouse1" actionListener="#{itemExchangeManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWarehouseFromWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWarehouseFromWhenEdit}"
                                                 update="warehouse1" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="转入仓库" for="warehouse2" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="warehouse2" value="#{itemExchangeManagedBean.currentEntity.warehouseTo.name}" title="warehouse" 
+                                    <p:inputText id="warehouse2" value="#{itemExchangeManagedBean.currentEntity.warehouseTo.name}" title="warehouse"
                                                  styleClass="inputWithButton" required="true" requiredMessage="请输入转入仓库"  readonly="true"/>
-                                    <p:commandButton id="btnSelectWarehouse2" actionListener="#{itemExchangeManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnSelectWarehouse2" actionListener="#{itemExchangeManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWarehouseToWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWarehouseToWhenEdit}"
                                                 update="warehouse2" />
                                     </p:commandButton>
                                 </p:column>
@@ -94,21 +114,21 @@
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="转出品号" for="itemno1"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="itemno1" value="#{itemExchangeManagedBean.currentEntity.itemnofrom}" title="ItemMaster" 
+                                    <p:inputText id="itemno1" value="#{itemExchangeManagedBean.currentEntity.itemnofrom}" title="ItemMaster"
                                                  styleClass="inputWithButton" required="true" requiredMessage="请输入转出品号" readonly="true"/>
-                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnItemFromWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnItemFromWhenEdit}"
                                                 update="itemno1,itemdesc1,itemspec1,unit1,itemno2,itemdesc2,itemspec2" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="转入品号" for="itemno2"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="itemno2" value="#{itemExchangeManagedBean.currentEntity.itemnoto}" title="ItemMaster" 
+                                    <p:inputText id="itemno2" value="#{itemExchangeManagedBean.currentEntity.itemnoto}" title="ItemMaster"
                                                  styleClass="inputWithButton" required="true" requiredMessage="请输入转入品号" readonly="true"/>
-                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnItemToWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnItemToWhenEdit}"
                                                 update="itemno2,itemdesc2,itemspec2,unit2" />
                                     </p:commandButton>
                                 </p:column>
@@ -136,36 +156,46 @@
                             <p:row>
                                 <p:column><p:outputLabel value="转出色号" for="colorno1"/></p:column>
                                 <p:column>
-                                    <p:inputText id="colorno1" value="#{itemExchangeManagedBean.currentEntity.colornofrom}" title="Colorid"/>   
+                                    <p:inputText id="colorno1" value="#{itemExchangeManagedBean.currentEntity.colornofrom}" title="Colorid"  styleClass="inputWithButton" />
+                                    <p:commandButton id="btnItemColorSelectFrom" actionListener="#{itemExchangeManagedBean.openDialog('itemcolorSelectFrom')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnColornoFromWhenEdit}"
+                                                update="colorno1,colorno2" />
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="转入色号" for="colorno2"/></p:column>
                                 <p:column>
-                                    <p:inputText id="colorno2" value="#{itemExchangeManagedBean.currentEntity.colornoto}" title="Colorid"/>   
+                                    <p:inputText id="colorno2" value="#{itemExchangeManagedBean.currentEntity.colornoto}" title="Colorid" styleClass="inputWithButton"/>
+                                    <p:commandButton id="btnItemColorSelectTo" actionListener="#{itemExchangeManagedBean.openDialog('itemcolorSelectTo')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnColornoToWhenEdit}"
+                                                update="colorno2" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="转出批号" for="batch1"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="batch1" value="#{itemExchangeManagedBean.currentEntity.batchfrom}" title="batch" 
-                                                 styleClass="inputWithButton"/>  
-                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
+                                    <p:inputText id="batch1" value="#{itemExchangeManagedBean.currentEntity.batchfrom}" title="batch"
+                                                 styleClass="inputWithButton"/>
+                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnBatchFromWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnBatchFromWhenEdit}"
                                                 update="batch1" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="转入批号" for="batch2"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="batch2" value="#{itemExchangeManagedBean.currentEntity.batchto}" title="batch" 
-                                                 styleClass="inputWithButton"/>  
-                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink" 
+                                    <p:inputText id="batch2" value="#{itemExchangeManagedBean.currentEntity.batchto}" title="batch"
+                                                 styleClass="inputWithButton"/>
+                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnBatchToWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnBatchToWhenEdit}"
                                                 update="batch2" />
                                     </p:commandButton>
                                 </p:column>
                             </p:row>
-                            <p:row>                   
+                            <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="转出数量" for="qty1"/></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="qty1" value="#{itemExchangeManagedBean.currentEntity.qtyfrom}" title="Qty"
@@ -182,21 +212,21 @@
                             <p:row>
                                 <p:column><p:outputLabel value="转出单位" for="unit1"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="unit1" value="#{itemExchangeManagedBean.currentEntity.unitfrom}"  title="Unit" styleClass="inputWithButton" 
+                                    <p:inputText id="unit1" value="#{itemExchangeManagedBean.currentEntity.unitfrom}"  title="Unit" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入转出单位"/>
-                                    <p:commandButton id="btnUnit1" actionListener="#{itemExchangeManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnUnit1" actionListener="#{itemExchangeManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUnitFromWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUnitFromWhenEdit}"
                                                 update="unit1" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="转入单位" for="unit2"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="unit2" value="#{itemExchangeManagedBean.currentEntity.unitto}"  title="Unit" styleClass="inputWithButton" 
+                                    <p:inputText id="unit2" value="#{itemExchangeManagedBean.currentEntity.unitto}"  title="Unit" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入转入单位"/>
-                                    <p:commandButton id="btnUnit2" actionListener="#{itemExchangeManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnUnit2" actionListener="#{itemExchangeManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUnitToWhenEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUnitToWhenEdit}"
                                                 update="unit2" />
                                     </p:commandButton>
                                 </p:column>

@@ -94,7 +94,7 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
                 showErrorMsg("Error", "发票明细状态错误,请检核");
                 return false;
             }
-            amts = amts.add(st.getShipamts()).add(st.getTaxamts());
+            amts = amts.add(st.getShipamts()).add(st.getTaxamts()).add(st.getAddamts()).subtract(st.getOffamts());
         }
         if (amts.compareTo(this.newEntity.getAmts()) != 0) {
             showErrorMsg("Error", "发票金额不等于出货金额,请检核");
@@ -112,7 +112,16 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
 
     @Override
     protected boolean doBeforeVerify() throws Exception {
-        return super.doBeforeVerify(); //To change body of generated methods, choose Tools | Templates.
+        if (currentEntity == null) {
+            showWarnMsg("Warn", "没有可更新数据!");
+            return false;
+        }
+        AccountReceivable e = accoutReceivableBean.findById(currentEntity.getId());
+        if (!"N".equals(e.getStatus())) {
+            showWarnMsg("Warn", "状态已变更!");
+            return false;
+        }
+        return super.doBeforeVerify();
     }
 
     @Override
@@ -135,7 +144,7 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
         }
         BigDecimal amts = BigDecimal.ZERO;
         for (SalesTransaction st : shipmentList) {
-            amts = amts.add(st.getShipamts()).add(st.getTaxamts());
+            amts = amts.add(st.getShipamts()).add(st.getTaxamts()).add(st.getAddamts()).subtract(st.getOffamts());
         }
         if (amts.compareTo(this.newEntity.getAmts()) != 0) {
             showErrorMsg("Error", "发票金额不等于出货金额,请核对");
@@ -272,7 +281,7 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("formid", queryFormId);
             }
-             if (queryName != null && !"".equals(queryName)) {
+            if (queryName != null && !"".equals(queryName)) {
                 this.model.getFilterFields().put("customer.customer", queryName);
             }
             if (queryDateBegin != null) {
@@ -292,6 +301,36 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
         super.reset();
         this.shipmentModel.getFilterFields().clear();
         this.shipmentModel.getFilterFields().put("customer.id", -1);
+    }
+
+    @Override
+    protected void setToolBar() {
+        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "N":
+                    this.doEdit = getCurrentSysprg().getDoedit() && true;
+                    this.doDel = getCurrentSysprg().getDodel() && true;
+                    this.doCfm = getCurrentSysprg().getDocfm() && true;
+                    this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
+                    break;
+                case "V":
+                    this.doEdit = getCurrentSysprg().getDoedit() && false;
+                    this.doDel = getCurrentSysprg().getDodel() && false;
+                    this.doCfm = getCurrentSysprg().getDocfm() && false;
+                    this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                    break;
+                default:
+                    this.doEdit = getCurrentSysprg().getDoedit() && false;
+                    this.doDel = getCurrentSysprg().getDodel() && false;
+                    this.doCfm = getCurrentSysprg().getDocfm() && false;
+                    this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
+            }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+        }
     }
 
     /**

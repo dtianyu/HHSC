@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="itemframe" icon="ui-icon-arrowreturn-1-w"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnPersist" value="保存" action="#{itemFrameManagedBean.update()}" icon="ui-icon-disk"
+                                     process="@this,plgHead" update="formEdit"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="网框登记－修改">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="网框编号" for="formid"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{itemFrameManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="制作日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{itemFrameManagedBean.currentEntity.formdate}" title="Formdate"
+                                        pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="请输入制作日期">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="花号" for="itemno" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="itemno" value="#{itemFrameManagedBean.currentEntity.itemno}" title="itemno" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入花号" readonly="true"/>
+                            <p:commandButton actionListener="#{itemFrameManagedBean.openDialog('itemprocessSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemFrameManagedBean.handleDialogReturnWhenEdit}"
+                                        update="itemno,designspec,designsets,remark" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><h:outputText value="类别" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="formtype" value="#{itemFrameManagedBean.currentEntity.formtype}" title="formtype"
+                                             required="true" requiredMessage="请输入类别" disabled="true" >
+                                <f:selectItem itemLabel="新增" itemValue="XZ" />
+                                <f:selectItem itemLabel="重感" itemValue="CG" />
+                                <f:selectItem itemLabel="补感" itemValue="BG" />
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="制版规格" for="designspec"/></p:column>
+                        <p:column>
+                            <p:inputText id="designspec" value="#{itemFrameManagedBean.currentEntity.designspec}" title="designspec"
+                                         required="true" requiredMessage="请输入制版规格" />
+                        </p:column>
+                        <p:column><p:outputLabel value="网框规格" for="framespec"/></p:column>
+                        <p:column>
+                            <p:inputText id="framespec" value="#{itemFrameManagedBean.currentEntity.framespec}" title="framespec"
+                                         required="true" requiredMessage="请输入网框规格" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="制作套数" for="designsets"/></p:column>
+                        <p:column>
+                            <p:inputText id="designsets" value="#{itemFrameManagedBean.currentEntity.designsets}" title="designsets"
+                                         required="true" requiredMessage="请输入套数" />
+                        </p:column>
+                        <p:column><p:outputLabel value="损耗套数" for="losssets"/></p:column>
+                        <p:column>
+                            <p:inputText id="losssets" value="#{itemFrameManagedBean.currentEntity.losssets}" title="losssets"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="客户" for="customer" /></p:column>
+                        <p:column>
+                            <p:inputText id="customer" value="#{itemFrameManagedBean.currentEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入客户" readonly="true"/>
+                            <p:commandButton id="btnCusomterSelect" actionListener="#{itemFrameManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemFrameManagedBean.handleDialogReturnCustomerWhenEdit}"
+                                        update="customer" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="订单编号" for="srcformid" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="srcformid" value="#{itemFrameManagedBean.currentEntity.srcformid}" title="srcid" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入订单编号" readonly="true"/>
+                            <p:commandButton id="btnSalesorderdetailSelect" actionListener="#{itemFrameManagedBean.openDialog('salesorderdetailSelect')}" icon="ui-icon-extlink"
+                                             process="itemno,@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemFrameManagedBean.handleDialogReturnSalesOrderWhenEdit}"
+                                        update="srcformid,customer" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="最近使用" for="lastdate"/></p:column>
+                        <p:column>
+                            <h:outputText id="lastdate" value="#{itemFrameManagedBean.currentEntity.lastdate}" title="lastdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column><p:outputLabel value="拆框日期" for="formdate" /></p:column>
+                        <p:column>
+                            <p:calendar id="removedate" value="#{itemFrameManagedBean.currentEntity.removedate}" title="removedate"
+                                        pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="补感原因" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="reason" value="#{itemFrameManagedBean.currentEntity.reason}" title="补感原因">
+                                <f:selectItem itemLabel="制版" itemValue="ZB" />
+                                <f:selectItem itemLabel="画稿" itemValue="HG" />
+                                <f:selectItem itemLabel="印花" itemValue="YH" />
+                                <f:selectItem itemLabel="其他" itemValue="QT" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column></p:column>
+                        <p:column>
+                            
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="remark" value="#{itemFrameManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

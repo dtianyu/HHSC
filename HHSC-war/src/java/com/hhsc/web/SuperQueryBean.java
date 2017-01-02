@@ -62,7 +62,7 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
         appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
         reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportpath");
         reportOutputFormat = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
+        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
         reportViewContext = fc.getExternalContext().getInitParameter("com.hhsc.web.reportviewcontext");
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
@@ -103,9 +103,9 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     public void print() throws Exception {
-        if (currentSysprg != null && currentSysprg.getDoprt()) {
+        if (getCurrentSysprg() != null && getCurrentSysprg().getDoprt()) {
             HashMap<String, Object> reportParams = new HashMap<>();
-            reportParams.put("JNDIName", this.currentSysprg.getRptjndi());
+            reportParams.put("JNDIName", this.getCurrentSysprg().getRptjndi());
             if (!this.model.getFilterFields().isEmpty()) {
                 reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
             } else {
@@ -118,18 +118,18 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
             }
             //设置报表名称
             String reportFormat;
-            if (this.currentSysprg.getRptformat() != null) {
-                reportFormat = this.currentSysprg.getRptformat();
+            if (this.getCurrentSysprg().getRptformat() != null) {
+                reportFormat = this.getCurrentSysprg().getRptformat();
             } else {
                 reportFormat = reportOutputFormat;
             }
-            this.fileName = this.currentSysprg.getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
-            String reportName = reportPath + this.currentSysprg.getRptdesign();
+            this.fileName = this.getCurrentSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + this.getCurrentSysprg().getRptdesign();
             String outputName = reportOutputPath + this.fileName;
             this.reportViewPath = reportViewContext + this.fileName;
             try {
-                if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-                    reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+                if (this.getCurrentSysprg() != null && this.getCurrentSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentSysprg().getRptclazz()).getClassLoader();
                 }
                 //初始配置
                 this.reportInitAndConfig();
@@ -160,13 +160,13 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     protected void setToolBar() {
-        if (this.currentSysprg != null) {
+        if (this.getCurrentSysprg() != null) {
             this.doAdd = false;
             this.doEdit = false;
             this.doDel = false;
             this.doCfm = false;
             this.doUnCfm = false;
-            this.doPrt = this.currentSysprg.getDoprt();
+            this.doPrt = this.getCurrentSysprg().getDoprt();
         }
     }
 
@@ -192,6 +192,13 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
      */
     public void setUserManagedBean(UserManagedBean userManagedBean) {
         this.userManagedBean = userManagedBean;
+    }
+
+    /**
+     * @return the currentSysprg
+     */
+    public Sysprg getCurrentSysprg() {
+        return currentSysprg;
     }
 
 }

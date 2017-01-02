@@ -62,6 +62,9 @@ public class SalesTransactionBean extends SuperBean<SalesTransaction> {
         e.setCustomeritemno(d.getCustomeritemno());
         e.setCustomercolorno(d.getCustomercolorno());
         e.setCustomerrefno(d.getCustomerrefno());
+        e.setBrand(d.getBrand());
+        e.setBatch(d.getBatch());
+        e.setSn(d.getSn());
         e.setQty(d.getQty());
         e.setUnit(d.getUnit());
         e.setPrice(d.getPrice());

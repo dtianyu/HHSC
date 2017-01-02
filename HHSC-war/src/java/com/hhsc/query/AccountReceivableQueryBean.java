@@ -35,7 +35,7 @@ public class AccountReceivableQueryBean extends SuperQueryBean<AccountReceivable
         setSuperEJB(accountReceivableBean);
         setModel(new AccountReceivableModel(accountReceivableBean));
         this.model.getFilterFields().put("status", "V");
-        if (currentSysprg != null && currentSysprg.getApi() == "shipmentreceivable") {
+        if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentreceivable") {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("salerid", userManagedBean.getCurrentUser().getId());
             }
@@ -65,7 +65,7 @@ public class AccountReceivableQueryBean extends SuperQueryBean<AccountReceivable
             if (this.queryState != null && !"ALL".equals(this.queryState)) {
                 this.model.getFilterFields().put("status", queryState);
             }
-            if (currentSysprg != null && currentSysprg.getApi() == "shipmentreceivable") {
+            if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentreceivable") {
                 if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                     this.model.getFilterFields().put("salerid", userManagedBean.getCurrentUser().getId());
                 }
@@ -77,7 +77,7 @@ public class AccountReceivableQueryBean extends SuperQueryBean<AccountReceivable
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("status", "V");
-        if (currentSysprg != null && currentSysprg.getApi() == "shipmentreceivable") {
+        if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentreceivable") {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("salerid", userManagedBean.getCurrentUser().getId());
             }

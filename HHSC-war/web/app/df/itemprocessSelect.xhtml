@@ -44,12 +44,18 @@
                     </f:facet>
                     <h:outputText value="#{item.itemmaster.itemdesc}"/>
                 </p:column>
-                <p:column styleClass="Wid40">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="说明"/>
                     </f:facet>
                     <h:outputText value="#{item.remark}"/>
-                </p:column>              
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="套数"/>
+                    </f:facet>
+                    <h:outputText value="#{item.designsets}"/>
+                </p:column> 
             </p:dataTable>
         </h:form>
     </ui:define>

@@ -31,6 +31,8 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
     private String currency;
     private String taxtype;
     private BigDecimal taxrate;
+    private String designno;
+    private String itemno;
 
     public SalesOrderDetailForShipQueryBean() {
         super(SalesOrderDetailForQuery.class);
@@ -62,6 +64,14 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
                 taxrate = BigDecimal.valueOf(Double.parseDouble(params.get("taxrate")[0]));
                 this.model.getFilterFields().put("salesOrder.taxrate", taxrate);
             }
+            if (params.containsKey("designno")) {
+                designno = params.get("designno")[0];
+                this.model.getFilterFields().put("salesOrder.itemno", designno);
+            }
+            if (params.containsKey("itemno")) {
+                itemno = params.get("itemno")[0];
+                this.model.getFilterFields().put("itemno", itemno);
+            }
         }
         super.init();
     }
@@ -91,6 +101,12 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
             if (this.taxrate != null) {
                 this.model.getFilterFields().put("salesOrder.taxrate", taxrate);
             }
+            if (this.designno != null && !"".equals(this.designno)) {
+                this.model.getFilterFields().put("salesOrder.itemno", designno);
+            }
+            if (this.itemno != null && !"".equals(this.itemno)) {
+                this.model.getFilterFields().put("itemno", itemno);
+            }
         }
     }
 
@@ -111,6 +127,12 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
         }
         if (this.taxrate != null) {
             this.model.getFilterFields().put("salesOrder.taxrate", taxrate);
+        }
+        if (this.designno != null && !"".equals(this.designno)) {
+            this.model.getFilterFields().put("salesOrder.itemno", designno);
+        }
+        if (this.itemno != null && !"".equals(this.itemno)) {
+            this.model.getFilterFields().put("itemno", itemno);
         }
     }
 

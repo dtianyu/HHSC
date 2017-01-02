@@ -31,6 +31,8 @@
                     <p:calendar id="queryDateBegin" value="#{salesTransactionQueryBean.queryDateBegin}" title="出货日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
                     <p:calendar id="queryDateEnd" value="#{salesTransactionQueryBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="品号" for="queryItemno" />
+                    <p:inputText id="queryItemno" value="#{salesTransactionQueryBean.queryItemno}" title="品号" />
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
@@ -219,9 +221,9 @@
                         <p:column>
                             <h:outputText id="srcformid" value="#{salesTransactionQueryBean.currentEntity.srcformid}" title="srcformid" />
                         </p:column>
-                        <p:column><h:outputText value="来源序号" /></p:column>
-                        <p:column><h:outputText id="srcseq" value="#{salesTransactionQueryBean.currentEntity.srcseq}" title="srcseq" />
-
+                        <p:column><h:outputText value="发票编号" /></p:column>
+                        <p:column>
+                            <h:outputText id="pid" value="#{salesTransactionQueryBean.currentEntity.pid}" title="pid" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

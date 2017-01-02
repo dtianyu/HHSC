@@ -99,7 +99,7 @@ public class PurchaseDraft extends SuperEntity {
     @Size(max = 45)
     @Column(name = "customeritemno")
     private String customeritemno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
     @JoinColumn(name = "vendorid", referencedColumnName = "id")

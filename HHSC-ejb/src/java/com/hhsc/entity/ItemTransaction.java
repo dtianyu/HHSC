@@ -24,11 +24,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "itemtransaction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemTransaction.getRowCount", query = "SELECT COUNT(i) FROM ItemTransaction i"),
-    @NamedQuery(name = "ItemTransaction.findAll", query = "SELECT i FROM ItemTransaction i"),
-    @NamedQuery(name = "ItemTransaction.findById", query = "SELECT i FROM ItemTransaction i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemTransaction.findByFormid", query = "SELECT i FROM ItemTransaction i WHERE i.formid = :formid"),
-    @NamedQuery(name = "ItemTransaction.findByFormdate", query = "SELECT i FROM ItemTransaction i WHERE i.formdate = :formdate"),
+    @NamedQuery(name = "ItemTransaction.getRowCount", query = "SELECT COUNT(i) FROM ItemTransaction i")
+    ,
+    @NamedQuery(name = "ItemTransaction.findAll", query = "SELECT i FROM ItemTransaction i")
+    ,
+    @NamedQuery(name = "ItemTransaction.findById", query = "SELECT i FROM ItemTransaction i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemTransaction.findByFormid", query = "SELECT i FROM ItemTransaction i WHERE i.formid = :formid")
+    ,
+    @NamedQuery(name = "ItemTransaction.findByFormdate", query = "SELECT i FROM ItemTransaction i WHERE i.formdate = :formdate")
+    ,
     @NamedQuery(name = "ItemTransaction.findByStatus", query = "SELECT i FROM ItemTransaction i WHERE i.status = :status")})
 public class ItemTransaction extends FormEntity {
 
@@ -48,8 +53,7 @@ public class ItemTransaction extends FormEntity {
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
-    
-    
+
     @Size(max = 45)
     @Column(name = "objtype")
     private String objtype;

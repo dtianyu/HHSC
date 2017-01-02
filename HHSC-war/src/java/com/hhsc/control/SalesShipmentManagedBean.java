@@ -306,7 +306,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                 this.currentDetail.setCustomercolorno("");
                 this.currentDetail.setCustomerrefno(entity.getSalesOrder().getRefno());
                 this.currentDetail.setBrand(entity.getBrand());
-                this.currentDetail.setBatch(entity.getBatch());
+                this.currentDetail.setBatch(entity.getSalesOrder().getItemno());
                 this.currentDetail.setSn(entity.getSn());
                 this.currentDetail.setAllowqty(entity.getQty().subtract(entity.getShipqty()));
                 this.currentDetail.setQty(this.currentDetail.getAllowqty());

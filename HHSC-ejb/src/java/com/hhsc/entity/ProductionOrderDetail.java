@@ -41,7 +41,7 @@ public class ProductionOrderDetail extends FormDetailEntity {
     @Size(max = 20)
     @Column(name = "colorno")
     private String colorno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
     @Size(max = 45)

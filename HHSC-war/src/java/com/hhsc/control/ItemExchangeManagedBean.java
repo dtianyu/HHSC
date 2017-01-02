@@ -8,7 +8,9 @@ package com.hhsc.control;
 import com.hhsc.ejb.ItemExchangeBean;
 import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.TransactionTypeBean;
+import com.hhsc.entity.Customer;
 import com.hhsc.entity.Department;
+import com.hhsc.entity.ItemColor;
 import com.hhsc.entity.ItemExchange;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.SystemUser;
@@ -16,6 +18,11 @@ import com.hhsc.entity.Unit;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.ItemExchangeModel;
 import com.hhsc.web.SuperSingleBean;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -49,6 +56,7 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
         this.newEntity.setDept(this.userManagedBean.getCurrentUser().getDept());
         this.newEntity.setSystemUser(this.userManagedBean.getCurrentUser());
         this.newEntity.setTransactionType(transactionTypeBean.findByTrtype("IAE"));
+        this.newEntity.setObjtype(this.newEntity.getTransactionType().getObjtype());
         setCurrentEntity(newEntity);
     }
 
@@ -98,6 +106,7 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
         if (event.getObject() != null) {
             ItemMaster entity = (ItemMaster) event.getObject();
             currentEntity.setBatchfrom(entity.getItemno());
+            currentEntity.setBatchto(entity.getItemno());
         }
     }
 
@@ -106,9 +115,32 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
     }
 
     public void handleDialogReturnBatchToWhenEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && currentEntity != null) {
             ItemMaster entity = (ItemMaster) event.getObject();
             currentEntity.setBatchto(entity.getItemno());
+        }
+    }
+
+    public void handleDialogReturnColornoFromWhenNew(SelectEvent event) {
+        handleDialogReturnColornoFromWhenEdit(event);
+    }
+
+    public void handleDialogReturnColornoFromWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            ItemColor ic = (ItemColor) event.getObject();
+            this.currentEntity.setColornofrom(ic.getColorno());
+            this.currentEntity.setColornoto(ic.getColorno());
+        }
+    }
+
+    public void handleDialogReturnColornoToWhenNew(SelectEvent event) {
+        handleDialogReturnColornoFromWhenEdit(event);
+    }
+
+    public void handleDialogReturnColornoToWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            ItemColor ic = (ItemColor) event.getObject();
+            this.currentEntity.setColornoto(ic.getColorno());
         }
     }
 
@@ -138,6 +170,23 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
             currentEntity.setItemMasterTo(e);
             currentEntity.setItemnoto(e.getItemno());
             currentEntity.setUnitto(e.getUnit());
+        }
+    }
+
+    public void handleDialogReturnObjectWhenNew(SelectEvent event) {
+        handleDialogReturnObjectWhenEdit(event);
+    }
+
+    public void handleDialogReturnObjectWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity.getTransactionType().getObjselect() != null) {
+            switch (currentEntity.getTransactionType().getObjselect()) {
+                case "customerSelect":
+                    Customer c = (Customer) event.getObject();
+                    currentEntity.setObjno(c.getCustomer());
+                    currentEntity.setRemark(c.getCustomerno());
+                    break;
+                default:
+            }
         }
     }
 
@@ -221,6 +270,37 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
         setModel(new ItemExchangeModel(itemExchangeBean));
         this.model.getFilterFields().put("status", "N");
         super.init();
+    }
+
+    @Override
+    public void openDialog(String view) {
+        if (null != view && currentEntity != null) {
+            switch (view) {
+                case "objSelect":
+                    super.openDialog(currentEntity.getTransactionType().getObjselect());
+                    break;
+                case "itemcolorSelectFrom":
+                    if (currentEntity.getItemnofrom() != null) {
+                        Map<String, List<String>> itemcolorParams = new HashMap<>();
+                        List<String> itemno = new ArrayList<>();
+                        itemno.add(currentEntity.getItemnofrom());
+                        itemcolorParams.put("itemno", itemno);
+                        super.openDialog("itemcolorSelect", itemcolorParams);
+                    }
+                    break;
+                case "itemcolorSelectTo":
+                    if (currentEntity.getItemnoto() != null) {
+                        Map<String, List<String>> itemcolorParams = new HashMap<>();
+                        List<String> itemno = new ArrayList<>();
+                        itemno.add(currentEntity.getItemnoto());
+                        itemcolorParams.put("itemno", itemno);
+                        super.openDialog("itemcolorSelect", itemcolorParams);
+                    }
+                    break;
+                default:
+                    super.openDialog(view);
+            }
+        }
     }
 
     @Override

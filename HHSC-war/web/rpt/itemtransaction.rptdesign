@@ -431,7 +431,7 @@ return false;]]></method>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
             <property name="type">custom</property>
-            <property name="height">148mm</property>
+            <property name="height">140mm</property>
             <property name="width">210mm</property>
             <page-header>
                 <label id="6">

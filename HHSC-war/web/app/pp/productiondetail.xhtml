@@ -21,33 +21,23 @@
             </p:panelGrid>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{productionDetailQueryBean.init()}" icon="ui-icon-search" 
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{productionDetailQueryBean.init()}" icon="ui-icon-search"
                                      update=":formList"/>
                     <p:commandButton id="btnView" value="查看" action="#{productionDetailQueryBean.view('productiondetailView')}" icon="ui-icon-document"
                                      rendered="false"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{productionDetailQueryBean.edit('')}" icon="ui-icon-pencil"  
-                                     rendered="#{productionDetailQueryBean.doEdit}"/>                                                     
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{productionDetailQueryBean.delete()}" icon="ui-icon-trash" 
-                                     rendered="#{productionDetailQueryBean.doDel}" update=":formList">
-                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton> 
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{productionDetailQueryBean.unverify()}" icon="ui-icon-unlocked" 
-                                     rendered="#{productionDetailQueryBean.doUnCfm}"  update=":formList">
-                        <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
-                    </p:commandButton>                   
-                    <p:commandButton id="btnCreate" value="新增" action="#{productionDetailQueryBean.create('')}" icon="ui-icon-plus"
-                                     rendered="#{productionOrderManagedBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{productionDetailQueryBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{productionDetailQueryBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{productionDetailQueryBean.print()}"  icon="ui-icon-print"
+                                     rendered="#{productionDetailQueryBean.doPrt}" process="@this"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{productionDetailQueryBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{productionDetailQueryBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar>  
-            <p:dataTable value="#{productionDetailQueryBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="10"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="10,20,30"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{productionDetailQueryBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="10"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,30"  lazy="true"
                          selectionMode="single" selection="#{productionDetailQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
@@ -106,6 +96,13 @@
                     <h:outputText value="#{item.finqty}"/>
                 </p:column>
             </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
         </h:form>
 
     </ui:define>

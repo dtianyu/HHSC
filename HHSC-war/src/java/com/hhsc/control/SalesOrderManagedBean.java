@@ -6,6 +6,7 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.CustomerItemBean;
+import com.hhsc.ejb.ItemColorBean;
 import com.hhsc.ejb.PurchaseRequestBean;
 import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
@@ -14,6 +15,7 @@ import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.CustomerItem;
 import com.hhsc.entity.Department;
+import com.hhsc.entity.ItemColor;
 import com.hhsc.entity.SalesOrder;
 import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.ItemMaster;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -49,6 +52,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "salesOrderManagedBean")
 @SessionScoped
 public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderDetail> {
+
+    @EJB
+    private ItemColorBean itemColorBean;
 
     @EJB
     private SalesTypeBean salesTypeBean;
@@ -189,6 +195,27 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     }
 
     @Override
+    protected boolean doBeforeVerify() throws Exception {
+        if (currentEntity != null && !detailList.isEmpty()) {
+            detailList.forEach((d) -> {
+                if (!itemColorBean.isExist(currentEntity.getItemno(), d.getColorno(), currentEntity.getCustomeritemno(), d.getCustomercolorno())) {
+                    ItemColor ic = new ItemColor();
+                    ic.setPid(currentEntity.getItemmaster().getId());
+                    ic.setItemno(currentEntity.getItemno());
+                    ic.setColorno(d.getColorno());
+                    ic.setCustomeritemno(currentEntity.getCustomeritemno() == null ? "" : currentEntity.getCustomeritemno());
+                    ic.setCustomercolorno(d.getCustomercolorno() == null ? "" : d.getCustomercolorno());
+                    ic.setStatus("N");
+                    ic.setCreatorToSystem();
+                    ic.setCredateToNow();
+                    itemColorBean.persist(ic);
+                }
+            });
+        }
+        return super.doBeforeVerify();
+    }
+
+    @Override
     public void doConfirmDetail() {
         this.currentDetail.setAmts(this.currentDetail.getQty().multiply(this.currentDetail.getPrice()));
         Tax t = BaseLib.getTaxes(this.currentEntity.getTaxtype(), this.currentEntity.getTaxkind(), this.currentEntity.getTaxrate(), this.currentDetail.getAmts(), 2);
@@ -300,8 +327,28 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         }
     }
 
+    public void handleDialogReturnColornoWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && this.currentDetail != null) {
+            ItemColor ic = (ItemColor) event.getObject();
+            this.currentDetail.setColorno(ic.getColorno());
+            if (Objects.equals(this.getCurrentDetail().getCustomercolorno(), "")) {
+                this.currentDetail.setCustomercolorno(ic.getCustomercolorno());
+            }
+        }
+    }
+
+    public void handleDialogReturnCustomerColornoWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && this.currentDetail != null) {
+            ItemColor ic = (ItemColor) event.getObject();
+            this.currentDetail.setCustomercolorno(ic.getCustomercolorno());
+            if (Objects.equals(this.getCurrentDetail().getColorno(), "")) {
+                this.currentDetail.setColorno(ic.getColorno());
+            }
+        }
+    }
+
     public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && this.currentDetail != null) {
             this.currentDetail.setUnit(((Unit) event.getObject()).getUnit());
         }
     }
@@ -360,6 +407,18 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     public void openDialog(String view) {
         if (null != view) {
             switch (view) {
+                case "customercolorSelect":
+                    if (currentEntity != null && !Objects.equals(currentEntity.getItemno(), "") && !Objects.equals(currentEntity.getCustomeritemno(), "")) {
+                        Map<String, List<String>> itemcolorParams = new HashMap<>();
+                        List<String> itemno = new ArrayList<>();
+                        itemno.add(currentEntity.getItemno());
+                        itemcolorParams.put("itemno", itemno);
+                        List<String> customeritemno = new ArrayList<>();
+                        customeritemno.add(currentEntity.getCustomeritemno());
+                        itemcolorParams.put("customeritemno", customeritemno);
+                        super.openDialog(view, itemcolorParams);
+                    }
+                    break;
                 case "designspecSelect":
                     if (currentEntity.getItemno() != null) {
                         Map<String, List<String>> designspecParams = new HashMap<>();
@@ -367,6 +426,20 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                         itemno.add(currentEntity.getItemno());
                         designspecParams.put("itemno", itemno);
                         super.openDialog(view, designspecParams);
+                    }
+                    break;
+                case "itemcolorSelect":
+                    if (currentEntity.getItemno() != null) {
+                        Map<String, List<String>> itemcolorParams = new HashMap<>();
+                        List<String> itemno = new ArrayList<>();
+                        itemno.add(currentEntity.getItemno());
+                        itemcolorParams.put("itemno", itemno);
+                        if (!Objects.equals(currentEntity.getCustomeritemno(), "")) {
+                            List<String> customeritemno = new ArrayList<>();
+                            customeritemno.add(currentEntity.getCustomeritemno());
+                            itemcolorParams.put("customeritemno", customeritemno);
+                        }
+                        super.openDialog(view, itemcolorParams);
                     }
                     break;
                 case "itemmasterSelect":
@@ -555,7 +628,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                 d.setPurqty(BigDecimal.ZERO);
                 d.setPrice(BigDecimal.ZERO);
                 d.setAmts(BigDecimal.ZERO);
-                d.setCurrency("RMB");
+                d.setCurrency("CNY");
                 d.setExchange(BigDecimal.ONE);
                 d.setTaxtype("0");
                 d.setTaxkind("VAT17");

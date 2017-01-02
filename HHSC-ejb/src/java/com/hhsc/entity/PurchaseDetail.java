@@ -71,7 +71,7 @@ public class PurchaseDetail extends BaseEntity {
     @Size(max = 45)
     @Column(name = "customeritemno")
     private String customeritemno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
     @Size(max = 45)

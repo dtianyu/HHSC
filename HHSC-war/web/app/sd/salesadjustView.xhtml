@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="salesadjust" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesAdjustManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{salesAdjustManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesAdjustManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
+                                     rendered="#{salesAdjustManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="销货金额调整－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{salesAdjustManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="出货日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{salesAdjustManagedBean.currentEntity.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="出货类型" /></p:column>
+                        <p:column>
+                            <h:outputText id="shiptype" value="#{salesAdjustManagedBean.currentEntity.shiptype}" title="Ordertype" />
+                        </p:column>
+                        <p:column><h:outputText value="部门" /></p:column>
+                        <p:column>
+                            <h:outputText id="deptid" value="#{salesAdjustManagedBean.currentEntity.dept.dept}" title="Deptid" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="订单编号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="srcformid" value="#{salesAdjustManagedBean.currentEntity.srcformid}" title="srcid"/>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="客户单号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText value="#{salesAdjustManagedBean.currentEntity.customerrefno}" title="customerrefno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="客户" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="customer" value="#{salesAdjustManagedBean.currentEntity.customer.customer}" title="customer"  />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="业务员" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="salesman" value="#{salesAdjustManagedBean.currentEntity.systemUser.username}"  title="Salesman" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="币别" /></p:column>
+                                <p:column>
+                                    <h:outputText id="currency" value="#{salesAdjustManagedBean.currentEntity.currency}" title="Currency" />
+                                </p:column>
+                                <p:column><h:outputText value="汇率"/></p:column>
+                                <p:column>
+                                    <h:outputText id="exchange" value="#{salesAdjustManagedBean.currentEntity.exchange}" title="Exchange" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="税别" /></p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="taxtype" value="#{salesAdjustManagedBean.currentEntity.taxtype}" title="Taxtype"
+                                                     required="true" requiredMessage="请输入税别" disabled="true">
+                                        <f:selectItem itemLabel="内含" itemValue="0" />
+                                        <f:selectItem itemLabel="外加" itemValue="1" />
+                                        <f:selectItem itemLabel="零税" itemValue="2" />
+                                        <f:selectItem itemLabel="免税" itemValue="3" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column><h:outputText value="税率"/></p:column>
+                                <p:column>
+                                    <h:outputText id="taxrate" value="#{salesAdjustManagedBean.currentEntity.taxrate}" title="taxrate" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="华卉品号"/></p:column>
+                                <p:column>
+                                    <h:outputText value="#{salesAdjustManagedBean.currentEntity.itemno}" title="Itemno" />
+                                </p:column>
+                                <p:column><h:outputText value="客户品号"/></p:column>
+                                <p:column>
+                                    <h:outputText id="customeritemno" value="#{salesAdjustManagedBean.currentEntity.customeritemno}" title="customeritemno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="华卉色号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="colorno" value="#{salesAdjustManagedBean.currentEntity.colorno}" title="Colorno" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="客户色号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="customercolorno" value="#{salesAdjustManagedBean.currentEntity.customercolorno}" title="Customercolorno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="面料编号" /></p:column>
+                                <p:column>
+                                    <h:outputText id="batch" value="#{salesAdjustManagedBean.currentEntity.batch}" />
+                                </p:column>
+                                <p:column><h:outputText value="" /></p:column>
+                                <p:column>
+                                    <h:outputText id="itemBatch" value="" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="数量" /></p:column>
+                                <p:column>
+                                    <h:outputText id="qty" value="#{salesAdjustManagedBean.currentEntity.qty}" title="Qty"/>
+                                </p:column>
+                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column>
+                                    <h:outputText id="unit" value="#{salesAdjustManagedBean.currentEntity.unit}" title="Qty"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="单价" /></p:column>
+                                <p:column>
+                                    <h:outputText id="price" value="#{salesAdjustManagedBean.currentEntity.price}" title="Price" />
+                                </p:column>
+                                <p:column><h:outputText value="出货总额" /></p:column>
+                                <p:column>
+                                    <h:outputText id="amts" value="#{salesAdjustManagedBean.currentEntity.amts}" title="amts"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="出货金额" /></p:column>
+                                <p:column>
+                                    <h:outputText id="shipamts" value="#{salesAdjustManagedBean.currentEntity.shipamts}" title="shipamts" />
+                                </p:column>
+                                <p:column><h:outputText value="出货税额" /></p:column>
+                                <p:column>
+                                    <h:outputText id="taxamts" value="#{salesAdjustManagedBean.currentEntity.taxamts}" title="taxamts"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="加款金额" /></p:column>
+                                <p:column>
+                                    <h:outputText id="addamts" value="#{salesAdjustManagedBean.currentEntity.addamts}" title="addamts" />
+                                </p:column>
+                                <p:column><h:outputText value="扣款金额" /></p:column>
+                                <p:column>
+                                    <h:outputText id="offamts" value="#{salesAdjustManagedBean.currentEntity.offamts}" title="offamts"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

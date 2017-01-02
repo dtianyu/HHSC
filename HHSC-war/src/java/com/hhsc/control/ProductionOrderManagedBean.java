@@ -311,6 +311,8 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
     public void handleDialogReturnProcessWhenEdit(SelectEvent event) {
         if (event.getObject() != null && currentEntity != null) {
             ItemProcess entity = (ItemProcess) event.getObject();
+            this.currentEntity.setItemprocessid(entity.getId());
+            this.currentEntity.setJhremark(entity.getFyreq());
             this.currentEntity.setHgreq(entity.getHgreq());
             this.currentEntity.setZbreq(entity.getZbreq());
             this.currentEntity.setPsreq(entity.getPsreq());
@@ -565,8 +567,6 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
             this.model.getFilterFields().put("salesstatus", "N");
-            this.model.getSortFields().put("salesstatus", "ASC");
-            this.model.getSortFields().put("formid", "DESC");
         }
     }
 

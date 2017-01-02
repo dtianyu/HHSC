@@ -50,7 +50,7 @@ public class AccountReceivableForReceiptQueryBean extends SuperQueryBean<Account
         if (this.model != null) {
             this.model.getFilterFields().clear();
             if (this.queryFormId != null && !"".equals(this.queryFormId)) {
-                this.model.getFilterFields().put("salesOrder.formid", this.queryFormId);
+                this.model.getFilterFields().put("formid", this.queryFormId);
             }
             if (this.customerno != null) {
                 this.model.getFilterFields().put("customer.customerno", customerno);
@@ -62,7 +62,7 @@ public class AccountReceivableForReceiptQueryBean extends SuperQueryBean<Account
     public void reset() {
         super.reset();
         if (this.customerno != null) {
-            this.model.getFilterFields().put("salesOrder.customer.customerno", customerno);
+            this.model.getFilterFields().put("customer.customerno", customerno);
         }
     }
 

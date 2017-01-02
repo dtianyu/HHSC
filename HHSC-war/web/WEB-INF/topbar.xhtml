@@ -10,11 +10,11 @@
     <div id="layout-header" class="Unselectable fontRegular">
         <h:form id="form_topbar">
             <h:outputScript name="js/topbar.js" library="sentinel-layout" />
-            <a href="/HHSC-war/home.xhtml" id="layout-logo">
+            <a href="#" id="layout-logo" style="float:right;">
                 <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
                 <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">华卉丝绸</span><span class="hardblue">管理平台</span></span>
             </a>
-            <ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+            <ul id="sm-topmenu" class="layout-header-widgets white Fs14" style="float:left;">
                 <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
                     <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
                         <li class="Animated05"><a class="white Unselectable"><i class="icon-user-2 OvHidden"></i>#{userManagedBean.currentUser.username}</a></li>

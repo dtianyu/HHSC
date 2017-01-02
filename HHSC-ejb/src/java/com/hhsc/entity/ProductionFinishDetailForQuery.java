@@ -110,7 +110,7 @@ public class ProductionFinishDetailForQuery extends BaseEntity {
     @Size(min = 1, max = 45)
     @Column(name = "colorno")
     private String colorno;
-    @Size(max = 20)
+    @Size(max = 100)
     @Column(name = "customercolorno")
     private String customercolorno;
     @Size(max = 45)

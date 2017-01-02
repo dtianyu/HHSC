@@ -26,7 +26,7 @@
                                      update="formEdit"/>                                
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="出货通知－修改">
+            <p:panel id="panelHead" header="版费对账－修改">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="出货单号" /></p:column>
@@ -45,9 +45,9 @@
                         <p:column><p:outputLabel value="出货类型" for="shiptype" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="shiptype" value="#{shipmentAdviceManagedBean.currentEntity.shiptype}" title="Ordertype" 
-                                             converter="salesTypeConverter" required="true" requiredMessage="请输入出货类型" disabled="true">
+                                             required="true" requiredMessage="请输入出货类型" disabled="true">
                                 <f:selectItem itemLabel="Select One" itemValue="" /> 
-                                <f:selectItems value="#{shipmentAdviceManagedBean.salesTypeList}" var="t" itemLabel="#{t.name}" itemValue="#{t}"/>
+                                <f:selectItems value="#{shipmentAdviceManagedBean.salesTypeList}" var="t" itemLabel="#{t.name}" itemValue="#{t.type}"/>
                             </p:selectOneMenu>
                         </p:column>
                         <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
@@ -164,7 +164,7 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="srcformid" value="#{shipmentAdviceManagedBean.currentDetail.srcformid}" title="srcid" styleClass="inputWithButton"
                                                  required="true" readonly="true"/>
-                                    <p:commandButton actionListener="#{shipmentAdviceManagedBean.openDialog('salesorderdetailSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton actionListener="#{shipmentAdviceManagedBean.openDialog('samplingchargeSelect')}" icon="ui-icon-extlink" 
                                                      process=":formEdit:plgHead,:formEdit:tabView:plgBase,@this" >
                                         <p:ajax event="dialogReturn" listener="#{shipmentAdviceManagedBean.handleDialogReturnWhenDetailEdit}" 
                                                 update="plgDetail" />

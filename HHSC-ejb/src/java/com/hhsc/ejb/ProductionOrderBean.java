@@ -6,6 +6,7 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
+import com.hhsc.entity.ItemFrame;
 import com.hhsc.entity.ItemProcess;
 import com.hhsc.entity.ItemResource;
 import com.hhsc.entity.ProductionOrder;
@@ -26,6 +27,9 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class ProductionOrderBean extends SuperBean<ProductionOrder> {
+
+    @EJB
+    private ItemFrameBean itemFrameBean;
 
     @EJB
     private ItemProcessBean itemProcessBean;
@@ -52,7 +56,9 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
     public void initProcess(ProductionOrder entity) {
         ItemProcess e = itemProcessBean.findLastByItemno(entity.getDesignno());
         if (e != null) {
+            entity.setItemprocessid(e.getId());
             entity.setDesignspec(e.getItemspec());
+            entity.setJhremark(e.getFyreq());
             entity.setHgsets(e.getDesignsets());
             entity.setHgreq(e.getHgreq());
             entity.setZbreq(e.getZbreq());
@@ -151,6 +157,9 @@ public class ProductionOrderBean extends SuperBean<ProductionOrder> {
                     salesOrderDetailBean.update(s);
                 }
             });
+            if (entity != null && entity.getItemprocessid() != null) {
+
+            }
             return e;
         } catch (Exception ex) {
             throw new RuntimeException(ex);
