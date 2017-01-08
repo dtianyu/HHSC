@@ -40,8 +40,10 @@
                                      rendered="false"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPrint" value="打印" actionListener="#{accountReceivableQueryBean.print()}"  icon="ui-icon-print"
-                                     rendered="#{accountReceivableQueryBean.doPrt}" process="@this"/>
+                    <p:commandButton id="btnPrint1" value="明细表" actionListener="#{accountReceivableQueryBean.print()}"  icon="ui-icon-print"
+                                     rendered="true" process="@this"/>
+                    <p:commandButton id="btnPrint2" value="汇总表" actionListener="#{accountReceivableQueryBean.print('accountreceivablesum.rptdesign')}"  icon="ui-icon-print"
+                                     rendered="true" process="@this"/>
                     <p:commandButton id="btnEdit" value="编辑" action="#{accountReceivableQueryBean.edit('')}" icon="ui-icon-pencil"
                                      rendered="false" />
                     <p:commandButton id="btnReset" value="重置" actionListener="#{accountReceivableQueryBean.reset()}"  icon="ui-icon-refresh"
@@ -120,7 +122,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formList" trigger="btnPrint">
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint1,btnPrint2">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

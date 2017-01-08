@@ -38,6 +38,8 @@
                     <p:commandButton id="btnView" value="查看" action="#{itemFrameManagedBean.view('itemframeView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnRemove" value="拆框" action="#{itemFrameManagedBean.edit('itemframeRemove')}" icon="ui-icon-pencil"
+                                     rendered="#{itemFrameManagedBean.doUnCfm}" />
                     <p:commandButton id="btnEdit" value="编辑" action="#{itemFrameManagedBean.edit('itemframeEdit')}" icon="ui-icon-pencil"
                                      rendered="#{itemFrameManagedBean.doEdit}" />
                     <p:commandButton id="btnDelete" value="删除" actionListener="#{itemFrameManagedBean.delete()}" icon="ui-icon-trash"

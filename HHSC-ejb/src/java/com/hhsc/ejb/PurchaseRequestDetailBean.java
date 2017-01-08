@@ -30,4 +30,19 @@ public class PurchaseRequestDetailBean extends SuperBean<PurchaseRequestDetail> 
         return query.getResultList();
     }
 
+    public List<PurchaseRequestDetail> findByItemno(String itemno, int first, int pageSize) {
+        Query query = this.getEntityManager().createNamedQuery("PurchaseRequestDetail.findByItemno").setFirstResult(first).setMaxResults(pageSize);
+        query.setParameter("itemno", itemno);
+        return query.getResultList();
+    }
+
+    public PurchaseRequestDetail findLastByItemno(String itemno) {
+        List<PurchaseRequestDetail> list = this.findByItemno(itemno, 0, 1);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        } else {
+            return null;
+        }
+    }
+
 }

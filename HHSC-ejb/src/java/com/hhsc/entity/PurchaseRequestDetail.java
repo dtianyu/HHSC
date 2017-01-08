@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PurchaseRequestDetail.findByPurkind", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purkind = :purkind"),
     @NamedQuery(name = "PurchaseRequestDetail.findByAbroad", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.abroad = :abroad"),
     @NamedQuery(name = "PurchaseRequestDetail.findByItemId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemmaster.id = :itemmasterid"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemno = :itemno"),
+    @NamedQuery(name = "PurchaseRequestDetail.findByItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemno = :itemno ORDER BY p.id DESC"),
     @NamedQuery(name = "PurchaseRequestDetail.findByCustomerId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.customer.id = :customerid"),
     @NamedQuery(name = "PurchaseRequestDetail.findByVendorId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.vendor.id = :vendorid"),
     @NamedQuery(name = "PurchaseRequestDetail.findBySrcformid", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.srcformid = :srcformid")})

@@ -39,6 +39,21 @@ public class PurchaseRequestBean extends SuperBean<PurchaseRequest> {
         try {
             detailList.stream().map((d) -> {
                 d.setPid(p.getFormid());
+                if (d.getPurtype() != "100") {
+                    PurchaseRequestDetail hd = purchaseRequestDetailBean.findLastByItemno(d.getItemno());
+                    if (hd != null) {
+                        d.setVendor(hd.getVendor());
+                        d.setVendoritemno(hd.getVendoritemno());
+                        d.setVendorcolorno(hd.getVendorcolorno());
+                        d.setCurrency(hd.getCurrency());
+                        d.setExchange(hd.getExchange());
+                        d.setTaxtype(hd.getTaxtype());
+                        d.setTaxkind(hd.getTaxkind());
+                        d.setTaxrate(hd.getTaxrate());
+                        d.setPrice(hd.getPrice());
+                        d.setAmts(d.getQty().multiply(d.getPrice()));
+                    }
+                }
                 return d;
             }).forEach((d) -> {
                 purchaseRequestDetailBean.persist(d);

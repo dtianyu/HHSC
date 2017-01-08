@@ -42,7 +42,9 @@
                                      rendered="false"/>
                 </f:facet>
                 <f:facet name="right">                
-                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesTransactionQueryBean.print()}"  icon="ui-icon-print"  
+                    <p:commandButton id="btnPrint" value="明细表" actionListener="#{salesTransactionQueryBean.print()}"  icon="ui-icon-print"  
+                                     rendered="#{salesTransactionQueryBean.doPrt}" process="@this"/>
+                    <p:commandButton id="btnPrint2" value="汇总表" actionListener="#{salesTransactionQueryBean.print('shipmentnotinvoicesum.rptdesign')}"  icon="ui-icon-print"  
                                      rendered="#{salesTransactionQueryBean.doPrt}" process="@this"/>
                     <p:commandButton id="btnReset" value="重置" actionListener="#{salesTransactionQueryBean.reset()}"  icon="ui-icon-refresh"  
                                      update=":formList"/> 
@@ -232,7 +234,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formList" trigger="btnPrint">
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint,btnPrint2">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>
