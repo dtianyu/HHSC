@@ -1274,13 +1274,23 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysgrantprg</from-outcome>
-            <to-view-id>/sys/sysgrantprg.xhtml</to-view-id>
+            <from-outcome>systemuser</from-outcome>
+            <to-view-id>/sys/systemuser.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>systemuser</from-outcome>
-            <to-view-id>/sys/systemuser.xhtml</to-view-id>
+            <from-outcome>usergrant</from-outcome>
+            <to-view-id>/sys/usergrant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemrole</from-outcome>
+            <to-view-id>/sys/systemrole.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>rolegrant</from-outcome>
+            <to-view-id>/sys/rolegrant.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -1342,21 +1352,21 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <description>程序授权</description>
-        <from-view-id>/*</from-view-id>
+        <description>角色授权</description>
+        <from-view-id>/sys/rolegrant.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>sysgrantprgNew</from-outcome>
-            <to-view-id>/sys/sysgrantprgNew.xhtml</to-view-id>
+            <from-outcome>rolegrantNew</from-outcome>
+            <to-view-id>/sys/rolegrantNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysgrantprgEdit</from-outcome>
-            <to-view-id>/sys/sysgrantprgEdit.xhtml</to-view-id>
+            <from-outcome>rolegrantEdit</from-outcome>
+            <to-view-id>/sys/rolegrantEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysgrantprgView</from-outcome>
-            <to-view-id>/sys/sysgrantprgView.xhtml</to-view-id>
+            <from-outcome>rolegrantView</from-outcome>
+            <to-view-id>/sys/rolegrantView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -1376,6 +1386,25 @@
         <navigation-case>
             <from-outcome>systemuserView</from-outcome>
             <to-view-id>/sys/systemuserView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>角色群组</description>
+        <from-view-id>/sys/systemrole.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>systemroleNew</from-outcome>
+            <to-view-id>/sys/systemroleNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemroleEdit</from-outcome>
+            <to-view-id>/sys/systemroleEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemroleView</from-outcome>
+            <to-view-id>/sys/systemroleView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -1599,6 +1628,11 @@
         <navigation-case>
             <from-outcome>samplingchargeSelect</from-outcome>
             <to-view-id>/app/df/samplingchargeSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysprgSelect</from-outcome>
+            <to-view-id>/app/df/sysprgSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

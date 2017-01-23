@@ -30,13 +30,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salesorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesOrderDetailForQuery.getRowCount", query = "SELECT COUNT(s) FROM SalesOrderDetailForQuery s"),
-    @NamedQuery(name = "SalesOrderDetailForQuery.findAll", query = "SELECT s FROM SalesOrderDetailForQuery s"),
-    @NamedQuery(name = "SalesOrderDetailForQuery.findById", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrderDetailForQuery.findByPId", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.salesOrder.formid = :pid ORDER BY s.seq"),
-    @NamedQuery(name = "SalesOrderDetailForQuery.findByColorno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.colorno = :colorno"),
-    @NamedQuery(name = "SalesOrderDetailForQuery.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.customercolorno = :customercolorno"),
-    @NamedQuery(name = "SalesOrderDetailForQuery.findByItemno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.itemno = :itemno"),
+    @NamedQuery(name = "SalesOrderDetailForQuery.getRowCount", query = "SELECT COUNT(s) FROM SalesOrderDetailForQuery s")
+    ,
+    @NamedQuery(name = "SalesOrderDetailForQuery.findAll", query = "SELECT s FROM SalesOrderDetailForQuery s")
+    ,
+    @NamedQuery(name = "SalesOrderDetailForQuery.findById", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByPId", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.salesOrder.formid = :pid ORDER BY s.seq")
+    ,
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByPIdAndSeq", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.salesOrder.formid = :pid AND s.seq=:seq")
+    ,
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.customercolorno = :customercolorno")
+    ,
+    @NamedQuery(name = "SalesOrderDetailForQuery.findByItemno", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.itemno = :itemno")
+    ,
     @NamedQuery(name = "SalesOrderDetailForQuery.findByDeliverydate", query = "SELECT s FROM SalesOrderDetailForQuery s WHERE s.deliverydate = :deliverydate")})
 public class SalesOrderDetailForQuery extends BaseEntity {
 
@@ -497,7 +504,6 @@ public class SalesOrderDetailForQuery extends BaseEntity {
         this.proqty = proqty;
     }
 
-    
     /**
      * @return the printdate
      */

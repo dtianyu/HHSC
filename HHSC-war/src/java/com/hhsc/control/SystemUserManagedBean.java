@@ -14,7 +14,6 @@ import com.hhsc.entity.SystemUser;
 import com.hhsc.lazy.SystemUserModel;
 import com.hhsc.web.SuperSingleBean;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

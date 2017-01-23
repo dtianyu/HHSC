@@ -31,16 +31,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaserequestdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseRequestDetail.findAll", query = "SELECT p FROM PurchaseRequestDetail p"),
-    @NamedQuery(name = "PurchaseRequestDetail.findById", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByPId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.pid = :pid"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByPurtype", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purtype = :purtype"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByPurkind", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purkind = :purkind"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByAbroad", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.abroad = :abroad"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByItemId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemmaster.id = :itemmasterid"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemno = :itemno ORDER BY p.id DESC"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByCustomerId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.customer.id = :customerid"),
-    @NamedQuery(name = "PurchaseRequestDetail.findByVendorId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.vendor.id = :vendorid"),
+    @NamedQuery(name = "PurchaseRequestDetail.findAll", query = "SELECT p FROM PurchaseRequestDetail p")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findById", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByPId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.pid = :pid")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByPurtype", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purtype = :purtype")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByPurkind", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.purkind = :purkind")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByDesignnoAndItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.designno = :designno AND p.itemno=:itemno ORDER BY p.id DESC")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByItemId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemmaster.id = :itemmasterid")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByItemno", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.itemno = :itemno ORDER BY p.id DESC")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByCustomerId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.customer.id = :customerid")
+    ,
+    @NamedQuery(name = "PurchaseRequestDetail.findByVendorId", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.vendor.id = :vendorid")
+    ,
     @NamedQuery(name = "PurchaseRequestDetail.findBySrcformid", query = "SELECT p FROM PurchaseRequestDetail p WHERE p.srcformid = :srcformid")})
 public class PurchaseRequestDetail extends FormDetailEntity {
 
@@ -178,7 +188,7 @@ public class PurchaseRequestDetail extends FormDetailEntity {
     @Size(max = 200)
     @Column(name = "deliveryadd")
     private String deliveryadd;
-    
+
     @Size(max = 200)
     @Column(name = "shipmarks")
     private String shipmarks;
@@ -191,7 +201,7 @@ public class PurchaseRequestDetail extends FormDetailEntity {
     @Size(max = 200)
     @Column(name = "packremark")
     private String packremark;
-        
+
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;

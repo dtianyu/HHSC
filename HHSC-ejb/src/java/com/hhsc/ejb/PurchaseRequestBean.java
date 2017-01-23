@@ -35,25 +35,39 @@ public class PurchaseRequestBean extends SuperBean<PurchaseRequest> {
         return purchaseRequestDetailBean.findBySalesOrderFormid(formid).size();
     }
 
+    @Override
+    public PurchaseRequest verify(PurchaseRequest entity) {
+        setDetail(entity.getFormid());
+        getDetailList().stream().map((d) -> {
+            PurchaseRequestDetail prd = null;
+            if ("300".equals(d.getPurtype())) {
+                prd = purchaseRequestDetailBean.findLastByItemno(d.getItemno());
+            } else {
+                prd = purchaseRequestDetailBean.findLastByDesignnoAndItemno(d.getDesignno(), d.getItemno());
+            }
+            if (prd != null) {
+                d.setVendor(prd.getVendor());
+                d.setVendoritemno(prd.getVendoritemno());
+                d.setVendorcolorno(prd.getVendorcolorno());
+                d.setCurrency(prd.getCurrency());
+                d.setExchange(prd.getExchange());
+                d.setTaxtype(prd.getTaxtype());
+                d.setTaxkind(prd.getTaxkind());
+                d.setTaxrate(prd.getTaxrate());
+                d.setPrice(prd.getPrice());
+                d.setAmts(d.getQty().multiply(d.getPrice()));
+            }
+            return d;
+        }).forEach((d) -> {
+            purchaseRequestDetailBean.update(d);
+        });
+        return super.verify(entity);
+    }
+
     public void initRequest(PurchaseRequest p, List<PurchaseRequestDetail> detailList) {
         try {
             detailList.stream().map((d) -> {
                 d.setPid(p.getFormid());
-                if (d.getPurtype() != "100") {
-                    PurchaseRequestDetail hd = purchaseRequestDetailBean.findLastByItemno(d.getItemno());
-                    if (hd != null) {
-                        d.setVendor(hd.getVendor());
-                        d.setVendoritemno(hd.getVendoritemno());
-                        d.setVendorcolorno(hd.getVendorcolorno());
-                        d.setCurrency(hd.getCurrency());
-                        d.setExchange(hd.getExchange());
-                        d.setTaxtype(hd.getTaxtype());
-                        d.setTaxkind(hd.getTaxkind());
-                        d.setTaxrate(hd.getTaxrate());
-                        d.setPrice(hd.getPrice());
-                        d.setAmts(d.getQty().multiply(d.getPrice()));
-                    }
-                }
                 return d;
             }).forEach((d) -> {
                 purchaseRequestDetailBean.persist(d);

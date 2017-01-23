@@ -5,9 +5,9 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.SysgrantModuleBean;
+import com.hhsc.ejb.SysGrantModuleBean;
 import com.hhsc.ejb.SysprgBean;
-import com.hhsc.entity.SysgrantModule;
+import com.hhsc.entity.SysGrantModule;
 import com.hhsc.entity.Sysprg;
 import java.io.Serializable;
 import java.util.List;
@@ -33,12 +33,12 @@ public class MenuManagedBean implements Serializable {
     @EJB
     private SysprgBean sysprgBean;
     @EJB
-    private SysgrantModuleBean sysgrantModuleBean;
+    private SysGrantModuleBean sysgrantModuleBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     private UserManagedBean userManagedBean;
 
-    private List<SysgrantModule> sysgantModuleList;
+    private List<SysGrantModule> sysgantModuleList;
     private List<Sysprg> sysprgList;
 
     private MenuModel model;
@@ -70,7 +70,7 @@ public class MenuManagedBean implements Serializable {
 
             sysgantModuleList = sysgrantModuleBean.findByUserId(userManagedBean.getCurrentUser().getId());
             if (sysgantModuleList != null && !sysgantModuleList.isEmpty()) {
-                for (SysgrantModule grantModule : sysgantModuleList) {
+                for (SysGrantModule grantModule : sysgantModuleList) {
 
                     submenu = new DefaultSubMenu(grantModule.getSysmodule().getName());
                     submenu.setIcon("icon-th-thumb");
@@ -107,16 +107,21 @@ public class MenuManagedBean implements Serializable {
             menuitem.setIcon("icon-doc-text");
             menuitem.setOutcome("systemuser");
             submenu.addElement(menuitem);
-
-            menuitem = new DefaultMenuItem("模块授权");
+            
+            menuitem = new DefaultMenuItem("用户授权");
             menuitem.setIcon("icon-doc-text");
-            menuitem.setOutcome("sysgrantmodule");
+            menuitem.setOutcome("usergrant");
             submenu.addElement(menuitem);
 
-            //menuitem = new DefaultMenuItem("功能授权");
-            //menuitem.setIcon("icon-doc-text");
-            //menuitem.setOutcome("sysgrantprg");
-            //submenu.addElement(menuitem);
+            menuitem = new DefaultMenuItem("角色群组");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("systemrole");
+            submenu.addElement(menuitem);
+
+            menuitem = new DefaultMenuItem("角色授权");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("rolegrant");
+            submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("模块维护");
             menuitem.setIcon("icon-doc-text");
@@ -126,6 +131,11 @@ public class MenuManagedBean implements Serializable {
             menuitem = new DefaultMenuItem("功能维护");
             menuitem.setIcon("icon-doc-text");
             menuitem.setOutcome("sysprg");
+            submenu.addElement(menuitem);
+
+            menuitem = new DefaultMenuItem("模块授权");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("sysgrantmodule");
             submenu.addElement(menuitem);
 
             model.addElement(submenu);

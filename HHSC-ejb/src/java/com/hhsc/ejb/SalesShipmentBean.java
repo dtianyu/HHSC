@@ -10,13 +10,20 @@ import com.hhsc.entity.InventoryTransaction;
 import com.hhsc.entity.ItemExchange;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.SalesOrderDetail;
+import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.hhsc.entity.SalesShipment;
 import com.hhsc.entity.SalesShipmentDetail;
 import com.hhsc.entity.SalesTransaction;
 import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.TransactionType;
+import com.hhsc.entity.Warehouse;
+import com.lightshell.comm.BaseLib;
+import com.lightshell.comm.SuperEJB;
+import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -34,10 +41,10 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
     private SysprgBean sysprgBean;
 
     @EJB
-    private ItemExchangeBean itemExchangeBean;
+    private WarehouseBean warehouseBean;
 
     @EJB
-    private SalesTransactionBean salesTransactionBean;
+    private ItemExchangeBean itemExchangeBean;
 
     @EJB
     private TransactionTypeBean transactionTypeBean;
@@ -53,6 +60,9 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
 
     @EJB
     private SalesShipmentDetailBean salesShipmentDetailBean;
+
+    @EJB
+    private SalesTransactionBean salesTransactionBean;
 
     private List<SalesShipmentDetail> detailList;
 
@@ -255,6 +265,114 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
         } catch (RuntimeException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public void initShipment(String api, List<SalesOrderDetailForQuery> details, boolean flag) {
+
+        Date baseDay = BaseLib.getDate();
+        Sysprg prg = sysprgBean.findByAPI(api);
+        if (prg == null) {
+            throw new RuntimeException("获取系统程序设定失败");
+        }
+        String formid = this.getFormId(baseDay, prg.getNolead(), prg.getNoformat(), prg.getNoseqlen());
+        TransactionType transactionType = transactionTypeBean.findByTrtype("SDA");
+        if (transactionType == null) {
+            throw new RuntimeException("SDA交易类别没有定义");
+        }
+        Warehouse wh = warehouseBean.findAll().get(0);
+        SalesShipmentDetail d;
+        HashMap<SuperEJB, List<?>> detailAdded = new HashMap<>();
+        detailList = new ArrayList<>();
+        detailAdded.put(salesShipmentDetailBean, detailList);
+        //产生出货内容
+        SalesOrderDetailForQuery sod = details.get(0);
+        SalesShipment ss = new SalesShipment();
+        ss.setFormid(formid);
+        ss.setFormdate(baseDay);
+        ss.setShiptype(sod.getSalesOrder().getOrdertype());
+        ss.setShipkind(sod.getSalesOrder().getOrderkind());
+        ss.setCustomer(sod.getSalesOrder().getCustomer());
+        ss.setDept(sod.getSalesOrder().getDept());
+        ss.setSalesman(sod.getSalesOrder().getSalesman());
+        ss.setCurrency(sod.getSalesOrder().getCurrency());
+        ss.setExchange(sod.getSalesOrder().getExchange());
+        ss.setTaxtype(sod.getSalesOrder().getTaxtype());
+        ss.setTaxkind(sod.getSalesOrder().getTaxkind());
+        ss.setTaxrate(sod.getSalesOrder().getTaxrate());
+        ss.setTotalextax(BigDecimal.ZERO);
+        ss.setTotaltaxes(BigDecimal.ZERO);
+        ss.setTotalamts(BigDecimal.ZERO);
+        ss.setWarehouse(wh);
+        ss.setStatus("N");
+        ss.setCreatorToSystem();
+        ss.setCredateToNow();
+        int i = 0;
+        for (SalesOrderDetailForQuery entity : details) {
+            i++;
+            d = new SalesShipmentDetail();
+            d.setPid(formid);
+            d.setSeq(i);
+            if (!entity.getItemno().equals("A000000")) {
+                d.setItemmaster(entity.getSalesOrder().getItemmaster());
+                d.setItemno(entity.getSalesOrder().getItemno());
+                d.setItemimg(entity.getSalesOrder().getItemimg());
+                d.setColorno(entity.getColorno());
+                d.setCustomeritemno(entity.getSalesOrder().getCustomeritemno());
+                d.setCustomercolorno(entity.getCustomercolorno());
+                d.setCustomerrefno(entity.getSalesOrder().getRefno());
+                d.setBrand(entity.getBrand());
+                d.setBatch(entity.getItemno());
+                d.setSn(entity.getSn());
+                d.setAllowqty(entity.getQty().subtract(entity.getShipqty()));
+                d.setQty(d.getAllowqty());
+                d.setUnit(entity.getUnit());
+                d.setWarehouse(wh);
+                d.setPrice(entity.getPrice());
+                d.setSrcapi("salesorder");
+                d.setSrcformid(entity.getSalesOrder().getFormid());
+                d.setSrcseq(entity.getSeq());
+            } else {
+                ss.setShipkind(entity.getItemno());
+                d.setItemmaster(entity.getItemmaster());
+                d.setItemno(entity.getItemno());
+                d.setItemimg(entity.getSalesOrder().getItemimg());
+                d.setColorno(entity.getColorno());
+                d.setCustomeritemno("");
+                d.setCustomercolorno("");
+                d.setCustomerrefno(entity.getSalesOrder().getRefno());
+                d.setBrand(entity.getBrand());
+                d.setBatch(entity.getSalesOrder().getItemno());
+                d.setSn(entity.getSn());
+                d.setAllowqty(entity.getQty().subtract(entity.getShipqty()));
+                d.setQty(d.getAllowqty());
+                d.setUnit(entity.getUnit());
+                d.setWarehouse(wh);
+                d.setPrice(entity.getPrice());
+                d.setSrcapi("salesorder");
+                d.setSrcformid(entity.getSalesOrder().getFormid());
+                d.setSrcseq(entity.getSeq());
+            }
+            //计算税额
+            d.setAmts(d.getQty().multiply(d.getPrice()));
+            Tax t = BaseLib.getTaxes(ss.getTaxtype(), ss.getTaxkind(), ss.getTaxrate(), d.getAmts(), 2);
+            d.setExtax(t.getExtax());
+            d.setTaxes(t.getTaxes());
+            d.setStatus("40");
+            detailList.add(d);
+        }
+        try {
+            this.persist(ss, detailAdded, null, null);
+            //直接确认
+            if (flag) {
+                ss.setStatus("V");
+                ss.setCfmuserToSystem();
+                ss.setCfmdateToNow();
+                this.verify(ss);
+            }
+        } catch (RuntimeException ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
 
     /**

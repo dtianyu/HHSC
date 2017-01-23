@@ -9,8 +9,7 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.Warehouse;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,6 +21,17 @@ public class WarehouseBean extends SuperBean<Warehouse> {
 
     public WarehouseBean() {
         super(Warehouse.class);
+    }
+
+    public Warehouse findByWarehouseno(String value) {
+        Query query = this.getEntityManager().createNamedQuery("Warehouse.findByWarehouseno");
+        query.setParameter("warehouseno", value);
+        try {
+            Object o = query.getSingleResult();
+            return (Warehouse) o;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

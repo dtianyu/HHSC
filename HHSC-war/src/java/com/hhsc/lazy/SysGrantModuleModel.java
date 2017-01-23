@@ -5,7 +5,7 @@
  */
 package com.hhsc.lazy;
 
-import com.hhsc.entity.SysgrantModule;
+import com.hhsc.entity.SysGrantModule;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
 import java.util.List;
@@ -16,14 +16,14 @@ import org.primefaces.model.SortOrder;
  *
  * @author kevindong
  */
-public class SysgrantModuleModel extends BaseLazyModel<SysgrantModule> {
+public class SysGrantModuleModel extends BaseLazyModel<SysGrantModule> {
 
-    public SysgrantModuleModel(SuperEJB superEJB) {
+    public SysGrantModuleModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
 
     @Override
-    public List<SysgrantModule> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+    public List<SysGrantModule> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         this.sortFields.put("systemuser.userid", "ASC");
         this.sortFields.put("sysmodule.sortid", "ASC");
         return super.load(first, pageSize, sortField, sortOrder, filters); 

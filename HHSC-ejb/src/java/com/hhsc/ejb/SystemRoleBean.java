@@ -6,7 +6,7 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
-import com.hhsc.entity.SalesOrderDetail;
+import com.hhsc.entity.SystemRole;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,10 +16,10 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class SalesOrderDetailBean extends SuperBean<SalesOrderDetail> {
+public class SystemRoleBean extends SuperBean<SystemRole> {
 
-    public SalesOrderDetailBean() {
-        super(SalesOrderDetail.class);
+    public SystemRoleBean() {
+        super(SystemRole.class);
     }
 
 }

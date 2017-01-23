@@ -31,14 +31,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salesorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s"),
-    @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid ORDER BY s.seq"),
-    @NamedQuery(name = "SalesOrderDetail.findByPIdAndSeq", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid AND s.seq = :seq "),
-    @NamedQuery(name = "SalesOrderDetail.findByColorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.colorno = :colorno"),
-    @NamedQuery(name = "SalesOrderDetail.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.customercolorno = :customercolorno"),
-    @NamedQuery(name = "SalesOrderDetail.findByItemId", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemmaster.id = :itemmasterid"),
-    @NamedQuery(name = "SalesOrderDetail.findByItemno", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemno = :itemno"),
+    @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid ORDER BY s.seq")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findByPIdAndSeq", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid AND s.seq = :seq ")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findByColorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.colorno = :colorno")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findByCustomercolorno", query = "SELECT s FROM SalesOrderDetail s WHERE s.customercolorno = :customercolorno")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findByItemId", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemmaster.id = :itemmasterid")
+    ,
+    @NamedQuery(name = "SalesOrderDetail.findByItemno", query = "SELECT s FROM SalesOrderDetail s WHERE s.itemno = :itemno")
+    ,
     @NamedQuery(name = "SalesOrderDetail.findByDeliverydate", query = "SELECT s FROM SalesOrderDetail s WHERE s.deliverydate = :deliverydate")})
 public class SalesOrderDetail extends FormDetailEntity {
 

@@ -5,13 +5,13 @@
  */
 package com.hhsc.control;
 
-import com.hhsc.ejb.SysgrantModuleBean;
+import com.hhsc.ejb.SysGrantModuleBean;
 import com.hhsc.ejb.SysmoduleBean;
 import com.hhsc.ejb.SystemUserBean;
-import com.hhsc.entity.SysgrantModule;
+import com.hhsc.entity.SysGrantModule;
 import com.hhsc.entity.Sysmodule;
 import com.hhsc.entity.SystemUser;
-import com.hhsc.lazy.SysgrantModuleModel;
+import com.hhsc.lazy.SysGrantModuleModel;
 import com.hhsc.web.SuperSingleBean;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,10 +24,10 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "sysgrantModuleManagedBean")
 @SessionScoped
-public class SysgrantModuleManagedBean extends SuperSingleBean<SysgrantModule> {
+public class SysgrantModuleManagedBean extends SuperSingleBean<SysGrantModule> {
 
     @EJB
-    private SysgrantModuleBean sysgrantModuleBean;
+    private SysGrantModuleBean sysgrantModuleBean;
     @EJB
     private SystemUserBean systemUserBean;
     @EJB
@@ -40,7 +40,7 @@ public class SysgrantModuleManagedBean extends SuperSingleBean<SysgrantModule> {
      * Creates a new instance of SysgrantModuleManagedBean
      */
     public SysgrantModuleManagedBean() {
-        super(SysgrantModule.class);
+        super(SysGrantModule.class);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SysgrantModuleManagedBean extends SuperSingleBean<SysgrantModule> {
     @Override
     public void init() {
         setSuperEJB(sysgrantModuleBean);
-        setModel(new SysgrantModuleModel(sysgrantModuleBean));
+        setModel(new SysGrantModuleModel(sysgrantModuleBean));
         setSystemuserList(systemUserBean.findAll());
         setSysmoduleList(sysmoduleBean.findAll());
         if (currentEntity == null) {

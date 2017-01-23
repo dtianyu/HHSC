@@ -21,9 +21,9 @@ import javax.faces.context.FacesContext;
  *
  * @author KevinDong
  * @param <T>
- * @param <V>
+ * @param <D1>
  */
-public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetailEntity> extends SuperMultiManagedBean<T, V> {
+public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDetailEntity> extends SuperMultiManagedBean<T, D1> {
 
     @EJB
     protected SysprgBean sysprgBean;
@@ -40,7 +40,7 @@ public abstract class SuperMultiBean<T extends SuperEntity, V extends SuperDetai
      * @param entityClass
      * @param detailClass
      */
-    public SuperMultiBean(Class<T> entityClass, Class<V> detailClass) {
+    public SuperMultiBean(Class<T> entityClass, Class<D1> detailClass) {
         this.entityClass = entityClass;
         this.detailClass = detailClass;
     }

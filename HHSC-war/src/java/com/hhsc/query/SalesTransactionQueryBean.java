@@ -38,7 +38,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
         this.superEJB = salesTransactionBean;
         setModel(new SalesTransactionModel(salesTransactionBean));
         this.model.getFilterFields().put("status", "50");
-        if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentnotinvoice") {
+        if (getCurrentSysprg() != null && getCurrentSysprg().getApi().equals("shipmentnotinvoice")) {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
             }
@@ -71,7 +71,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
             if (this.queryState != null && !"ALL".equals(this.queryState)) {
                 this.model.getFilterFields().put("status", queryState);
             }
-            if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentnotinvoice") {
+            if (getCurrentSysprg() != null && getCurrentSysprg().getApi().equals("shipmentnotinvoice")) {
                 if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                     this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
                 }
@@ -125,7 +125,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("status", "50");
-        if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentnotinvoice") {
+        if (getCurrentSysprg() != null && getCurrentSysprg().getApi().equals("shipmentnotinvoice")) {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
             }

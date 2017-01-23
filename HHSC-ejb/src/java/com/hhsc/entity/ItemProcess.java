@@ -27,12 +27,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "itemprocess")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemProcess.getRowCount", query = "SELECT COUNT(i) FROM ItemProcess i"),
-    @NamedQuery(name = "ItemProcess.findAll", query = "SELECT i FROM ItemProcess i"),
-    @NamedQuery(name = "ItemProcess.findById", query = "SELECT i FROM ItemProcess i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemProcess.findByItemno", query = "SELECT i FROM ItemProcess i WHERE i.itemno = :itemno ORDER BY i.id DESC"),
+    @NamedQuery(name = "ItemProcess.getRowCount", query = "SELECT COUNT(i) FROM ItemProcess i")
+    ,
+    @NamedQuery(name = "ItemProcess.findAll", query = "SELECT i FROM ItemProcess i")
+    ,
+    @NamedQuery(name = "ItemProcess.findById", query = "SELECT i FROM ItemProcess i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemProcess.findByItemno", query = "SELECT i FROM ItemProcess i WHERE i.itemno = :itemno ORDER BY i.id DESC")
+    ,
     @NamedQuery(name = "ItemProcess.findByStatus", query = "SELECT i FROM ItemProcess i WHERE i.status = :status")})
 public class ItemProcess extends SuperEntity {
+
+    @Column(name = "frameid")
+    private Integer frameid;
 
     @Size(max = 100)
     @Column(name = "itemspec")
@@ -85,6 +92,8 @@ public class ItemProcess extends SuperEntity {
     private String remark;
 
     public ItemProcess() {
+        this.procid = 0;
+        this.frameid = 0;
     }
 
     public ItemMaster getItemmaster() {
@@ -259,6 +268,20 @@ public class ItemProcess extends SuperEntity {
      */
     public void setDesignsets(Integer designsets) {
         this.designsets = designsets;
+    }
+
+    /**
+     * @return the frameid
+     */
+    public Integer getFrameid() {
+        return frameid;
+    }
+
+    /**
+     * @param frameid the frameid to set
+     */
+    public void setFrameid(Integer frameid) {
+        this.frameid = frameid;
     }
 
 }

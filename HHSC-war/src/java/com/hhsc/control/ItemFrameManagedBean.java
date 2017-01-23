@@ -88,7 +88,7 @@ public class ItemFrameManagedBean extends SuperSingleBean<ItemFrame> {
                 String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
                 this.newEntity.setFormid(formid);
             }
-            if ("XZ".equals(this.newEntity.getFormtype()) && (this.newEntity.getSrcformid() == null)) {
+            if ("XZ".equals(this.newEntity.getFormtype()) && ((this.newEntity.getSrcformid() == null) || (this.newEntity.getSrcformid() == ""))) {
                 this.showErrorMsg("Error", "请输入订单编号");
                 return false;
             }
@@ -106,12 +106,12 @@ public class ItemFrameManagedBean extends SuperSingleBean<ItemFrame> {
         if (!super.doBeforeVerify()) {
             return false;
         }
-        if (("XZ".equals(this.currentEntity.getFormtype())) && (this.currentEntity.getSrcformid() == null)) {
-            this.showErrorMsg("Error", "请输入订单编号");
+        if (("XZ".equals(this.currentEntity.getFormtype())) && ((this.currentEntity.getSrcformid() == null) || (this.newEntity.getSrcformid() == ""))) {
+            showErrorMsg("Error", "请输入订单编号");
             return false;
         }
         if (("XZ".equals(this.currentEntity.getFormtype()) || "CG".equals(this.currentEntity.getFormtype())) && (this.currentEntity.getDesignsets() == 0)) {
-            this.showErrorMsg("Error", "请输入制版套数");
+            showErrorMsg("Error", "请输入制版套数");
             return false;
         }
         return true;
