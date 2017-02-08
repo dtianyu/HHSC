@@ -29,8 +29,8 @@ public class ItemFinishedManagedBean extends ItemMasterManagedBean {
     public void init() {
         super.init();
         this.model.getFilterFields().put("itemcategory.category", "100");
-        if (this.currentSysprg != null && this.currentSysprg.getNoauto()) {
-            this.model.getFilterFields().put("itemno", this.currentSysprg.getNolead());
+        if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getNoauto()) {
+            this.model.getFilterFields().put("itemno", this.currentPrgGrant.getSysprg().getNolead());
         }
     }
 
@@ -38,8 +38,8 @@ public class ItemFinishedManagedBean extends ItemMasterManagedBean {
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("itemcategory.category", "100");
-        if (this.currentSysprg != null && this.currentSysprg.getNoauto()) {
-            this.model.getFilterFields().put("itemno", this.currentSysprg.getNolead());
+        if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getNoauto()) {
+            this.model.getFilterFields().put("itemno", this.currentPrgGrant.getSysprg().getNolead());
         }
     }
 
@@ -47,8 +47,8 @@ public class ItemFinishedManagedBean extends ItemMasterManagedBean {
     public void query() {
         super.query();
         this.model.getFilterFields().put("itemcategory.category", "100");
-        if (this.currentSysprg != null && this.currentSysprg.getNoauto()) {
-            this.model.getFilterFields().put("itemno", this.currentSysprg.getNolead());
+        if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getNoauto()) {
+            this.model.getFilterFields().put("itemno", this.currentPrgGrant.getSysprg().getNolead());
         }
     }
 

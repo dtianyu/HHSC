@@ -13,29 +13,29 @@
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="rolegrant" icon="ui-icon-arrowreturn-1-w"  />
-                    <p:commandButton id="btnPrev" value="向前" actionListener="#{roleGrantManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                    <p:button id="btnReturn" value="返回" outcome="usergrant" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{userGrantManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
                                      process="@this" update="formView"
-                                     rendered="#{roleGrantManagedBean.hasPrev}"/>
-                    <p:commandButton id="btnNext" value="向后" actionListener="#{roleGrantManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     rendered="#{userGrantManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{userGrantManagedBean.toNext()}" icon="ui-icon-carat-1-e"
                                      process="@this" update="formView"
-                                     rendered="#{roleGrantManagedBean.hasNext}"/>
+                                     rendered="#{userGrantManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" value="审核" action="#{roleGrantManagedBean.verify()}" icon="ui-icon-locked"
-                                     rendered="#{roleGrantManagedBean.doCfm}" process="@this" update="toolbar"/>
+                    <p:commandButton id="btnVerify" value="审核" action="#{userGrantManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{userGrantManagedBean.doCfm}" process="@this" update="toolbar"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="角色授权－编辑">
+            <p:panel id="panelHead" header="用户授权－查看">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="群组编号"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="编号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="roleno" value="#{roleGrantManagedBean.currentEntity.roleno}" title="roleno"/>
+                            <h:outputText id="userno" value="#{userGrantManagedBean.currentEntity.userid}" title="userno"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="群组名称"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="名称"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="rolename" value="#{roleGrantManagedBean.currentEntity.rolename}" title="rolename"/>
+                            <h:outputText id="username" value="#{userGrantManagedBean.currentEntity.username}" title="username"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -43,8 +43,10 @@
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab title="模块授权">
                     <p:panel id="panelDetail">
-                        <p:dataTable id="tableList" value="#{roleGrantManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
-                                     selectionMode="single" selection="#{roleGrantManagedBean.currentDetail}" rowKey="#{item.sysmodule}" >
+                        <p:dataTable id="tableList" value="#{userGrantManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{userGrantManagedBean.currentDetail}" rowKey="#{item.sysmodule}" >
+                            <p:ajax event="rowSelect"  update="" oncomplete="" />
+                            <p:ajax event="rowUnselect"  update="" oncomplete="" />
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="授权模块"/>
@@ -56,8 +58,10 @@
                 </p:tab>
                 <p:tab title="程序授权">
                     <p:panel id="panelDetail2">
-                        <p:dataTable id="tableList2" value="#{roleGrantManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
-                                     selectionMode="single" selection="#{roleGrantManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                        <p:dataTable id="tableList2" value="#{userGrantManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{userGrantManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update="" oncomplete="" />
+                            <p:ajax event="rowUnselect"  update="" oncomplete="" />
                             <p:column styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="模块"/>

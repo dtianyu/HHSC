@@ -257,7 +257,7 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
                     d.setRemark(pd.getRemark());
                     d.setInqty(BigDecimal.ZERO);
                     d.setStatus("00");
-                    d.setSrcapi(this.currentSysprg.getApi());
+                    d.setSrcapi(this.currentPrgGrant.getSysprg().getApi());
                     d.setSrcformid(pd.getPurchaserequest().getFormid());
                     d.setSrcseq(pd.getSeq());
                     purchaseList.add(d);

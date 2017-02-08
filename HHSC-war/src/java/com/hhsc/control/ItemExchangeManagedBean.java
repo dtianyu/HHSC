@@ -61,7 +61,7 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
             if (newEntity.getItemMasterFrom() == null || newEntity.getItemMasterTo() == null) {
                 showErrorMsg("Error", "请输入品号");
                 return false;
@@ -71,8 +71,8 @@ public class ItemExchangeManagedBean extends SuperSingleBean<ItemExchange> {
                 return false;
             }
             this.newEntity.setTransactionType(transactionTypeBean.findByTrtype("IAE"));
-            if (this.getCurrentSysprg().getNoauto() && !this.getCurrentSysprg().getNochange()) {
-                String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto() && !this.getCurrentPrgGrant().getSysprg().getNochange()) {
+                String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen());
                 this.newEntity.setFormid(formid);
             }
         }

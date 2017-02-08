@@ -5,10 +5,12 @@
 package com.hhsc.control;
 
 import com.hhsc.ejb.SystemUserBean;
+import com.hhsc.entity.SysGrantPrg;
 import com.hhsc.entity.SystemUser;
 import com.lightshell.comm.BaseLib;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -37,6 +39,8 @@ public class UserManagedBean implements Serializable {
     private String newpwd;
     private String secpwd;
     private boolean status;
+
+    private List<SysGrantPrg> sysGrantPrgList;
 
     public UserManagedBean() {
         status = false;
@@ -216,6 +220,20 @@ public class UserManagedBean implements Serializable {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the sysGrantPrgList
+     */
+    public List<SysGrantPrg> getSysGrantPrgList() {
+        return sysGrantPrgList;
+    }
+
+    /**
+     * @param sysGrantPrgList the sysGrantPrgList to set
+     */
+    public void setSysGrantPrgList(List<SysGrantPrg> sysGrantPrgList) {
+        this.sysGrantPrgList = sysGrantPrgList;
     }
 
 }

@@ -26,7 +26,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="入库单号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{productionFinishManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入入库单号" readonly="#{productionFinishManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入入库单号" readonly="#{productionFinishManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="入库日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">

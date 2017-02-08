@@ -1269,11 +1269,6 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysgrantmodule</from-outcome>
-            <to-view-id>/sys/sysgrantmodule.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>systemuser</from-outcome>
             <to-view-id>/sys/systemuser.xhtml</to-view-id>
             <redirect/>

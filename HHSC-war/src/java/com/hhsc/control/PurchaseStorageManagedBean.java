@@ -176,18 +176,18 @@ public class PurchaseStorageManagedBean extends SuperSingleBean<PurchaseStorage>
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "50":
-                    this.doEdit = getCurrentSysprg().getDoedit() && false;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
                     this.doCfm = false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = getCurrentSysprg().getDoedit() && true;
-                    this.doDel = getCurrentSysprg().getDodel() && true;
-                    this.doCfm = getCurrentSysprg().getDocfm() && true;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && true;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                     this.doUnCfm = false;
             }
         } else {

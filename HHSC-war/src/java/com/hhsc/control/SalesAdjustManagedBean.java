@@ -52,7 +52,7 @@ public class SalesAdjustManagedBean extends SuperSingleBean<SalesTransactionAdju
         this.superEJB = salesTransactionAdjustBean;
         setModel(new SalesTransactionAdjustModel(salesTransactionAdjustBean));
         this.model.getFilterFields().put("status", "50");
-        if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentnotinvoice") {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi() == "shipmentnotinvoice") {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
             }
@@ -62,9 +62,9 @@ public class SalesAdjustManagedBean extends SuperSingleBean<SalesTransactionAdju
 
     @Override
     public void print() throws Exception {
-        if (getCurrentSysprg() != null && getCurrentSysprg().getDoprt()) {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getDoprt()) {
             HashMap<String, Object> reportParams = new HashMap<>();
-            reportParams.put("JNDIName", this.getCurrentSysprg().getRptjndi());
+            reportParams.put("JNDIName", this.getCurrentPrgGrant().getSysprg().getRptjndi());
             if (!this.model.getFilterFields().isEmpty()) {
                 reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
             } else {
@@ -77,18 +77,18 @@ public class SalesAdjustManagedBean extends SuperSingleBean<SalesTransactionAdju
             }
             //设置报表名称
             String reportFormat;
-            if (this.getCurrentSysprg().getRptformat() != null) {
-                reportFormat = this.getCurrentSysprg().getRptformat();
+            if (this.getCurrentPrgGrant().getSysprg().getRptformat() != null) {
+                reportFormat = this.getCurrentPrgGrant().getSysprg().getRptformat();
             } else {
                 reportFormat = reportOutputFormat;
             }
-            this.fileName = this.getCurrentSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
-            String reportName = reportPath + this.getCurrentSysprg().getRptdesign();
+            this.fileName = this.getCurrentPrgGrant().getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + this.getCurrentPrgGrant().getSysprg().getRptdesign();
             String outputName = reportOutputPath + this.fileName;
             this.reportViewPath = reportViewContext + this.fileName;
             try {
-                if (this.getCurrentSysprg() != null && this.getCurrentSysprg().getRptclazz() != null) {
-                    reportClassLoader = Class.forName(this.getCurrentSysprg().getRptclazz()).getClassLoader();
+                if (this.getCurrentPrgGrant() != null && this.getCurrentPrgGrant().getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentPrgGrant().getSysprg().getRptclazz()).getClassLoader();
                 }
                 //初始配置
                 this.reportInitAndConfig();
@@ -131,7 +131,7 @@ public class SalesAdjustManagedBean extends SuperSingleBean<SalesTransactionAdju
             } else if ("OFF".equals(this.queryState)) {
                 this.model.getFilterFields().put("offamts >=", 0.01);
             }
-            if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentnotinvoice") {
+            if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi() == "shipmentnotinvoice") {
                 if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                     this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
                 }
@@ -143,7 +143,7 @@ public class SalesAdjustManagedBean extends SuperSingleBean<SalesTransactionAdju
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("status", "50");
-        if (getCurrentSysprg() != null && getCurrentSysprg().getApi() == "shipmentnotinvoice") {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi() == "shipmentnotinvoice") {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
             }
@@ -152,19 +152,19 @@ public class SalesAdjustManagedBean extends SuperSingleBean<SalesTransactionAdju
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "50":
-                    this.doEdit = getCurrentSysprg().getDoedit() && true;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
-                    this.doCfm = getCurrentSysprg().getDocfm() && false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && false;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && false;
                     break;
                 default:
-                    this.doEdit = getCurrentSysprg().getDoedit() && false;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
-                    this.doCfm = getCurrentSysprg().getDocfm() && false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && false;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && false;
             }
         } else {
             this.doEdit = false;

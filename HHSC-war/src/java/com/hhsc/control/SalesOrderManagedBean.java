@@ -86,7 +86,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     }
 
     public String copyEntity(String path) {
-        if (this.currentEntity != null && this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+        if (this.currentEntity != null && this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getNoauto()) {
             //获得原来的明细
             salesOrderBean.setDetail(currentEntity.getFormid());
             if (salesOrderBean.getDetailList().isEmpty()) {
@@ -98,7 +98,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                 this.addedDetailList.clear();
             }
             try {
-                String formid = salesOrderBean.getFormId(getDate(), currentSysprg.getNolead(), currentSysprg.getNoformat(), currentSysprg.getNoseqlen());
+                String formid = salesOrderBean.getFormId(getDate(), currentPrgGrant.getSysprg().getNolead(), currentPrgGrant.getSysprg().getNoformat(), currentPrgGrant.getSysprg().getNoseqlen());
                 if (!formid.equals("")) {
                     //设定主表
                     SalesOrder entity = (SalesOrder) BeanUtils.cloneBean(currentEntity);
@@ -477,11 +477,11 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentSysprg.getRptformat() != null) {
-            reportFormat = this.currentSysprg.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
@@ -489,8 +489,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
-            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();
@@ -639,7 +639,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                 d.setDeliverydate(entity.getDeliverydate());
                 d.setRemark(entity.getRemark());
                 d.setStatus("N");
-                d.setSrcapi(this.currentSysprg.getApi());
+                d.setSrcapi(this.currentPrgGrant.getSysprg().getApi());
                 d.setSrcformid(currentEntity.getFormid());
                 d.setSrcseq(entity.getSeq());
                 requestList.add(d);

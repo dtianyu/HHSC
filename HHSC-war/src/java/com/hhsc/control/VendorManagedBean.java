@@ -63,10 +63,10 @@ public class VendorManagedBean extends SuperSingleBean<Vendor> {
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
             String formid = "";
-            if (this.getCurrentSysprg().getNoauto()) {
-                formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "vendorno");
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto()) {
+                formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen(), "vendorno");
                 this.newEntity.setVendorno(formid);
             }
             return true;

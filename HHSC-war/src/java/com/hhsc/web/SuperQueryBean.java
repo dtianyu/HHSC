@@ -7,7 +7,7 @@ package com.hhsc.web;
 
 import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
-import com.hhsc.entity.Sysprg;
+import com.hhsc.entity.SysGrantPrg;
 import com.lightshell.comm.BaseEntity;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.SuperSingleManagedBean;
@@ -33,7 +33,7 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected Sysprg currentSysprg;
+    protected SysGrantPrg currentPrgGrant;
 
     protected Map<String, String[]> params;//页面传参
 
@@ -67,7 +67,11 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
+        if (userManagedBean.getSysGrantPrgList() != null && !userManagedBean.getSysGrantPrgList().isEmpty()) {
+            userManagedBean.getSysGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
         super.construct();
     }
 
@@ -103,9 +107,9 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     public void print() throws Exception {
-        if (getCurrentSysprg() != null && getCurrentSysprg().getDoprt()) {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getDoprt()) {
             HashMap<String, Object> reportParams = new HashMap<>();
-            reportParams.put("JNDIName", this.getCurrentSysprg().getRptjndi());
+            reportParams.put("JNDIName", this.getCurrentPrgGrant().getSysprg().getRptjndi());
             if (!this.model.getFilterFields().isEmpty()) {
                 reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
             } else {
@@ -118,18 +122,18 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
             }
             //设置报表名称
             String reportFormat;
-            if (this.getCurrentSysprg().getRptformat() != null) {
-                reportFormat = this.getCurrentSysprg().getRptformat();
+            if (this.getCurrentPrgGrant().getSysprg().getRptformat() != null) {
+                reportFormat = this.getCurrentPrgGrant().getSysprg().getRptformat();
             } else {
                 reportFormat = reportOutputFormat;
             }
-            this.fileName = this.getCurrentSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
-            String reportName = reportPath + this.getCurrentSysprg().getRptdesign();
+            this.fileName = this.getCurrentPrgGrant().getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + this.getCurrentPrgGrant().getSysprg().getRptdesign();
             String outputName = reportOutputPath + this.fileName;
             this.reportViewPath = reportViewContext + this.fileName;
             try {
-                if (this.getCurrentSysprg() != null && this.getCurrentSysprg().getRptclazz() != null) {
-                    reportClassLoader = Class.forName(this.getCurrentSysprg().getRptclazz()).getClassLoader();
+                if (this.getCurrentPrgGrant() != null && this.getCurrentPrgGrant().getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentPrgGrant().getSysprg().getRptclazz()).getClassLoader();
                 }
                 //初始配置
                 this.reportInitAndConfig();
@@ -160,13 +164,14 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
 
     @Override
     protected void setToolBar() {
-        if (this.getCurrentSysprg() != null) {
+        if (this.getCurrentPrgGrant() != null) {
             this.doAdd = false;
             this.doEdit = false;
             this.doDel = false;
             this.doCfm = false;
             this.doUnCfm = false;
-            this.doPrt = this.getCurrentSysprg().getDoprt();
+            this.doPriv = this.getCurrentPrgGrant().getDopriv();
+            this.doPrt = this.getCurrentPrgGrant().getDoprt();
         }
     }
 
@@ -195,10 +200,10 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
     }
 
     /**
-     * @return the currentSysprg
+     * @return the currentPrgGrant
      */
-    public Sysprg getCurrentSysprg() {
-        return currentSysprg;
+    public SysGrantPrg getCurrentPrgGrant() {
+        return currentPrgGrant;
     }
 
 }

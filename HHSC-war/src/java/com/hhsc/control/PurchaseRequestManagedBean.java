@@ -233,20 +233,20 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentSysprg.getRptformat() != null) {
-            reportFormat = this.currentSysprg.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
-        String reportName = reportPath + this.currentSysprg.getRptdesign() + currentEntity.getPurtype() + ".rptdesign";
+        String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign() + currentEntity.getPurtype() + ".rptdesign";
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
-            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();

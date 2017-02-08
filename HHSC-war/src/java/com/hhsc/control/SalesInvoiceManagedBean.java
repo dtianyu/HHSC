@@ -305,25 +305,25 @@ public class SalesInvoiceManagedBean extends FormMultiBean<AccountReceivable, Sa
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "N":
-                    this.doEdit = getCurrentSysprg().getDoedit() && true;
-                    this.doDel = getCurrentSysprg().getDodel() && true;
-                    this.doCfm = getCurrentSysprg().getDocfm() && true;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && true;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && true;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && false;
                     break;
                 case "V":
-                    this.doEdit = getCurrentSysprg().getDoedit() && false;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
-                    this.doCfm = getCurrentSysprg().getDocfm() && false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && false;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = getCurrentSysprg().getDoedit() && false;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
-                    this.doCfm = getCurrentSysprg().getDocfm() && false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && false;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && false;
             }
         } else {
             this.doEdit = false;

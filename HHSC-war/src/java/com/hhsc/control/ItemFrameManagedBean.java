@@ -42,9 +42,9 @@ public class ItemFrameManagedBean extends SuperSingleBean<ItemFrame> {
     }
 
     public String copyEntity(String formtype, String path) {
-        if (this.currentEntity != null && this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+        if (this.currentEntity != null && this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getNoauto()) {
             try {
-                String formid = itemFrameBean.getFormId(getDate(), currentSysprg.getNolead(), currentSysprg.getNoformat(), currentSysprg.getNoseqlen());
+                String formid = itemFrameBean.getFormId(getDate(), currentPrgGrant.getSysprg().getNolead(), currentPrgGrant.getSysprg().getNoformat(), currentPrgGrant.getSysprg().getNoseqlen());
                 if (!formid.equals("")) {
                     //设定主表
                     ItemFrame entity = (ItemFrame) BeanUtils.cloneBean(currentEntity);
@@ -83,9 +83,9 @@ public class ItemFrameManagedBean extends SuperSingleBean<ItemFrame> {
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            if (this.getCurrentSysprg().getNoauto()) {
-                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto()) {
+                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen());
                 this.newEntity.setFormid(formid);
             }
             if ("XZ".equals(this.newEntity.getFormtype()) && ((this.newEntity.getSrcformid() == null) || (this.newEntity.getSrcformid() == ""))) {

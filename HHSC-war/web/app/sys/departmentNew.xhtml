@@ -24,7 +24,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="部门编号" for="deptno" /></p:column>
                         <p:column styleClass="Wis30">
                             <p:inputText id="deptno" value="#{departmentManagedBean.newEntity.deptno}" title="deptno" 
-                                         required="true" requiredMessage="部门编号不可空白" disabled="#{departmentManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="部门编号不可空白" disabled="#{departmentManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="部门名称" for="dept" /></p:column>
                         <p:column styleClass="Wid30">

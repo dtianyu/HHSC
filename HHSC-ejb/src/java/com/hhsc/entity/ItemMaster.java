@@ -467,10 +467,7 @@ public class ItemMaster extends SuperEntity {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        if (!this.itemno.equals(other.itemno)) {
-            return false;
-        }
-        return true;
+        return this.itemno.equals(other.itemno);
     }
 
     @Override

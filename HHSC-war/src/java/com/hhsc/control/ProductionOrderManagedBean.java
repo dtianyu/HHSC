@@ -80,7 +80,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
     }
 
     public String copyEntity(String path) {
-        if (this.currentEntity != null && this.currentSysprg != null && this.currentSysprg.getNoauto()) {
+        if (this.currentEntity != null && this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getNoauto()) {
             //获得原来的明细
             productionOrderBean.setDetail(currentEntity.getFormid());
             if (productionOrderBean.getDetailList().isEmpty()) {
@@ -92,7 +92,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
                 this.addedDetailList.clear();
             }
             try {
-                String formid = productionOrderBean.getFormId(getDate(), currentSysprg.getNolead(), currentSysprg.getNoformat(), currentSysprg.getNoseqlen());
+                String formid = productionOrderBean.getFormId(getDate(), currentPrgGrant.getSysprg().getNolead(), currentPrgGrant.getSysprg().getNoformat(), currentPrgGrant.getSysprg().getNoseqlen());
                 if (!formid.equals("")) {
                     //设定主表
                     ProductionOrder entity = (ProductionOrder) BeanUtils.cloneBean(currentEntity);
@@ -580,7 +580,7 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getSalesstatus() != null && currentEntity.getJhstatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getSalesstatus() != null && currentEntity.getJhstatus() != null) {
             if ("V".equals(currentEntity.getJhstatus())) {
                 this.doEdit = false;
                 this.doDel = false;
@@ -589,15 +589,15 @@ public class ProductionOrderManagedBean extends FormMulti3Bean<ProductionOrder, 
             } else {
                 switch (currentEntity.getSalesstatus()) {
                     case "V":
-                        this.doEdit = getCurrentSysprg().getDoedit() && false;
-                        this.doDel = getCurrentSysprg().getDodel() && false;
+                        this.doEdit = false;
+                        this.doDel = false;
                         this.doCfm = false;
-                        this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                        this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                         break;
                     default:
-                        this.doEdit = getCurrentSysprg().getDoedit() && true;
-                        this.doDel = getCurrentSysprg().getDodel() && true;
-                        this.doCfm = getCurrentSysprg().getDocfm() && true;
+                        this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                        this.doDel = getCurrentPrgGrant().getDodel() && true;
+                        this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                         this.doUnCfm = false;
                 }
             }

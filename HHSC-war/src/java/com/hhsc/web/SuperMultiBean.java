@@ -8,7 +8,7 @@ package com.hhsc.web;
 import com.lightshell.comm.SuperEntity;
 import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
-import com.hhsc.entity.Sysprg;
+import com.hhsc.entity.SysGrantPrg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMultiManagedBean;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected Sysprg currentSysprg;
+    protected SysGrantPrg currentPrgGrant;
 
     /**
      * @param entityClass
@@ -67,10 +67,15 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
-        if (getCurrentSysprg() != null) {
-            this.doAdd = getCurrentSysprg().getDoadd();
-            this.doPrt = getCurrentSysprg().getDoprt();
+        if (userManagedBean.getSysGrantPrgList() != null && !userManagedBean.getSysGrantPrgList().isEmpty()) {
+            userManagedBean.getSysGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
+        if (getCurrentPrgGrant() != null) {
+            this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
+            this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();
     }
@@ -111,20 +116,20 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("pid", currentEntity.getId());
-        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentSysprg.getRptformat() != null) {
-            reportFormat = this.currentSysprg.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
-        String reportName = reportPath + this.currentSysprg.getRptdesign();
+        String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
         String outputName = reportOutputPath + currentEntity.getId() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getId() + "." + reportFormat;
         try {
-            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();
@@ -154,18 +159,18 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "V":
-                    this.doEdit = getCurrentSysprg().getDoedit() && false;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
                     this.doCfm = false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = getCurrentSysprg().getDoedit() && true;
-                    this.doDel = getCurrentSysprg().getDodel() && true;
-                    this.doCfm = getCurrentSysprg().getDocfm() && true;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && true;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                     this.doUnCfm = false;
             }
         } else {
@@ -237,10 +242,10 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
     }
 
     /**
-     * @return the currentSysprg
+     * @return the currentPrgGrant
      */
-    public Sysprg getCurrentSysprg() {
-        return currentSysprg;
+    public SysGrantPrg getCurrentPrgGrant() {
+        return currentPrgGrant;
     }
 
 }

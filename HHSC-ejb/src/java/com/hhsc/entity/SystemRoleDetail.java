@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemRoleDetail.findAll", query = "SELECT s FROM SystemRoleDetail s")
     , @NamedQuery(name = "SystemRoleDetail.findById", query = "SELECT s FROM SystemRoleDetail s WHERE s.id = :id")
     , @NamedQuery(name = "SystemRoleDetail.findByPId", query = "SELECT s FROM SystemRoleDetail s WHERE s.pid = :pid")
-    , @NamedQuery(name = "SystemRoleDetail.findByStatus", query = "SELECT s FROM SystemRoleDetail s WHERE s.status = :status")})
+    , @NamedQuery(name = "SystemRoleDetail.findByUserId", query = "SELECT s FROM SystemRoleDetail s WHERE s.systemUser.id = :userid")})
 public class SystemRoleDetail extends SuperDetailEntity {
 
     @JoinColumn(name = "userid", referencedColumnName = "id")

@@ -14,41 +14,41 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="群组编号" for="queryformid" />
-                    <p:inputText id="queryformid" value="#{roleGrantManagedBean.queryFormId}" title="编号" />
-                    <h:outputLabel value="群组名称" for="queryname" />
-                    <p:inputText id="queryname" value="#{roleGrantManagedBean.queryName}" title="名称" />
+                    <h:outputLabel value="编号" for="queryformid" />
+                    <p:inputText id="queryformid" value="#{userGrantManagedBean.queryFormId}" title="编号" />
+                    <h:outputLabel value="名称" for="queryname" />
+                    <p:inputText id="queryname" value="#{userGrantManagedBean.queryName}" title="名称" />
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{roleGrantManagedBean.init()}"  icon="ui-icon-search"
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{userGrantManagedBean.init()}"  icon="ui-icon-search"
                                      update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{roleGrantManagedBean.view('rolegrantView')}" icon="ui-icon-document"/>
+                    <p:commandButton id="btnView" value="查看" action="#{userGrantManagedBean.view('usergrantView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{roleGrantManagedBean.edit('rolegrantEdit')}" icon="ui-icon-pencil"
-                                     rendered="#{roleGrantManagedBean.doEdit}" />
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{roleGrantManagedBean.delete()}" icon="ui-icon-trash"
-                                     rendered="#{roleGrantManagedBean.doDel}" update=":formList">
+                    <p:commandButton id="btnEdit" value="编辑" action="#{userGrantManagedBean.edit('usergrantEdit')}" icon="ui-icon-pencil"
+                                     rendered="#{userGrantManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{userGrantManagedBean.delete()}" icon="ui-icon-trash"
+                                     rendered="#{userGrantManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{roleGrantManagedBean.unverify()}" icon="ui-icon-unlocked"
-                                     rendered="#{roleGrantManagedBean.doUnCfm}" update=":formList"/>
-                    <p:commandButton id="btnCreate" value="新增" action="#{roleGrantManagedBean.create('rolegrantNew')}" icon="ui-icon-plus"
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{userGrantManagedBean.unverify()}" icon="ui-icon-unlocked"
+                                     rendered="#{userGrantManagedBean.doUnCfm}" update=":formList"/>
+                    <p:commandButton id="btnCreate" value="新增" action="#{userGrantManagedBean.create('usergrantNew')}" icon="ui-icon-plus"
                                      rendered="false"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{roleGrantManagedBean.reset()}"  icon="ui-icon-refresh"
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{userGrantManagedBean.reset()}"  icon="ui-icon-refresh"
                                      update=":formList"/>
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{roleGrantManagedBean.query()}"  icon="ui-icon-search"
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{userGrantManagedBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataTable value="#{roleGrantManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+            <p:dataTable value="#{userGrantManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="15,30,45"  lazy="true"
-                         selectionMode="single" selection="#{roleGrantManagedBean.currentEntity}" rowKey="#{item.id}" >
+                         selectionMode="single" selection="#{userGrantManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    角色授权
+                    用户授权
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
@@ -56,13 +56,13 @@
                     <f:facet name="header">
                         <h:outputText value="编号"/>
                     </f:facet>
-                    <h:outputText value="#{item.roleno}"/>
+                    <h:outputText value="#{item.userid}"/>
                 </p:column>
                 <p:column styleClass="Wid60">
                     <f:facet name="header">
                         <h:outputText value="名称"/>
                     </f:facet>
-                    <h:outputText value="#{item.rolename}"/>
+                    <h:outputText value="#{item.username}"/>
                 </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">

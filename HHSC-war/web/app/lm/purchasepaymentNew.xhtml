@@ -25,7 +25,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="付款单号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{purchasePaymentManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入付款单号" readonly="#{purchasePaymentManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入付款单号" readonly="#{purchasePaymentManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="付款日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">

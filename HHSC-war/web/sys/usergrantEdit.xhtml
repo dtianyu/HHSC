@@ -13,29 +13,29 @@
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="rolegrant" icon="ui-icon-arrowreturn-1-w"  />
-                    <p:commandButton id="btnPrev" value="向前" actionListener="#{roleGrantManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                    <p:button id="btnReturn" value="返回" outcome="usergrant" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{userGrantManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
                                      process="@this" update="formEdit"
-                                     rendered="#{roleGrantManagedBean.hasPrev}"/>
-                    <p:commandButton id="btnNext" value="向后" actionListener="#{roleGrantManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     rendered="#{userGrantManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{userGrantManagedBean.toNext()}" icon="ui-icon-carat-1-e"
                                      process="@this" update="formEdit"
-                                     rendered="#{roleGrantManagedBean.hasNext}"/>
+                                     rendered="#{userGrantManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{roleGrantManagedBean.update()}" icon="ui-icon-disk"
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{userGrantManagedBean.update()}" icon="ui-icon-disk"
                                      process="@this,plgHead" update="formEdit"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="角色授权－编辑">
+            <p:panel id="panelHead" header="用户授权－编辑">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="群组编号"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="编号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="roleno" value="#{roleGrantManagedBean.currentEntity.roleno}" title="roleno"/>
+                            <h:outputText id="userno" value="#{userGrantManagedBean.currentEntity.userid}" title="userno"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="群组名称"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="名称"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="rolename" value="#{roleGrantManagedBean.currentEntity.rolename}" title="rolename"/>
+                            <h:outputText id="username" value="#{userGrantManagedBean.currentEntity.username}" title="username"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -44,15 +44,15 @@
                 <p:tab title="模块授权">
                     <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{roleGrantManagedBean.createDetail()}" icon="ui-icon-plus"
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{userGrantManagedBean.createDetail()}" icon="ui-icon-plus"
                                              oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
                                              process="@this" update=":formEdit:tabView:plgDetail"/>
-                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{roleGrantManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{userGrantManagedBean.deleteDetail()}" icon="ui-icon-trash"
                                              oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
                                              process="@this" update=":formEdit:tabView:plgDetail,:formEdit:tabView:tableList" />
                         </f:facet>
                         <f:facet name="right">
-                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{roleGrantManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{userGrantManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
                                              process="@this,:formEdit:tabView:plgDetail" update=":formEdit:tabView:plgDetail,:formEdit:tabView:tableList"/>
                         </f:facet>
@@ -61,11 +61,11 @@
                         <p:panelGrid id="plgDetail" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgDetail Wid100">
                             <p:column><p:outputLabel value="系统模块" for="sysmodule" /></p:column>
                             <p:column>
-                                <p:selectOneMenu id="sysmodule" value="#{roleGrantManagedBean.currentDetail.sysmodule}"
+                                <p:selectOneMenu id="sysmodule" value="#{userGrantManagedBean.currentDetail.sysmodule}"
                                                  converter="sysmoduleConverter" required="true" requiredMessage="选择模块.">
                                     <!-- TODO: update below reference to list of available items-->
                                     <f:selectItem itemLabel="Select One" itemValue="" />
-                                    <f:selectItems value="#{roleGrantManagedBean.moduleList}" var="m" itemLabel="#{m.name}" itemValue="#{m}"/>
+                                    <f:selectItems value="#{userGrantManagedBean.moduleList}" var="m" itemLabel="#{m.name}" itemValue="#{m}"/>
                                 </p:selectOneMenu>
                             </p:column>
                             <p:column></p:column>
@@ -73,8 +73,8 @@
 
                             </p:column>
                         </p:panelGrid>
-                        <p:dataTable id="tableList" value="#{roleGrantManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
-                                     selectionMode="single" selection="#{roleGrantManagedBean.currentDetail}" rowKey="#{item.sysmodule}" >
+                        <p:dataTable id="tableList" value="#{userGrantManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{userGrantManagedBean.currentDetail}" rowKey="#{item.sysmodule}" >
                             <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail,:formEdit:tabView:tableList" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
                             <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail,:formEdit:tabView:tableList" oncomplete="" />
                             <p:column styleClass="Wid20">
@@ -89,15 +89,15 @@
                 <p:tab title="程序授权">
                     <p:toolbar id="detailToolbar2" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnAddDetail2" widgetVar="btnAddDetail2" value="添加" actionListener="#{roleGrantManagedBean.createDetail2()}" icon="ui-icon-plus"
+                            <p:commandButton id="btnAddDetail2" widgetVar="btnAddDetail2" value="添加" actionListener="#{userGrantManagedBean.createDetail2()}" icon="ui-icon-plus"
                                              oncomplete="PF('btnAddDetail2').disable();PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').enable();"
                                              update=":formEdit:tabView:plgDetail2" process="@this" />
-                            <p:commandButton id="btnDeleteDetail2" widgetVar="btnDeleteDetail2" value="删除" actionListener="#{roleGrantManagedBean.deleteDetail2()}" icon="ui-icon-trash"
+                            <p:commandButton id="btnDeleteDetail2" widgetVar="btnDeleteDetail2" value="删除" actionListener="#{userGrantManagedBean.deleteDetail2()}" icon="ui-icon-trash"
                                              oncomplete="PF('btnAddDetail2').enable();PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').disable();"
                                              update=":formEdit:tabView:plgDetail2,:formEdit:tabView:tableList2" process="@this" />
                         </f:facet>
                         <f:facet name="right">
-                            <p:commandButton id="btnSaveDetail2" widgetVar="btnSaveDetail2" value="确定" actionListener="#{roleGrantManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
+                            <p:commandButton id="btnSaveDetail2" widgetVar="btnSaveDetail2" value="确定" actionListener="#{userGrantManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
                                              onsuccess="PF('btnAddDetail2').enable();PF('btnDeleteDetail2').disable();PF('btnSaveDetail2').disable();"
                                              update=":formEdit:tabView:plgDetail2,:formEdit:tabView:tableList2" process="@this,:formEdit:tabView:plgDetail2"/>
                         </f:facet>
@@ -107,60 +107,60 @@
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="程序名称" for="name" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="name" value="#{roleGrantManagedBean.currentDetail2.sysprg.name}" title="Name" styleClass="inputWithButton"
+                                    <p:inputText id="name" value="#{userGrantManagedBean.currentDetail2.sysprg.name}" title="Name" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入人程序名称" readonly="true"/>
-                                    <p:commandButton id="btnSelectSysprg" actionListener="#{roleGrantManagedBean.openDialog('sysprgSelect')}" icon="ui-icon-extlink"
+                                    <p:commandButton id="btnSelectSysprg" actionListener="#{userGrantManagedBean.openDialog('sysprgSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{roleGrantManagedBean.handleDialogReturnWhenEdit}"
+                                        <p:ajax event="dialogReturn" listener="#{userGrantManagedBean.handleDialogReturnWhenEdit}"
                                                 update="plgDetail2" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20"><h:outputText value="系统模块" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText value="#{roleGrantManagedBean.currentDetail2.sysprg.sysmodule.name}"/>
+                                    <h:outputText value="#{userGrantManagedBean.currentDetail2.sysprg.sysmodule.name}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="新增" for="doadd" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="doadd" value="#{roleGrantManagedBean.currentDetail2.doadd}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.doadd}"/>
+                                    <p:inputSwitch id="doadd" value="#{userGrantManagedBean.currentDetail2.doadd}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.doadd}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="修改" for="doedit" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="doedit" value="#{roleGrantManagedBean.currentDetail2.doedit}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.doedit}"/>
+                                    <p:inputSwitch id="doedit" value="#{userGrantManagedBean.currentDetail2.doedit}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.doedit}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="删除" for="dodel" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="dodel" value="#{roleGrantManagedBean.currentDetail2.dodel}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.dodel}"/>
+                                    <p:inputSwitch id="dodel" value="#{userGrantManagedBean.currentDetail2.dodel}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.dodel}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="打印" for="doprt" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="doprt" value="#{roleGrantManagedBean.currentDetail2.doprt}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.doprt}"/>
+                                    <p:inputSwitch id="doprt" value="#{userGrantManagedBean.currentDetail2.doprt}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.doprt}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="审核" for="docfm" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="docfm" value="#{roleGrantManagedBean.currentDetail2.docfm}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.docfm}"/>
+                                    <p:inputSwitch id="docfm" value="#{userGrantManagedBean.currentDetail2.docfm}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.docfm}"/>
                                 </p:column>
                                 <p:column><p:outputLabel value="还原" for="douncfm" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="douncfm" value="#{roleGrantManagedBean.currentDetail2.douncfm}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.douncfm}"/>
+                                    <p:inputSwitch id="douncfm" value="#{userGrantManagedBean.currentDetail2.douncfm}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.douncfm}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="特权" for="dopriv" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="dopriv" value="#{roleGrantManagedBean.currentDetail2.dopriv}" 
-                                                   required="true" disabled="#{!roleGrantManagedBean.currentDetail2.sysprg.dopriv}"/>
+                                    <p:inputSwitch id="dopriv" value="#{userGrantManagedBean.currentDetail2.dopriv}" 
+                                                   required="true" disabled="#{!userGrantManagedBean.currentDetail2.sysprg.dopriv}"/>
                                 </p:column>
                                 <p:column></p:column>
                                 <p:column>
@@ -168,8 +168,8 @@
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
-                        <p:dataTable id="tableList2" value="#{roleGrantManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
-                                     selectionMode="single" selection="#{roleGrantManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                        <p:dataTable id="tableList2" value="#{userGrantManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
+                                     selectionMode="single" selection="#{userGrantManagedBean.currentDetail2}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail2" oncomplete="PF('btnAddDetail2').disable();PF('btnDeleteDetail2').enable();PF('btnSaveDetail2').enable();" />
                             <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail2" oncomplete="" />
                             <p:column styleClass="Wid10">

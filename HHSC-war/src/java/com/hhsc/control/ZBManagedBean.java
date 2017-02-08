@@ -138,7 +138,7 @@ public class ZBManagedBean extends ProductionOrderManagedBean {
 
     @Override
     public void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getZbstatus() != null && currentEntity.getPsstatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getZbstatus() != null && currentEntity.getPsstatus() != null) {
             if ("V".equals(currentEntity.getPsstatus())) {
                 this.doEdit = false;
                 this.doDel = false;
@@ -147,15 +147,15 @@ public class ZBManagedBean extends ProductionOrderManagedBean {
             } else {
                 switch (currentEntity.getZbstatus()) {
                     case "V":
-                        this.doEdit = getCurrentSysprg().getDoedit() && false;
-                        this.doDel = getCurrentSysprg().getDodel() && false;
+                        this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                        this.doDel = getCurrentPrgGrant().getDodel() && false;
                         this.doCfm = false;
-                        this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                        this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                         break;
                     default:
-                        this.doEdit = getCurrentSysprg().getDoedit() && true;
-                        this.doDel = getCurrentSysprg().getDodel() && true;
-                        this.doCfm = getCurrentSysprg().getDocfm() && true;
+                        this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                        this.doDel = getCurrentPrgGrant().getDodel() && true;
+                        this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                         this.doUnCfm = false;
                 }
             }

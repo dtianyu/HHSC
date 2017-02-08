@@ -38,7 +38,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
         this.superEJB = salesTransactionBean;
         setModel(new SalesTransactionModel(salesTransactionBean));
         this.model.getFilterFields().put("status", "50");
-        if (getCurrentSysprg() != null && getCurrentSysprg().getApi().equals("shipmentnotinvoice")) {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi().equals("shipmentnotinvoice")) {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
             }
@@ -71,7 +71,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
             if (this.queryState != null && !"ALL".equals(this.queryState)) {
                 this.model.getFilterFields().put("status", queryState);
             }
-            if (getCurrentSysprg() != null && getCurrentSysprg().getApi().equals("shipmentnotinvoice")) {
+            if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi().equals("shipmentnotinvoice")) {
                 if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                     this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
                 }
@@ -80,9 +80,9 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
     }
 
     public void print(String reportDesignFile) throws Exception {
-        if (getCurrentSysprg() != null && getCurrentSysprg().getDoprt()) {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getDoprt()) {
             HashMap<String, Object> reportParams = new HashMap<>();
-            reportParams.put("JNDIName", this.getCurrentSysprg().getRptjndi());
+            reportParams.put("JNDIName", this.getCurrentPrgGrant().getSysprg().getRptjndi());
             if (!this.model.getFilterFields().isEmpty()) {
                 reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
             } else {
@@ -95,18 +95,18 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
             }
             //设置报表名称
             String reportFormat;
-            if (this.getCurrentSysprg().getRptformat() != null) {
-                reportFormat = this.getCurrentSysprg().getRptformat();
+            if (this.getCurrentPrgGrant().getSysprg().getRptformat() != null) {
+                reportFormat = this.getCurrentPrgGrant().getSysprg().getRptformat();
             } else {
                 reportFormat = reportOutputFormat;
             }
-            this.fileName = this.getCurrentSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            this.fileName = this.getCurrentPrgGrant().getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
             String reportName = reportPath + reportDesignFile;
             String outputName = reportOutputPath + this.fileName;
             this.reportViewPath = reportViewContext + this.fileName;
             try {
-                if (this.getCurrentSysprg() != null && this.getCurrentSysprg().getRptclazz() != null) {
-                    reportClassLoader = Class.forName(this.getCurrentSysprg().getRptclazz()).getClassLoader();
+                if (this.getCurrentPrgGrant() != null && this.getCurrentPrgGrant().getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentPrgGrant().getSysprg().getRptclazz()).getClassLoader();
                 }
                 //初始配置
                 this.reportInitAndConfig();
@@ -125,7 +125,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
     public void reset() {
         super.reset();
         this.model.getFilterFields().put("status", "50");
-        if (getCurrentSysprg() != null && getCurrentSysprg().getApi().equals("shipmentnotinvoice")) {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi().equals("shipmentnotinvoice")) {
             if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
                 this.model.getFilterFields().put("systemUser.id", userManagedBean.getCurrentUser().getId());
             }

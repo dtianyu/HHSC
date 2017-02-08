@@ -7,7 +7,7 @@ package com.hhsc.web;
 
 import com.hhsc.control.UserManagedBean;
 import com.hhsc.ejb.SysprgBean;
-import com.hhsc.entity.Sysprg;
+import com.hhsc.entity.SysGrantPrg;
 import com.lightshell.comm.FormDetailEntity;
 import com.lightshell.comm.FormEntity;
 import com.lightshell.comm.FormMulti2ManagedBean;
@@ -21,10 +21,10 @@ import javax.faces.context.FacesContext;
  *
  * @author KevinDong
  * @param <T>
- * @param <V>
- * @param <X>
+ * @param <D1>
+ * @param <D2>
  */
-public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailEntity, X extends FormDetailEntity> extends FormMulti2ManagedBean<T, V, X> {
+public abstract class FormMulti2Bean<T extends FormEntity, D1 extends FormDetailEntity, D2 extends FormDetailEntity> extends FormMulti2ManagedBean<T, D1, D2> {
 
     @EJB
     protected SysprgBean sysprgBean;
@@ -35,14 +35,14 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected Sysprg currentSysprg;
+    protected SysGrantPrg currentPrgGrant;
 
     /**
      * @param entityClass
      * @param detailClass
      * @param detailClass2
      */
-    public FormMulti2Bean(Class<T> entityClass, Class<V> detailClass, Class<X> detailClass2) {
+    public FormMulti2Bean(Class<T> entityClass, Class<D1> detailClass, Class<D2> detailClass2) {
         this.entityClass = entityClass;
         this.detailClass = detailClass;
         this.detailClass2 = detailClass2;
@@ -70,10 +70,15 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentSysprg = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
-        if (getCurrentSysprg() != null) {
-            this.doAdd = getCurrentSysprg().getDoadd();
-            this.doPrt = getCurrentSysprg().getDoprt();
+        if (userManagedBean.getSysGrantPrgList() != null && !userManagedBean.getSysGrantPrgList().isEmpty()) {
+            userManagedBean.getSysGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
+        if (getCurrentPrgGrant() != null) {
+            this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
+            this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();
     }
@@ -91,29 +96,29 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            if (this.getCurrentSysprg().getNoauto()) {
-                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen());
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto()) {
+                String formid = this.superEJB.getFormId(newEntity.getFormdate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen());
                 this.newEntity.setFormid(formid);
             }
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
-                for (V detail : this.addedDetailList) {
+                for (D1 detail : this.addedDetailList) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
             if (this.editedDetailList != null && !this.editedDetailList.isEmpty()) {
-                for (V detail : this.editedDetailList) {
+                for (D1 detail : this.editedDetailList) {
                     detail.setPid(newEntity.getFormid());
                 }
 
             }
             if (this.addedDetailList2 != null && !this.addedDetailList2.isEmpty()) {
-                for (X detail : this.addedDetailList2) {
+                for (D2 detail : this.addedDetailList2) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
             if (this.editedDetailList2 != null && !this.editedDetailList2.isEmpty()) {
-                for (X detail : this.editedDetailList2) {
+                for (D2 detail : this.editedDetailList2) {
                     detail.setPid(newEntity.getFormid());
                 }
             }
@@ -147,20 +152,20 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentSysprg.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentSysprg.getRptformat() != null) {
-            reportFormat = this.currentSysprg.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
-        String reportName = reportPath + this.currentSysprg.getRptdesign();
+        String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
         String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
         try {
-            if (this.currentSysprg != null && this.currentSysprg.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentSysprg.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();
@@ -190,18 +195,18 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
 
     @Override
     protected void setToolBar() {
-        if (currentEntity != null && getCurrentSysprg() != null && currentEntity.getStatus() != null) {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "V":
-                    this.doEdit = getCurrentSysprg().getDoedit() && false;
-                    this.doDel = getCurrentSysprg().getDodel() && false;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
+                    this.doDel = getCurrentPrgGrant().getDodel() && false;
                     this.doCfm = false;
-                    this.doUnCfm = getCurrentSysprg().getDouncfm() && true;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;
                 default:
-                    this.doEdit = getCurrentSysprg().getDoedit() && true;
-                    this.doDel = getCurrentSysprg().getDodel() && true;
-                    this.doCfm = getCurrentSysprg().getDocfm() && true;
+                    this.doEdit = getCurrentPrgGrant().getDoedit() && true;
+                    this.doDel = getCurrentPrgGrant().getDodel() && true;
+                    this.doCfm = getCurrentPrgGrant().getDocfm() && true;
                     this.doUnCfm = false;
             }
         } else {
@@ -273,10 +278,10 @@ public abstract class FormMulti2Bean<T extends FormEntity, V extends FormDetailE
     }
 
     /**
-     * @return the currentSysprg
+     * @return the currentPrgGrant
      */
-    public Sysprg getCurrentSysprg() {
-        return currentSysprg;
+    public SysGrantPrg getCurrentPrgGrant() {
+        return currentPrgGrant;
     }
 
 }

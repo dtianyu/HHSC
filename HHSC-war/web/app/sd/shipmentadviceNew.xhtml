@@ -27,7 +27,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="出货单号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{shipmentAdviceManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入出货单号" disabled="#{shipmentAdviceManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入出货单号" disabled="#{shipmentAdviceManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="出货日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">

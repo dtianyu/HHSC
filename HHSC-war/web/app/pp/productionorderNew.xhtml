@@ -26,7 +26,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="工单编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{productionOrderManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入工单编号" readonly="#{productionOrderManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入工单编号" readonly="#{productionOrderManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="工单日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">

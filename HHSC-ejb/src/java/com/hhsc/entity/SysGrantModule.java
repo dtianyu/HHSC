@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "SysGrantModule.findById", query = "SELECT s FROM SysGrantModule s WHERE s.id = :id")
     ,
-    @NamedQuery(name = "SysGrantModule.findByUserId", query = "SELECT s FROM SysGrantModule s WHERE s.systemUser.id = :userid ORDER BY s.sysmodule.sortid ")
+    @NamedQuery(name = "SysGrantModule.findByUserId", query = "SELECT s FROM SysGrantModule s WHERE s.kind='U' AND s.systemUser.id = :userid ORDER BY s.sysmodule.sortid ")
     ,
-    @NamedQuery(name = "SysGrantModule.findByRoleId", query = "SELECT s FROM SysGrantModule s WHERE s.systemRole.id = :roleid ORDER BY s.sysmodule.sortid ")
+    @NamedQuery(name = "SysGrantModule.findByRoleId", query = "SELECT s FROM SysGrantModule s WHERE s.kind='R' AND s.systemRole.id = :roleid ORDER BY s.sysmodule.sortid ")
     ,
     @NamedQuery(name = "SysGrantModule.findByModuleId", query = "SELECT s FROM SysGrantModule s WHERE s.sysmodule.id = :moduleid ORDER BY s.sysmodule.sortid ")
     ,

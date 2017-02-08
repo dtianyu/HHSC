@@ -69,8 +69,8 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
         newEntity.setPurmin(BigDecimal.ZERO);
         newEntity.setInvmax(BigDecimal.ZERO);
         newEntity.setInvmin(BigDecimal.ZERO);
-        if (this.superEJB != null && this.getCurrentSysprg().getNoauto()) {
-            String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
+        if (this.superEJB != null && this.getCurrentPrgGrant().getSysprg().getNoauto()) {
+            String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen(), "itemno");
             newEntity.setItemno(formid);
         }
     }
@@ -104,9 +104,9 @@ public class ItemDesignManagedBean extends SuperMultiBean<ItemMaster, CustomerIt
 
     @Override
     protected boolean doBeforePersist() throws Exception {
-        if (this.newEntity != null && this.getCurrentSysprg() != null) {
-            if (this.getCurrentSysprg().getNoauto() && !this.getCurrentSysprg().getNochange()) {
-                String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentSysprg().getNolead(), this.getCurrentSysprg().getNoformat(), this.getCurrentSysprg().getNoseqlen(), "itemno");
+        if (this.newEntity != null && this.getCurrentPrgGrant() != null) {
+            if (this.getCurrentPrgGrant().getSysprg().getNoauto() && !this.getCurrentPrgGrant().getSysprg().getNochange()) {
+                String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
             } else {
                 Map<String, Object> filters = new HashMap<>();
