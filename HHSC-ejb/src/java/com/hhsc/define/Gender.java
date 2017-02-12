@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author C0160
+ * @author kevindong
  */
 @Entity
 public class Gender implements Serializable {

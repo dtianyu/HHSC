@@ -9,10 +9,7 @@ import com.hhsc.entity.SysGrantPrg;
 import com.hhsc.entity.SystemUser;
 import com.lightshell.comm.BaseLib;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author C0160
+ * @author kevindong
  */
 @ManagedBean(name = "userManagedBean")
 @SessionScoped

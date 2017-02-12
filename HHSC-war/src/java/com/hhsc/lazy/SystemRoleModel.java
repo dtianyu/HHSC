@@ -11,7 +11,7 @@ import com.hhsc.entity.SystemRole;
 
 /**
  *
- * @author C0160
+ * @author kevindong
  */
 public class SystemRoleModel extends BaseLazyModel<SystemRole> {
 
