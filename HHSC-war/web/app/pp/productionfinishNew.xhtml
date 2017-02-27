@@ -9,28 +9,28 @@
     <ui:define name="content">
 
         <h:form id="formNew">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="productionfinish" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="productionfinish" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{productionFinishManagedBean.persist()}" icon="ui-icon-disk" 
-                                     process="@this,plgHead" update="formNew"/>                                
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{productionFinishManagedBean.persist()}" icon="ui-icon-disk"
+                                     process="@this,plgHead" update="formNew"/>
                 </f:facet>
-            </p:toolbar>  
+            </p:toolbar>
             <p:panel id="panelHead" header="生产入库－新增">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="入库单号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{productionFinishManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入入库单号" readonly="#{productionFinishManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入入库单号" disabled="#{productionFinishManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="入库日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:calendar id="formdate" value="#{productionFinishManagedBean.newEntity.formdate}" title="Formdate" 
+                            <p:calendar id="formdate" value="#{productionFinishManagedBean.newEntity.formdate}" title="Formdate"
                                         pattern="yyyy/MM/dd" placeholder="yyyy/MM/dd" required="true" requiredMessage="请输入入库日期">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
@@ -39,39 +39,39 @@
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="部门" for="deptid" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="deptid" value="#{productionFinishManagedBean.newEntity.dept.dept}" title="Deptid" 
+                            <p:inputText id="deptid" value="#{productionFinishManagedBean.newEntity.dept.dept}" title="Deptid"
                                          styleClass="inputWithButton" required="true" requiredMessage="请输入部门" readonly="true"/>
-                            <p:commandButton actionListener="#{productionFinishManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton actionListener="#{productionFinishManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnDeptWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnDeptWhenNew}"
                                         update="deptid" />
                             </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="花号" for="srcitemno" /></p:column>
                         <p:column>
                             <p:inputText id="srcitemno" value="#{productionFinishManagedBean.newEntity.srcitemno}" styleClass="inputWithButton"/>
-                            <p:commandButton actionListener="#{productionFinishManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton actionListener="#{productionFinishManagedBean.openDialog('itemdesignSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnItemDesignWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnItemDesignWhenNew}"
                                         update="srcitemno" />
                             </p:commandButton>
                         </p:column>
                     </p:row>
-                    <p:row>  
+                    <p:row>
                         <p:column><p:outputLabel value="工单类型" for="srcformtype" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="srcformtype" value="#{productionFinishManagedBean.newEntity.srcformtype}" title="srcformtype" 
+                            <p:selectOneMenu id="srcformtype" value="#{productionFinishManagedBean.newEntity.srcformtype}" title="srcformtype"
                                              required="true" requiredMessage="请输入工单类型">
-                                <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                <f:selectItem itemLabel="Select One" itemValue="" />
                                 <f:selectItems value="#{productionFinishManagedBean.salesTypeList}" var="t" itemLabel="#{t.name}" itemValue="#{t.type}"/>
                             </p:selectOneMenu>
-                        </p:column>  
+                        </p:column>
                         <p:column><p:outputLabel value="异动原因" for="reason" /></p:column>
                         <p:column>
                             <p:inputText id="reason" value="#{productionFinishManagedBean.newEntity.reason}" styleClass="inputWithButton" />
-                            <p:commandButton id="btnSelectReason" actionListener="#{productionFinishManagedBean.openDialog('')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnSelectReason" actionListener="#{productionFinishManagedBean.openDialog('')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnReasonWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnReasonWhenNew}"
                                         update="reason" />
                             </p:commandButton>
                         </p:column>
@@ -79,18 +79,18 @@
                     <p:row>
                         <p:column><p:outputLabel value="默认仓库" for="dfwarehouse" /></p:column>
                         <p:column>
-                            <p:inputText id="dfwarehouse" value="#{productionFinishManagedBean.newEntity.warehouse.name}" title="warehouse" 
+                            <p:inputText id="dfwarehouse" value="#{productionFinishManagedBean.newEntity.warehouse.name}" title="warehouse"
                                          styleClass="inputWithButton" required="true" requiredMessage="请输入默认仓库"  readonly="true"/>
-                            <p:commandButton id="btnSelectDefaultWarehouse" actionListener="#{productionFinishManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnSelectDefaultWarehouse" actionListener="#{productionFinishManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWarehouseWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWarehouseWhenNew}"
                                         update="dfwarehouse" />
                             </p:commandButton>
-                        </p:column>                        
+                        </p:column>
                         <p:column><p:outputLabel value="工单编号" for="srcformno" /></p:column>
                         <p:column>
                             <p:inputText id="srcformno" value="#{productionFinishManagedBean.newEntity.srcformid}" />
-                        </p:column>                        
+                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
@@ -105,17 +105,17 @@
                     <p:panel id="panelDetail">
                         <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                             <f:facet name="left">
-                                <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{productionFinishManagedBean.createDetail()}" icon="ui-icon-plus" 
-                                                 oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                                <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{productionFinishManagedBean.createDetail()}" icon="ui-icon-plus"
+                                                 oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
                                                  process="@this,formNew:plgHead" update="plgDetail"/>
-                                <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{productionFinishManagedBean.deleteDetail()}" icon="ui-icon-trash" 
-                                                 oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                                 process="@this" update="tableList,plgDetail"/>  
+                                <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{productionFinishManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                                 oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                                 process="@this" update="tableList,plgDetail"/>
                             </f:facet>
-                            <f:facet name="right">                        
+                            <f:facet name="right">
                                 <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{productionFinishManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
-                                                 onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                                 process="@this,plgDetail" update="tableList,plgDetail"/>                                
+                                                 onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                                 process="@this,plgDetail" update="tableList,plgDetail"/>
                             </f:facet>
                         </p:toolbar>
                         <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
@@ -124,19 +124,19 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="srcformid" value="#{productionFinishManagedBean.currentDetail.srcformid}" title="srcformid" styleClass="inputWithButton"
                                                  required="true" readonly="true"/>
-                                    <p:commandButton actionListener="#{productionFinishManagedBean.openDialog('productionorderdetailSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton actionListener="#{productionFinishManagedBean.openDialog('productionorderdetailSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWhenDetailEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWhenDetailEdit}"
                                                 update="plgDetail" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="仓库" for="warehouse" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="warehouse" value="#{productionFinishManagedBean.currentDetail.warehouse.name}" title="warehouse" 
+                                    <p:inputText id="warehouse" value="#{productionFinishManagedBean.currentDetail.warehouse.name}" title="warehouse"
                                                  styleClass="inputWithButton" required="true" requiredMessage="请输入默认仓库"  readonly="true"/>
-                                    <p:commandButton id="btnSelectWarehouse" actionListener="#{productionFinishManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnSelectWarehouse" actionListener="#{productionFinishManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWarehouseWhenDetailEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWarehouseWhenDetailEdit}"
                                                 update="warehouse" />
                                     </p:commandButton>
                                 </p:column>
@@ -154,44 +154,44 @@
                             <p:row>
                                 <p:column><h:outputText value="色号"/></p:column>
                                 <p:column>
-                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.colorno}" title="colorno" />   
+                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.colorno}" title="colorno" />
                                 </p:column>
                                 <p:column><h:outputText value="客户色号"/></p:column>
                                 <p:column>
-                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.customercolorno}" title="customercolorno" />   
+                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.customercolorno}" title="customercolorno" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="面料"/></p:column>
                                 <p:column>
-                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.itemno}" title="Itemno" />  
+                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.itemno}" title="Itemno" />
                                 </p:column>
                                 <p:column><h:outputText value="客户品号"/></p:column>
                                 <p:column>
-                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.customeritemno}" title="customeritemno" />  
+                                    <h:outputText value="#{productionFinishManagedBean.currentDetail.customeritemno}" title="customeritemno" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="品名"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="itemdesc" value="#{productionFinishManagedBean.currentDetail.itemmaster.itemdesc}" title="itemdesc" />                                         
+                                    <h:outputText id="itemdesc" value="#{productionFinishManagedBean.currentDetail.itemmaster.itemdesc}" title="itemdesc" />
                                 </p:column>
                                 <p:column styleClass="Wid20"><h:outputText value="成份"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="itemmake" value="#{productionFinishManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />                                         
+                                    <h:outputText id="itemmake" value="#{productionFinishManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="可入库量" for="allowqty"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="allowqty" value="#{productionFinishManagedBean.currentDetail.allowqty}" title="allowqty"/>                                         
-                                </p:column>                    
+                                    <h:outputText id="allowqty" value="#{productionFinishManagedBean.currentDetail.allowqty}" title="allowqty"/>
+                                </p:column>
                                 <p:column styleClass="Wid20"><h:outputText value="单位"/></p:column>
                                 <p:column styleClass="Wid30">
                                     <h:outputText id="unit" value="#{productionFinishManagedBean.currentDetail.unit}" title="unit"/>
                                 </p:column>
                             </p:row>
-                             <p:row>
+                            <p:row>
                                 <p:column><p:outputLabel value="入库数量" for="qty"/></p:column>
                                 <p:column>
                                     <p:inputText id="qty" value="#{productionFinishManagedBean.currentDetail.qty}" title="Qty"
@@ -208,11 +208,11 @@
                             <p:row>
                                 <p:column><p:outputLabel value="不良仓库" for="warehouse2" /></p:column>
                                 <p:column>
-                                    <p:inputText id="warehouse2" value="#{productionFinishManagedBean.currentDetail.warehouse2.name}" title="warehouse2" 
+                                    <p:inputText id="warehouse2" value="#{productionFinishManagedBean.currentDetail.warehouse2.name}" title="warehouse2"
                                                  styleClass="inputWithButton" required="true" requiredMessage="请输入不良仓库"  readonly="true"/>
-                                    <p:commandButton id="btnSelectWarehouse2" actionListener="#{productionFinishManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnSelectWarehouse2" actionListener="#{productionFinishManagedBean.openDialog('warehouseSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWarehouse2WhenDetailEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{productionFinishManagedBean.handleDialogReturnWarehouse2WhenDetailEdit}"
                                                 update="warehouse2" />
                                     </p:commandButton>
                                 </p:column>
@@ -227,7 +227,7 @@
                         <p:dataTable id="tableList" value="#{productionFinishManagedBean.detailList}" var="item" styleClass="tableList"
                                      selectionMode="single" selection="#{productionFinishManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update=":formNew:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
-                            <p:ajax event="rowUnselect"  update=":formNew:tabView:plgDetail" />       
+                            <p:ajax event="rowUnselect"  update=":formNew:tabView:plgDetail" />
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="工单编号"/>

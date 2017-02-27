@@ -9,23 +9,23 @@
     <ui:define name="content">
 
         <h:form id="formNew">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="itemdesign" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:button id="btnReturn" value="返回" outcome="itemdesign" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" value="保存" actionListener="#{itemDesignManagedBean.persist()}" icon="ui-icon-disk"  
+                    <p:commandButton id="btnPersist" value="保存" actionListener="#{itemDesignManagedBean.persist()}" icon="ui-icon-disk"
                                      process="@this,plgNew" update="plgNew,tableList"/>
                 </f:facet>
-            </p:toolbar>  
+            </p:toolbar>
             <p:panel id="panelNew" header="花号登记－新增">
                 <p:panelGrid id="plgNew" styleClass="plgNew Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="类别" for="itemcategory" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:selectOneMenu id="itemcategory" value="#{itemDesignManagedBean.newEntity.itemcategory}" title="categoryid" 
+                            <p:selectOneMenu id="itemcategory" value="#{itemDesignManagedBean.newEntity.itemcategory}" title="categoryid"
                                              converter="itemCategoryConverter" required="true" requiredMessage="请输入大类">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
                                 <f:selectItems value="#{itemDesignManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
@@ -33,23 +33,23 @@
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="花号" for="designid"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="designid" value="#{itemDesignManagedBean.newEntity.itemno}" title="Designid" 
-                                         required="true" requiredMessage="请输入花号" />
+                            <p:inputText id="designid" value="#{itemDesignManagedBean.newEntity.itemno}" title="Designid"
+                                         required="true" requiredMessage="请输入花号"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="名称" for="name" /></p:column>
                         <p:column>
-                            <p:inputText id="name" value="#{itemDesignManagedBean.newEntity.itemdesc}" title="Name" 
+                            <p:inputText id="name" value="#{itemDesignManagedBean.newEntity.itemdesc}" title="Name"
                                          required="true" requiredMessage="请输入名称"/>
                         </p:column>
                         <p:column><p:outputLabel value="单位" for="unit" /></p:column>
                         <p:column>
-                            <p:inputText id="unit" value="#{itemDesignManagedBean.newEntity.unit}" title="unit" styleClass="inputWithButton" 
+                            <p:inputText id="unit" value="#{itemDesignManagedBean.newEntity.unit}" title="unit" styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入单位"/>
-                            <p:commandButton id="btnUnit" actionListener="#{itemDesignManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnUnit" actionListener="#{itemDesignManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenNew}"
                                         update="unit" />
                             </p:commandButton>
                         </p:column>
@@ -57,17 +57,17 @@
                     <p:row>
                         <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                         <p:column>
-                            <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark" 
+                            <p:inputText id="remark" value="#{itemDesignManagedBean.newEntity.remark}" title="Remark"
                                          required="true" requiredMessage="请输入备注"/>
                         </p:column>
-                        <p:column rowspan="6" colspan="2" styleClass="Wid50">            
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
                             <p:graphicImage id="filename" value="/resources/upload/img/#{itemDesignManagedBean.newEntity.img1}"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
                         <p:column>
-                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec" 
+                            <p:inputText id="itemspec" value="#{itemDesignManagedBean.newEntity.itemspec}" title="itemspec"
                                          required="true" requiredMessage="请输入规格"/>
                         </p:column>
                     </p:row>
@@ -119,17 +119,17 @@
             </p:panel>
             <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{itemDesignManagedBean.createDetail()}" icon="ui-icon-plus" 
-                                     oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                    <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{itemDesignManagedBean.createDetail()}" icon="ui-icon-plus"
+                                     oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
                                      process="@this" update=":formNew:plgEditDetail"/>
-                    <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{itemDesignManagedBean.deleteDetail()}" icon="ui-icon-trash" 
-                                     oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                     process="@this" update="tableList,plgEditDetail"/>  
+                    <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{itemDesignManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                     oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                     process="@this" update="tableList,plgEditDetail"/>
                 </f:facet>
-                <f:facet name="right">                        
+                <f:facet name="right">
                     <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{itemDesignManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
-                                     onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                     process="@this,plgEditDetail" update="tableList,plgEditDetail"/>                                
+                                     onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                     process="@this,plgEditDetail" update="tableList,plgEditDetail"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelDetail">
@@ -139,23 +139,23 @@
                         <p:column>
                             <p:inputText id="customerno" value="#{itemDesignManagedBean.currentDetail.customer.customer}" title="customerno"  styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入客户" readonly="true"/>
-                            <p:commandButton id="btnSelect" actionListener="#{itemDesignManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnSelect" actionListener="#{itemDesignManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenDetailEdit}" 
+                                <p:ajax event="dialogReturn" listener="#{itemDesignManagedBean.handleDialogReturnWhenDetailEdit}"
                                         update="customerno" />
                             </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="客户花号" for="customeritemno" /></p:column>
                         <p:column>
-                            <p:inputText id="customeritemno" value="#{itemDesignManagedBean.currentDetail.customeritemno}" title="customeritemno" 
+                            <p:inputText id="customeritemno" value="#{itemDesignManagedBean.currentDetail.customeritemno}" title="customeritemno"
                                          required="true" requiredMessage="请输入客户花号"/>
-                        </p:column>  
+                        </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="花号说明" for="customeritemdesc" /></p:column>
                         <p:column colspan="3">
                             <p:inputText id="customeritemdesc" value="#{itemDesignManagedBean.currentDetail.customeritemdesc}" title="customeritemdesc" />
-                        </p:column> 
+                        </p:column>
                     </p:row>
                 </p:panelGrid>
                 <p:dataTable id="tableList" value="#{itemDesignManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
@@ -191,8 +191,8 @@
         </h:form>
         <h:form id="formUpload">
             <p:fileUpload id="fileUpload" fileUploadListener="#{itemDesignManagedBean.handleFileUploadWhenNew}"  styleClass="fileUpload"
-                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000" 
-                          label="选择" uploadLabel="上传" cancelLabel="还原" update=":formNew:filename"/> 
+                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000"
+                          label="选择" uploadLabel="上传" cancelLabel="还原" update=":formNew:filename"/>
         </h:form>
     </ui:define>
 

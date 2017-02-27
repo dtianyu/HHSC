@@ -9,26 +9,26 @@
     <ui:define name="content">
 
         <h:form id="formNew">
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="department" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:button id="btnReturn" value="返回" outcome="department" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnPersist" value="保存" actionListener="#{departmentManagedBean.persist()}" icon="ui-icon-disk"  update="plgHead"/>
                 </f:facet>
-            </p:toolbar>  
+            </p:toolbar>
             <p:panel id="panelHead" header="部门资料－新增">
                 <p:panelGrid id="plgHead" styleClass="plgNew Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="部门编号" for="deptno" /></p:column>
                         <p:column styleClass="Wis30">
-                            <p:inputText id="deptno" value="#{departmentManagedBean.newEntity.deptno}" title="deptno" 
+                            <p:inputText id="deptno" value="#{departmentManagedBean.newEntity.deptno}" title="deptno"
                                          required="true" requiredMessage="部门编号不可空白" disabled="#{departmentManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="部门名称" for="dept" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="dept" value="#{departmentManagedBean.newEntity.dept}" title="dept" 
+                            <p:inputText id="dept" value="#{departmentManagedBean.newEntity.dept}" title="dept"
                                          required="true" requiredMessage="部门名称不可空白"/>
                         </p:column>
                     </p:row>
@@ -40,7 +40,7 @@
                         <p:column><p:outputLabel value="上级部门" for="pid" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="pid" value="#{departmentManagedBean.newEntity.pid}" converter="departmentConverter" >
-                                <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                <f:selectItem itemLabel="Select One" itemValue="" />
                                 <f:selectItems value="#{departmentManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
                             </p:selectOneMenu>
                         </p:column>
@@ -53,7 +53,7 @@
                     </p:row>
                 </p:panelGrid>
             </p:panel>
-        </h:form>    
+        </h:form>
 
     </ui:define>
 

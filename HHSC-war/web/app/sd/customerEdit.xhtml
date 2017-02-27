@@ -53,7 +53,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="客户编号" for="customerno" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="customerno" value="#{customerManagedBean.currentEntity.customerno}" title="Customerno" 
-                                         required="true" requiredMessage="编号不能为空." readonly="#{customerManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="编号不能为空." readonly="#{customerManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="客户简称" for="customer" /></p:column>
                         <p:column styleClass="Wid30">

@@ -35,21 +35,21 @@
                     <p:commandButton id="btnView" value="查看" action="#{cpManagedBean.view('cpView')}"  icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{cpManagedBean.edit('cpEdit')}" icon="ui-icon-pencil" value="编辑"  
-                                     rendered="#{cpManagedBean.doEdit}"/>                                                     
-                    <p:commandButton id="btnUnverify" actionListener="#{cpManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
+                    <p:commandButton id="btnEdit" action="#{cpManagedBean.edit('cpEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{cpManagedBean.doEdit}"/>
+                    <p:commandButton id="btnUnverify" actionListener="#{cpManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
                                      rendered="#{cpManagedBean.doUnCfm}" update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{cpManagedBean.create('cpNew')}" icon="ui-icon-plus" value="新增"
                                      rendered="#{cpManagedBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{cpManagedBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{cpManagedBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{cpManagedBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{cpManagedBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{cpManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{cpManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{cpManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     成品维护
@@ -109,7 +109,7 @@
                         <h:outputText value="状态"/>
                     </f:facet>
                     <h:outputText value="#{item.cpstatus}"/>
-                </p:column>               
+                </p:column>
             </p:dataTable>
         </h:form>
 

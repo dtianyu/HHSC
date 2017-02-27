@@ -8,15 +8,15 @@
 
     <ui:define name="content">
         <h:form id="formEdit">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="purchasepayment" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="purchasepayment" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{purchasePaymentManagedBean.update()}" icon="ui-icon-disk" 
-                                     process="@this,plgHead"  update="formEdit"/>                                
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{purchasePaymentManagedBean.update()}" icon="ui-icon-disk"
+                                     process="@this,plgHead"  update="formEdit"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="采购付款－修改">
@@ -28,7 +28,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="付款日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:calendar id="formdate" value="#{purchasePaymentManagedBean.currentEntity.formdate}" title="Formdate" 
+                            <p:calendar id="formdate" value="#{purchasePaymentManagedBean.currentEntity.formdate}" title="Formdate"
                                         pattern="yyyy/MM/dd" required="true" requiredMessage="请输入付款日期">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
@@ -39,9 +39,9 @@
                         <p:column>
                             <p:inputText id="deptid" value="#{purchasePaymentManagedBean.currentEntity.dept.dept}" title="Deptid" styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入部门" readonly="true"/>
-                            <p:commandButton id="btnSelectDept" actionListener="#{purchasePaymentManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnSelectDept" actionListener="#{purchasePaymentManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnDeptWhenEdit}" 
+                                <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnDeptWhenEdit}"
                                         update="deptid" />
                             </p:commandButton>
                         </p:column>
@@ -49,9 +49,9 @@
                         <p:column>
                             <p:inputText id="systemuser" value="#{purchasePaymentManagedBean.currentEntity.systemUser.username}" title="systemUser" styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入请购人员" readonly="true"/>
-                            <p:commandButton id="btnSelectUser" actionListener="#{purchasePaymentManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnSelectUser" actionListener="#{purchasePaymentManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnUserWhenEdit}" 
+                                <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnUserWhenEdit}"
                                         update="systemuser" />
                             </p:commandButton>
                         </p:column>
@@ -88,17 +88,17 @@
                 <p:tab title="付款明细">
                     <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{purchasePaymentManagedBean.createDetail()}" icon="ui-icon-plus" 
-                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{purchasePaymentManagedBean.createDetail()}" icon="ui-icon-plus"
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
                                              process="@this"   update="plgDetail"/>
-                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{purchasePaymentManagedBean.deleteDetail()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             process="@this" update="plgDetail,formEdit:tabView:detailList,formEdit:plgHead"/>  
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{purchasePaymentManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             process="@this" update="plgDetail,formEdit:tabView:detailList,formEdit:plgHead"/>
                         </f:facet>
-                        <f:facet name="right">                        
+                        <f:facet name="right">
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{purchasePaymentManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             process="@this,plgDetail,formEdit:plgHead" update="plgDetail,formEdit:tabView:detailList,formEdit:plgHead" />                                
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             process="@this,plgDetail,formEdit:plgHead" update="plgDetail,formEdit:tabView:detailList,formEdit:plgHead" />
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail">
@@ -108,15 +108,15 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="currency" value="#{purchasePaymentManagedBean.currentDetail.currency}" title="Currency" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入币别"/>
-                                    <p:commandButton id="btnCurrencySelect" actionListener="#{purchasePaymentManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnCurrencySelect" actionListener="#{purchasePaymentManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnCurrencyWhenDetailEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnCurrencyWhenDetailEdit}"
                                                 update="currency,exchange" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="汇率" for="exchange" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="exchange" value="#{purchasePaymentManagedBean.currentDetail.exchange}" title="Exchange" 
+                                    <p:inputText id="exchange" value="#{purchasePaymentManagedBean.currentDetail.exchange}" title="Exchange"
                                                  required="true" requiredMessage="请输入汇率"/>
                                 </p:column>
                             </p:row>
@@ -125,15 +125,15 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="srcformid" value="#{purchasePaymentManagedBean.currentDetail.srcformid}" title="srcformid" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入验收单号"/>
-                                    <p:commandButton id="btnAccountReceivableSelect" actionListener="#{purchasePaymentManagedBean.openDialog('purchasetransactionSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnAccountReceivableSelect" actionListener="#{purchasePaymentManagedBean.openDialog('purchasetransactionSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnWhenDetailEdit}" 
+                                        <p:ajax event="dialogReturn" listener="#{purchasePaymentManagedBean.handleDialogReturnWhenDetailEdit}"
                                                 update="plgDetail" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="付款金额" for="payamts" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="payamts" value="#{purchasePaymentManagedBean.currentDetail.payamts}" title="payamts" 
+                                    <p:inputText id="payamts" value="#{purchasePaymentManagedBean.currentDetail.payamts}" title="payamts"
                                                  required="true" requiredMessage="请输入付款金额"/>
                                 </p:column>
                             </p:row>
@@ -144,8 +144,8 @@
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
-                        <p:dataTable id="detailList" value="#{purchasePaymentManagedBean.detailList}" var="item" tableStyleClass="tableList" 
-                                     selectionMode="single"  selection="#{purchasePaymentManagedBean.currentDetail}" rowKey="#{item.seq}" >           
+                        <p:dataTable id="detailList" value="#{purchasePaymentManagedBean.detailList}" var="item" tableStyleClass="tableList"
+                                     selectionMode="single"  selection="#{purchasePaymentManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
                             <p:ajax event="rowUnselect" update="formEdit:tabView:plgDetail" />
                             <p:column styleClass="Wid20">

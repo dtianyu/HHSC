@@ -33,7 +33,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="合同编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{salesOrderManagedBean.currentEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入合同编号" readonly="#{salesOrderManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入合同编号" readonly="#{salesOrderManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="合同日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">

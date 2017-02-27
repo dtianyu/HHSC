@@ -16,23 +16,23 @@
                     <p:commandButton id="btnView" value="查看" action="#{salesTypeManagedBean.view('salestypeView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{salesTypeManagedBean.edit('salestypeEdit')}" icon="ui-icon-pencil" 
-                                     rendered="#{salesTypeManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{salesTypeManagedBean.delete()}" icon="ui-icon-trash" 
+                    <p:commandButton id="btnEdit" value="编辑" action="#{salesTypeManagedBean.edit('salestypeEdit')}" icon="ui-icon-pencil"
+                                     rendered="#{salesTypeManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{salesTypeManagedBean.delete()}" icon="ui-icon-trash"
                                      rendered="#{salesTypeManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton> 
+                    </p:commandButton>
                     <p:commandButton id="btnUnverify" value="还原"  actionListener="#{salesTypeManagedBean.unverify()}" icon="ui-icon-unlocked"
                                      rendered="#{salesTypeManagedBean.doUnCfm}" update=":formList">
                         <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnCreate" value="新增" action="#{salesTypeManagedBean.create('salestypeNew')}" icon="ui-icon-plus"
-                                     rendered="#{salesTypeManagedBean.doAdd}"/> 
+                                     rendered="#{salesTypeManagedBean.doAdd}"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{salesTypeManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{salesTypeManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{salesTypeManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     销售类别
@@ -62,7 +62,7 @@
                         <h:outputText value="状态"/>
                     </f:facet>
                     <h:outputText value="#{item.status}"/>
-                </p:column>             
+                </p:column>
             </p:dataTable>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />

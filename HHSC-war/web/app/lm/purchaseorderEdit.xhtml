@@ -32,7 +32,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{purchaseOrderManagedBean.currentEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入编号" disabled="#{purchaseOrderManagedBean.currentSysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入编号" disabled="#{purchaseOrderManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="采购日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">

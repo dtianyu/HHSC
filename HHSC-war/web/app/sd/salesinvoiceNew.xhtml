@@ -8,15 +8,15 @@
 
     <ui:define name="content">
         <h:form id="formNew">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="salesinvoice" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="salesinvoice" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{salesInvoiceManagedBean.persist()}" icon="ui-icon-disk" 
-                                     rendered="#{salesInvoiceManagedBean.doAdd}" process="@this,plgHead"  update="formNew"/>                                
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{salesInvoiceManagedBean.persist()}" icon="ui-icon-disk"
+                                     rendered="#{salesInvoiceManagedBean.doAdd}" process="@this,plgHead"  update="formNew"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售开票－新增">
@@ -25,11 +25,11 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="发票编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{salesInvoiceManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入发票编号" readonly="#{salesInvoiceManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入发票编号" disabled="#{salesInvoiceManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="发票日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:calendar id="formdate" value="#{salesInvoiceManagedBean.newEntity.formdate}" title="Formdate" 
+                            <p:calendar id="formdate" value="#{salesInvoiceManagedBean.newEntity.formdate}" title="Formdate"
                                         pattern="yyyy/MM/dd" required="true" requiredMessage="请输入发票日期">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
@@ -40,9 +40,9 @@
                         <p:column>
                             <p:inputText id="customer" value="#{salesInvoiceManagedBean.newEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入客户" readonly="true"/>
-                            <p:commandButton id="btnCusomterSelect" actionListener="#{salesInvoiceManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnCusomterSelect" actionListener="#{salesInvoiceManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{salesInvoiceManagedBean.handleDialogReturnCustomerWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{salesInvoiceManagedBean.handleDialogReturnCustomerWhenNew}"
                                         update="customer,taxtype,taxkind,taxrate,:formNew:tabView:panelBase" />
                             </p:commandButton>
                         </p:column>
@@ -56,32 +56,32 @@
                         <p:column>
                             <p:inputText id="currency" value="#{salesInvoiceManagedBean.newEntity.currency}" title="Currency" styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入币别"/>
-                            <p:commandButton id="btnCurrencySelect" actionListener="#{salesInvoiceManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
+                            <p:commandButton id="btnCurrencySelect" actionListener="#{salesInvoiceManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{salesInvoiceManagedBean.handleDialogReturnCurrencyWhenNew}" 
+                                <p:ajax event="dialogReturn" listener="#{salesInvoiceManagedBean.handleDialogReturnCurrencyWhenNew}"
                                         update="currency,exchange" />
                             </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="汇率" for="exchange" /></p:column>
                         <p:column>
-                            <p:inputText id="exchange" value="#{salesInvoiceManagedBean.newEntity.exchange}" title="Exchange" 
+                            <p:inputText id="exchange" value="#{salesInvoiceManagedBean.newEntity.exchange}" title="Exchange"
                                          required="true" requiredMessage="请输入汇率"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="税别" for="taxtype" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="taxtype" value="#{salesInvoiceManagedBean.newEntity.taxtype}" title="Taxtype" 
+                            <p:selectOneMenu id="taxtype" value="#{salesInvoiceManagedBean.newEntity.taxtype}" title="Taxtype"
                                              required="true" requiredMessage="请输入税别">
-                                <f:selectItem itemLabel="内含" itemValue="0" />  
-                                <f:selectItem itemLabel="外加" itemValue="1" />  
+                                <f:selectItem itemLabel="内含" itemValue="0" />
+                                <f:selectItem itemLabel="外加" itemValue="1" />
                                 <f:selectItem itemLabel="零税" itemValue="2" />
-                                <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                <f:selectItem itemLabel="免税" itemValue="3" />
                             </p:selectOneMenu>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="税率" for="taxrate"/></p:column>
                         <p:column styleClass="Wid30">
-                            <p:inputText id="taxrate" value="#{salesInvoiceManagedBean.newEntity.taxrate}" title="taxrate" 
+                            <p:inputText id="taxrate" value="#{salesInvoiceManagedBean.newEntity.taxrate}" title="taxrate"
                                          required="true" requiredMessage="请输入税率"/>
                         </p:column>
                     </p:row>
@@ -103,7 +103,7 @@
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="收款日期" for="paydate" /></p:column>
                         <p:column styleClass="Wid30">
-                            <p:calendar id="paydate" value="#{salesInvoiceManagedBean.newEntity.paydate}" title="paydate" 
+                            <p:calendar id="paydate" value="#{salesInvoiceManagedBean.newEntity.paydate}" title="paydate"
                                         pattern="yyyy/MM/dd" required="true" requiredMessage="请输入发票日期">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </p:calendar>
@@ -114,18 +114,18 @@
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab title="发票内容">
                     <p:toolbar id="detailToolbar" styleClass="detailToolbar">
-                        <f:facet name="right">                       
-                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="查询" actionListener="#{salesInvoiceManagedBean.loadTransaction()}" icon="ui-icon-plus" 
-                                             oncomplete="" 
+                        <f:facet name="right">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="查询" actionListener="#{salesInvoiceManagedBean.loadTransaction()}" icon="ui-icon-plus"
+                                             oncomplete=""
                                              process="@this,formNew:plgHead" update="panelBase,formNew:plgHead"/>
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{salesInvoiceManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
-                                             onsuccess="" 
-                                             update="formNew" />                                
+                                             onsuccess=""
+                                             update="formNew" />
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelBase">
-                        <p:dataTable value="#{salesInvoiceManagedBean.shipmentModel}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="150"  
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        <p:dataTable value="#{salesInvoiceManagedBean.shipmentModel}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="150"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="150,300,450" lazy="true" selection="#{salesInvoiceManagedBean.shipmentList}" rowKey="#{item.id}" >
                             <f:facet name="header">
                                 出货开票

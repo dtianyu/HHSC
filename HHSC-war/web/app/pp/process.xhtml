@@ -15,23 +15,23 @@
                     <p:commandButton id="btnView" value="查看" action="#{processManagedBean.view('processView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" value="编辑" action="#{processManagedBean.edit('processEdit')}" icon="ui-icon-pencil" 
-                                     rendered="#{processManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" value="删除" actionListener="#{processManagedBean.delete()}" icon="ui-icon-trash" 
+                    <p:commandButton id="btnEdit" value="编辑" action="#{processManagedBean.edit('processEdit')}" icon="ui-icon-pencil"
+                                     rendered="#{processManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" value="删除" actionListener="#{processManagedBean.delete()}" icon="ui-icon-trash"
                                      rendered="#{processManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton> 
-                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{processManagedBean.unverify()}" icon="ui-icon-unlocked" 
+                    </p:commandButton>
+                    <p:commandButton id="btnUnverify" value="还原" actionListener="#{processManagedBean.unverify()}" icon="ui-icon-unlocked"
                                      rendered="#{processManagedBean.doUnCfm}"  update=":formList">
                         <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnCreate" value="新增" action="#{processManagedBean.create('processNew')}" icon="ui-icon-plus" 
-                                     rendered="#{processManagedBean.doAdd}"/> 
+                    <p:commandButton id="btnCreate" value="新增" action="#{processManagedBean.create('processNew')}" icon="ui-icon-plus"
+                                     rendered="#{processManagedBean.doAdd}"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{processManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{processManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{processManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     生产工艺

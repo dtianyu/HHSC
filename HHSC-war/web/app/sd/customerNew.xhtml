@@ -9,16 +9,16 @@
     <ui:define name="content">
 
         <h:form id="formNew">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="customer" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="customer" icon="ui-icon-arrowreturn-1-w"  />
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.persist()}" icon="ui-icon-disk" 
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.persist()}" icon="ui-icon-disk"
                                      rendered="#{customerManagedBean.doAdd}"
-                                     process="@this,plgNew,:formNew:tabView:plgEdit" update="formNew"/>                                
+                                     process="@this,plgNew,:formNew:tabView:plgEdit" update="formNew"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelNew" header="客户登记－新增">
@@ -41,31 +41,31 @@
                                 <f:selectItem itemLabel="供应商" itemValue="V"/>
                                 <f:selectItem itemLabel="客户+供应商" itemValue="C+V"/>
                             </p:selectOneMenu>
-                        </p:column> 
-                    </p:row>  
+                        </p:column>
+                    </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="客户编号" for="customerno" /></p:column>
                         <p:column>
-                            <p:inputText id="customerno" value="#{customerManagedBean.newEntity.customerno}" title="Customerno" 
-                                         required="true" requiredMessage="编号不能为空." readonly="#{customerManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                            <p:inputText id="customerno" value="#{customerManagedBean.newEntity.customerno}" title="Customerno"
+                                         required="true" requiredMessage="编号不能为空." disabled="#{customerManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column><p:outputLabel value="客户简称" for="customer" /></p:column>
                         <p:column>
-                            <p:inputText id="customer" value="#{customerManagedBean.newEntity.customer}" title="Customer" 
+                            <p:inputText id="customer" value="#{customerManagedBean.newEntity.customer}" title="Customer"
                                          required="true" requiredMessage="简称不能为空."/>
-                        </p:column> 
-                    </p:row>        
+                        </p:column>
+                    </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="客户全称" for="fullname" /></p:column>
                         <p:column colspan="3">
-                            <p:inputText id="fullname" value="#{customerManagedBean.newEntity.fullname}" title="Fullname" 
+                            <p:inputText id="fullname" value="#{customerManagedBean.newEntity.fullname}" title="Fullname"
                                          required="true" requiredMessage="全称不能为空"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="注册地" for="regaddress" /></p:column>
                         <p:column colspan="3">
-                            <p:inputText id="regaddress" value="#{customerManagedBean.newEntity.regaddress}" title="regaddress" 
+                            <p:inputText id="regaddress" value="#{customerManagedBean.newEntity.regaddress}" title="regaddress"
                                          required="true" requiredMessage="地址不能为空"/>
                         </p:column>
                     </p:row>
@@ -77,28 +77,28 @@
                         <p:row>
                             <p:column styleClass="Wid20"><p:outputLabel value="税别" for="taxtype" /></p:column>
                             <p:column styleClass="Wid30">
-                                <p:selectOneMenu id="taxtype" value="#{customerManagedBean.newEntity.taxtype}" title="Taxtype" 
+                                <p:selectOneMenu id="taxtype" value="#{customerManagedBean.newEntity.taxtype}" title="Taxtype"
                                                  required="true" requiredMessage="税别不可空白">
-                                    <f:selectItem itemLabel="内含" itemValue="0" />  
-                                    <f:selectItem itemLabel="外加" itemValue="1" />  
+                                    <f:selectItem itemLabel="内含" itemValue="0" />
+                                    <f:selectItem itemLabel="外加" itemValue="1" />
                                     <f:selectItem itemLabel="零税" itemValue="2" />
-                                    <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                    <f:selectItem itemLabel="免税" itemValue="3" />
                                 </p:selectOneMenu>
                             </p:column>
                             <p:column styleClass="Wid20"><p:outputLabel value="税率" for="taxrate"/></p:column>
                             <p:column styleClass="Wid30">
-                                <p:inputText id="taxrate" value="#{customerManagedBean.newEntity.taxrate}" title="taxrate" 
+                                <p:inputText id="taxrate" value="#{customerManagedBean.newEntity.taxrate}" title="taxrate"
                                              required="true" requiredMessage="税率不可空白"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="交易币别" for="currency"/></p:column>
                             <p:column>
-                                <p:inputText id="currency" value="#{customerManagedBean.newEntity.currency}" title="currency" styleClass="inputWithButton" 
+                                <p:inputText id="currency" value="#{customerManagedBean.newEntity.currency}" title="currency" styleClass="inputWithButton"
                                              required="true" requiredMessage="请输入币别"/>
-                                <p:commandButton id="btnCurrencySelect" actionListener="#{customerManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink" 
+                                <p:commandButton id="btnCurrencySelect" actionListener="#{customerManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink"
                                                  process="@this" >
-                                    <p:ajax event="dialogReturn" listener="#{customerManagedBean.handleDialogReturnCurrencyWhenNew}" 
+                                    <p:ajax event="dialogReturn" listener="#{customerManagedBean.handleDialogReturnCurrencyWhenNew}"
                                             update="currency" />
                                 </p:commandButton>
                             </p:column>
@@ -116,7 +116,7 @@
                         <p:row>
                             <p:column><p:outputLabel value="经营产品" for="industry"/></p:column>
                             <p:column colspan="3">
-                                <p:inputText id="industry" value="#{customerManagedBean.newEntity.industry}" title="Industry" />  
+                                <p:inputText id="industry" value="#{customerManagedBean.newEntity.industry}" title="Industry" />
                             </p:column>
                         </p:row>
                         <p:row>
@@ -128,14 +128,14 @@
                         <p:row>
                             <p:column><p:outputLabel value="公司电话" for="tel" /></p:column>
                             <p:column>
-                                <p:inputText id="tel" value="#{customerManagedBean.newEntity.tel}" title="Tel" 
+                                <p:inputText id="tel" value="#{customerManagedBean.newEntity.tel}" title="Tel"
                                              required="true" requiredMessage="请输入公司电话"/>
                             </p:column>
                             <p:column><p:outputLabel value="公司传真" for="fax" /></p:column>
                             <p:column>
                                 <p:inputText id="fax" value="#{customerManagedBean.newEntity.fax}" title="Fax" />
-                            </p:column> 
-                        </p:row> 
+                            </p:column>
+                        </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="法人代表" for="boss" /></p:column>
                             <p:column>
@@ -143,10 +143,10 @@
                             </p:column>
                             <p:column><p:outputLabel value="联系人" for="contacter" /></p:column>
                             <p:column>
-                                <p:inputText id="contacter" value="#{customerManagedBean.newEntity.contacter}" title="Contacter" 
+                                <p:inputText id="contacter" value="#{customerManagedBean.newEntity.contacter}" title="Contacter"
                                              required="true" requiredMessage="请输入联系人"/>
-                            </p:column> 
-                        </p:row> 
+                            </p:column>
+                        </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="联系电话" for="tel2" /></p:column>
                             <p:column>
@@ -155,8 +155,8 @@
                             <p:column><p:outputLabel value="联系传真" for="fax2" /></p:column>
                             <p:column>
                                 <p:inputText id="fax2" value="#{customerManagedBean.newEntity.fax2}" title="Fax2" />
-                            </p:column> 
-                        </p:row> 
+                            </p:column>
+                        </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="国家" for="country" /></p:column>
                             <p:column>
@@ -165,8 +165,8 @@
                             <p:column><p:outputLabel value="地区" for="area" /></p:column>
                             <p:column>
                                 <p:inputText id="area" value="#{customerManagedBean.newEntity.area}" title="Area" />
-                            </p:column> 
-                        </p:row> 
+                            </p:column>
+                        </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="城市" for="city" /></p:column>
                             <p:column>
@@ -175,8 +175,8 @@
                             <p:column><p:outputLabel value="邮编" for="zipcode" /></p:column>
                             <p:column>
                                 <p:inputText id="zipcode" value="#{customerManagedBean.newEntity.zipcode}" title="Zipcode" />
-                            </p:column> 
-                        </p:row> 
+                            </p:column>
+                        </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="网址" for="weburl" /></p:column>
                             <p:column colspan="3">
@@ -190,34 +190,34 @@
                             </p:column>
                         </p:row>
                     </p:panelGrid>
-                </p:tab> 
+                </p:tab>
                 <p:tab title="联系人员">
                     <p:toolbar id="detailToolbar" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{customerManagedBean.createDetail()}" icon="ui-icon-plus" 
-                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();" 
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{customerManagedBean.createDetail()}" icon="ui-icon-plus"
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
                                              update=":formNew:tabView:plgEditDetail" process="@this" />
-                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{customerManagedBean.deleteDetail()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             update=":formNew:tabView:plgEditDetail,:formNew:tabView:tableList" process="@this" />  
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{customerManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             update=":formNew:tabView:plgEditDetail,:formNew:tabView:tableList" process="@this" />
                         </f:facet>
-                        <f:facet name="right">                        
+                        <f:facet name="right">
                             <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{customerManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();" 
-                                             update=":formNew:tabView:plgEditDetail,:formNew:tabView:tableList" process="@this,:formNew:tabView:plgEditDetail"/>                                
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             update=":formNew:tabView:plgEditDetail,:formNew:tabView:tableList" process="@this,:formNew:tabView:plgEditDetail"/>
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail">
                         <p:panelGrid id="plgEditDetail" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgNew Wid100">
                             <p:column><p:outputLabel value="联系人" for="detailcontacter" /></p:column>
                             <p:column>
-                                <p:inputText id="detailcontacter" value="#{customerManagedBean.currentDetail.contacter}" title="contacter" 
+                                <p:inputText id="detailcontacter" value="#{customerManagedBean.currentDetail.contacter}" title="contacter"
                                              required="true" requiredMessage="联系人不能为空"  />
                             </p:column>
                             <p:column><p:outputLabel value="电话" for="detailtel" /></p:column>
                             <p:column>
                                 <p:inputText id="detailtel" value="#{customerManagedBean.currentDetail.tel}" title="tel"/>
-                            </p:column>  
+                            </p:column>
                             <p:column><p:outputLabel value="传真" for="detailfax" /></p:column>
                             <p:column>
                                 <p:inputText id="detailfax" value="#{customerManagedBean.currentDetail.fax}" title="fax"/>
@@ -225,11 +225,11 @@
                             <p:column><p:outputLabel value="手机" for="detailmobile" /></p:column>
                             <p:column>
                                 <p:inputText id="detailmobile" value="#{customerManagedBean.currentDetail.mobile}" title="mobile"/>
-                            </p:column> 
+                            </p:column>
                             <p:column><p:outputLabel value="邮箱" for="detailmail" /></p:column>
                             <p:column>
                                 <p:inputText id="detailmail" value="#{customerManagedBean.currentDetail.mail}" title="mail"/>
-                            </p:column> 
+                            </p:column>
                         </p:panelGrid>
                         <p:dataTable id="tableList" value="#{customerManagedBean.detailList}" var="item" styleClass="tableList Wid100 Mtop10"
                                      selectionMode="single" selection="#{customerManagedBean.currentDetail}" rowKey="#{item.seq}" >

@@ -15,21 +15,21 @@
                     <p:commandButton id="btnView" value="查看" action="#{transactionTypeManagedBean.view('transactiontypeView')}"  icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑" rendered="#{transactionTypeManagedBean.currentEntity.status!='V'}" 
-                                     action="#{transactionTypeManagedBean.edit('transactiontypeEdit')}"/>                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{transactionTypeManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑" rendered="#{transactionTypeManagedBean.currentEntity.status!='V'}"
+                                     action="#{transactionTypeManagedBean.edit('transactiontypeEdit')}"/>
+                    <p:commandButton id="btnDelete" actionListener="#{transactionTypeManagedBean.delete()}" icon="ui-icon-trash" value="删除"
                                      rendered="#{transactionTypeManagedBean.currentEntity.status!='V' }" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{transactionTypeManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
-                                     rendered="#{transactionTypeManagedBean.currentEntity.status=='V'}"  update=":formList"/>                   
+                    <p:commandButton id="btnUnverify" actionListener="#{transactionTypeManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
+                                     rendered="#{transactionTypeManagedBean.currentEntity.status=='V'}"  update=":formList"/>
                     <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增"
-                                     action="#{transactionTypeManagedBean.create('transactiontypeNew')}" /> 
+                                     action="#{transactionTypeManagedBean.create('transactiontypeNew')}" />
                 </f:facet>
-            </p:toolbar>  
-            <p:dataTable value="#{transactionTypeManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{transactionTypeManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{transactionTypeManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     交易类别维护

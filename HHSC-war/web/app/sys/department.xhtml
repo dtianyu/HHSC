@@ -16,21 +16,21 @@
                     <p:commandButton id="btnView" value="查看" action="#{departmentManagedBean.view('departmentView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{departmentManagedBean.edit('departmentEdit')}" icon="ui-icon-pencil" value="编辑" 
-                                     rendered="#{departmentManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{departmentManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnEdit" action="#{departmentManagedBean.edit('departmentEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{departmentManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" actionListener="#{departmentManagedBean.delete()}" icon="ui-icon-trash" value="删除"
                                      rendered="#{departmentManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton> 
-                    <p:commandButton id="btnUnverify" actionListener="#{departmentManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
+                    </p:commandButton>
+                    <p:commandButton id="btnUnverify" actionListener="#{departmentManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
                                      rendered="#{departmentManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{departmentManagedBean.create('departmentNew')}" icon="ui-icon-plus" value="新增"
-                                     rendered="#{departmentManagedBean.doAdd}"/> 
+                                     rendered="#{departmentManagedBean.doAdd}"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{departmentManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{departmentManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{departmentManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     部门维护

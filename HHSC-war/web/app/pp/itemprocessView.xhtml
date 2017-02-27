@@ -9,17 +9,17 @@
     <ui:define name="content">
 
         <h:form id="formView">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="itemprocess" icon="ui-icon-arrowreturn-1-w"/> 
-                    <p:commandButton id="btnPrev" value="向前" actionListener="#{itemProcessManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
-                                     process="@this" update="formView" 
-                                     rendered="#{itemProcessManagedBean.hasPrev}"/> 
-                    <p:commandButton id="btnNext" value="向后" actionListener="#{itemProcessManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
-                                     process="@this" update="formView" 
-                                     rendered="#{itemProcessManagedBean.hasNext}"/> 
+                    <p:button id="btnReturn" value="返回" outcome="itemprocess" icon="ui-icon-arrowreturn-1-w"/>
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{itemProcessManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{itemProcessManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{itemProcessManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
+                                     rendered="#{itemProcessManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnVerify" value="审核" action="#{itemProcessManagedBean.verify()}" icon="ui-icon-locked"
@@ -27,9 +27,9 @@
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{itemProcessManagedBean.print()}" icon="ui-icon-print"
-                                     rendered="#{itemProcessManagedBean.doPrt}"/> 
+                                     rendered="#{itemProcessManagedBean.doPrt}"/>
                 </f:facet>
-            </p:toolbar>  
+            </p:toolbar>
             <p:panel id="paneHead" header="工艺设计－查看">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
@@ -62,8 +62,8 @@
                         <p:column><h:outputText value="备注" /></p:column>
                         <p:column colspan="3">
                             <h:outputText id="remark" value="#{itemProcessManagedBean.currentEntity.remark}" title="Remark" />
-                        </p:column>                   
-                    </p:row>                   
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
@@ -73,63 +73,63 @@
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="染色要求" for="fyreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="fyreq" rows="3" value="#{itemProcessManagedBean.currentEntity.fyreq}" title="fyreq" 
+                                    <p:inputTextarea id="fyreq" rows="3" value="#{itemProcessManagedBean.currentEntity.fyreq}" title="fyreq"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="画稿要求" for="hgreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="hgreq" rows="3" value="#{itemProcessManagedBean.currentEntity.hgreq}" title="req" 
+                                    <p:inputTextarea id="hgreq" rows="3" value="#{itemProcessManagedBean.currentEntity.hgreq}" title="req"
                                                      styleClass="Wid90" readonly="true"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="制版要求" for="zbreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="zbreq" rows="3" value="#{itemProcessManagedBean.currentEntity.zbreq}" title="req" 
+                                    <p:inputTextarea id="zbreq" rows="3" value="#{itemProcessManagedBean.currentEntity.zbreq}" title="req"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="配色要求" for="psreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="psreq" rows="3" value="#{itemProcessManagedBean.currentEntity.psreq}" title="req" 
+                                    <p:inputTextarea id="psreq" rows="3" value="#{itemProcessManagedBean.currentEntity.psreq}" title="req"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="印花要求" for="yhreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="yhreq" rows="3" value="#{itemProcessManagedBean.currentEntity.yhreq}" title="req" 
+                                    <p:inputTextarea id="yhreq" rows="3" value="#{itemProcessManagedBean.currentEntity.yhreq}" title="req"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="蒸化要求" for="zhreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="zhreq" rows="3" value="#{itemProcessManagedBean.currentEntity.zhreq}" title="req" 
+                                    <p:inputTextarea id="zhreq" rows="3" value="#{itemProcessManagedBean.currentEntity.zhreq}" title="req"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="水洗要求" for="zhreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="sxreq" rows="3" value="#{itemProcessManagedBean.currentEntity.sxreq}" title="req" 
+                                    <p:inputTextarea id="sxreq" rows="3" value="#{itemProcessManagedBean.currentEntity.sxreq}" title="req"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="定型要求" for="dxreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="dxreq" rows="3" value="#{itemProcessManagedBean.currentEntity.dxreq}" title="req" 
+                                    <p:inputTextarea id="dxreq" rows="3" value="#{itemProcessManagedBean.currentEntity.dxreq}" title="req"
                                                      styleClass="Wid90" readonly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><p:outputLabel value="仓库要求" for="ckreq" /></p:column>
                                 <p:column styleClass="Wid80" colspan="3">
-                                    <p:inputTextarea id="ckreq" rows="3" value="#{itemProcessManagedBean.currentEntity.ckreq}" title="req" 
+                                    <p:inputTextarea id="ckreq" rows="3" value="#{itemProcessManagedBean.currentEntity.ckreq}" title="req"
                                                      styleClass="Wid90" readonly="true"/>
                                 </p:column>
                             </p:row>
@@ -137,7 +137,7 @@
                     </p:panel>
                 </p:tab>
                 <p:tab title="设备明细">
-                    <p:panel id="panelDetail1">                        
+                    <p:panel id="panelDetail1">
                         <p:dataTable id="tableList1" value="#{itemProcessManagedBean.equipments}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
@@ -182,7 +182,7 @@
                     </p:panel>
                 </p:tab>
                 <p:tab title="工艺明细">
-                    <p:panel id="panelDetail2">                       
+                    <p:panel id="panelDetail2">
                         <p:dataTable id="tableList2" value="#{itemProcessManagedBean.processes}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
@@ -227,7 +227,7 @@
                     </p:panel>
                 </p:tab>
                 <p:tab title="辅料明细">
-                    <p:panel id="panelDetail3">                     
+                    <p:panel id="panelDetail3">
                         <p:dataTable id="tableList3" value="#{itemProcessManagedBean.materials}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
@@ -272,7 +272,7 @@
                     </p:panel>
                 </p:tab>
                 <p:tab title="人员明显">
-                    <p:panel id="panelDetail4">                       
+                    <p:panel id="panelDetail4">
                         <p:dataTable id="tableList4" value="#{itemProcessManagedBean.hurmans}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{itemProcessManagedBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
@@ -332,7 +332,7 @@
                     <p:row>
                         <p:column><h:outputText value="类别"/></p:column>
                         <p:column>
-                            <p:selectOneMenu id="kind1" value="#{itemProcessManagedBean.currentDetail.kind}" title="Kind" 
+                            <p:selectOneMenu id="kind1" value="#{itemProcessManagedBean.currentDetail.kind}" title="Kind"
                                              required="true" requiredMessage="请输入资源类别" disabled="true">
                                 <f:selectItem itemLabel="设备" itemValue="E" />
                                 <f:selectItem itemLabel="工艺" itemValue="P" />
@@ -342,7 +342,7 @@
                         </p:column>
                         <p:column><h:outputText value="值类型"/></p:column>
                         <p:column>
-                            <p:selectOneMenu id="valuetype1" value="#{itemProcessManagedBean.currentDetail.valuetype}" title="Valuetype" 
+                            <p:selectOneMenu id="valuetype1" value="#{itemProcessManagedBean.currentDetail.valuetype}" title="Valuetype"
                                              required="true" requiredMessage="请输入值类型" disabled="true">
                                 <f:selectItem itemLabel="-选择-" itemValue="" />
                                 <f:selectItem itemLabel="布尔" itemValue="bool" />
@@ -386,7 +386,7 @@
             </p:confirmDialog>
             <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
-            </p:blockUI>  
+            </p:blockUI>
         </h:form>
     </ui:define>
 

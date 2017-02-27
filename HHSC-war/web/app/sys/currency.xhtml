@@ -16,21 +16,21 @@
                     <p:commandButton id="btnView" value="查看" action="#{currencyManagedBean.view('currencyView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{currencyManagedBean.edit('currencyEdit')}" icon="ui-icon-pencil" value="编辑" 
-                                     rendered="#{currencyManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{currencyManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnEdit" action="#{currencyManagedBean.edit('currencyEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{currencyManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" actionListener="#{currencyManagedBean.delete()}" icon="ui-icon-trash" value="删除"
                                      rendered="#{currencyManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton> 
-                    <p:commandButton id="btnUnverify" actionListener="#{currencyManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
+                    </p:commandButton>
+                    <p:commandButton id="btnUnverify" actionListener="#{currencyManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
                                      rendered="#{currencyManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{currencyManagedBean.create('currencyNew')}" icon="ui-icon-plus" value="新增"
-                                     rendered="#{currencyManagedBean.doAdd}"/> 
+                                     rendered="#{currencyManagedBean.doAdd}"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{currencyManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{currencyManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{currencyManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     币别汇率
@@ -68,7 +68,7 @@
                         <h:outputText value="状态"/>
                     </f:facet>
                     <h:outputText value="#{item.status}"/>
-                </p:column>             
+                </p:column>
             </p:dataTable>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />

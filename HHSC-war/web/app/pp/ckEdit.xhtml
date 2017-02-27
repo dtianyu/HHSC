@@ -9,14 +9,14 @@
     <ui:define name="content">
 
         <h:form id="formEdit">
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:button id="btnReturn" value="返回" outcome="ck" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" action="#{ckManagedBean.update()}" icon="ui-icon-disk" 
-                                     rendered="#{ckManagedBean.doEdit}" process="@this,plgHead" update="formEdit"/>                                
+                    <p:commandButton id="btnSave" value="保存" action="#{ckManagedBean.update()}" icon="ui-icon-disk"
+                                     rendered="#{ckManagedBean.doEdit}" process="@this,plgHead" update="formEdit"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="仓库信息－修改">
@@ -38,7 +38,7 @@
                     <p:row>
                         <p:column><p:outputLabel value="仓库备注" for="ckremark" /></p:column>
                         <p:column colspan="3">
-                            <p:inputTextarea id="ckremark" rows="2" value="#{ckManagedBean.currentEntity.ckremark}" title="Ckremark" 
+                            <p:inputTextarea id="ckremark" rows="2" value="#{ckManagedBean.currentEntity.ckremark}" title="Ckremark"
                                              styleClass="Wid90"  />
                         </p:column>
                     </p:row>
@@ -87,7 +87,7 @@
                             <p:column>
 
                             </p:column>
-                        </p:row>                        
+                        </p:row>
                         <p:row>
                             <p:column><h:outputText value="客户"/></p:column>
                             <p:column>
@@ -105,77 +105,77 @@
                             <p:column>
                                 <h:outputText id="yhdate" value="#{ckManagedBean.currentEntity.printdate}" title="Yhdate" >
                                     <f:convertDateTime pattern="yyyy/MM/dd" />
-                                </h:outputText>  
+                                </h:outputText>
                             </p:column>
                             <p:column><h:outputText value="成品交期"/></p:column>
                             <p:column>
                                 <h:outputText id="cpdeldate" value="#{ckManagedBean.currentEntity.shipdate}" title="cpdeldate" >
                                     <f:convertDateTime pattern="yyyy/MM/dd" />
-                                </h:outputText>  
+                                </h:outputText>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column styleClass="Wid20"><h:outputText value="营业备注"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="salesremark" rows="2" value="#{ckManagedBean.currentEntity.salesremark}" title="Salesremark" 
+                                <p:inputTextarea id="salesremark" rows="2" value="#{ckManagedBean.currentEntity.salesremark}" title="Salesremark"
                                                  styleClass="Wid90" readonly="true"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="画稿要求"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="hgreq" rows="2" value="#{ckManagedBean.currentEntity.hgreq}" title="hgreq" 
+                                <p:inputTextarea id="hgreq" rows="2" value="#{ckManagedBean.currentEntity.hgreq}" title="hgreq"
                                                  styleClass="Wid90" readonly="true"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="制版要求"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="zbreq" rows="2" value="#{ckManagedBean.currentEntity.zbreq}" title="zbreq" 
+                                <p:inputTextarea id="zbreq" rows="2" value="#{ckManagedBean.currentEntity.zbreq}" title="zbreq"
                                                  styleClass="Wid90" readonly="true"/>
-                            </p:column>                
+                            </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="配色要求"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="psreq" rows="2" value="#{ckManagedBean.currentEntity.psreq}" title="psreq" 
+                                <p:inputTextarea id="psreq" rows="2" value="#{ckManagedBean.currentEntity.psreq}" title="psreq"
                                                  styleClass="Wid90" readonly="true"/>
-                            </p:column>                
+                            </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="印花要求"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="yhreq" rows="2" value="#{ckManagedBean.currentEntity.yhreq}" title="yhreq" 
+                                <p:inputTextarea id="yhreq" rows="2" value="#{ckManagedBean.currentEntity.yhreq}" title="yhreq"
                                                  styleClass="Wid90" readonly="true"/>
-                            </p:column>                
+                            </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="蒸化要求"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="zhreq" rows="2" value="#{ckManagedBean.currentEntity.zhreq}" title="zhreq" 
+                                <p:inputTextarea id="zhreq" rows="2" value="#{ckManagedBean.currentEntity.zhreq}" title="zhreq"
                                                  styleClass="Wid90" readonly="true"/>
-                            </p:column>                
+                            </p:column>
                         </p:row>
                        <p:row>
                             <p:column><p:outputLabel value="水洗要求" for="zhreq" /></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="sxreq" rows="2" value="#{ckManagedBean.currentEntity.sxreq}" title="req" 
+                                <p:inputTextarea id="sxreq" rows="2" value="#{ckManagedBean.currentEntity.sxreq}" title="req"
                                                  styleClass="Wid90" readonly="true"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><p:outputLabel value="定型要求" for="dxreq" /></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="dxreq" rows="2" value="#{ckManagedBean.currentEntity.dxreq}" title="req" 
+                                <p:inputTextarea id="dxreq" rows="2" value="#{ckManagedBean.currentEntity.dxreq}" title="req"
                                                  styleClass="Wid90" readonly="true" />
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column><h:outputText value="仓库要求"/></p:column>
                             <p:column colspan="5">
-                                <p:inputTextarea id="ckreq" rows="2" value="#{ckManagedBean.currentEntity.ckreq}" title="ckreq" 
+                                <p:inputTextarea id="ckreq" rows="2" value="#{ckManagedBean.currentEntity.ckreq}" title="ckreq"
                                                  styleClass="Wid90" readonly="true"/>
-                            </p:column>                
+                            </p:column>
                         </p:row>
                     </p:panelGrid>
                 </p:tab>
@@ -202,7 +202,7 @@
                                     <h:outputText value="品号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.itemno}"/>
-                            </p:column>                          
+                            </p:column>
                             <p:column styleClass="TexAlRight Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="订单数量"/>
@@ -239,7 +239,7 @@
                                 <p:row>
                                     <p:column><h:outputText value="华卉品号"/></p:column>
                                     <p:column>
-                                        <h:outputText value="#{ckManagedBean.currentDetail.itemno}" title="Itemno" />  
+                                        <h:outputText value="#{ckManagedBean.currentDetail.itemno}" title="Itemno" />
                                     </p:column>
                                     <p:column><h:outputText value="客户品号"/></p:column>
                                     <p:column>
@@ -266,7 +266,7 @@
                                         <h:outputText id="orderqty" value="#{ckManagedBean.currentDetail.orderqty}" title="orderqty"/>
                                     </p:column>
                                 </p:row>
-                                <p:row> 
+                                <p:row>
                                     <p:column><h:outputText value="纱线描述"/></p:column>
                                     <p:column>
                                         <h:outputText id="itemyarncount" value="#{ckManagedBean.currentDetail.itemmaster.itemyarncount}" title="itemyarncount" />
@@ -303,22 +303,22 @@
                 <p:tab title="工艺明细">
                     <p:toolbar id="detailToolbar1" styleClass="detailToolbar">
                         <f:facet name="left">
-                            <p:commandButton id="btnAddDetail1" widgetVar="btnAddDetail1" value="添加" actionListener="#{ckManagedBean.createDetail2()}" icon="ui-icon-plus" 
-                                             oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').enable();" 
+                            <p:commandButton id="btnAddDetail1" widgetVar="btnAddDetail1" value="添加" actionListener="#{ckManagedBean.createDetail2()}" icon="ui-icon-plus"
+                                             oncomplete="PF('btnAddDetail1').disable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').enable();"
                                              process="@this,formEdit:plgHead" update="plgDetail1"/>
-                            <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{ckManagedBean.deleteDetail2()}" icon="ui-icon-trash" 
-                                             oncomplete="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
-                                             update=":formEdit:tabView:plgDetail1,:formEdit:tabView:tableList1" process="@this" />  
+                            <p:commandButton id="btnDeleteDetail1" widgetVar="btnDeleteDetail1" value="删除" actionListener="#{ckManagedBean.deleteDetail2()}" icon="ui-icon-trash"
+                                             oncomplete="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();"
+                                             update=":formEdit:tabView:plgDetail1,:formEdit:tabView:tableList1" process="@this" />
                         </f:facet>
-                        <f:facet name="right">   
-                            <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{ckManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus" 
+                        <f:facet name="right">
+                            <p:commandButton id="btnSelectGroup" widgetVar="btnSelectGroup1" value="群组" actionListener="#{ckManagedBean.openDialog('processgroupSelect')}" icon="ui-icon-plus"
                                              process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{ckManagedBean.handleDialogReturnGroupWhenDetail2Edit}" 
-                                        update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1"/>  
-                            </p:commandButton>         
+                                <p:ajax event="dialogReturn" listener="#{ckManagedBean.handleDialogReturnGroupWhenDetail2Edit}"
+                                        update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1"/>
+                            </p:commandButton>
                             <p:commandButton id="btnSaveDetail1" widgetVar="btnSaveDetail1" value="确定" actionListener="#{ckManagedBean.doConfirmDetail2()}" icon="ui-icon-disk"
-                                             onsuccess="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();" 
-                                             process="@this,plgDetail1" update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1"/>                                
+                                             onsuccess="PF('btnAddDetail1').enable();PF('btnDeleteDetail1').disable();PF('btnSaveDetail1').disable();"
+                                             process="@this,plgDetail1" update="formEdit:tabView:plgDetail1,formEdit:tabView:tableList1"/>
                         </f:facet>
                     </p:toolbar>
                     <p:panel id="panelDetail1">
@@ -337,7 +337,7 @@
                             <p:row>
                                 <p:column><p:outputLabel value="类别" for="kind1" /></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="kind1" value="#{ckManagedBean.currentDetail2.kind}" title="Kind" 
+                                    <p:selectOneMenu id="kind1" value="#{ckManagedBean.currentDetail2.kind}" title="Kind"
                                                      required="true" requiredMessage="请输入资源类别">
                                         <f:selectItem itemLabel="设备" itemValue="E" />
                                         <f:selectItem itemLabel="工艺" itemValue="P" />
@@ -348,7 +348,7 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="值类型" for="valuetype1"/></p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="valuetype1" value="#{ckManagedBean.currentDetail2.valuetype}" title="Valuetype" 
+                                    <p:selectOneMenu id="valuetype1" value="#{ckManagedBean.currentDetail2.valuetype}" title="Valuetype"
                                                      required="true" requiredMessage="请输入值类型">
                                         <f:selectItem itemLabel="-选择-" itemValue="" />
                                         <f:selectItem itemLabel="布尔" itemValue="bool" />
@@ -363,22 +363,22 @@
                                 <p:column>
                                     <p:inputText id="content1" value="#{ckManagedBean.currentDetail2.content}" title="Content" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入资源名称"/>
-                                    <p:commandButton id="btnSelectResource" actionListener="#{ckManagedBean.openDialog('processresourceSelect')}" icon="ui-icon-extlink" 
+                                    <p:commandButton id="btnSelectResource" actionListener="#{ckManagedBean.openDialog('processresourceSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{ckManagedBean.handleDialogReturnWhenDetail2Edit}" 
+                                        <p:ajax event="dialogReturn" listener="#{ckManagedBean.handleDialogReturnWhenDetail2Edit}"
                                                 update="plgDetail1" />
                                     </p:commandButton>
                                 </p:column>
                                 <p:column><p:outputLabel value="布尔" for="boolvalue1" /></p:column>
                                 <p:column>
-                                    <p:inputSwitch id="boolvalue1" value="#{ckManagedBean.currentDetail2.boolvalue}" 
+                                    <p:inputSwitch id="boolvalue1" value="#{ckManagedBean.currentDetail2.boolvalue}"
                                                    disabled = "#{ckManagedBean.currentDetail2.valuetype!='bool'}" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><p:outputLabel value="数值" for="numvalue1" /></p:column>
                                 <p:column>
-                                    <p:inputText id="numvalue1" value="#{ckManagedBean.currentDetail2.numvalue}" title="Numvalue" 
+                                    <p:inputText id="numvalue1" value="#{ckManagedBean.currentDetail2.numvalue}" title="Numvalue"
                                                  disabled="#{ckManagedBean.currentDetail2.valuetype!='Decimal'}" />
                                 </p:column>
                                 <p:column><p:outputLabel value="文字" for="strvalue1" /></p:column>
@@ -393,7 +393,7 @@
                                     <p:inputText id="remark1" value="#{ckManagedBean.currentDetail2.remark}" title="Remark" />
                                 </p:column>
                             </p:row>
-                        </p:panelGrid>                        
+                        </p:panelGrid>
                         <p:dataTable id="tableList1" value="#{ckManagedBean.detailList2}" var="item" styleClass="tableList Wid100"
                                      selectionMode="single" selection="#{ckManagedBean.currentDetail2}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formEdit:tabView:plgDetail1" oncomplete="PF('btnDeleteDetail1').enable();PF('btnSaveDetail1').enable();" />

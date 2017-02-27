@@ -15,7 +15,7 @@
                     <p:button id="btnReturn" value="返回" outcome="process" icon="ui-icon-arrowreturn-1-w"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" action="#{processManagedBean.update()}" icon="ui-icon-disk" 
+                    <p:commandButton id="btnSave" value="保存" action="#{processManagedBean.update()}" icon="ui-icon-disk"
                                      rendered="#{processManagedBean.doEdit}" process="@this,plgHead" update="formEdit"/>
                 </f:facet>
             </p:toolbar>
@@ -31,7 +31,7 @@
                             <p:inputText id="process" value="#{processManagedBean.currentEntity.process}" title="process"
                                          required="true" requiredMessage="请输入名称"/>
                         </p:column>
-                    </p:row>                    
+                    </p:row>
                     <p:row>
                         <p:column><p:outputLabel value="排序" for="sortid" /></p:column>
                         <p:column>
@@ -149,7 +149,7 @@
                             <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail" oncomplete="" />
                             <f:facet name="header">
                                 资源列表
-                            </f:facet>      
+                            </f:facet>
                             <p:column styleClass="Wid10">
                                 <f:facet name="header">
                                     <h:outputText value="序号"/>

@@ -16,21 +16,21 @@
                     <p:commandButton id="btnView" value="查看" action="#{areaManagedBean.view('areaView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{areaManagedBean.edit('areaEdit')}" icon="ui-icon-pencil" value="编辑" 
-                                     rendered="#{areaManagedBean.doEdit}" />                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{areaManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                    <p:commandButton id="btnEdit" action="#{areaManagedBean.edit('areaEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{areaManagedBean.doEdit}" />
+                    <p:commandButton id="btnDelete" actionListener="#{areaManagedBean.delete()}" icon="ui-icon-trash" value="删除"
                                      rendered="#{areaManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
-                    </p:commandButton> 
-                    <p:commandButton id="btnUnverify" actionListener="#{areaManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
+                    </p:commandButton>
+                    <p:commandButton id="btnUnverify" actionListener="#{areaManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
                                      rendered="#{areaManagedBean.doUnCfm}"  update=":formList"/>
                     <p:commandButton id="btnCreate" action="#{areaManagedBean.create('areaNew')}" icon="ui-icon-plus" value="新增"
-                                     rendered="#{areaManagedBean.doAdd}"/> 
+                                     rendered="#{areaManagedBean.doAdd}"/>
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{areaManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{areaManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{areaManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     国家区域
