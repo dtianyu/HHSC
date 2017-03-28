@@ -1328,21 +1328,21 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <description>模块授权</description>
-        <from-view-id>/sys/sysgrantmodule.xhtml</from-view-id>
+        <description>用户授权</description>
+        <from-view-id>/sys/usergrant.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>sysgrantmoduleNew</from-outcome>
-            <to-view-id>/sys/sysgrantmoduleNew.xhtml</to-view-id>
+            <from-outcome>usergrantNew</from-outcome>
+            <to-view-id>/sys/usergrantNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysgrantmoduleEdit</from-outcome>
-            <to-view-id>/sys/sysgrantmoduleEdit.xhtml</to-view-id>
+            <from-outcome>usergrantEdit</from-outcome>
+            <to-view-id>/sys/usergrantEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>sysgrantmoduleView</from-outcome>
-            <to-view-id>/sys/sysgrantmoduleView.xhtml</to-view-id>
+            <from-outcome>usergrantView</from-outcome>
+            <to-view-id>/sys/usergrantView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

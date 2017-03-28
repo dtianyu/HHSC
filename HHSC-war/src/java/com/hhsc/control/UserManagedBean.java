@@ -37,7 +37,7 @@ public class UserManagedBean implements Serializable {
     private String secpwd;
     private boolean status;
 
-    private List<SysGrantPrg> sysGrantPrgList;
+    private List<SysGrantPrg> systemGrantPrgList;
 
     public UserManagedBean() {
         status = false;
@@ -220,17 +220,17 @@ public class UserManagedBean implements Serializable {
     }
 
     /**
-     * @return the sysGrantPrgList
+     * @return the systemGrantPrgList
      */
-    public List<SysGrantPrg> getSysGrantPrgList() {
-        return sysGrantPrgList;
+    public List<SysGrantPrg> getSystemGrantPrgList() {
+        return systemGrantPrgList;
     }
 
     /**
-     * @param sysGrantPrgList the sysGrantPrgList to set
+     * @param systemGrantPrgList the systemGrantPrgList to set
      */
-    public void setSysGrantPrgList(List<SysGrantPrg> sysGrantPrgList) {
-        this.sysGrantPrgList = sysGrantPrgList;
+    public void setSystemGrantPrgList(List<SysGrantPrg> systemGrantPrgList) {
+        this.systemGrantPrgList = systemGrantPrgList;
     }
 
 }

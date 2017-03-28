@@ -101,7 +101,7 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
         this.superEJB = customerBean;
         this.detailEJB = customerContacterBean;
         setModel(new CustomerModel(customerBean));
-        if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
+        if (userManagedBean != null && !this.doPriv) {
             this.model.getFilterFields().put("creator", userManagedBean.getCurrentUser().getUsername());
         }
         super.init();

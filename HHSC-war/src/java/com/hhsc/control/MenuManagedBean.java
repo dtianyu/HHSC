@@ -97,12 +97,12 @@ public class MenuManagedBean implements Serializable {
             roleList = systemRoleDetailBean.findByUserId(userManagedBean.getCurrentUser().getId());
             for (SystemRoleDetail r : roleList) {
                 roleModuleGrantList = sysGrantModuleBean.findByRoleId(r.getPid());
-                if (userModuleGrantList.isEmpty()) {
+                if (moduleGrantList.isEmpty()) {
                     moduleGrantList.addAll(roleModuleGrantList);
                 } else {
                     for (SysGrantModule m : roleModuleGrantList) {
                         flag = true;
-                        for (SysGrantModule e : userModuleGrantList) {
+                        for (SysGrantModule e : moduleGrantList) {
                             if (e.getSysmodule().getId().compareTo(m.getSysmodule().getId()) == 0) {
                                 flag = false;
                                 break;
@@ -114,12 +114,12 @@ public class MenuManagedBean implements Serializable {
                     }
                 }
                 rolePrgGrantList = sysGrantPrgBean.findByRoleId(r.getPid());
-                if (userPrgGrantList.isEmpty()) {
+                if (prgGrantList.isEmpty()) {
                     prgGrantList.addAll(rolePrgGrantList);
                 } else {
                     for (SysGrantPrg p : rolePrgGrantList) {
                         flag = true;
-                        for (SysGrantPrg e : userPrgGrantList) {
+                        for (SysGrantPrg e : prgGrantList) {
                             if (e.getSysprg().getId().compareTo(p.getSysprg().getId()) == 0) {
                                 flag = false;
                                 break;
@@ -145,6 +145,7 @@ public class MenuManagedBean implements Serializable {
                     return 1;
                 }
             });
+            userManagedBean.setSystemGrantPrgList(prgGrantList);
             for (SysGrantModule m : moduleGrantList) {
                 submenu = new DefaultSubMenu(m.getSysmodule().getName());
                 submenu.setIcon("icon-th-thumb");

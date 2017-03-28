@@ -1380,6 +1380,240 @@ return false;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["itemweight"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">formid</property>
+                    <text-property name="displayName">formid</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["formid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">formdate</property>
+                    <text-property name="displayName">formdate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["formdate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">purtype</property>
+                    <text-property name="displayName">purtype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["purtype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendorno</property>
+                    <text-property name="displayName">vendorno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendorno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendor</property>
+                    <text-property name="displayName">vendor</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendor"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendorcontacter</property>
+                    <text-property name="displayName">vendorcontacter</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendorcontacter"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendorfax</property>
+                    <text-property name="displayName">vendorfax</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendorfax"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dept</property>
+                    <text-property name="displayName">dept</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["dept"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">buyer</property>
+                    <text-property name="displayName">buyer</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["buyer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">itemdesign</property>
+                    <text-property name="displayName">itemdesign</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itemdesign"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">itemdesigndesc</property>
+                    <text-property name="displayName">itemdesigndesc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itemdesigndesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">itemdesignspec</property>
+                    <text-property name="displayName">itemdesignspec</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itemdesignspec"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">itemdesignimg</property>
+                    <text-property name="displayName">itemdesignimg</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itemdesignimg"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendoritem</property>
+                    <text-property name="displayName">vendoritem</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendoritem"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">currency</property>
+                    <text-property name="displayName">currency</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["currency"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">exchange</property>
+                    <text-property name="displayName">exchange</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["exchange"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">taxtype</property>
+                    <text-property name="displayName">taxtype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taxtype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">taxkind</property>
+                    <text-property name="displayName">taxkind</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taxkind"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">taxrate</property>
+                    <text-property name="displayName">taxrate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taxrate"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">tradetype</property>
+                    <text-property name="displayName">tradetype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tradetype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tradename</property>
+                    <text-property name="displayName">tradename</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tradename"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymemt</property>
+                    <text-property name="displayName">paymemt</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymemt"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">refno</property>
+                    <text-property name="displayName">refno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["refno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shiptype</property>
+                    <text-property name="displayName">shiptype</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shiptype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipadd</property>
+                    <text-property name="displayName">shipadd</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipadd"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipmarks</property>
+                    <text-property name="displayName">shipmarks</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipmarks"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">designsets</property>
+                    <text-property name="displayName">designsets</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["designsets"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">designprice</property>
+                    <text-property name="displayName">designprice</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["designprice"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">totaldesign</property>
+                    <text-property name="displayName">totaldesign</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totaldesign"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">totalnotaxs</property>
+                    <text-property name="displayName">totalnotaxs</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totalnotaxs"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">totaltaxs</property>
+                    <text-property name="displayName">totaltaxs</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totaltaxs"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">totalamts</property>
+                    <text-property name="displayName">totalamts</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["totalamts"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">remark</property>
+                    <text-property name="displayName">remark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">testremark</property>
+                    <text-property name="displayName">testremark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["testremark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">productremark</property>
+                    <text-property name="displayName">productremark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["productremark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">packremark</property>
+                    <text-property name="displayName">packremark</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["packremark"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">itemspec</property>
+                    <text-property name="displayName">itemspec</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["itemspec"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendorcolorno</property>
+                    <text-property name="displayName">vendorcolorno</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendorcolorno"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">requestdate</property>
+                    <text-property name="displayName">requestdate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["requestdate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
@@ -1550,20 +1784,11 @@ return false;]]></method>
                         </data>
                     </cell>
                     <cell id="624">
-                        <data id="620">
+                        <data id="629">
                             <structure name="dateTimeFormat">
                                 <property name="category">Custom</property>
                                 <property name="pattern">yyyy/MM/dd</property>
                             </structure>
-                            <property name="dataSet">dataDetail</property>
-                            <list-property name="boundDataColumns">
-                                <structure>
-                                    <property name="name">requestdate</property>
-                                    <text-property name="displayName">requestdate</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["requestdate"]</expression>
-                                    <property name="dataType">date</property>
-                                </structure>
-                            </list-property>
                             <property name="resultSetColumn">requestdate</property>
                         </data>
                     </cell>

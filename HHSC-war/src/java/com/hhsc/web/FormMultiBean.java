@@ -67,8 +67,8 @@ public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailE
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        if (userManagedBean.getSysGrantPrgList() != null && !userManagedBean.getSysGrantPrgList().isEmpty()) {
-            userManagedBean.getSysGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+        if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
+            userManagedBean.getSystemGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
                 currentPrgGrant = p;
             });
         }
