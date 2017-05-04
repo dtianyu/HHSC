@@ -33,6 +33,7 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
     private BigDecimal taxrate;
     private String designno;
     private String itemno;
+    private String A000000;
 
     public SalesOrderDetailForShipQueryBean() {
         super(SalesOrderDetailForQuery.class);
@@ -67,6 +68,10 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
             if (params.containsKey("designno")) {
                 designno = params.get("designno")[0];
                 this.model.getFilterFields().put("salesOrder.itemno", designno);
+            }
+            if (params.containsKey("itemno <>")) {
+                A000000 = params.get("itemno <>")[0];
+                this.model.getFilterFields().put("itemno <>", A000000);
             }
             if (params.containsKey("itemno")) {
                 itemno = params.get("itemno")[0];
@@ -107,6 +112,9 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
             if (this.itemno != null && !"".equals(this.itemno)) {
                 this.model.getFilterFields().put("itemno", itemno);
             }
+            if (this.A000000 != null && !"".equals(this.A000000)) {
+                this.model.getFilterFields().put("itemno <>", A000000);
+            }
         }
     }
 
@@ -133,6 +141,9 @@ public class SalesOrderDetailForShipQueryBean extends SuperQueryBean<SalesOrderD
         }
         if (this.itemno != null && !"".equals(this.itemno)) {
             this.model.getFilterFields().put("itemno", itemno);
+        }
+        if (this.A000000 != null && !"".equals(this.A000000)) {
+            this.model.getFilterFields().put("itemno <>", A000000);
         }
     }
 

@@ -357,6 +357,9 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                     List<String> taxrate = new ArrayList<>();
                     taxrate.add(currentEntity.getTaxrate().toString());
                     params.put("taxrate", taxrate);
+                    List<String> itemno = new ArrayList<>();
+                    itemno.add("A000000");
+                    params.put("itemno <>", itemno);
                     Map<String, Object> options = new HashMap<>();
                     options.put("modal", true);
                     options.put("contentWidth", 800);

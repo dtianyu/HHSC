@@ -10,6 +10,7 @@ import com.hhsc.ejb.ItemTransactionBean;
 import com.hhsc.ejb.ItemTransactionDetailBean;
 import com.hhsc.entity.Customer;
 import com.hhsc.entity.Department;
+import com.hhsc.entity.ItemColor;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.ItemTransaction;
@@ -183,19 +184,26 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
     }
 
     public void handleDialogReturnBatchWhenDetailEdit(SelectEvent event) {
-        if (event.getObject() != null) {
+        if (event.getObject() != null && currentEntity != null) {
             ItemMaster entity = (ItemMaster) event.getObject();
             currentDetail.setBatch(entity.getItemno());
         }
     }
 
+    public void handleDialogReturnColornoWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            ItemColor ic = (ItemColor) event.getObject();
+            this.currentDetail.setColorno(ic.getColorno());
+        }
+    }
+
     public void handleDialogReturnObjectWhenDetailEdit(SelectEvent event) {
         if (currentEntity.getTransactionType() == null) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入交易类别!");
+            showWarnMsg("Warn", "请输入交易类别!");
             return;
         }
         if (currentEntity.getWarehouse() == null) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入默认仓库!");
+            showWarnMsg("Warn", "请输入默认仓库!");
             return;
         }
         if (event.getObject() != null && currentEntity.getTransactionType().getSrcselect() != null) {
@@ -297,6 +305,15 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
                                 break;
                             default:
                                 super.openDialog(currentEntity.getTransactionType().getSrcselect());
+                        }
+                        break;
+                    case "itemcolorSelect":
+                        if (currentDetail.getItemno() != null) {
+                            Map<String, List<String>> itemcolorParams = new HashMap<>();
+                            List<String> itemno = new ArrayList<>();
+                            itemno.add(currentDetail.getItemno());
+                            itemcolorParams.put("itemno", itemno);
+                            super.openDialog("itemcolorSelect", itemcolorParams);
                         }
                         break;
                     default:
