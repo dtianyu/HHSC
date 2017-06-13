@@ -236,6 +236,16 @@
             <to-view-id>/app/sd/shipmentreceivable.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>invoice</from-outcome>
+            <to-view-id>/app/sd/invoice.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>invoicequery</from-outcome>
+            <to-view-id>/app/sd/invoicequery.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <description>客户登记</description>
@@ -366,6 +376,24 @@
         <navigation-case>
             <from-outcome>salestypeView</from-outcome>
             <to-view-id>/app/sys/salestypeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/sd/invoice.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>invoiceNew</from-outcome>
+            <to-view-id>/app/sd/invoiceNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>invoiceEdit</from-outcome>
+            <to-view-id>/app/sd/invoiceEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>invoiceView</from-outcome>
+            <to-view-id>/app/sd/invoiceView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

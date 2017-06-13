@@ -33,28 +33,34 @@
                     <p:calendar id="queryDateEnd" value="#{salesTransactionQueryBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="品号" for="queryItemno" />
                     <p:inputText id="queryItemno" value="#{salesTransactionQueryBean.queryItemno}" title="品号" />
+                    <h:outputLabel value="币别" for="queryCurrency" />
+                    <p:selectOneMenu id="queryCurrency" value="#{salesTransactionQueryBean.queryCurrency}" title="币别" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="本币" itemValue="1"/>
+                        <f:selectItem itemLabel="外币" itemValue="2"/>
+                    </p:selectOneMenu>
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{salesTransactionQueryBean.init()}"  icon="ui-icon-search"  update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{salesTransactionQueryBean.view('salestransaction')}" icon="ui-icon-document" 
+                    <p:commandButton id="btnView" value="查看" action="#{salesTransactionQueryBean.view('salestransaction')}" icon="ui-icon-document"
                                      rendered="false"/>
                 </f:facet>
-                <f:facet name="right">                
-                    <p:commandButton id="btnPrint" value="明细表" actionListener="#{salesTransactionQueryBean.print()}"  icon="ui-icon-print"  
+                <f:facet name="right">
+                    <p:commandButton id="btnPrint" value="明细表" actionListener="#{salesTransactionQueryBean.print()}"  icon="ui-icon-print"
                                      rendered="#{salesTransactionQueryBean.doPrt}" process="@this"/>
-                    <p:commandButton id="btnPrint2" value="汇总表" actionListener="#{salesTransactionQueryBean.print('shipmentnotinvoicesum.rptdesign')}"  icon="ui-icon-print"  
+                    <p:commandButton id="btnPrint2" value="汇总表" actionListener="#{salesTransactionQueryBean.print('shipmentnotinvoicesum.rptdesign')}"  icon="ui-icon-print"
                                      rendered="#{salesTransactionQueryBean.doPrt}" process="@this"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{salesTransactionQueryBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{salesTransactionQueryBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{salesTransactionQueryBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{salesTransactionQueryBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
-            </p:toolbar> 
-            <p:dataTable value="#{salesTransactionQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{salesTransactionQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{salesTransactionQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     未开票明细查询
@@ -155,12 +161,12 @@
                     <p:row>
                         <p:column><h:outputText value="税别" /></p:column>
                         <p:column>
-                            <p:selectOneMenu id="taxtype" value="#{salesTransactionQueryBean.currentEntity.taxtype}" title="Taxtype" 
+                            <p:selectOneMenu id="taxtype" value="#{salesTransactionQueryBean.currentEntity.taxtype}" title="Taxtype"
                                              required="true" requiredMessage="请输入税别" disabled="true">
-                                <f:selectItem itemLabel="内含" itemValue="0" />  
-                                <f:selectItem itemLabel="外加" itemValue="1" />  
+                                <f:selectItem itemLabel="内含" itemValue="0" />
+                                <f:selectItem itemLabel="外加" itemValue="1" />
                                 <f:selectItem itemLabel="零税" itemValue="2" />
-                                <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                <f:selectItem itemLabel="免税" itemValue="3" />
                             </p:selectOneMenu>
                         </p:column>
                         <p:column><h:outputText value="税率"/></p:column>
@@ -187,7 +193,7 @@
                         <p:column>
                             <h:outputText id="itemwidth" value="#{salesTransactionQueryBean.currentEntity.itemMaster.itemwidth}" title="itemwidth" />
                         </p:column>
-                    </p:row>                  
+                    </p:row>
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="客户色号" /></p:column>
                         <p:column styleClass="Wid30">

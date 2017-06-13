@@ -33,6 +33,12 @@
                     <p:calendar id="queryDateEnd" value="#{salesTransactionQueryBean.queryDateEnd}" title="截止日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="品号" for="queryItemno" />
                     <p:inputText id="queryItemno" value="#{salesTransactionQueryBean.queryItemno}" title="品号" />
+                    <h:outputLabel value="币别" for="queryCurrency" />
+                    <p:selectOneMenu id="queryCurrency" value="#{salesTransactionQueryBean.queryCurrency}" title="币别" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="本币" itemValue="1"/>
+                        <f:selectItem itemLabel="外币" itemValue="2"/>
+                    </p:selectOneMenu>
                 </p:panelGrid>
             </p:panel>
             <p:toolbar id="toolbar" styleClass="topToolbar">

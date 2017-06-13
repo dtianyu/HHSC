@@ -48,7 +48,18 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <script-data-source name="scriptDS" id="225"/>
+        <script-data-source name="scriptDS" id="225">
+            <method name="open"><![CDATA[
+importPackage(Packages.com.hhsc.rpt);
+
+ejbClient = new PurchaseOrderReport();
+ejbClient.setEJB(params["JNDIName"]);
+
+master = ejbClient.getEntity(params["id"]);
+detail = ejbClient.getDetail(params["formid"]);
+
+currentRow = 0;]]></method>
+        </script-data-source>
     </data-sources>
     <data-sets>
         <script-data-set name="dataDetail" id="226">
@@ -750,16 +761,6 @@
                 </list-property>
             </structure>
             <property name="dataSource">scriptDS</property>
-            <method name="open"><![CDATA[
-importPackage(Packages.com.hhsc.rpt);
-
-ejbClient = new PurchaseOrderReport();
-ejbClient.setEJB(params["JNDIName"]);
-
-master = ejbClient.getEntity(params["id"]);
-detail = ejbClient.getDetail(params["formid"]);
-
-currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[
 
 	if(currentRow < detail.size()){

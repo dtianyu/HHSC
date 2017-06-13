@@ -28,6 +28,7 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
 
     private String queryCustomerno;
     private String queryItemno;
+    private String queryCurrency;
 
     public SalesTransactionQueryBean() {
         super(SalesTransaction.class);
@@ -70,6 +71,11 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
             }
             if (this.queryState != null && !"ALL".equals(this.queryState)) {
                 this.model.getFilterFields().put("status", queryState);
+            }
+            if (this.queryCurrency != null && "1".equals(this.queryCurrency)) {
+                this.model.getFilterFields().put("currency", "CNY");
+            } else if (this.queryCurrency != null && "2".equals(this.queryCurrency)) {
+                this.model.getFilterFields().put("currency <> ", "CNY");
             }
             if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getSysprg().getApi().equals("shipmentnotinvoice")) {
                 if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
@@ -161,6 +167,20 @@ public class SalesTransactionQueryBean extends SuperQueryBean<SalesTransaction> 
      */
     public void setQueryItemno(String queryItemno) {
         this.queryItemno = queryItemno;
+    }
+
+    /**
+     * @return the queryCurrency
+     */
+    public String getQueryCurrency() {
+        return queryCurrency;
+    }
+
+    /**
+     * @param queryCurrency the queryCurrency to set
+     */
+    public void setQueryCurrency(String queryCurrency) {
+        this.queryCurrency = queryCurrency;
     }
 
 }

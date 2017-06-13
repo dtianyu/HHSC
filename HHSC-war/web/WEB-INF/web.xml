@@ -38,7 +38,7 @@
     </context-param>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
     </context-param>
     <context-param>
         <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
@@ -151,7 +151,7 @@
         <extension>svg#fontawesomeregular</extension>
         <mime-type>image/svg+xml</mime-type>
     </mime-mapping>
-    <!--    <error-page>
+    <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/login.html</location>
     </error-page>
@@ -163,8 +163,8 @@
         <exception-type>javax.servlet.ServletException</exception-type>
         <location>/error.xhtml</location>
     </error-page>
-      <error-page>
+    <error-page>
         <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
         <location>/404.xhtml</location>
-    </error-page>-->
+    </error-page>
 </web-app>

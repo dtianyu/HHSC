@@ -393,6 +393,24 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         }
     }
 
+    public void handleTaxtypeChangedWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            Object item = event.getObject();
+            if (item.equals("2") || item.equals("3")) {
+                this.currentEntity.setTaxrate(BigDecimal.ZERO);
+            }
+        }
+    }
+
+    public void handleTaxtypeChangedWhenNew(SelectEvent event) {
+        if (event.getObject() != null && newEntity != null) {
+            Object item = event.getObject();
+            if (item.equals("2") || item.equals("3")) {
+                this.newEntity.setTaxrate(BigDecimal.ZERO);
+            }
+        }
+    }
+
     @Override
     public void init() {
         setSuperEJB(salesOrderBean);
