@@ -21,7 +21,6 @@ import com.hhsc.entity.TransactionType;
 import com.hhsc.entity.Unit;
 import com.hhsc.entity.Warehouse;
 import com.hhsc.lazy.ProductionPickingModel;
-import com.hhsc.rpt.ProductionPickingReport;
 import com.hhsc.web.FormMultiBean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.primefaces.event.SelectEvent;
 
 /**

@@ -125,9 +125,8 @@ public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, ItemMake,
                 String formid = this.superEJB.getFormId(newEntity.getCredate(), this.getCurrentPrgGrant().getSysprg().getNolead(), this.getCurrentPrgGrant().getSysprg().getNoformat(), this.getCurrentPrgGrant().getSysprg().getNoseqlen(), "itemno");
                 this.newEntity.setItemno(formid);
             } else {
-                Map<String, Object> filters = new HashMap<>();
-                filters.put("itemno", this.newEntity.getItemno());
-                if (itemMasterBean.getRowCount(filters) > 0) {
+                ItemMaster im = itemMasterBean.findByItemno(newEntity.getItemno());
+                if (im != null) {
                     showErrorMsg("Error", "品号已存在无法保存");
                     return false;
                 }

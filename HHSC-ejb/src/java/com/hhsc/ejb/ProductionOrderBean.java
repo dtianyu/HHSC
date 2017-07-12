@@ -6,7 +6,6 @@
 package com.hhsc.ejb;
 
 import com.hhsc.comm.SuperBean;
-import com.hhsc.entity.ItemFrame;
 import com.hhsc.entity.ItemProcess;
 import com.hhsc.entity.ItemResource;
 import com.hhsc.entity.ProductionOrder;
