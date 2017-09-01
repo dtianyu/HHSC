@@ -36,4 +36,18 @@ public class SysGrantPrgBean extends SuperBean<SysGrantPrg> {
         return query.getResultList();
     }
 
+    public List<SysGrantPrg> findBySystemNameAndUserId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SysGrantPrg.findBySystemNameAndUserId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
+
+    public List<SysGrantPrg> findBySystemNameAndRoleId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SysGrantPrg.findBySystemNameAndRoleId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("roleid", id);
+        return query.getResultList();
+    }
+
 }

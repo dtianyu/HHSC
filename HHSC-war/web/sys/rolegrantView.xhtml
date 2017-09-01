@@ -47,10 +47,17 @@
                                      selectionMode="single" selection="#{roleGrantManagedBean.currentDetail}" rowKey="#{item.sysmodule}" >
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
+                                    <h:outputText value="系统名称"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sysmodule.sysname}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
                                     <h:outputText value="授权模块"/>
                                 </f:facet>
                                 <h:outputText value="#{item.sysmodule.name}"/>
                             </p:column>
+                            <p:column styleClass="Wid60"></p:column>
                         </p:dataTable>
                     </p:panel>
                 </p:tab>
@@ -58,7 +65,7 @@
                     <p:panel id="panelDetail2">
                         <p:dataTable id="tableList2" value="#{roleGrantManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
                                      selectionMode="single" selection="#{roleGrantManagedBean.currentDetail2}" rowKey="#{item.seq}" >
-                            <p:column styleClass="Wid10">
+                            <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="模块"/>
                                 </f:facet>
@@ -70,43 +77,43 @@
                                 </f:facet>
                                 <h:outputText value="#{item.sysprg.name}"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="新增"/>
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.doadd}" disabled="true"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="修改"/>
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.doedit}" disabled="true"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="删除"/>
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.dodel}" disabled="true"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="打印"/>
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.doprt}" disabled="true"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="审核"/>
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.docfm}" disabled="true"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="还原"/>
                                 </f:facet>
                                 <p:selectBooleanCheckbox value="#{item.douncfm}" disabled="true"/>
                             </p:column>
-                            <p:column styleClass="Wid10">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="特权"/>
                                 </f:facet>

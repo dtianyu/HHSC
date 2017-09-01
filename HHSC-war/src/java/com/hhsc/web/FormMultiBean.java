@@ -13,7 +13,6 @@ import com.lightshell.comm.FormEntity;
 import com.lightshell.comm.FormMultiManagedBean;
 import java.util.HashMap;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
@@ -57,14 +56,15 @@ public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailE
 
     @Override
     public void construct() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        appDataPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.appdatapath");
-        appImgPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.appimgpath");
-        reportPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportpath");
-        reportOutputFormat = fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputformat");
-        reportOutputPath = fc.getExternalContext().getRealPath("/") + fc.getExternalContext().getInitParameter("com.hhsc.web.reportoutputpath");
-        reportViewContext = fc.getExternalContext().getInitParameter("com.hhsc.web.reportviewcontext");
-        persistenceUnitName = fc.getExternalContext().getInitParameter("com.hhsc.jpa.unitname");
+        fc = FacesContext.getCurrentInstance();
+        ec = fc.getExternalContext();
+        appDataPath = ec.getRealPath("/") + ec.getInitParameter("com.hhsc.web.appdatapath");
+        appImgPath = ec.getRealPath("/") + ec.getInitParameter("com.hhsc.web.appimgpath");
+        reportPath = ec.getRealPath("/") + ec.getInitParameter("com.hhsc.web.reportpath");
+        reportOutputFormat = ec.getInitParameter("com.hhsc.web.reportoutputformat");
+        reportOutputPath = ec.getRealPath("/") + ec.getInitParameter("com.hhsc.web.reportoutputpath");
+        reportViewContext = ec.getInitParameter("com.hhsc.web.reportviewcontext");
+        persistenceUnitName = ec.getInitParameter("com.hhsc.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
         if (userManagedBean.getSystemGrantPrgList() != null && !userManagedBean.getSystemGrantPrgList().isEmpty()) {
@@ -132,14 +132,14 @@ public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailE
     @Override
     public void print() throws Exception {
         if (currentEntity == null) {
-            showMsg(FacesMessage.SEVERITY_WARN, "Warn", "没有可打印数据");
+            showWarnMsg("Warn", "没有可打印数据");
             return;
         }
         //设置报表参数
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("id", currentEntity.getId());
-        params.put("formid", currentEntity.getFormid());
-        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
+        HashMap<String, Object> reportParams = new HashMap<>();
+        reportParams.put("id", currentEntity.getId());
+        reportParams.put("formid", currentEntity.getFormid());
+        reportParams.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
         if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
@@ -157,7 +157,7 @@ public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailE
             //初始配置
             this.reportInitAndConfig();
             //生成报表
-            this.reportRunAndOutput(reportName, params, outputName, reportFormat, null);
+            this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
             //预览报表
             this.preview();
         } catch (Exception ex) {

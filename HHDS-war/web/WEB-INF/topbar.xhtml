@@ -1,0 +1,34 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+
+    <div id="layout-header" class="Unselectable fontRegular">
+        <h:form id="form_topbar">
+            <h:outputScript name="js/topbar.js" library="sentinel-layout" />
+            <a href="#" id="layout-logo">
+                <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
+                <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">华卉电商</span><span class="hardblue">管理平台</span></span>
+            </a>
+            <ul id="sm-topmenu" class="layout-header-widgets white Fs14" style="float:left;">
+                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
+                    <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                        <li class="Animated05"><a class="white Unselectable"><i class="icon-user-2 OvHidden"></i>#{userManagedBean.currentUser.username}</a></li>
+                        <li class="Animated05"><a href="javascript:void(0);" onClick="quit();" class="white Unselectable"><i class="icon-logout"></i>注销</a><p:commandButton id="btnQuit" action="#{userManagedBean.logout()}" style="display: none;" /></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+            <ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+                <li class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i class="icon-th-1"></i></li>
+            </ul>
+            <!-- ****** -->
+
+        </h:form>
+    </div>
+
+</ui:composition>

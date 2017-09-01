@@ -580,10 +580,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         switch (purtype) {
             case "100":
             case "200":
-                purchaserequestSysprg = sysprgBean.findByAPI("itemfinishedrequest");
+                purchaserequestSysprg = sysprgBean.findBySystemAndAPI("HHSC", "itemfinishedrequest");
                 break;
             case "300":
-                purchaserequestSysprg = sysprgBean.findByAPI("itemmasterrequest");
+                purchaserequestSysprg = sysprgBean.findBySystemAndAPI("HHSC", "itemmasterrequest");
                 break;
         }
         if (purchaserequestSysprg == null) {

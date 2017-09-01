@@ -18,22 +18,22 @@ import org.junit.Test;
  * @author kevindong
  */
 public class sortTest {
-    
+
     public sortTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -41,8 +41,8 @@ public class sortTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-     @Test
-     public void hello() {
+    @Test
+    public void hello() {
         String a = "trusjfkD";
         String b = "kjdnucjnuhji";
         String c = "agyh";
@@ -55,5 +55,12 @@ public class sortTest {
         System.out.println(list.get(1));
         System.out.println(list.get(2));
         System.out.println(list.toString());
-     }
+
+        for (int i = 1; i < 10; i++) {
+            for (int j = i; j < 10; j++) {
+                System.out.print(i + "x" + j + "=" + i * j + "  ");
+            }
+            System.out.println();
+        }
+    }
 }

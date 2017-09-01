@@ -30,10 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "itemmaster")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemMaster.getRowCount", query = "SELECT COUNT(i) FROM ItemMaster i"),
-    @NamedQuery(name = "ItemMaster.findAll", query = "SELECT i FROM ItemMaster i"),
-    @NamedQuery(name = "ItemMaster.findById", query = "SELECT i FROM ItemMaster i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemMaster.findByItemno", query = "SELECT i FROM ItemMaster i WHERE i.itemno = :itemno"),
+    @NamedQuery(name = "ItemMaster.getRowCount", query = "SELECT COUNT(i) FROM ItemMaster i")
+    ,
+    @NamedQuery(name = "ItemMaster.findAll", query = "SELECT i FROM ItemMaster i")
+    ,
+    @NamedQuery(name = "ItemMaster.findById", query = "SELECT i FROM ItemMaster i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemMaster.findByItemno", query = "SELECT i FROM ItemMaster i WHERE i.itemno = :itemno")
+    ,
     @NamedQuery(name = "ItemMaster.findByCategoryId", query = "SELECT i FROM ItemMaster i WHERE i.itemcategory.id = :categoryid")})
 public class ItemMaster extends SuperEntity {
 
@@ -472,7 +476,7 @@ public class ItemMaster extends SuperEntity {
 
     @Override
     public String toString() {
-        return "com.hhsc.entity.ItemMaster[ id=" + id + " ]";
+        return this.itemno;
     }
 
     /**

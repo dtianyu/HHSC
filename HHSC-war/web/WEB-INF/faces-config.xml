@@ -1287,6 +1287,11 @@
         <description>系统模块一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
+            <from-outcome>sysname</from-outcome>
+            <to-view-id>/sys/sysname.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>sysmodule</from-outcome>
             <to-view-id>/sys/sysmodule.xhtml</to-view-id>
             <redirect/>
@@ -1314,6 +1319,25 @@
         <navigation-case>
             <from-outcome>rolegrant</from-outcome>
             <to-view-id>/sys/rolegrant.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>系统设置</description>
+        <from-view-id>/sys/sysname.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sysnameNew</from-outcome>
+            <to-view-id>/sys/sysnameNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysnameEdit</from-outcome>
+            <to-view-id>/sys/sysnameEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>sysnameView</from-outcome>
+            <to-view-id>/sys/sysnameView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

@@ -26,11 +26,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "sysprg")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sysprg.getRowCount", query = "SELECT COUNT(s) FROM Sysprg s"),
-    @NamedQuery(name = "Sysprg.findAll", query = "SELECT s FROM Sysprg s ORDER BY s.sortid"),
-    @NamedQuery(name = "Sysprg.findById", query = "SELECT s FROM Sysprg s WHERE s.id = :id"),
-    @NamedQuery(name = "Sysprg.findByModuleId", query = "SELECT s FROM Sysprg s WHERE s.sysmodule.id = :moduleid ORDER BY s.sortid"),
-    @NamedQuery(name = "Sysprg.findByAPI", query = "SELECT s FROM Sysprg s WHERE s.api = :api "),
+    @NamedQuery(name = "Sysprg.getRowCount", query = "SELECT COUNT(s) FROM Sysprg s")
+    ,
+    @NamedQuery(name = "Sysprg.findAll", query = "SELECT s FROM Sysprg s ORDER BY s.sortid")
+    ,
+    @NamedQuery(name = "Sysprg.findById", query = "SELECT s FROM Sysprg s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "Sysprg.findByModuleId", query = "SELECT s FROM Sysprg s WHERE s.sysmodule.id = :moduleid ORDER BY s.sortid")
+    ,
+    @NamedQuery(name = "Sysprg.findBySysnameAndAPI", query = "SELECT s FROM Sysprg s WHERE s.sysmodule.sysname =:sysname AND s.api = :api ")
+    ,
     @NamedQuery(name = "Sysprg.findByStatus", query = "SELECT s FROM Sysprg s WHERE s.status = :status")})
 public class Sysprg extends SuperEntity {
 

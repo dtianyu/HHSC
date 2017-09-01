@@ -59,15 +59,15 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
     @Override
     protected boolean doBeforeUpdate() throws Exception {
         if (this.currentEntity.getVendor() == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入供应商!"));
+            showErrorMsg("Error", "请输入供应商!");
             return false;
         }
         if (this.currentEntity.getPurqty().compareTo(BigDecimal.ZERO) != 1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入采购数量!"));
+            showErrorMsg("Error", "请输入采购数量!");
             return false;
         }
         if (this.currentEntity.getPrice().compareTo(BigDecimal.ZERO) != 1) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入采购单价!"));
+            showErrorMsg("Error", "请输入采购单价!");
             return false;
         }
         this.currentEntity.setAmts(this.currentEntity.getPurqty().multiply(this.currentEntity.getPrice()));
@@ -105,7 +105,7 @@ public class PurchaseDraftManagedBean extends SuperSingleBean<PurchaseDraft> {
             this.currentEntity.setPayment(entity.getPayment());
         }
     }
-    
+
     public void handleDialogReturnUnitWhenEdit(SelectEvent event) {
         if (event.getObject() != null && currentEntity != null) {
             Unit entity = (Unit) event.getObject();

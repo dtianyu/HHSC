@@ -36,8 +36,9 @@ public class SysprgBean extends SuperEJB<Sysprg> {
         return query.getResultList();
     }
 
-    public Sysprg findByAPI(String api) {
-        Query query = em.createNamedQuery("Sysprg.findByAPI");
+    public Sysprg findBySystemAndAPI(String sysname, String api) {
+        Query query = em.createNamedQuery("Sysprg.findBySysnameAndAPI");
+        query.setParameter("sysname", sysname);
         query.setParameter("api", api);
         try {
             return (Sysprg) query.getSingleResult();

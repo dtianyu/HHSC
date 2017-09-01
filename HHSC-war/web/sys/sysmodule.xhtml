@@ -10,33 +10,52 @@
 
         <h:form id="formList">
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <h:outputLabel value="名称" for="queryName" />
+                <p:inputText id="queryName" value="#{sysmoduleManagedBean.queryName}" title="名称" />
+                <h:outputLabel value="状态" for="queryState" />
+                <p:selectOneMenu id="queryState" value="#{sysmoduleManagedBean.queryState}" title="状态" >
+                    <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                    <f:selectItem itemLabel="未审核" itemValue="N"/>
+                    <f:selectItem itemLabel="已审核" itemValue="V"/>
+                </p:selectOneMenu>
+            </p:panelGrid>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
                     <p:commandButton id="btnLoad" value="刷新" actionListener="#{sysmoduleManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
                     <p:commandButton id="btnView" value="查看" action="#{sysmoduleManagedBean.view('sysmoduleView')}"  icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑" rendered="#{sysmoduleManagedBean.currentEntity.status!='V'}" 
-                                     action="#{sysmoduleManagedBean.edit('sysmoduleEdit')}"/>                                                     
-                    <p:commandButton id="btnDelete" actionListener="#{sysmoduleManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
-                                     rendered="#{sysmoduleManagedBean.currentEntity.status!='V' }" update=":formList"/> 
-                    <p:commandButton id="btnVerify" actionListener="#{sysmoduleManagedBean.verify()}" icon="ui-icon-locked" value="审核" 
+                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑" rendered="#{sysmoduleManagedBean.currentEntity.status!='V'}"
+                                     action="#{sysmoduleManagedBean.edit('sysmoduleEdit')}"/>
+                    <p:commandButton id="btnDelete" actionListener="#{sysmoduleManagedBean.delete()}" icon="ui-icon-trash" value="删除"
+                                     rendered="#{sysmoduleManagedBean.currentEntity.status!='V' }" update=":formList"/>
+                    <p:commandButton id="btnVerify" actionListener="#{sysmoduleManagedBean.verify()}" icon="ui-icon-locked" value="审核"
                                      rendered="#{sysmoduleManagedBean.currentEntity.status!='V'}"   update=":formList"/>
-                    <p:commandButton id="btnUnverify" actionListener="#{sysmoduleManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原" 
-                                     rendered="#{sysmoduleManagedBean.currentEntity.status=='V'}"  update=":formList"/>                   
+                    <p:commandButton id="btnUnverify" actionListener="#{sysmoduleManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
+                                     rendered="#{sysmoduleManagedBean.currentEntity.status=='V'}"  update=":formList"/>
                     <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增"
-                                     action="#{sysmoduleManagedBean.create('sysmoduleNew')}" /> 
+                                     action="#{sysmoduleManagedBean.create('sysmoduleNew')}" />
                 </f:facet>
-            </p:toolbar>  
-            <p:dataTable value="#{sysmoduleManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{sysmoduleManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{sysmoduleManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
                     模块维护
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="系统"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sysname}"/>
+                </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
                         <h:outputText value="名称"/>
@@ -49,7 +68,7 @@
                     </f:facet>
                     <h:outputText value="#{item.sortid}"/>
                 </p:column>
-                <p:column styleClass="Wid60 Responsive">
+                <p:column styleClass="Wid40 Responsive">
                     <f:facet name="header">
                         <h:outputText value="备注"/>
                     </f:facet>

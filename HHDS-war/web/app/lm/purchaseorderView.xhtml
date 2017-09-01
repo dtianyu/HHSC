@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" /> 
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="purchaseorder" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{purchaseOrderManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchaseOrderManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{purchaseOrderManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{purchaseOrderManagedBean.hasNext}"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{purchaseOrderManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{purchaseOrderManagedBean.doCfm}" process="@this" update="formView"/>
+                    <p:commandButton id="btnPrint" value="打印合同" actionListener="#{purchaseOrderManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchaseOrderManagedBean.doPrt}"/>
+                    <p:commandButton id="btnPrint2" value="打印通知" actionListener="#{purchaseOrderManagedBean.print('purchasenotice')}" icon="ui-icon-print"
+                                     rendered="#{purchaseOrderManagedBean.doPrt}"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="采购合同－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="编号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{purchaseOrderManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="采购日期" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{purchaseOrderManagedBean.currentEntity.formdate}" title="Formdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="采购类型"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="purtype" value="#{purchaseOrderManagedBean.currentEntity.purtype}" title="purtype" 
+                                             required="true" requiredMessage="请输入采购类型" disabled="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="成品" itemValue="100" />
+                                <f:selectItem itemLabel="印花" itemValue="200" />
+                                <f:selectItem itemLabel="白坯" itemValue="300" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><h:outputText value="供应商"/></p:column>
+                        <p:column>
+                            <h:outputText id="vendor" value="#{purchaseOrderManagedBean.currentEntity.vendor.vendor}" title="vendor" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="部门"/></p:column>
+                        <p:column>
+                            <h:outputText id="deptid" value="#{purchaseOrderManagedBean.currentEntity.dept.dept}" title="Deptid" />
+                        </p:column>
+                        <p:column><h:outputText value="采购员"/></p:column>
+                        <p:column>
+                            <h:outputText id="buyer" value="#{purchaseOrderManagedBean.currentEntity.buyer.username}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="币别"/></p:column>
+                        <p:column>
+                            <h:outputText id="currency" value="#{purchaseOrderManagedBean.currentEntity.currency}" title="Currency" />
+                        </p:column>
+                        <p:column><h:outputText value="汇率"/></p:column>
+                        <p:column>
+                            <h:outputText id="exchange" value="#{purchaseOrderManagedBean.currentEntity.exchange}" title="Exchange" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="税别"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="taxtype" value="#{purchaseOrderManagedBean.currentEntity.taxtype}" title="Taxtype" 
+                                             required="true" requiredMessage="请输入税别" disabled="true">
+                                <f:selectItem itemLabel="内含" itemValue="0" />  
+                                <f:selectItem itemLabel="外加" itemValue="1" />  
+                                <f:selectItem itemLabel="零税" itemValue="2" />
+                                <f:selectItem itemLabel="免税" itemValue="3" /> 
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="税率" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="taxrate" value="#{purchaseOrderManagedBean.currentEntity.taxrate}" title="taxrate" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="付款条件"/></p:column>
+                        <p:column>
+                            <h:outputText id="payment" value="#{purchaseOrderManagedBean.currentEntity.payment}" title="Payment" />
+                        </p:column>
+                        <p:column><h:outputText value="关联单号"/></p:column>
+                        <p:column>
+                            <h:outputText id="refno" value="#{purchaseOrderManagedBean.currentEntity.refno}" title="Refno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark" value="#{purchaseOrderManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息" rendered="#{purchaseOrderManagedBean.currentEntity.purtype=='100'}">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
+                            <p:row> 
+                                <p:column styleClass="Wid20"><h:outputText value="花号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesign" value="#{purchaseOrderManagedBean.currentEntity.itemmaster.itemno}"  />
+                                </p:column>
+                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                                    <p:graphicImage value="/resources/upload/img/#{purchaseOrderManagedBean.currentEntity.itemimg}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="成品规格"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemdesignspec"  value="#{purchaseOrderManagedBean.currentEntity.itemspec}" title="itemdesignspec" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="供应商品号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="vendoritem" value="#{purchaseOrderManagedBean.currentEntity.vendoritemno}" title="Customeritemno" />
+                                </p:column>
+                            </p:row>                 
+                            <p:row>
+                                <p:column><h:outputText value="套数"/></p:column>
+                                <p:column>
+                                    <h:outputText id="designsets" value="#{purchaseOrderManagedBean.currentEntity.designsets}" title="Designsets" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="版费单价"/></p:column>
+                                <p:column>
+                                    <h:outputText id="designprice" value="#{purchaseOrderManagedBean.currentEntity.designprice}" title="Designprice" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="合计版费"/></p:column>
+                                <p:column>
+                                    <h:outputText id="totaldesign" value="#{purchaseOrderManagedBean.currentEntity.totaldesign}" title="totaldesign"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="测试要求" for="testremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="testremark" value="#{purchaseOrderManagedBean.currentEntity.testremark}" title="Testremark" styleClass="Wid100"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="成品要求" for="productremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="productremark" value="#{purchaseOrderManagedBean.currentEntity.productremark}" title="Productremark" styleClass="Wid100"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="包装要求" for="packremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="packremark" value="#{purchaseOrderManagedBean.currentEntity.packremark}" title="Packremark" styleClass="Wid100"/>  
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="出货方式" for="shpadd" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="shpadd" value="#{purchaseOrderManagedBean.currentEntity.shpadd}" title="Shpadd" styleClass="Wid100"/> 
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="箱麦" for="shipmarks" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputTextarea rows="2" id="shipmarks" value="#{purchaseOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks" styleClass="Wid100"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="采购明细">
+                    <p:panel id="panelDetail">                        
+                        <p:dataTable id="detailList" value="#{purchaseOrderManagedBean.detailList}" var="item" styleClass="tableList"
+                                     selectionMode="single" selection="#{purchaseOrderManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect" update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect" update="formView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="品号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemmaster.itemno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="品名"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemmaster.itemdesc}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.colorno}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="单价"/>
+                                </f:facet>
+                                <h:outputText value="#{item.price}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="已送货"/>
+                                </f:facet>
+                                <h:outputText value="#{item.inqty}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
+                <p:panelGrid id="plgDetail" styleClass="plgNew Wid100">
+                    <p:row>
+                        <p:column><h:outputText value="华卉品号"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemmaster" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemno}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="供应商品号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="vendoritemno" value="#{purchaseOrderManagedBean.currentDetail.vendoritemno}" title="vendoritemno" />
+                        </p:column>
+                    </p:row>
+                    <p:row rendered="#{purchaseOrderManagedBean.currentEntity.purtype=='100'}">
+                        <p:column styleClass="Wid20"><h:outputText value="华卉色号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="colorno" value="#{purchaseOrderManagedBean.currentDetail.colorno}" title="Colorno" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="供应商色号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="vendorcolorno" value="#{purchaseOrderManagedBean.currentDetail.vendorcolorno}" title="vendorcolorno" />
+                        </p:column> 
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="品名"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="itemdesc" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemdesc}" title="Customercolorno" />
+                        </p:column>                
+                        <p:column><h:outputText value="纱线描述"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemyarncount" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemyarncount}" title="itemyarncount" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="成分"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemmake" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemmake}" title="itemmake" />
+                        </p:column>
+                        <p:column><h:outputText value="门幅"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemwidth" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemwidth}" title="itemwidth" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="数量"/></p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{purchaseOrderManagedBean.currentDetail.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column><h:outputText value="单位"/></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{purchaseOrderManagedBean.currentDetail.unit}" title="unit"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="单价"/></p:column>
+                        <p:column>
+                            <h:outputText id="price" value="#{purchaseOrderManagedBean.currentDetail.price}" title="Price"/>
+                        </p:column>
+                        <p:column><h:outputText value="已验收"/></p:column>
+                        <p:column>
+                            <h:outputText id="inqty" value="#{purchaseOrderManagedBean.currentDetail.inqty}" title="inqty"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="采购交期"/></p:column>
+                        <p:column>
+                            <h:outputText id="requestdate" value="#{purchaseOrderManagedBean.currentDetail.requestdate}" title="requestdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column><h:outputText value="订单交期"  /></p:column>
+                        <p:column>
+                            <h:outputText id="deliverydate" value="#{purchaseOrderManagedBean.currentDetail.deliverydate}" title="deliverydate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="dremark" value="#{purchaseOrderManagedBean.currentDetail.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint,btnPrint2">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

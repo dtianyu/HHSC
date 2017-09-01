@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="customer" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{customerManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formEdit"
+                                     rendered="#{customerManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{customerManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formEdit"
+                                     rendered="#{customerManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.update()}" icon="ui-icon-disk"
+                                     rendered="#{customerManagedBean.doEdit}"
+                                     process="@this,plgEdit,:formEdit:tabView:plgEdit" update="formEdit"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelEdit" header="客户登记－修改">
+                <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户来源" for="src" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="src" value="#{customerManagedBean.currentEntity.src}" title="Src"
+                                             required="true" requiredMessage="来源不能为空.">
+                                <f:selectItem itemLabel="必要" itemValue="Biyao"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户类别" for="grade" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="grade" value="#{customerManagedBean.currentEntity.grade}" title="Grade"
+                                             required="true" requiredMessage="类别不能为空.">
+                                <f:selectItem itemLabel="公司" itemValue="B"/>
+                                <f:selectItem itemLabel="个人" itemValue="P"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户编号" for="customerno" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="customerno" value="#{customerManagedBean.currentEntity.customerno}" title="Customerno"
+                                         required="true" requiredMessage="编号不能为空." readonly="#{customerManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户简称" for="customer" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="customer" value="#{customerManagedBean.currentEntity.customer}" title="Customer"
+                                         required="true" requiredMessage="简称不能为空."/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基本信息">
+                    <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><p:outputLabel value="联系人" for="contacter" /></p:column>
+                            <p:column>
+                                <p:inputText id="contacter" value="#{customerManagedBean.currentEntity.contacter}" title="Contacter"/>
+                            </p:column>
+                            <p:column><p:outputLabel value="电话" for="tel" /></p:column>
+                            <p:column>
+                                <p:inputText id="tel" value="#{customerManagedBean.currentEntity.tel}" title="Tel"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="省份" for="country" /></p:column>
+                            <p:column>
+                                <p:inputText id="country" value="#{customerManagedBean.currentEntity.country}" title="Country" />
+                            </p:column>
+                            <p:column><p:outputLabel value="城市" for="city" /></p:column>
+                            <p:column>
+                                <p:inputText id="city" value="#{customerManagedBean.currentEntity.city}" title="City" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="地区" for="area" /></p:column>
+                            <p:column>
+                                <p:inputText id="area" value="#{customerManagedBean.currentEntity.area}" title="Area" />
+                            </p:column>
+                            <p:column><p:outputLabel value="邮编" for="zipcode" /></p:column>
+                            <p:column>
+                                <p:inputText id="zipcode" value="#{customerManagedBean.currentEntity.zipcode}" title="Zipcode" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="地址" for="contactadd" /></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="contactadd" value="#{customerManagedBean.currentEntity.contactadd}" title="contactadd"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="remark" value="#{customerManagedBean.currentEntity.remark}" title="Remark" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

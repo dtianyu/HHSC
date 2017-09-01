@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formEdit">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="itemcategory" icon="ui-icon-arrowreturn-1-w"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{itemCategoryManagedBean.update()}" icon="ui-icon-disk"  update="plgEdit"/>
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelEdit" header="商品分类－修改">
+                <p:panelGrid id="plgEdit" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgEdit Wid100">
+                    <h:outputText value="大类"/>
+                    <h:outputText value="#{itemCategoryManagedBean.currentEntity.category}" title="Categoryid"/>
+                    <p:outputLabel value="名称" for="name" />
+                    <p:inputText id="name" value="#{itemCategoryManagedBean.currentEntity.name}" title="Name"
+                                 required="true" requiredMessage="名称不能空白."/>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

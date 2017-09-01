@@ -219,7 +219,7 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
                     if (exchangeType == null) {
                         throw new RuntimeException("IAE交易类别没有定义");
                     }
-                    Sysprg prg = sysprgBean.findByAPI("itemexchange");
+                    Sysprg prg = sysprgBean.findBySystemAndAPI("HHSC", "itemexchange");
                     String formid = itemExchangeBean.getFormId(entity.getFormdate(), prg.getNolead(), prg.getNoformat(), prg.getNoseqlen());
                     ItemExchange ie = new ItemExchange();
                     ie.setFormid(formid);
@@ -270,7 +270,7 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
     public void initShipment(String api, List<SalesOrderDetailForQuery> details, boolean flag) {
 
         Date baseDay = BaseLib.getDate();
-        Sysprg prg = sysprgBean.findByAPI(api);
+        Sysprg prg = sysprgBean.findBySystemAndAPI("HHSC", api);
         if (prg == null) {
             throw new RuntimeException("获取系统程序设定失败");
         }

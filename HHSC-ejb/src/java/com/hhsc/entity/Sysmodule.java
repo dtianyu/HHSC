@@ -24,12 +24,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "sysmodule")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sysmodule.getRowCount", query = "SELECT COUNT(s) FROM Sysmodule s"),
-    @NamedQuery(name = "Sysmodule.findAll", query = "SELECT s FROM Sysmodule s ORDER BY s.sortid"),
-    @NamedQuery(name = "Sysmodule.findById", query = "SELECT s FROM Sysmodule s WHERE s.id = :id"),
-    @NamedQuery(name = "Sysmodule.findByName", query = "SELECT s FROM Sysmodule s WHERE s.name = :name"),
+    @NamedQuery(name = "Sysmodule.getRowCount", query = "SELECT COUNT(s) FROM Sysmodule s")
+    ,
+    @NamedQuery(name = "Sysmodule.findAll", query = "SELECT s FROM Sysmodule s ORDER BY s.sortid")
+    ,
+    @NamedQuery(name = "Sysmodule.findById", query = "SELECT s FROM Sysmodule s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "Sysmodule.findByName", query = "SELECT s FROM Sysmodule s WHERE s.name = :name")
+    ,
+    @NamedQuery(name = "Sysmodule.findBySysname", query = "SELECT s FROM Sysmodule s WHERE s.sysname = :sysname")
+    ,
     @NamedQuery(name = "Sysmodule.findByStatus", query = "SELECT s FROM Sysmodule s WHERE s.status = :status")})
 public class Sysmodule extends SuperEntity {
+
+    @Size(max = 20)
+    @Column(name = "sysname")
+    private String sysname;
 
     @Basic(optional = false)
     @NotNull
@@ -45,17 +55,6 @@ public class Sysmodule extends SuperEntity {
     private String descript;
 
     public Sysmodule() {
-    }
-
-    public Sysmodule(Integer id) {
-        this.id = id;
-    }
-
-    public Sysmodule(Integer id, String name, int sortid, String status) {
-        this.id = id;
-        this.name = name;
-        this.sortid = sortid;
-        this.status = status;
     }
 
     public String getName() {
@@ -105,6 +104,14 @@ public class Sysmodule extends SuperEntity {
     @Override
     public String toString() {
         return "com.hhsc.entity.Sysmodule[ id=" + id + " ]";
+    }
+
+    public String getSysname() {
+        return sysname;
+    }
+
+    public void setSysname(String sysname) {
+        this.sysname = sysname;
     }
 
 }

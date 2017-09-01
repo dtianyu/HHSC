@@ -1,0 +1,48 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <!-- SECTION 1 -->       
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="EmptyBox20"></div>
+
+                <div class="Container100 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 300px;">
+                            <i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+                            <div class="Fs24 Fright MarTop10 leaden Wid70"><span class="hardblue">#{userManagedBean.currentUser.username}</span>, 欢迎你</div>
+
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs16 Fright">
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Tasks (0)</i></a>
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Messages (0)</i></a>
+                                <a href="/HHSC-war/resetPwd.xhtml" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-cog-alt hardblue"> 修改密码</i></a>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>                     
+                            <h:outputText value="#{userManagedBean.currentUser.lastlogin}" styleClass="Fright">
+                                <f:convertDateTime pattern="yyyy/MM/dd hh:mm"/>
+                            </h:outputText>
+                            <i class="icon-key softgray MarRight10 Fs14 Fright"> Your Last Login - </i>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="EmptyBox10"></div>
+            </div>
+        </div>
+        <!-- SECTION 1 -->
+    </ui:define>
+
+</ui:composition>

@@ -20,6 +20,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -54,6 +55,7 @@ public class MenuManagedBean implements Serializable {
     private List<SystemRoleDetail> roleList;
 
     private MenuModel model;
+    private String systemName;
 
     public MenuManagedBean() {
     }
@@ -64,6 +66,8 @@ public class MenuManagedBean implements Serializable {
         boolean flag;
         moduleGrantList = new ArrayList<>();
         prgGrantList = new ArrayList<>();
+
+        systemName = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("com.hhsc.system");
 
         model = new DefaultMenuModel();
 
@@ -85,18 +89,18 @@ public class MenuManagedBean implements Serializable {
             appmenu.setIcon("icon-th-thumb");
 
             moduleGrantList.clear();
-            userModuleGrantList = sysGrantModuleBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            userModuleGrantList = sysGrantModuleBean.findBySystemNameAndUserId(systemName, userManagedBean.getCurrentUser().getId());
             userModuleGrantList.forEach((m) -> {
                 moduleGrantList.add(m);
             });
             prgGrantList.clear();
-            userPrgGrantList = sysGrantPrgBean.findByUserId(userManagedBean.getCurrentUser().getId());
+            userPrgGrantList = sysGrantPrgBean.findBySystemNameAndUserId(systemName, userManagedBean.getCurrentUser().getId());
             userPrgGrantList.forEach((p) -> {
                 prgGrantList.add(p);
             });
             roleList = systemRoleDetailBean.findByUserId(userManagedBean.getCurrentUser().getId());
             for (SystemRoleDetail r : roleList) {
-                roleModuleGrantList = sysGrantModuleBean.findByRoleId(r.getPid());
+                roleModuleGrantList = sysGrantModuleBean.findBySystemNameAndRoleId(systemName, r.getPid());
                 if (moduleGrantList.isEmpty()) {
                     moduleGrantList.addAll(roleModuleGrantList);
                 } else {
@@ -113,7 +117,7 @@ public class MenuManagedBean implements Serializable {
                         }
                     }
                 }
-                rolePrgGrantList = sysGrantPrgBean.findByRoleId(r.getPid());
+                rolePrgGrantList = sysGrantPrgBean.findBySystemNameAndRoleId(systemName, r.getPid());
                 if (prgGrantList.isEmpty()) {
                     prgGrantList.addAll(rolePrgGrantList);
                 } else {
@@ -154,6 +158,7 @@ public class MenuManagedBean implements Serializable {
                         menuitem = new DefaultMenuItem(p.getSysprg().getName());
                         menuitem.setIcon("icon-doc-text-1");
                         menuitem.setOutcome(p.getSysprg().getApi());
+                        menuitem.setParam("menu", p.getId().toString());
                         submenu.addElement(menuitem);
                     }
                 }
@@ -163,71 +168,53 @@ public class MenuManagedBean implements Serializable {
             model.addElement(appmenu);
 
             submenu = new DefaultSubMenu("用户");
+            submenu.setIcon("icon-vcard");
 
-            submenu.setIcon(
-                    "icon-vcard");
             menuitem = new DefaultMenuItem("更改密码");
-
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "resetPwd");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("resetPwd");
             submenu.addElement(menuitem);
 
             model.addElement(submenu);
+
             //系统管理菜单
             submenu = new DefaultSubMenu("系统");
-
-            submenu.setIcon(
-                    "icon-th-thumb");
+            submenu.setIcon("icon-th-thumb");
             submenu.setRendered(userManagedBean.getCurrentUser().getUserid().equals("Admin"));
 
             menuitem = new DefaultMenuItem("用户维护");
-
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "systemuser");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("systemuser");
             submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("用户授权");
-
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "usergrant");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("usergrant");
             submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("角色群组");
-
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "systemrole");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("systemrole");
             submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("角色授权");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("rolegrant");
+            submenu.addElement(menuitem);
 
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "rolegrant");
+            menuitem = new DefaultMenuItem("系统维护");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("sysname");
             submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("模块维护");
-
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "sysmodule");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("sysmodule");
             submenu.addElement(menuitem);
 
             menuitem = new DefaultMenuItem("功能维护");
-
-            menuitem.setIcon(
-                    "icon-doc-text");
-            menuitem.setOutcome(
-                    "sysprg");
+            menuitem.setIcon("icon-doc-text");
+            menuitem.setOutcome("sysprg");
             submenu.addElement(menuitem);
 
             model.addElement(submenu);
