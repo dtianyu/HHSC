@@ -27,12 +27,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salesshipment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesShipment.getRowCount", query = "SELECT COUNT(s) FROM SalesShipment s"),
-    @NamedQuery(name = "SalesShipment.findAll", query = "SELECT s FROM SalesShipment s"),
-    @NamedQuery(name = "SalesShipment.findById", query = "SELECT s FROM SalesShipment s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesShipment.findByFormid", query = "SELECT s FROM SalesShipment s WHERE s.formid = :formid"),
-    @NamedQuery(name = "SalesShipment.findByFormdate", query = "SELECT s FROM SalesShipment s WHERE s.formdate = :formdate"),
-    @NamedQuery(name = "SalesShipment.findByShipkind", query = "SELECT s FROM SalesShipment s WHERE s.shipkind = :shipkind"),
+    @NamedQuery(name = "SalesShipment.getRowCount", query = "SELECT COUNT(s) FROM SalesShipment s")
+    ,
+    @NamedQuery(name = "SalesShipment.findAll", query = "SELECT s FROM SalesShipment s")
+    ,
+    @NamedQuery(name = "SalesShipment.findById", query = "SELECT s FROM SalesShipment s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesShipment.findByFormid", query = "SELECT s FROM SalesShipment s WHERE s.formid = :formid")
+    ,
+    @NamedQuery(name = "SalesShipment.findByFormdate", query = "SELECT s FROM SalesShipment s WHERE s.formdate = :formdate")
+    ,
+    @NamedQuery(name = "SalesShipment.findByShipkind", query = "SELECT s FROM SalesShipment s WHERE s.shipkind = :shipkind")
+    ,
     @NamedQuery(name = "SalesShipment.findByStatus", query = "SELECT s FROM SalesShipment s WHERE s.status = :status")})
 public class SalesShipment extends FormEntity {
 

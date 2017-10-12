@@ -106,7 +106,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
                     showErrorMsg("Error", "请输入品号");
                     return false;
                 }
-                if ((detail.getQty().compareTo(BigDecimal.ZERO) == 1) || (detail.getPrice().compareTo(BigDecimal.ZERO) == 1)) {
+                if ((detail.getQty().compareTo(BigDecimal.ZERO) < 1) || (detail.getPrice().compareTo(BigDecimal.ZERO) < 1)) {
                     showErrorMsg("Error", "请输入数量或单价");
                     return false;
                 }

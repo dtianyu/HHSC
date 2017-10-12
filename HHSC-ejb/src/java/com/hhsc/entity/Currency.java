@@ -25,10 +25,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "currency")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Currency.getRowCount", query = "SELECT COUNT(c) FROM Currency c"),
-    @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c"),
-    @NamedQuery(name = "Currency.findById", query = "SELECT c FROM Currency c WHERE c.id = :id"),
-    @NamedQuery(name = "Currency.findByCurrency", query = "SELECT c FROM Currency c WHERE c.currency = :currency"),
+    @NamedQuery(name = "Currency.getRowCount", query = "SELECT COUNT(c) FROM Currency c")
+    ,
+    @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c")
+    ,
+    @NamedQuery(name = "Currency.findById", query = "SELECT c FROM Currency c WHERE c.id = :id")
+    ,
+    @NamedQuery(name = "Currency.findByCurrency", query = "SELECT c FROM Currency c WHERE c.currency = :currency")
+    ,
     @NamedQuery(name = "Currency.findByStatus", query = "SELECT c FROM Currency c WHERE c.status = :status")})
 public class Currency extends SuperEntity {
 

@@ -27,24 +27,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseorder")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseOrder.getRowCount", query = "SELECT COUNT(p) FROM PurchaseOrder p"),
-    @NamedQuery(name = "PurchaseOrder.findAll", query = "SELECT p FROM PurchaseOrder p"),
-    @NamedQuery(name = "PurchaseOrder.findById", query = "SELECT p FROM PurchaseOrder p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseOrder.findByFormid", query = "SELECT p FROM PurchaseOrder p WHERE p.formid = :formid"),
-    @NamedQuery(name = "PurchaseOrder.findByFormdate", query = "SELECT p FROM PurchaseOrder p WHERE p.formdate = :formdate"),
-    @NamedQuery(name = "PurchaseOrder.findByPurtype", query = "SELECT p FROM PurchaseOrder p WHERE p.purtype = :purtype"),
-    @NamedQuery(name = "PurchaseOrder.findByPurkind", query = "SELECT p FROM PurchaseOrder p WHERE p.purkind = :purkind"),
-    @NamedQuery(name = "PurchaseOrder.findByVendorId", query = "SELECT p FROM PurchaseOrder p WHERE p.vendor.id = :vendorid"),
-    @NamedQuery(name = "PurchaseOrder.findByDeptId", query = "SELECT p FROM PurchaseOrder p WHERE p.dept.id = :deptid"),
-    @NamedQuery(name = "PurchaseOrder.findByBuyerId", query = "SELECT p FROM PurchaseOrder p WHERE p.buyer.id = :buyerid"),
-    @NamedQuery(name = "PurchaseOrder.findByItemId", query = "SELECT p FROM PurchaseOrder p WHERE p.itemmaster.id = :itemmasterid"),
-    @NamedQuery(name = "PurchaseOrder.findByItemno", query = "SELECT p FROM PurchaseOrder p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseOrder.findByVendoritemno", query = "SELECT p FROM PurchaseOrder p WHERE p.vendoritemno = :vendoritemno"),
-    @NamedQuery(name = "PurchaseOrder.findByTradetype", query = "SELECT p FROM PurchaseOrder p WHERE p.tradetype = :tradetype"),
-    @NamedQuery(name = "PurchaseOrder.findByTradename", query = "SELECT p FROM PurchaseOrder p WHERE p.tradename = :tradename"),
-    @NamedQuery(name = "PurchaseOrder.findByPaymentid", query = "SELECT p FROM PurchaseOrder p WHERE p.paymentid = :paymentid"),
-    @NamedQuery(name = "PurchaseOrder.findByPayment", query = "SELECT p FROM PurchaseOrder p WHERE p.payment = :payment"),
-    @NamedQuery(name = "PurchaseOrder.findByRefno", query = "SELECT p FROM PurchaseOrder p WHERE p.refno = :refno"),
+    @NamedQuery(name = "PurchaseOrder.getRowCount", query = "SELECT COUNT(p) FROM PurchaseOrder p")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findAll", query = "SELECT p FROM PurchaseOrder p")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findById", query = "SELECT p FROM PurchaseOrder p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByFormid", query = "SELECT p FROM PurchaseOrder p WHERE p.formid = :formid")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByFormdate", query = "SELECT p FROM PurchaseOrder p WHERE p.formdate = :formdate")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByPurtype", query = "SELECT p FROM PurchaseOrder p WHERE p.purtype = :purtype")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByPurkind", query = "SELECT p FROM PurchaseOrder p WHERE p.purkind = :purkind")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByVendorId", query = "SELECT p FROM PurchaseOrder p WHERE p.vendor.id = :vendorid")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByDeptId", query = "SELECT p FROM PurchaseOrder p WHERE p.dept.id = :deptid")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByBuyerId", query = "SELECT p FROM PurchaseOrder p WHERE p.buyer.id = :buyerid")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByItemId", query = "SELECT p FROM PurchaseOrder p WHERE p.itemmaster.id = :itemmasterid")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByItemno", query = "SELECT p FROM PurchaseOrder p WHERE p.itemno = :itemno")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByVendoritemno", query = "SELECT p FROM PurchaseOrder p WHERE p.vendoritemno = :vendoritemno")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByTradetype", query = "SELECT p FROM PurchaseOrder p WHERE p.tradetype = :tradetype")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByTradename", query = "SELECT p FROM PurchaseOrder p WHERE p.tradename = :tradename")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByPaymentid", query = "SELECT p FROM PurchaseOrder p WHERE p.paymentid = :paymentid")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByPayment", query = "SELECT p FROM PurchaseOrder p WHERE p.payment = :payment")
+    ,
+    @NamedQuery(name = "PurchaseOrder.findByRefno", query = "SELECT p FROM PurchaseOrder p WHERE p.refno = :refno")
+    ,
     @NamedQuery(name = "PurchaseOrder.findByStatus", query = "SELECT p FROM PurchaseOrder p WHERE p.status = :status")})
 public class PurchaseOrder extends FormEntity {
 

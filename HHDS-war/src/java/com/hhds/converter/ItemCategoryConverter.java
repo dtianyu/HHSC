@@ -37,7 +37,7 @@ public class ItemCategoryConverter implements Converter {
                 } else {
                     return null;
                 }
-            } catch (ConverterException exception) {
+            } catch (ConverterException ex) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid entity"));
             }
         }

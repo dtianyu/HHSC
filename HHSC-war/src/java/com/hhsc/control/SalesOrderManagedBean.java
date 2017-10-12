@@ -197,7 +197,11 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     @Override
     protected boolean doBeforeVerify() throws Exception {
         if (currentEntity != null && !detailList.isEmpty()) {
-            detailList.forEach((d) -> {
+            for (SalesOrderDetail d : detailList) {
+                if (currentEntity.getCustomer().isAutotransfer() && (currentEntity.getCustomeritemno() == null || d.getCustomercolorno() == null)) {
+                    showErrorMsg("Error", "必须维护客户品号和客户色号");
+                    return false;
+                }
                 if (!itemColorBean.isExist(currentEntity.getItemno(), d.getColorno(), currentEntity.getCustomeritemno(), d.getCustomercolorno())) {
                     ItemColor ic = new ItemColor();
                     ic.setPid(currentEntity.getItemmaster().getId());
@@ -210,7 +214,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                     ic.setCredateToNow();
                     itemColorBean.persist(ic);
                 }
-            });
+            }
         }
         return super.doBeforeVerify();
     }
@@ -318,7 +322,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
 
     public void findCustomerItem() {
         if (currentEntity != null && currentEntity.getItemno() != null && currentEntity.getCustomer() != null) {
-            CustomerItem o = customerItemBean.findByItemnoAndCustomerno(currentEntity.getItemno(), currentEntity.getCustomer().getCustomerno());
+            CustomerItem o = customerItemBean.findFirstCustomerItemno(currentEntity.getItemno(), currentEntity.getCustomer().getCustomerno());
             if (o != null) {
                 this.currentEntity.setCustomeritemno(o.getCustomeritemno());
             } else {
@@ -504,8 +508,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             reportFormat = reportOutputFormat;
         }
         String reportName = reportPath + reportDesignFile;
-        String outputName = reportOutputPath + currentEntity.getFormid() + "." + reportFormat;
-        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "." + reportFormat;
+        String outputName = reportOutputPath + currentEntity.getFormid() + "RWD" + "." + reportFormat;
+        this.reportViewPath = reportViewContext + currentEntity.getFormid() + "RWD" + "." + reportFormat;
         try {
             if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
                 reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();

@@ -5,7 +5,9 @@
  */
 package com.hhsc.entity;
 
+import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.FormDetailEntity;
+import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -165,9 +167,15 @@ public class SalesOrderDetail extends FormDetailEntity {
     protected Integer relseq;
 
     public SalesOrderDetail() {
+        this.quotedprice = BigDecimal.ZERO;
+        this.discount = BigDecimal.valueOf(100);
         this.proqty = BigDecimal.ZERO;
         this.inqty = BigDecimal.ZERO;
         this.shipqty = BigDecimal.ZERO;
+        this.amts = BigDecimal.ZERO;
+        this.extax = BigDecimal.ZERO;
+        this.taxes = BigDecimal.ZERO;
+        this.status = "00";
     }
 
     public String getColorno() {
@@ -485,6 +493,13 @@ public class SalesOrderDetail extends FormDetailEntity {
      */
     public void setProqty(BigDecimal proqty) {
         this.proqty = proqty;
+    }
+
+    public void calcTotalAmts(String taxtype, String taxkind, BigDecimal taxrate) {
+        this.setAmts(this.getQty().multiply(this.getPrice()));
+        Tax t = BaseLib.getTaxes(taxtype, taxkind, taxrate, this.getAmts(), 2);
+        this.setExtax(t.getExtax());
+        this.setTaxes(t.getTaxes());
     }
 
 }

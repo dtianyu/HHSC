@@ -24,9 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "customercontacter")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CustomerContacter.getRowCount", query = "SELECT COUNT(c) FROM CustomerContacter c"),
-    @NamedQuery(name = "CustomerContacter.findAll", query = "SELECT c FROM CustomerContacter c"),
-    @NamedQuery(name = "CustomerContacter.findById", query = "SELECT c FROM CustomerContacter c WHERE c.id = :id"),
+    @NamedQuery(name = "CustomerContacter.getRowCount", query = "SELECT COUNT(c) FROM CustomerContacter c")
+    ,
+    @NamedQuery(name = "CustomerContacter.findAll", query = "SELECT c FROM CustomerContacter c")
+    ,
+    @NamedQuery(name = "CustomerContacter.findById", query = "SELECT c FROM CustomerContacter c WHERE c.id = :id")
+    ,
     @NamedQuery(name = "CustomerContacter.findByPId", query = "SELECT c FROM CustomerContacter c WHERE c.pid = :pid")})
 public class CustomerContacter extends SuperDetailEntity {
 

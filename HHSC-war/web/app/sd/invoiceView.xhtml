@@ -367,7 +367,7 @@
                         </p:column>
                         <p:column><h:outputText value="PO#"/></p:column>
                         <p:column>
-                            <h:outputText id="dremark" value="#{invoiceManagedBean.currentDetail.remark}" title="PO#" />
+                            <h:outputText id="srcformid" value="#{invoiceManagedBean.currentDetail.srcformid}" title="PO#" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -378,6 +378,12 @@
                         <p:column><h:outputText value="净重"/></p:column>
                         <p:column>
                             <h:outputText id="inqty" value="#{invoiceManagedBean.currentDetail.inqty}" title="N.W" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="dremark" value="#{invoiceManagedBean.currentDetail.remark}" title="dremark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

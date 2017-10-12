@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class ItemCategoryModel extends BaseLazyModel<ItemCategory>{
-    
-    public ItemCategoryModel(SuperEJB superEJB){
+public class ItemCategoryModel extends BaseLazyModel<ItemCategory> {
+
+    public ItemCategoryModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

@@ -29,12 +29,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "systemuser")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SystemUser.getRowCount", query = "SELECT count(s) FROM SystemUser s"),
-    @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s"),
-    @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.id = :id"),
-    @NamedQuery(name = "SystemUser.findByUserId", query = "SELECT s FROM SystemUser s WHERE s.userid = :userid"),
-    @NamedQuery(name = "SystemUser.findByUserIdAndPwd", query = "SELECT s FROM SystemUser s WHERE (s.userid = :userid OR s.email =:email) AND s.password = :pwd"),
-    @NamedQuery(name = "SystemUser.findByMailAdd", query = "SELECT s FROM SystemUser s WHERE s.email = :email"),
+    @NamedQuery(name = "SystemUser.getRowCount", query = "SELECT count(s) FROM SystemUser s")
+    ,
+    @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s")
+    ,
+    @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SystemUser.findByUserId", query = "SELECT s FROM SystemUser s WHERE s.userid = :userid")
+    ,
+    @NamedQuery(name = "SystemUser.findByUserIdAndPwd", query = "SELECT s FROM SystemUser s WHERE (s.userid = :userid OR s.email =:email) AND s.password = :pwd")
+    ,
+    @NamedQuery(name = "SystemUser.findByMailAdd", query = "SELECT s FROM SystemUser s WHERE s.email = :email")
+    ,
     @NamedQuery(name = "SystemUser.findByStatus", query = "SELECT s FROM SystemUser s WHERE s.status = :status")})
 public class SystemUser extends SuperEntity {
 

@@ -28,9 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "itemresource")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemResource.findAll", query = "SELECT i FROM ItemResource i ORDER BY i.process.sortid,i.seq"),
-    @NamedQuery(name = "ItemResource.findById", query = "SELECT i FROM ItemResource i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemResource.findByPId", query = "SELECT i FROM ItemResource i WHERE i.pid = :pid ORDER BY i.pid,i.process.sortid,i.procseq"),
+    @NamedQuery(name = "ItemResource.findAll", query = "SELECT i FROM ItemResource i ORDER BY i.process.sortid,i.seq")
+    ,
+    @NamedQuery(name = "ItemResource.findById", query = "SELECT i FROM ItemResource i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemResource.findByPId", query = "SELECT i FROM ItemResource i WHERE i.pid = :pid ORDER BY i.pid,i.process.sortid,i.procseq")
+    ,
     @NamedQuery(name = "ItemResource.findByItemno", query = "SELECT i FROM ItemResource i WHERE i.itemno = :itemno ORDER BY i.process.sortid,i.procseq")})
 public class ItemResource extends SuperDetailEntity {
 

@@ -42,7 +42,7 @@ public class Invoice extends FormEntity {
     private String formkind;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 100)
     @Column(name = "customer")
     private String customer;
     @Size(max = 20)

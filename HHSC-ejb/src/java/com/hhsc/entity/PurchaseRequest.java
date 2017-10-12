@@ -24,15 +24,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaserequest")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseRequest.getRowCount", query = "SELECT COUNT(p) FROM PurchaseRequest p"),
-    @NamedQuery(name = "PurchaseRequest.findAll", query = "SELECT p FROM PurchaseRequest p"),
-    @NamedQuery(name = "PurchaseRequest.findById", query = "SELECT p FROM PurchaseRequest p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseRequest.findByFormid", query = "SELECT p FROM PurchaseRequest p WHERE p.formid = :formid"),
-    @NamedQuery(name = "PurchaseRequest.findByFormdate", query = "SELECT p FROM PurchaseRequest p WHERE p.formdate = :formdate"),
-    @NamedQuery(name = "PurchaseRequest.findByDeptId", query = "SELECT p FROM PurchaseRequest p WHERE p.dept.id = :deptid"),
-    @NamedQuery(name = "PurchaseRequest.findByUserId", query = "SELECT p FROM PurchaseRequest p WHERE p.systemuser.id = :systemuserid"),
-    @NamedQuery(name = "PurchaseRequest.findByPurtype", query = "SELECT p FROM PurchaseRequest p WHERE p.purtype = :purtype"),
-    @NamedQuery(name = "PurchaseRequest.findByPurkind", query = "SELECT p FROM PurchaseRequest p WHERE p.purkind = :purkind"),
+    @NamedQuery(name = "PurchaseRequest.getRowCount", query = "SELECT COUNT(p) FROM PurchaseRequest p")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findAll", query = "SELECT p FROM PurchaseRequest p")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findById", query = "SELECT p FROM PurchaseRequest p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findByFormid", query = "SELECT p FROM PurchaseRequest p WHERE p.formid = :formid")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findByFormdate", query = "SELECT p FROM PurchaseRequest p WHERE p.formdate = :formdate")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findByDeptId", query = "SELECT p FROM PurchaseRequest p WHERE p.dept.id = :deptid")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findByUserId", query = "SELECT p FROM PurchaseRequest p WHERE p.systemuser.id = :systemuserid")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findByPurtype", query = "SELECT p FROM PurchaseRequest p WHERE p.purtype = :purtype")
+    ,
+    @NamedQuery(name = "PurchaseRequest.findByPurkind", query = "SELECT p FROM PurchaseRequest p WHERE p.purkind = :purkind")
+    ,
     @NamedQuery(name = "PurchaseRequest.findByStatus", query = "SELECT p FROM PurchaseRequest p WHERE p.status = :status")})
 public class PurchaseRequest extends FormEntity {
 

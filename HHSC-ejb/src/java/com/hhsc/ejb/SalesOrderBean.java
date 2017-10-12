@@ -10,8 +10,12 @@ import com.hhsc.entity.PurchaseRequest;
 import com.hhsc.entity.PurchaseRequestDetail;
 import com.hhsc.entity.SalesOrder;
 import com.hhsc.entity.SalesOrderDetail;
+import com.lightshell.comm.SuperEJB;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -47,6 +51,18 @@ public class SalesOrderBean extends SuperBean<SalesOrder> {
 
     public boolean hasProductionOrder(String formid) {
         return !productionOrderDetailBean.findBySalesOrderFormid(formid).isEmpty();
+    }
+
+    public boolean initByHHDS(SalesOrder so, List<SalesOrderDetail> details) {
+        HashMap<SuperEJB, List<?>> detailAdded = new HashMap<>();
+        detailAdded.put(salesOrderDetailBean, details);
+        try {
+            this.persist(so, detailAdded, null, null);
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

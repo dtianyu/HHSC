@@ -23,26 +23,26 @@ import javax.ejb.TransactionAttributeType;
 @Stateless
 @LocalBean
 public class SalesOrderBean extends SuperBean<SalesOrder> {
-    
+
     @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
-    
+
     protected List<SalesOrderDetail> detailList;
-    
+
     public SalesOrderBean() {
         super(SalesOrder.class);
     }
-    
+
     public boolean hasPurchaseRequest(String formid) {
         //return purchaseRequestBean.getRowCountBySalesOrderFormid(formid) != 0;
         return false;
     }
-    
+
     public boolean hasProductionOrder(String formid) {
         //return !productionOrderDetailBean.findBySalesOrderFormid(formid).isEmpty();
         return false;
     }
-    
+
     @Override
     public void setDetail(Object value) {
         detailList = salesOrderDetailBean.findByPId(value);
@@ -50,7 +50,7 @@ public class SalesOrderBean extends SuperBean<SalesOrder> {
             detailList = new ArrayList<>();
         }
     }
-    
+
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void persist(SalesOrder s, List<SalesOrderDetail> detailList) {
         try {
@@ -69,5 +69,5 @@ public class SalesOrderBean extends SuperBean<SalesOrder> {
     public List<SalesOrderDetail> getDetailList() {
         return detailList;
     }
-    
+
 }

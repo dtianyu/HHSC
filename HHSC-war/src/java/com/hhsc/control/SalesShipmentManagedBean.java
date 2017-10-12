@@ -5,6 +5,8 @@
  */
 package com.hhsc.control;
 
+import com.hhsc.ejb.CustomerItemBean;
+import com.hhsc.ejb.ItemColorBean;
 import com.hhsc.ejb.ItemInventoryBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SalesShipmentBean;
@@ -13,7 +15,9 @@ import com.hhsc.ejb.SalesTransactionBean;
 import com.hhsc.ejb.SalesTypeBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Customer;
+import com.hhsc.entity.CustomerItem;
 import com.hhsc.entity.Department;
+import com.hhsc.entity.ItemColor;
 import com.hhsc.entity.ItemInventory;
 import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.SalesShipment;
@@ -32,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -46,8 +52,9 @@ import org.primefaces.event.SelectEvent;
 public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, SalesShipmentDetail> {
 
     @EJB
-    private SalesTransactionBean salesTransactionBean;
-
+    private CustomerItemBean customerItemBean;
+    @EJB
+    private ItemColorBean itemColorBean;
     @EJB
     private ItemInventoryBean itemInventoryBean;
     @EJB
@@ -59,6 +66,9 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     protected SalesShipmentBean salesShipmentBean;
     @EJB
     protected SalesShipmentDetailBean salesShipmentDetailBean;
+
+    @EJB
+    private SalesTransactionBean salesTransactionBean;
 
     private List<SalesType> salesTypeList;
 
@@ -100,6 +110,26 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     }
 
     @Override
+    protected boolean doAfterVerify() throws Exception {
+        if (!super.doAfterVerify()) {
+            return false;
+        }
+        if (currentEntity.getCustomer().isAutotransfer()) {
+            String msg = salesShipmentBean.initHHDSPA(currentEntity.getFormid());
+            String[] rm = msg.split("\\$");
+            if (rm != null) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, rm);
+            }
+            if (rm.length == 2 && rm[0].equals("200")) {
+                showInfoMsg("Info", "电商进货单号" + rm[1]);
+            } else {
+                showErrorMsg("Error", msg);
+            }
+        }
+        return true;
+    }
+
+    @Override
     protected boolean doBeforeUnverify() throws Exception {
         if (!super.doBeforeUnverify()) {
             return false;
@@ -121,6 +151,30 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             if (st != null && !st.getStatus().equals("50")) {
                 showErrorMsg("Error", detail.getPid() + "出货单已立账不可还原");
                 return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean doBeforeUpdate() throws Exception {
+        if (!super.doBeforeUpdate()) {
+            return false;
+        }
+        if (currentEntity.getCustomer().isAutotransfer()) {
+            CustomerItem ci;
+            ItemColor ic;
+            for (SalesShipmentDetail d : detailList) {
+                ci = customerItemBean.findFirstCustomerItemno(d.getItemno(), currentEntity.getCustomer().getCustomerno());
+                if (ci == null) {
+                    showErrorMsg("Error", "没有" + d.getItemno() + "对应的客户品号");
+                    return false;
+                }
+                ic = itemColorBean.findByItemnoAndColorno(d.getItemno(), d.getColorno(), ci.getCustomeritemno(), ci.getCustomeritemno());
+                if (ic == null) {
+                    showErrorMsg("Error", "没有" + d.getItemno() + "对应的转换品号");
+                    return false;
+                }
             }
         }
         return true;

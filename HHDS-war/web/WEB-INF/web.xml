@@ -26,7 +26,7 @@
     </context-param>
     <context-param>
         <param-name>com.hhsc.web.reportviewcontext</param-name>
-        <param-value>/HHSC-war/rpt/output/</param-value>
+        <param-value>/HHDS-war/rpt/output/</param-value>
     </context-param>
     <context-param>
         <param-name>com.hhsc.jpa.unitname</param-name>

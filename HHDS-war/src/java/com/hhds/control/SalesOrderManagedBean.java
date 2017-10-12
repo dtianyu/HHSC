@@ -140,6 +140,22 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     }
 
     @Override
+    protected boolean doBeforeUpdate() throws Exception {
+        if (super.doBeforeUpdate()) {
+            for (SalesOrderDetail sod : detailList) {
+                currentDetail = sod;
+                currentDetail.setFirstdelivery(currentEntity.getFirstdelivery());
+                currentDetail.setFirsttime(currentEntity.getFirsttime());
+                currentDetail.setLastdelivery(currentEntity.getLastdelivery());
+                currentDetail.setLasttime(currentEntity.getLasttime());
+                doConfirmDetail();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     protected boolean doBeforeUnverify() throws Exception {
         if (currentEntity == null) {
             showWarnMsg("Warn", "没有可更新数据");
@@ -148,10 +164,6 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         SalesOrder e = salesOrderBean.findById(currentEntity.getId());
         if (!"V".equals(e.getStatus())) {
             showErrorMsg("Warn", "状态已变更");
-            return false;
-        }
-        if (salesOrderBean.hasPurchaseRequest(currentEntity.getFormid())) {
-            showErrorMsg("Error", "已有请购资料无法还原");
             return false;
         }
         if (detailList != null && !detailList.isEmpty()) {
@@ -175,6 +187,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         Tax t = BaseLib.getTaxes(this.currentEntity.getTaxtype(), this.currentEntity.getTaxkind(), this.currentEntity.getTaxrate(), this.currentDetail.getAmts(), 2);
         this.currentDetail.setExtax(t.getExtax());
         this.currentDetail.setTaxes(t.getTaxes());
+        this.currentDetail.setFirstdelivery(currentEntity.getFirstdelivery());
+        this.currentDetail.setFirsttime(currentEntity.getFirsttime());
+        this.currentDetail.setLastdelivery(currentEntity.getLastdelivery());
+        this.currentDetail.setLasttime(currentEntity.getLasttime());
         super.doConfirmDetail();
     }
 

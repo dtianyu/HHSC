@@ -31,7 +31,7 @@ public class UserIdValidator implements Validator {
                 return;
             }
         }
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"号码已注册", "号码已注册");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "号码已注册", "号码已注册");
         throw new ValidatorException(message);
     }
 

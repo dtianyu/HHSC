@@ -24,15 +24,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "warehouse")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Warehouse.getRowCount", query = "SELECT COUNT(w) FROM Warehouse w"),
-    @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w"),
-    @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id"),
-    @NamedQuery(name = "Warehouse.findByWarehouseno", query = "SELECT w FROM Warehouse w WHERE w.warehouseno = :warehouseno"),
-    @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name"),
-    @NamedQuery(name = "Warehouse.findByHascost", query = "SELECT w FROM Warehouse w WHERE w.hascost = :hascost"),
-    @NamedQuery(name = "Warehouse.findBySysId", query = "SELECT w FROM Warehouse w WHERE w.sysid = :sysid"),
-    @NamedQuery(name = "Warehouse.findByAreaId", query = "SELECT w FROM Warehouse w WHERE w.areaid = :areaid"),
-    @NamedQuery(name = "Warehouse.findByManagerId", query = "SELECT w FROM Warehouse w WHERE w.managerid = :managerid"),
+    @NamedQuery(name = "Warehouse.getRowCount", query = "SELECT COUNT(w) FROM Warehouse w")
+    ,
+    @NamedQuery(name = "Warehouse.findAll", query = "SELECT w FROM Warehouse w")
+    ,
+    @NamedQuery(name = "Warehouse.findById", query = "SELECT w FROM Warehouse w WHERE w.id = :id")
+    ,
+    @NamedQuery(name = "Warehouse.findByWarehouseno", query = "SELECT w FROM Warehouse w WHERE w.warehouseno = :warehouseno")
+    ,
+    @NamedQuery(name = "Warehouse.findByName", query = "SELECT w FROM Warehouse w WHERE w.name = :name")
+    ,
+    @NamedQuery(name = "Warehouse.findByHascost", query = "SELECT w FROM Warehouse w WHERE w.hascost = :hascost")
+    ,
+    @NamedQuery(name = "Warehouse.findBySysId", query = "SELECT w FROM Warehouse w WHERE w.sysid = :sysid")
+    ,
+    @NamedQuery(name = "Warehouse.findByAreaId", query = "SELECT w FROM Warehouse w WHERE w.areaid = :areaid")
+    ,
+    @NamedQuery(name = "Warehouse.findByManagerId", query = "SELECT w FROM Warehouse w WHERE w.managerid = :managerid")
+    ,
     @NamedQuery(name = "Warehouse.findByStatus", query = "SELECT w FROM Warehouse w WHERE w.status = :status")})
 public class Warehouse extends SuperEntity {
 

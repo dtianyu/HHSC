@@ -16,10 +16,10 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class SalesShipmentDetailForQueryBean extends SuperBean<SalesShipmentDetailForQuery>{
+public class SalesShipmentDetailForQueryBean extends SuperBean<SalesShipmentDetailForQuery> {
 
-    public SalesShipmentDetailForQueryBean(){
+    public SalesShipmentDetailForQueryBean() {
         super(SalesShipmentDetailForQuery.class);
     }
-    
+
 }

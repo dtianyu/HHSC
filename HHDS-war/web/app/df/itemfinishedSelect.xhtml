@@ -20,16 +20,16 @@
                 <f:facet name="left">
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{itemFinishedQueryBean.reset()}"  icon="ui-icon-refresh"  
-                                     update=":formList"/> 
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{itemFinishedQueryBean.query()}"  icon="ui-icon-search"  
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{itemFinishedQueryBean.reset()}"  icon="ui-icon-refresh"
                                      update=":formList"/>
-                    <p:commandButton id="btnSelected" value="确定" actionListener="#{itemFinishedQueryBean.closeDialog()}" icon="ui-icon-plus" />                                                     
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{itemFinishedQueryBean.query()}"  icon="ui-icon-search"
+                                     update=":formList"/>
+                    <p:commandButton id="btnSelected" value="确定" actionListener="#{itemFinishedQueryBean.closeDialog()}" icon="ui-icon-plus" />
                 </f:facet>
-            </p:toolbar>               
-            <p:dataTable value="#{itemFinishedQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="10"  
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                         rowsPerPageTemplate="10,20,30"  lazy="true" 
+            </p:toolbar>
+            <p:dataTable value="#{itemFinishedQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="10"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,30"  lazy="true"
                          selectionMode="single" selection="#{itemFinishedQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
@@ -44,7 +44,7 @@
                         <h:outputText value="名称"/>
                     </f:facet>
                     <h:outputText value="#{item.itemdesc}"/>
-                </p:column>                 
+                </p:column>
             </p:dataTable>
         </h:form>
 

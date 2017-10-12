@@ -38,17 +38,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "SalesShipmentDetailForQuery.findByItemno", query = "SELECT s FROM SalesShipmentDetailForQuery s WHERE s.itemno = :itemno")})
 public class SalesShipmentDetailForQuery extends BaseEntity {
-    
+
     @JoinColumn(name = "batch", referencedColumnName = "itemno", insertable = false, updatable = false)
     @ManyToOne(optional = true)
     private ItemMaster itemBatch;
-    
+
     @Column(name = "badqty")
     private BigDecimal badqty;
     @JoinColumn(name = "badwarehouse", referencedColumnName = "warehouseno")
     @ManyToOne(optional = true)
     private Warehouse warehouse2;
-    
+
     @JoinColumn(name = "pid", referencedColumnName = "formid")
     @ManyToOne(optional = false)
     private SalesShipment salesShipment;

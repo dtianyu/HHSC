@@ -30,17 +30,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "iteminventory")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemInventory.getRowCount", query = "SELECT COUNT(i) FROM ItemInventory i"),
-    @NamedQuery(name = "ItemInventory.findAll", query = "SELECT i FROM ItemInventory i"),
-    @NamedQuery(name = "ItemInventory.findItemInventory", query = "SELECT i FROM ItemInventory i where i.itemmaster.itemno = :itemno AND i.colorno = :colorno AND i.brand = :brand AND i.batch = :batch AND i.sn = :sn AND i.warehouse.warehouseno = :warehouseno"),
-    @NamedQuery(name = "ItemInventory.findItemInventories", query = "SELECT i FROM ItemInventory i where i.itemmaster.itemno = :itemno AND i.colorno = :colorno AND i.brand = :brand AND i.batch = :batch AND i.sn = :sn"),
-    @NamedQuery(name = "ItemInventory.findById", query = "SELECT i FROM ItemInventory i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemInventory.findByItemno", query = "SELECT i FROM ItemInventory i WHERE i.itemmaster.itemno = :itemno"),
-    @NamedQuery(name = "ItemInventory.findByColorno", query = "SELECT i FROM ItemInventory i WHERE i.colorno = :colorno"),
-    @NamedQuery(name = "ItemInventory.findByBrand", query = "SELECT i FROM ItemInventory i WHERE i.brand = :brand"),
-    @NamedQuery(name = "ItemInventory.findByBatch", query = "SELECT i FROM ItemInventory i WHERE i.batch = :batch"),
-    @NamedQuery(name = "ItemInventory.findBySn", query = "SELECT i FROM ItemInventory i WHERE i.sn = :sn"),
-    @NamedQuery(name = "ItemInventory.findByWarehouseno", query = "SELECT i FROM ItemInventory i WHERE i.warehouse.warehouseno = :warehouseno"),
+    @NamedQuery(name = "ItemInventory.getRowCount", query = "SELECT COUNT(i) FROM ItemInventory i")
+    ,
+    @NamedQuery(name = "ItemInventory.findAll", query = "SELECT i FROM ItemInventory i")
+    ,
+    @NamedQuery(name = "ItemInventory.findItemInventory", query = "SELECT i FROM ItemInventory i where i.itemmaster.itemno = :itemno AND i.colorno = :colorno AND i.brand = :brand AND i.batch = :batch AND i.sn = :sn AND i.warehouse.warehouseno = :warehouseno")
+    ,
+    @NamedQuery(name = "ItemInventory.findItemInventories", query = "SELECT i FROM ItemInventory i where i.itemmaster.itemno = :itemno AND i.colorno = :colorno AND i.brand = :brand AND i.batch = :batch AND i.sn = :sn")
+    ,
+    @NamedQuery(name = "ItemInventory.findById", query = "SELECT i FROM ItemInventory i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemInventory.findByItemno", query = "SELECT i FROM ItemInventory i WHERE i.itemmaster.itemno = :itemno")
+    ,
+    @NamedQuery(name = "ItemInventory.findByColorno", query = "SELECT i FROM ItemInventory i WHERE i.colorno = :colorno")
+    ,
+    @NamedQuery(name = "ItemInventory.findByBrand", query = "SELECT i FROM ItemInventory i WHERE i.brand = :brand")
+    ,
+    @NamedQuery(name = "ItemInventory.findByBatch", query = "SELECT i FROM ItemInventory i WHERE i.batch = :batch")
+    ,
+    @NamedQuery(name = "ItemInventory.findBySn", query = "SELECT i FROM ItemInventory i WHERE i.sn = :sn")
+    ,
+    @NamedQuery(name = "ItemInventory.findByWarehouseno", query = "SELECT i FROM ItemInventory i WHERE i.warehouse.warehouseno = :warehouseno")
+    ,
     @NamedQuery(name = "ItemInventory.findByStatus", query = "SELECT i FROM ItemInventory i WHERE i.status = :status")})
 public class ItemInventory extends SuperEntity {
 

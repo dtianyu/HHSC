@@ -25,7 +25,7 @@
                                      rendered="#{salesOrderManagedBean.doCfm}" process="@this" update="formView">
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnPrint" value="打印订单" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
                                      rendered="#{salesOrderManagedBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>

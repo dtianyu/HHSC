@@ -85,7 +85,7 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
         return query.getResultList();
     }
 
-    //增加数量                                                    
+    //增加数量
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void add(ItemInventory entity) throws RuntimeException {
         if (entity.getItemmaster().getInvtype()) {
@@ -145,13 +145,13 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
         if (entity.getColorno() == null) {
             entity.setColorno("");
         }
-        if (entity.getBrand() == null) {
+        if (entity.getBrand() == null || entity.getItemmaster().getBbstype().substring(0, 1).equals("0")) {
             entity.setBrand("");
         }
-        if (entity.getBatch() == null) {
+        if (entity.getBatch() == null || entity.getItemmaster().getBbstype().substring(1, 2).equals("0")) {
             entity.setBatch("");
         }
-        if (entity.getSn() == null) {
+        if (entity.getSn() == null || entity.getItemmaster().getBbstype().substring(2).equals("0")) {
             entity.setSn("");
         }
     }

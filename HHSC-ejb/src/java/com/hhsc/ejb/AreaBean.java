@@ -21,5 +21,5 @@ public class AreaBean extends SuperBean<Area> {
     public AreaBean() {
         super(Area.class);
     }
-    
+
 }

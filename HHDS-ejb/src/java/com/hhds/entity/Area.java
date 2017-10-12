@@ -29,11 +29,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "area")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Area.getRowCount", query = "SELECT COUNT(a) FROM Area a"),
-    @NamedQuery(name = "Area.findAll", query = "SELECT a FROM Area a"),
-    @NamedQuery(name = "Area.findById", query = "SELECT a FROM Area a WHERE a.id = :id"),
-    @NamedQuery(name = "Area.findByLvl", query = "SELECT a FROM Area a WHERE a.lvl = :lvl"),
-    @NamedQuery(name = "Area.findByName", query = "SELECT a FROM Area a WHERE a.name = :name"),
+    @NamedQuery(name = "Area.getRowCount", query = "SELECT COUNT(a) FROM Area a")
+    ,
+    @NamedQuery(name = "Area.findAll", query = "SELECT a FROM Area a")
+    ,
+    @NamedQuery(name = "Area.findById", query = "SELECT a FROM Area a WHERE a.id = :id")
+    ,
+    @NamedQuery(name = "Area.findByLvl", query = "SELECT a FROM Area a WHERE a.lvl = :lvl")
+    ,
+    @NamedQuery(name = "Area.findByName", query = "SELECT a FROM Area a WHERE a.name = :name")
+    ,
     @NamedQuery(name = "Area.findByStatus", query = "SELECT a FROM Area a WHERE a.status = :status")})
 public class Area extends SuperEntity {
 

@@ -5,7 +5,6 @@
  */
 package com.hhsc.ejb;
 
-
 import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.SystemName;
 import javax.ejb.Stateless;
@@ -20,5 +19,5 @@ public class SystemNameBean extends SuperBean<SystemName> {
     public SystemNameBean() {
         super(SystemName.class);
     }
-    
+
 }

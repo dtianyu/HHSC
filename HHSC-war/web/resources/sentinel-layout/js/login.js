@@ -1,14 +1,14 @@
-$(function() {
+$(function () {
     var loginBox = $('#login-box');
-    if(loginBox.length) {
+    if (loginBox.length) {
         var tabHeaders = loginBox.find('.TabBtn'),
-        tabContents = loginBox.find('.TabContent');
-        
-        tabHeaders.on('click', function(e) {
+                tabContents = loginBox.find('.TabContent');
+
+        tabHeaders.on('click', function (e) {
             tabHeaders.removeClass('TabBtnActiveLeft TabBtnActiveRight');
             tabContents.addClass('DispNone');
 
-            if($(this).hasClass('left')) {
+            if ($(this).hasClass('left')) {
                 $(this).addClass('TabBtnActiveLeft');
                 $('#TAB' + $(this).attr('role')).removeClass('DispNone');
             } else {
@@ -18,5 +18,5 @@ $(function() {
 
             e.preventDefault();
         });
-    } 
+    }
 });

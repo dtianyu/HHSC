@@ -29,5 +29,5 @@ public class AccountReceiptModel extends BaseLazyModel<AccountReceipt> {
         return super.load(first, pageSize, sortField, sortOrder, filters);
 
     }
-    
+
 }

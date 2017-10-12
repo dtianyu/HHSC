@@ -21,13 +21,20 @@ import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.SuperEJB;
 import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ParameterMode;
+import static javax.xml.rpc.encoding.XMLType.XSD_STRING;
+import org.apache.axis.client.Call;
 
 /**
  *
@@ -373,6 +380,24 @@ public class SalesShipmentBean extends SuperBean<SalesShipment> {
             throw new RuntimeException(ex);
         }
 
+    }
+
+    public String initHHDSPA(String formid) throws RemoteException {
+        Call call = createAXISCall(url);
+        if (call != null) {
+            try {
+                call.setOperationName(new QName(nameSpace, "createHHDSPAByHHSCSS"));
+                Object[] params = new Object[]{formid};
+                call.addParameter("formid", XSD_STRING, ParameterMode.IN);
+                call.setReturnType(XSD_STRING);
+                String ret = call.invoke(params).toString();
+                return ret;
+            } catch (RemoteException ex) {
+                Logger.getLogger(SalesShipmentBean.class.getName()).log(Level.SEVERE, null, ex);
+                return ex.getMessage();
+            }
+        }
+        return "系统异常";
     }
 
     /**

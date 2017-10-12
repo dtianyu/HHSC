@@ -9,6 +9,7 @@ import com.hhsc.comm.SuperBean;
 import com.hhsc.entity.SalesType;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +22,21 @@ public class SalesTypeBean extends SuperBean<SalesType> {
     public SalesTypeBean() {
         super(SalesType.class);
     }
-    
+
+    @Override
+    public SalesType findByFormId(String value) {
+        return findByType(value);
+    }
+
+    public SalesType findByType(String value) {
+        Query query = getEntityManager().createNamedQuery("SalesType.findByType");
+        query.setParameter("type", value);
+        try {
+            Object o = query.getSingleResult();
+            return (SalesType) o;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
 }

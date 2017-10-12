@@ -78,13 +78,6 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     }
 
     @Override
-    protected boolean doAfterPersist() throws Exception {
-        //新增后即审核2016/10/31
-        this.verify();
-        return super.doAfterPersist();
-    }
-
-    @Override
     protected boolean doBeforeDelete(ItemMaster entity) throws Exception {
         if (entity != null) {
             Map<String, Object> filters = new HashMap<>();
@@ -146,16 +139,33 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     }
 
     @Override
-    public String edit(String path) {
-        if (currentEntity != null) {
-            setDetailList(vendorItemBean.findByItemId(currentEntity.getId()));
-            if (this.detailList == null) {
-                this.detailList = new ArrayList<>();
-            }
-            return path;
-        } else {
-            showWarnMsg("Warn", "没有选择编辑数据");
-            return "";
+    protected boolean doBeforeVerify() throws Exception {
+        if (currentEntity == null) {
+            showWarnMsg("Warn", "没有可更新数据");
+            return false;
+        }
+        ItemMaster e = itemMasterBean.findById(currentEntity.getId());
+        if ("V".equals(e.getStatus())) {
+            showWarnMsg("Warn", "状态已变更");
+            return false;
+        }
+        if (detailList != null && !detailList.isEmpty()) {
+            detailList.clear();
+        }
+        detailList = vendorItemBean.findByItemId(currentEntity.getId());
+        if (this.detailList.isEmpty()) {
+            showErrorMsg("Error", "请设定供应商品号信息");
+            return false;
+        }
+        return true;
+    }
+
+    public void handleDialogReturnVendorDesignWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && this.currentDetail != null) {
+            com.hhsc.entity.ItemMaster im = (com.hhsc.entity.ItemMaster) event.getObject();
+            this.currentDetail.setVendordesignno(im.getItemno());
+            this.currentDetail.setVendoritemdesc(im.getItemdesc());
+            this.currentDetail.setVendoritemspec(im.getItemspec());
         }
     }
 
@@ -163,8 +173,6 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
         if (event.getObject() != null && this.currentDetail != null) {
             com.hhsc.entity.ItemMaster im = (com.hhsc.entity.ItemMaster) event.getObject();
             this.currentDetail.setVendoritemno(im.getItemno());
-            this.currentDetail.setVendoritemdesc(im.getItemdesc());
-            this.currentDetail.setVendoritemspec(im.getItemspec());
         }
     }
 
@@ -312,16 +320,28 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     }
 
     @Override
-    public String view(String path) {
-        if (currentEntity != null) {
-            setDetailList(vendorItemBean.findByItemId(currentEntity.getId()));
-            if (this.detailList == null) {
-                this.detailList = new ArrayList<>();
+    public void setCurrentEntity(ItemMaster currentEntity) {
+        this.currentEntity = currentEntity;
+        setToolBar();
+        if (currentEntity != null && currentEntity.getId() != null && this.model != null && !this.model.getDataList().isEmpty()) {
+            int idx = this.model.getDataList().indexOf(currentEntity);
+            if (idx == 0 && this.model.getDataList().size() == 1) {
+                setHasPrev(false);
+                setHasNext(false);
+            } else if (idx == 0 && this.model.getDataList().size() > 1) {
+                setHasPrev(false);
+                setHasNext(true);
+            } else if (idx == (this.model.getDataList().size() - 1)) {
+                setHasPrev(true);
+                setHasNext(false);
+            } else {
+                setHasPrev(true);
+                setHasNext(true);
             }
-            return path;
-        } else {
-            showWarnMsg("Warn", "没有选择编辑数据");
-            return "";
+        }
+        setDetailList(vendorItemBean.findByItemId(currentEntity.getId()));
+        if (this.detailList == null) {
+            this.detailList = new ArrayList<>();
         }
     }
 

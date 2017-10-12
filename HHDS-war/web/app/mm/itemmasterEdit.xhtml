@@ -103,17 +103,33 @@
                                     <p:commandButton id="btnVendorSelect" actionListener="#{itemMasterManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterManagedBean.handleDialogReturnWhenDetailEdit}"
-                                                update="vendorno" />
+                                                update="vendorno,vendor" />
                                     </p:commandButton>
                                 </p:column>
-                                <p:column><p:outputLabel value="供应商品号" for="vendoritemno" /></p:column>
+                                <p:column><h:outputText value="供应商"/></p:column>
                                 <p:column>
-                                    <p:inputText id="vendoritemno" value="#{itemMasterManagedBean.currentDetail.vendoritemno}" title="vendoritemno" styleClass="inputWithButton"
+                                    <h:outputText id="vendor" value="#{itemMasterManagedBean.currentDetail.vendor.vendor}" title="vendor" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="供应商品号" for="vendordesignno" /></p:column>
+                                <p:column>
+                                    <p:inputText id="vendordesignno" value="#{itemMasterManagedBean.currentDetail.vendordesignno}" title="vendordesignno" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入供应商品号"/>
                                     <p:commandButton id="btnItemFinishedSelect" actionListener="#{itemMasterManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{itemMasterManagedBean.handleDialogReturnVendorDesignWhenDetailEdit}"
+                                                update="vendordesignno,vendoritemdesc" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column><p:outputLabel value="面料编号" for="vendoritemno" /></p:column>
+                                <p:column>
+                                    <p:inputText id="vendoritemno" value="#{itemMasterManagedBean.currentDetail.vendoritemno}" title="vendoritemno" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入供应商品号"/>
+                                    <p:commandButton id="btnItemMasterSelect" actionListener="#{itemMasterManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemMasterManagedBean.handleDialogReturnVendorItemWhenDetailEdit}"
-                                                update="vendoritemno,vendoritemdesc" />
+                                                update="vendoritemno" />
                                     </p:commandButton>
                                 </p:column>
                             </p:row>
@@ -125,6 +141,16 @@
                                 <p:column><p:outputLabel value="供应商色号" for="vendoritemcolor" /></p:column>
                                 <p:column>
                                     <p:inputText id="vendoritemcolor" value="#{itemMasterManagedBean.currentDetail.vendoritemcolor}" title="vendoritemdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
+                                <p:column>
+                                    <p:inputSwitch id="invtype" value="#{itemMasterManagedBean.newEntity.invtype}" required="true"/>
+                                </p:column>
+                                <p:column><p:outputLabel value="批号管理" for="bbstype" /></p:column>
+                                <p:column>
+                                    <p:inputText id="bbstype" value="#{itemMasterManagedBean.newEntity.bbstype}" title="bbstype" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -144,23 +170,29 @@
                                 </f:facet>
                                 <h:outputText value="#{item.vendor.vendor}"/>
                             </p:column>
-                            <p:column styleClass="Wid20">
+                            <p:column styleClass="Wid10">
                                 <f:facet name="header">
-                                    <h:outputText value="供应商品号"/>
+                                    <h:outputText value="花号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendordesignno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="面料编号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.vendoritemno}"/>
-                            </p:column>
-                            <p:column styleClass="Wid30">
-                                <f:facet name="header">
-                                    <h:outputText value="供应商品名"/>
-                                </f:facet>
-                                <h:outputText value="#{item.vendoritemdesc}"/>
                             </p:column>
                             <p:column styleClass="Wid20">
                                 <f:facet name="header">
                                     <h:outputText value="供应商色号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.vendoritemcolor}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30">
+                                <f:facet name="header">
+                                    <h:outputText value="供应商品名"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendoritemdesc}"/>
                             </p:column>
                         </p:dataTable>
                     </p:panel>

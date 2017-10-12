@@ -180,7 +180,15 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
 
     public void handleDialogReturnBatchWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null && currentEntity != null) {
-            ItemMaster entity = (ItemMaster) event.getObject();
+            com.hhsc.entity.ItemMaster entity = (com.hhsc.entity.ItemMaster) event.getObject();
+            currentDetail.setBatch(entity.getItemno());
+        }
+    }
+
+    public void handleDialogReturnColornoWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            com.hhsc.entity.ItemColor entity = (com.hhsc.entity.ItemColor) event.getObject();
+            currentDetail.setColorno(entity.getColorno());
             currentDetail.setBatch(entity.getItemno());
         }
     }
@@ -288,7 +296,7 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
                             Map<String, List<String>> itemcolorParams = new HashMap<>();
                             List<String> itemno = new ArrayList<>();
                             itemno.add(currentDetail.getItemno());
-                            itemcolorParams.put("itemno", itemno);
+                            itemcolorParams.put("customeritemno", itemno);
                             super.openDialog("itemcolorSelect", itemcolorParams);
                         }
                         break;

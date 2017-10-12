@@ -30,10 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseOrderDetailForStorage.findAll", query = "SELECT p FROM PurchaseOrderDetailForStorage p"),
-    @NamedQuery(name = "PurchaseOrderDetailForStorage.findById", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseOrderDetailForStorage.findByPId", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.purchaseOrder.formid = :pid ORDER BY p.seq"),
-    @NamedQuery(name = "PurchaseOrderDetailForStorage.findByItemId", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.itemmaster.id = :itemmasterid"),
+    @NamedQuery(name = "PurchaseOrderDetailForStorage.findAll", query = "SELECT p FROM PurchaseOrderDetailForStorage p")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetailForStorage.findById", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetailForStorage.findByPId", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.purchaseOrder.formid = :pid ORDER BY p.seq")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetailForStorage.findByItemId", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.itemmaster.id = :itemmasterid")
+    ,
     @NamedQuery(name = "PurchaseOrderDetailForStorage.findByItemno", query = "SELECT p FROM PurchaseOrderDetailForStorage p WHERE p.itemno = :itemno")})
 public class PurchaseOrderDetailForStorage extends BaseEntity {
 

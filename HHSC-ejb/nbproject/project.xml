@@ -6,6 +6,10 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>HHSC-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <included-library dirs="200">libs.AXIS.classpath</included-library>
+            <included-library dirs="200">file.reference.commons-logging-1.2.jar</included-library>
+            <included-library dirs="200">file.reference.commons-discovery-0.5.jar</included-library>
+            <included-library dirs="200">file.reference.wsdl4j-1.6.3.jar</included-library>
             <included-library dirs="200">libs.LightShell.classpath</included-library>
             <source-roots>
                 <root id="src.dir"/>

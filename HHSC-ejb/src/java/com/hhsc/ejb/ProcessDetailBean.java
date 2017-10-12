@@ -21,5 +21,5 @@ public class ProcessDetailBean extends SuperBean<ProcessDetail> {
     public ProcessDetailBean() {
         super(ProcessDetail.class);
     }
-    
+
 }

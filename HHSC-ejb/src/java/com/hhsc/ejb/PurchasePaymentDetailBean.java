@@ -21,5 +21,5 @@ public class PurchasePaymentDetailBean extends SuperBean<PurchasePaymentDetail> 
     public PurchasePaymentDetailBean() {
         super(PurchasePaymentDetail.class);
     }
-    
+
 }

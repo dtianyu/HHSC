@@ -30,12 +30,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchasetransaction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseTransaction.findAll", query = "SELECT p FROM PurchaseTransaction p"),
-    @NamedQuery(name = "PurchaseTransaction.findById", query = "SELECT p FROM PurchaseTransaction p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseTransaction.findByFormid", query = "SELECT p FROM PurchaseTransaction p WHERE p.formid = :formid"),
-    @NamedQuery(name = "PurchaseTransaction.findByFormidAndSeq", query = "SELECT p FROM PurchaseTransaction p WHERE p.formid = :formid AND p.seq = :seq"),
-    @NamedQuery(name = "PurchaseTransaction.findByPId", query = "SELECT p FROM PurchaseTransaction p WHERE p.pid = :pid"),
-    @NamedQuery(name = "PurchaseTransaction.findByAbroad", query = "SELECT p FROM PurchaseTransaction p WHERE p.abroad = :abroad"),
+    @NamedQuery(name = "PurchaseTransaction.findAll", query = "SELECT p FROM PurchaseTransaction p")
+    ,
+    @NamedQuery(name = "PurchaseTransaction.findById", query = "SELECT p FROM PurchaseTransaction p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseTransaction.findByFormid", query = "SELECT p FROM PurchaseTransaction p WHERE p.formid = :formid")
+    ,
+    @NamedQuery(name = "PurchaseTransaction.findByFormidAndSeq", query = "SELECT p FROM PurchaseTransaction p WHERE p.formid = :formid AND p.seq = :seq")
+    ,
+    @NamedQuery(name = "PurchaseTransaction.findByPId", query = "SELECT p FROM PurchaseTransaction p WHERE p.pid = :pid")
+    ,
+    @NamedQuery(name = "PurchaseTransaction.findByAbroad", query = "SELECT p FROM PurchaseTransaction p WHERE p.abroad = :abroad")
+    ,
     @NamedQuery(name = "PurchaseTransaction.findByVendorId", query = "SELECT p FROM PurchaseTransaction p WHERE p.vendor.id = :vendorid")})
 public class PurchaseTransaction extends FormDetailEntity {
 

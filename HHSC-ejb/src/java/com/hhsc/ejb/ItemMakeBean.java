@@ -21,5 +21,5 @@ public class ItemMakeBean extends SuperBean<ItemMake> {
     public ItemMakeBean() {
         super(ItemMake.class);
     }
-    
+
 }

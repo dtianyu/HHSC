@@ -9,8 +9,6 @@ import com.hhsc.ejb.SalesOrderDetailForQueryBean;
 import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.hhsc.lazy.SalesOrderDetailForQueryModel;
 import com.hhsc.web.SuperQueryBean;
-import com.lightshell.comm.BaseLib;
-import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

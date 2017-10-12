@@ -24,9 +24,9 @@ public class ItemMasterModel extends BaseLazyModel<ItemMaster> {
 
     @Override
     public List<ItemMaster> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        this.sortFields.put("status", "ASC");       
+        this.sortFields.put("status", "ASC");
         this.sortFields.put("id", "DESC");
-        return super.load(first, pageSize, sortField, sortOrder, filters); 
+        return super.load(first, pageSize, sortField, sortOrder, filters);
     }
-       
+
 }

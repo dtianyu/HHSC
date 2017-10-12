@@ -31,18 +31,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseOrderDetail.getRowCount", query = "SELECT COUNT(p) FROM PurchaseOrderDetail p"),
-    @NamedQuery(name = "PurchaseOrderDetail.findAll", query = "SELECT p FROM PurchaseOrderDetail p"),
-    @NamedQuery(name = "PurchaseOrderDetail.findById", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByPId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid ORDER BY p.seq"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid AND p.seq = :seq"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByItemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByColorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.colorno = :colorno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByCustomerId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customerid = :customerid"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByCustomeritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customeritemno = :customeritemno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByCustomercolorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customercolorno = :customercolorno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findByVendoritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.vendoritemno = :vendoritemno"),
-    @NamedQuery(name = "PurchaseOrderDetail.findBySrcformid", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.srcformid = :srcformid"),
+    @NamedQuery(name = "PurchaseOrderDetail.getRowCount", query = "SELECT COUNT(p) FROM PurchaseOrderDetail p")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findAll", query = "SELECT p FROM PurchaseOrderDetail p")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findById", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByPId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid ORDER BY p.seq")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.pid = :pid AND p.seq = :seq")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByItemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.itemno = :itemno")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByColorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.colorno = :colorno")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByCustomerId", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customerid = :customerid")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByCustomeritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customeritemno = :customeritemno")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByCustomercolorno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.customercolorno = :customercolorno")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findByVendoritemno", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.vendoritemno = :vendoritemno")
+    ,
+    @NamedQuery(name = "PurchaseOrderDetail.findBySrcformid", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.srcformid = :srcformid")
+    ,
     @NamedQuery(name = "PurchaseOrderDetail.findByDeliverydate", query = "SELECT p FROM PurchaseOrderDetail p WHERE p.deliverydate = :deliverydate")})
 public class PurchaseOrderDetail extends FormDetailEntity {
 

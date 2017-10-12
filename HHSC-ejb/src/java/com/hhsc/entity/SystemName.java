@@ -24,9 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "systemname")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SystemName.findAll", query = "SELECT s FROM SystemName s"),
-    @NamedQuery(name = "SystemName.findById", query = "SELECT s FROM SystemName s WHERE s.id = :id"),
-    @NamedQuery(name = "SystemName.findByName", query = "SELECT s FROM SystemName s WHERE s.name = :name"),
+    @NamedQuery(name = "SystemName.findAll", query = "SELECT s FROM SystemName s")
+    ,
+    @NamedQuery(name = "SystemName.findById", query = "SELECT s FROM SystemName s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SystemName.findByName", query = "SELECT s FROM SystemName s WHERE s.name = :name")
+    ,
     @NamedQuery(name = "SystemName.findByStatus", query = "SELECT s FROM SystemName s WHERE s.status = :status")})
 public class SystemName extends SuperEntity {
 

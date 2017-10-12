@@ -24,13 +24,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "transactiontype")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TransactionType.getRowCount", query = "SELECT COUNT(t) FROM TransactionType t"),
-    @NamedQuery(name = "TransactionType.findAll", query = "SELECT t FROM TransactionType t"),
-    @NamedQuery(name = "TransactionType.findById", query = "SELECT t FROM TransactionType t WHERE t.id = :id"),
-    @NamedQuery(name = "TransactionType.findByTrtype", query = "SELECT t FROM TransactionType t WHERE t.trtype = :trtype"),
-    @NamedQuery(name = "TransactionType.findBySystem", query = "SELECT t FROM TransactionType t WHERE t.sysid = :sysid"),
-    @NamedQuery(name = "TransactionType.findByIocode", query = "SELECT t FROM TransactionType t WHERE t.iocode = :iocode"),
-    @NamedQuery(name = "TransactionType.findByHascost", query = "SELECT t FROM TransactionType t WHERE t.hascost = :hascost"),
+    @NamedQuery(name = "TransactionType.getRowCount", query = "SELECT COUNT(t) FROM TransactionType t")
+    ,
+    @NamedQuery(name = "TransactionType.findAll", query = "SELECT t FROM TransactionType t")
+    ,
+    @NamedQuery(name = "TransactionType.findById", query = "SELECT t FROM TransactionType t WHERE t.id = :id")
+    ,
+    @NamedQuery(name = "TransactionType.findByTrtype", query = "SELECT t FROM TransactionType t WHERE t.trtype = :trtype")
+    ,
+    @NamedQuery(name = "TransactionType.findBySystem", query = "SELECT t FROM TransactionType t WHERE t.sysid = :sysid")
+    ,
+    @NamedQuery(name = "TransactionType.findByIocode", query = "SELECT t FROM TransactionType t WHERE t.iocode = :iocode")
+    ,
+    @NamedQuery(name = "TransactionType.findByHascost", query = "SELECT t FROM TransactionType t WHERE t.hascost = :hascost")
+    ,
     @NamedQuery(name = "TransactionType.findByStatus", query = "SELECT t FROM TransactionType t WHERE t.status = :status")})
 public class TransactionType extends SuperEntity {
 

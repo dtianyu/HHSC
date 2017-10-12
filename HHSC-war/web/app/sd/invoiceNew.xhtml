@@ -70,7 +70,6 @@
                             <p:selectOneMenu id="country" value="#{invoiceManagedBean.newEntity.country}" title="country"
                                              required="true" requiredMessage="请输入出产国" editable="true">
                                 <f:selectItem itemLabel="CHINA" itemValue="CHINA" />
-
                             </p:selectOneMenu>
                         </p:column>
                     </p:row>
@@ -82,7 +81,9 @@
                         <p:column><p:outputLabel value="出运方式" for="shipmode" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="shipmode" value="#{invoiceManagedBean.newEntity.shipmode}" title="shipmode" editable="true">
-                                <f:selectItem itemLabel="Air/UPS" itemValue="Air/UPS" />
+                                <f:selectItem itemLabel="AIR" itemValue="AIR" />
+                                <f:selectItem itemLabel="SEA" itemValue="SEA" />
+                                <f:selectItem itemLabel="EXPRESS" itemValue="EXPRESS" />
                             </p:selectOneMenu>
                         </p:column>
                     </p:row>
@@ -223,9 +224,9 @@
                                 <p:column>
                                     <p:inputText id="shipqty" value="#{invoiceManagedBean.currentDetail.shipqty}" title="Carton" />
                                 </p:column>
-                                <p:column><p:outputLabel value="PO#" for="dremark" /></p:column>
+                                <p:column><p:outputLabel value="PO#" for="srcformid" /></p:column>
                                 <p:column>
-                                    <p:inputText id="dremark" value="#{invoiceManagedBean.currentDetail.remark}" title="PO#" />
+                                    <p:inputText id="srcformid" value="#{invoiceManagedBean.currentDetail.srcformid}" title="PO#" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -236,6 +237,12 @@
                                 <p:column><p:outputLabel value="净重" for="inqty" /></p:column>
                                 <p:column>
                                     <p:inputText id="inqty" value="#{invoiceManagedBean.currentDetail.inqty}" title="N.W" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="dremark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="dremark" value="#{invoiceManagedBean.currentDetail.remark}" title="dremark" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

@@ -106,7 +106,7 @@ public class ProductionFinishBean extends SuperBean<ProductionFinish> {
                     i.setQty(d.getBadqty());//处理简化处理
                     inventoryList.add(i);
                 }
-                
+
                 s.setFinqty(s.getFinqty().subtract(d.getQty()));
                 getEntityManager().merge(s);
             }
@@ -219,7 +219,7 @@ public class ProductionFinishBean extends SuperBean<ProductionFinish> {
                     i.setQty(d.getBadqty().multiply(BigDecimal.valueOf(bTT.getIocode())));//出库就 x(-1)
                     inventoryList.add(i);
                 }
-                
+
                 s.setFinqty(s.getFinqty().add(d.getQty()));
                 getEntityManager().merge(s);
             }

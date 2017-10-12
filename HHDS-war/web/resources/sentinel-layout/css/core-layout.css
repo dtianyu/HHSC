@@ -10,8 +10,8 @@ body{height:100%; width:100%;}
 /* CORE LAYOUT STANDART STYLES ********************************************************************************************************** */
 
 a, div, span, input, textarea, li, strong, button{ outline:none; text-decoration:none;
-/* this removes gray outline from ios safari a tags */ -webkit-tap-highlight-color: rgba(0,0,0,0);
-/* this removes action panels from ios safari a tags */ -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-touch-callout: none;}
+                                                   /* this removes gray outline from ios safari a tags */ -webkit-tap-highlight-color: rgba(0,0,0,0);
+                                                   /* this removes action panels from ios safari a tags */ -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-touch-callout: none;}
 img{ border:none; border:0px;}
 
 /*visibilities according to the platform*/
@@ -262,11 +262,11 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 .changecolor:hover{background-color:yellowgreen; padding: 20px;}
 
 .notransition {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  -ms-transition: none !important;
-  transition: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
 }
 /******************************************************************************************************************************** */
 
@@ -274,79 +274,79 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 
 /* Large desktop */
 @media (min-width: 960px){
-	.ContainerIndent{margin:8px 10px;}
-    
+    .ContainerIndent{margin:8px 10px;}
+
     /*visibilities according to the platform*/
-	.ShowOnMobile{display:none; opacity:0;}
-	.ShowOnDesktop{display:inherit; opacity:1;}
+    .ShowOnMobile{display:none; opacity:0;}
+    .ShowOnDesktop{display:inherit; opacity:1;}
 }
 
 @media (min-width: 960px) and (max-width:1200px){
-	/* responsive support */
-	.Responsive{width:33.3%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive50{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-    
+    /* responsive support */
+    .Responsive{width:33.3%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive50{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+
     /* make auto of element width attribute on mobile devices with media queries */
     .WidAutoOnMobile{width:auto !important;}
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
 } 
- 
+
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 640px) and (max-width: 960px) {	
-	.span3 {width: 45%;}
-	.ContainerIndent{margin:6px 8px;}
-	
+    .span3 {width: 45%;}
+    .ContainerIndent{margin:6px 8px;}
+
     /*visibilities according to the platform*/
-	.ShowOnMobile{display:inherit; opacity:1;}
-	.ShowOnDesktop{display:none; opacity:0;}
+    .ShowOnMobile{display:inherit; opacity:1;}
+    .ShowOnDesktop{display:none; opacity:0;}
     .FloatNoneOnMobile{float:none !important;}
-	
-	/* responsive support */
-	.Responsive{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-    
+
+    /* responsive support */
+    .Responsive{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+
     /* make auto of element width attribute on mobile devices with media queries */
     .WidAutoOnMobile{width:auto !important;}
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
 }
- 
+
 /* Landscape phone to portrait tablet */
 @media (max-width: 640px) {									  
-	.ContainerIndent{margin:6px 8px;}
+    .ContainerIndent{margin:6px 8px;}
     .DisplayOnResponsive{display:block; float:right;}
-    
+
     /*visibilities according to the platform*/
-	.ShowOnMobile{display:inherit; opacity:1;}
-	.ShowOnDesktop{display:none; opacity:0;}
+    .ShowOnMobile{display:inherit; opacity:1;}
+    .ShowOnDesktop{display:none; opacity:0;}
     .FloatNoneOnMobile{float:none !important;}
-	
-	/* responsive support */
-	.Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-    
+
+    /* responsive support */
+    .Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+
     /* make auto of element width attribute on mobile devices with media queries */
     .WidAutoOnMobile{width:auto !important;}
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
 }
- 
+
 /* Portrait phones and down */
 @media (max-width: 480px) {
     .span3 {width: 90%;}	
-	.ContainerIndent{margin:16px 8px 0px 8px;}
-    
+    .ContainerIndent{margin:16px 8px 0px 8px;}
+
     /*visibilities according to the platform*/
-	.ShowOnMobile{display:inherit; opacity:1;}
-	.ShowOnDesktop{display:none; opacity:0;}
+    .ShowOnMobile{display:inherit; opacity:1;}
+    .ShowOnDesktop{display:none; opacity:0;}
     .FloatNoneOnMobile{float:none !important;}
-	
-	/* responsive support */
-	.Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
-    
+
+    /* responsive support */
+    .Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+    .Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+
     /* make auto of element width attribute on mobile devices with media queries */
     .WidAutoOnMobile{width:auto !important;}
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
@@ -354,14 +354,14 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 
 /* Landscape phones */
 @media (min-height:200px) and (max-height:500px) and (max-width:960px){
-	
+
 }
 
 /* clearfix for Container */
 .Container:before,.Container:after {
-	content: "";
-	display: table;
-	border-collapse: collapse;
+    content: "";
+    display: table;
+    border-collapse: collapse;
 }
 
 .Container:after {

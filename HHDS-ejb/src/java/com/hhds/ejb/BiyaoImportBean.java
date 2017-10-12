@@ -27,20 +27,20 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class BiyaoImportBean extends SuperBean<BiyaoImport> {
-    
+
     @EJB
     private SalesOrderBean salesOrderBean;
-    
+
     @EJB
     private ItemMasterBean itemMasterBean;
-    
+
     @EJB
     private CustomerBean customerBean;
-    
+
     public BiyaoImportBean() {
         super(BiyaoImport.class);
     }
-    
+
     public boolean verify(List<BiyaoImport> entityList) {
         int seq = 0;
         BigDecimal totalAmts = BigDecimal.ZERO;
@@ -96,7 +96,7 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
                     so.setStatusToNew();
                     so.setCreator(e.getCreator());
                     so.setCredateToNow();
-                    
+
                     sod = new SalesOrderDetail();
                     sod.setPid(e.getFormid());
                     sod.setSeq(seq);
@@ -162,5 +162,5 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
             return false;
         }
     }
-    
+
 }

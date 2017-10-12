@@ -29,15 +29,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "department")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Department.getRowCount", query = "SELECT COUNT(d) FROM Department d"),
-    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d"),
-    @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.id = :id"),
-    @NamedQuery(name = "Department.findByDeptno", query = "SELECT d FROM Department d WHERE d.deptno = :deptno"),
-    @NamedQuery(name = "Department.findByDept", query = "SELECT d FROM Department d WHERE d.dept = :dept"),
-    @NamedQuery(name = "Department.findByLeader", query = "SELECT d FROM Department d WHERE d.leader = :leader"),
+    @NamedQuery(name = "Department.getRowCount", query = "SELECT COUNT(d) FROM Department d")
+    ,
+    @NamedQuery(name = "Department.findAll", query = "SELECT d FROM Department d")
+    ,
+    @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.id = :id")
+    ,
+    @NamedQuery(name = "Department.findByDeptno", query = "SELECT d FROM Department d WHERE d.deptno = :deptno")
+    ,
+    @NamedQuery(name = "Department.findByDept", query = "SELECT d FROM Department d WHERE d.dept = :dept")
+    ,
+    @NamedQuery(name = "Department.findByLeader", query = "SELECT d FROM Department d WHERE d.leader = :leader")
+    ,
     @NamedQuery(name = "Department.findByStatus", query = "SELECT d FROM Department d WHERE d.status = :status")})
 public class Department extends SuperEntity {
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -54,7 +60,7 @@ public class Department extends SuperEntity {
     @Size(max = 300)
     @Column(name = "remark")
     private String remark;
-    
+
     @OneToMany(mappedBy = "pid")
     private List<Department> departmentList;
     @JoinColumn(name = "pid", referencedColumnName = "id")
@@ -140,5 +146,5 @@ public class Department extends SuperEntity {
     public String toString() {
         return "com.hhsc.entity.Department[ id=" + id + " ]";
     }
-    
+
 }

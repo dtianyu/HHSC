@@ -67,6 +67,11 @@ public class VendorItem extends SuperDetailEntity {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
+    @Column(name = "vendordesignno")
+    private String vendordesignno;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "vendoritemno")
     private String vendoritemno;
     @Size(max = 45)
@@ -101,6 +106,20 @@ public class VendorItem extends SuperDetailEntity {
 
     public void setItemno(String itemno) {
         this.itemno = itemno;
+    }
+
+    /**
+     * @return the vendordesignno
+     */
+    public String getVendordesignno() {
+        return vendordesignno;
+    }
+
+    /**
+     * @param vendordesignno the vendordesignno to set
+     */
+    public void setVendordesignno(String vendordesignno) {
+        this.vendordesignno = vendordesignno;
     }
 
     public String getVendoritemno() {

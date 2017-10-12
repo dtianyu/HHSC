@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class InventoryTransactionModel extends BaseLazyModel<InventoryTransaction>{
-    
-    public InventoryTransactionModel(SuperEJB superEJB){
+public class InventoryTransactionModel extends BaseLazyModel<InventoryTransaction> {
+
+    public InventoryTransactionModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class UnitModel extends BaseLazyModel<Unit>{
-    
-    public UnitModel(SuperEJB superEJB){
+public class UnitModel extends BaseLazyModel<Unit> {
+
+    public UnitModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

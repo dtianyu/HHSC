@@ -23,7 +23,7 @@ public class CurrencyManagedBean extends SuperSingleBean<Currency> {
 
     @EJB
     private CurrencyBean currencyBean;
-   
+
     public CurrencyManagedBean() {
         super(Currency.class);
     }
@@ -32,7 +32,7 @@ public class CurrencyManagedBean extends SuperSingleBean<Currency> {
     public void init() {
         this.superEJB = currencyBean;
         setModel(new CurrencyModel(currencyBean));
-        super.init(); 
-    }   
-    
+        super.init();
+    }
+
 }

@@ -173,7 +173,7 @@ public class ItemMaster extends SuperEntity {
         this.invtype = true;
         this.unittype = "11";
         this.qcpass = false;
-        this.bbstype = "000";
+        this.bbstype = "111";
         this.stdcost = BigDecimal.ZERO;
         this.purprice = BigDecimal.ZERO;
         this.invmax = BigDecimal.ZERO;

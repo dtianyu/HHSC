@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="dailyout" icon="ui-icon-arrowreturn-1-w"  />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{businessOutManagedBean.update()}" icon="ui-icon-disk"
+                                     process="@this,plgHead,:formEdit:tabView:plgBase"
+                                     update="formEdit"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="日常开支－修改">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="编号" for="formid" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="formid" value="#{businessOutManagedBean.currentEntity.formid}" title="Formid"
+                                         required="true" requiredMessage="请输入编号" readonly="#{businessOutManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{businessOutManagedBean.currentEntity.formdate}" title="Formdate"
+                                        pattern="yyyy/MM/dd" required="true" requiredMessage="请输入日期">
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="类别" for="formkind" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="formkind" value="#{businessOutManagedBean.currentEntity.formkind}" title="formkind"
+                                             required="true" requiredMessage="请输入外卖类型">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{businessOutManagedBean.purchaseKindList}" var="k" itemLabel="#{k.name}" itemValue="#{k.name}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><p:outputLabel value="经办人" for="username" /></p:column>
+                        <p:column>
+                            <p:inputText id="username" value="#{businessOutManagedBean.currentEntity.username}" title="username" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="摘要" for="summary" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="summary" value="#{businessOutManagedBean.currentEntity.summary}" title="summary" />
+                                </p:column>
+                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                                    <p:graphicImage id="billno" value="/resources/upload/img/#{businessOutManagedBean.currentEntity.billno}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="支付类型" for="paykind" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:selectOneMenu id="paykind" value="#{businessOutManagedBean.currentEntity.payKind}" title="paykind"
+                                                     converter="payKindConverter" required="true" requiredMessage="请输入支付类型">
+                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                        <f:selectItems value="#{businessOutManagedBean.payKindList}" var="k" itemLabel="#{k.name}" itemValue="#{k}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="金额" for="amts"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="amts" value="#{businessOutManagedBean.currentEntity.amts}" title="amts"
+                                                 required="true" requiredMessage="请输入金额"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                                <p:column>
+                                    <p:inputText id="remark" value="#{businessOutManagedBean.currentEntity.remark}" title="Remark" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column></p:column>
+                                <p:column></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column></p:column>
+                                <p:column></p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formEdit" trigger="btnSave">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+        <h:form id="formUpload">
+            <p:fileUpload id="fileUpload" fileUploadListener="#{businessOutManagedBean.handleFileUploadWhenEdit}"  styleClass="fileUpload"
+                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000"
+                          label="选择" uploadLabel="上传" cancelLabel="还原" update=":formEdit:tabView:billno"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

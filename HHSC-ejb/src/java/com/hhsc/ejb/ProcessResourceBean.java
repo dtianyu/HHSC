@@ -23,11 +23,11 @@ public class ProcessResourceBean extends SuperBean<ProcessResource> {
     public ProcessResourceBean() {
         super(ProcessResource.class);
     }
-    
-    public List<ProcessResource> findByKind(String kind){
+
+    public List<ProcessResource> findByKind(String kind) {
         Query query = getEntityManager().createNamedQuery("ProcessResource.findByKind");
         query.setParameter("kind", kind);
-        return query.getResultList();      
+        return query.getResultList();
     }
 
 }

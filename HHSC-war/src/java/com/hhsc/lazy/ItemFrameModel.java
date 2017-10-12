@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class ItemFrameModel extends BaseLazyModel<ItemFrame>{
-    
-    public ItemFrameModel(SuperEJB superEJB){
+public class ItemFrameModel extends BaseLazyModel<ItemFrame> {
+
+    public ItemFrameModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

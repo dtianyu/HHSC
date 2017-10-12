@@ -24,11 +24,10 @@ public class GenderManagedBean {
      * Creates a new instance of ItemPropertyQueryBean
      */
     public GenderManagedBean() {
-        genders = new ArrayList<Gender>();
+        genders = new ArrayList<>();
         genders.add(new Gender("M", "男"));
         genders.add(new Gender("F", "女"));
     }
-
 
     /**
      * @return the genders

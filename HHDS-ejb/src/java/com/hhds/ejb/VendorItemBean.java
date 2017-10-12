@@ -41,9 +41,11 @@ public class VendorItemBean extends SuperBean<VendorItem> {
         query.setParameter("itemno", itemno);
         query.setParameter("vendorno", vendorno);
         try {
-            return (VendorItem) query.getSingleResult();
-        } catch (NullPointerException e) {
+            Object o = query.getSingleResult();;
+            return (VendorItem) o;
+        } catch (Exception e) {
             return null;
         }
     }
+
 }

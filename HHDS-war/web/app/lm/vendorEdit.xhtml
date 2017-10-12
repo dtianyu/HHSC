@@ -23,7 +23,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{vendorManagedBean.update()}" icon="ui-icon-disk"
-                                     process="@this,plgEdit,:formEdit:tabView:plgEdit" update="plgEdit,:formEdit:tabView:plgEdit"/>
+                                     process="@this,formEdit" update="formEdit"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelEdit" header="厂商登记－修改">
@@ -67,7 +67,7 @@
                                     <f:selectItem itemLabel="内含" itemValue="0" />
                                     <f:selectItem itemLabel="外加" itemValue="1" />
                                     <f:selectItem itemLabel="零税" itemValue="2" />
-                                    <f:selectItem itemLabel="免税" itemValue="4" />
+                                    <f:selectItem itemLabel="免税" itemValue="3" />
                                 </p:selectOneMenu>
                             </p:column>
                             <p:column styleClass="Wid20"><p:outputLabel value="税率" for="taxrate"/></p:column>
@@ -159,6 +159,20 @@
                             <p:column><p:outputLabel value="备注" for="remark" /></p:column>
                             <p:column colspan="3">
                                 <p:inputText id="remark" value="#{vendorManagedBean.currentEntity.remark}" title="Remark" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="系统整合">
+                    <p:panelGrid id="plgHHDS" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><p:outputLabel value="关联系统" for="autotransfer" /></p:column>
+                            <p:column>
+                                <p:inputSwitch  id="autotransfer" value="#{vendorManagedBean.currentEntity.autotransfer}" />
+                            </p:column>
+                            <p:column><p:outputLabel value="客户编号" for="relationno" /></p:column>
+                            <p:column>
+                                <p:inputText id="relationno" value="#{vendorManagedBean.currentEntity.relationno}" title="relationno" />
                             </p:column>
                         </p:row>
                     </p:panelGrid>

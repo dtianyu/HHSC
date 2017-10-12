@@ -45,10 +45,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city")
     ,
-    @NamedQuery(name = "Customer.findBySalerId", query = "SELECT c FROM Customer c WHERE c.salerid = :salerid")
-    ,
-    @NamedQuery(name = "Customer.findByDeptId", query = "SELECT c FROM Customer c WHERE c.deptid = :deptid")
-    ,
     @NamedQuery(name = "Customer.findByPricingtype", query = "SELECT c FROM Customer c WHERE c.pricingtype = :pricingtype")
     ,
     @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})

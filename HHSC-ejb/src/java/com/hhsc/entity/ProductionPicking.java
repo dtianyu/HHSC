@@ -24,9 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionpicking")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionPicking.findAll", query = "SELECT p FROM ProductionPicking p"),
-    @NamedQuery(name = "ProductionPicking.findById", query = "SELECT p FROM ProductionPicking p WHERE p.id = :id"),
-    @NamedQuery(name = "ProductionPicking.findByFormid", query = "SELECT p FROM ProductionPicking p WHERE p.formid = :formid"),
+    @NamedQuery(name = "ProductionPicking.findAll", query = "SELECT p FROM ProductionPicking p")
+    ,
+    @NamedQuery(name = "ProductionPicking.findById", query = "SELECT p FROM ProductionPicking p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "ProductionPicking.findByFormid", query = "SELECT p FROM ProductionPicking p WHERE p.formid = :formid")
+    ,
     @NamedQuery(name = "ProductionPicking.findByStatus", query = "SELECT p FROM ProductionPicking p WHERE p.status = :status")})
 public class ProductionPicking extends FormEntity {
 

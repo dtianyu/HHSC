@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="异动单号" for="formid" />
+                    <p:inputText id="formid" value="#{itemExchangeManagedBean.queryFormId}" title="单号" />
+                    <h:outputLabel value="单据状态" for="state" />
+                    <p:selectOneMenu id="state" value="#{itemExchangeManagedBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="未提交" itemValue="N"/>
+                        <f:selectItem itemLabel="已提交" itemValue="V"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="入库日期" for="daybegin" />
+                    <p:calendar id="daybegin" value="#{itemExchangeManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="截止日期" for="dayend" />
+                    <p:calendar id="dayend" value="#{itemExchangeManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{itemExchangeManagedBean.init()}"  icon="ui-icon-search"  update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{itemExchangeManagedBean.view('itemexchangeView')}"  icon="ui-icon-document"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnEdit" value="编辑" action="#{itemExchangeManagedBean.edit('itemexchangeEdit')}" icon="ui-icon-pencil"
+                                     rendered="#{itemExchangeManagedBean.doEdit}"/>                                                     
+                    <p:commandButton id="btnDelete" value="删除"  actionListener="#{itemExchangeManagedBean.delete()}" icon="ui-icon-trash"
+                                     rendered="#{itemExchangeManagedBean.doDel}" update=":formList">
+                        <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
+                    </p:commandButton> 
+                    <p:commandButton id="btnUnverify" value="还原"  actionListener="#{itemExchangeManagedBean.unverify()}" icon="ui-icon-unlocked"
+                                     rendered="#{itemExchangeManagedBean.doUnCfm}"  update=":formList">
+                        <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
+                    </p:commandButton>   
+                    <p:commandButton id="btnCreate" value="新增" action="#{itemExchangeManagedBean.create('itemexchangeNew')}" icon="ui-icon-plus"
+                                     rendered="#{itemExchangeManagedBean.doAdd}"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{itemExchangeManagedBean.reset()}"  icon="ui-icon-refresh"  
+                                     update=":formList"/> 
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{itemExchangeManagedBean.query()}"  icon="ui-icon-search"  
+                                     update=":formList"/>
+                </f:facet>
+            </p:toolbar> 
+            <p:dataTable value="#{itemExchangeManagedBean.model}" var="item" tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="15,30,45"  lazy="true" 
+                         selectionMode="single" selection="#{itemExchangeManagedBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    库存转换维护
+                </f:facet>
+                <p:ajax event="rowSelect"  update=":formList:toolbar" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="转换单号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转换日期"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转出品号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemnofrom}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转出数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qtyfrom}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转出单位"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unitfrom}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转入品号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemnoto}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转入数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qtyto}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="转入单位"/>
+                    </f:facet>
+                    <h:outputText value="#{item.unitto}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="状态"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnUnverify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

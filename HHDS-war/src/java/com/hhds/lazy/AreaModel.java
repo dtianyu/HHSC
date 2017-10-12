@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class AreaModel extends BaseLazyModel<Area>{
-    
-    public AreaModel(SuperEJB superEJB){
+public class AreaModel extends BaseLazyModel<Area> {
+
+    public AreaModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

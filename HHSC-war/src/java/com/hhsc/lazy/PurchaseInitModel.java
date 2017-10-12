@@ -24,9 +24,9 @@ public class PurchaseInitModel extends BaseLazyModel<PurchaseDraft> {
 
     @Override
     public List<PurchaseDraft> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
- 
+
         this.sortFields.put("seq", "ASC");
-        this.sortFields.put("status", "ASC");        
+        this.sortFields.put("status", "ASC");
         this.filterFields.put("purchaserequest.status", "V");
         this.filterFields.put("status", "N");
         return super.load(first, pageSize, sortField, sortOrder, filters);

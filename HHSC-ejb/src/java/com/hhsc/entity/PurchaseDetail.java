@@ -31,17 +31,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseorderdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseDetail.getRowCount", query = "SELECT COUNT(p) FROM PurchaseDetail p"),
-    @NamedQuery(name = "PurchaseDetail.findAll", query = "SELECT p FROM PurchaseDetail p"),
-    @NamedQuery(name = "PurchaseDetail.findById", query = "SELECT p FROM PurchaseDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseDetail.findByPId", query = "SELECT p FROM PurchaseDetail p WHERE p.purchaseOrder.id = :pid ORDER BY p.seq"),
-    @NamedQuery(name = "PurchaseDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseDetail p WHERE p.purchaseOrder.id = :pid AND p.seq = :seq"),
-    @NamedQuery(name = "PurchaseDetail.findByItemno", query = "SELECT p FROM PurchaseDetail p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseDetail.findByColorno", query = "SELECT p FROM PurchaseDetail p WHERE p.colorno = :colorno"),
-    @NamedQuery(name = "PurchaseDetail.findByCustomeritemno", query = "SELECT p FROM PurchaseDetail p WHERE p.customeritemno = :customeritemno"),
-    @NamedQuery(name = "PurchaseDetail.findByCustomercolorno", query = "SELECT p FROM PurchaseDetail p WHERE p.customercolorno = :customercolorno"),
-    @NamedQuery(name = "PurchaseDetail.findByVendoritemno", query = "SELECT p FROM PurchaseDetail p WHERE p.vendoritemno = :vendoritemno"),
-    @NamedQuery(name = "PurchaseDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseDetail p WHERE p.vendorcolorno = :vendorcolorno"),
+    @NamedQuery(name = "PurchaseDetail.getRowCount", query = "SELECT COUNT(p) FROM PurchaseDetail p")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findAll", query = "SELECT p FROM PurchaseDetail p")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findById", query = "SELECT p FROM PurchaseDetail p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByPId", query = "SELECT p FROM PurchaseDetail p WHERE p.purchaseOrder.id = :pid ORDER BY p.seq")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByPIdAndSeq", query = "SELECT p FROM PurchaseDetail p WHERE p.purchaseOrder.id = :pid AND p.seq = :seq")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByItemno", query = "SELECT p FROM PurchaseDetail p WHERE p.itemno = :itemno")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByColorno", query = "SELECT p FROM PurchaseDetail p WHERE p.colorno = :colorno")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByCustomeritemno", query = "SELECT p FROM PurchaseDetail p WHERE p.customeritemno = :customeritemno")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByCustomercolorno", query = "SELECT p FROM PurchaseDetail p WHERE p.customercolorno = :customercolorno")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByVendoritemno", query = "SELECT p FROM PurchaseDetail p WHERE p.vendoritemno = :vendoritemno")
+    ,
+    @NamedQuery(name = "PurchaseDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseDetail p WHERE p.vendorcolorno = :vendorcolorno")
+    ,
     @NamedQuery(name = "PurchaseDetail.findByDeliverydate", query = "SELECT p FROM PurchaseDetail p WHERE p.deliverydate = :deliverydate")})
 public class PurchaseDetail extends BaseEntity {
 
@@ -146,14 +157,14 @@ public class PurchaseDetail extends BaseEntity {
     private String relformid;
     @Column(name = "relseq")
     private Integer relseq;
-    
+
     @Column(name = "requestdate")
     @Temporal(TemporalType.DATE)
     private Date requestdate;
     @Column(name = "requesttime")
     @Temporal(TemporalType.TIME)
     private Date requesttime;
-    
+
     public PurchaseDetail() {
 
     }

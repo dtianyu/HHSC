@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hhds.control;
+package com.hhds.query;
 
 import com.hhsc.ejb.ItemMasterBean;
 import com.hhsc.entity.ItemMaster;
-import com.hhds.lazy.ItemFinishedModel;
+import com.hhds.lazy.ItemMasterModel;
 import com.hhds.web.SuperQueryBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -31,7 +31,7 @@ public class ItemFinishedQueryBean extends SuperQueryBean<ItemMaster> {
     @Override
     public void init() {
         setSuperEJB(itemMasterBean);
-        setModel(new ItemFinishedModel(itemMasterBean));
+        setModel(new ItemMasterModel(itemMasterBean));
         super.init();
     }
 

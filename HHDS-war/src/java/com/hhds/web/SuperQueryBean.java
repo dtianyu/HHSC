@@ -153,6 +153,47 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
         }
     }
 
+    public void print(String reportDesign) throws Exception {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getDoprt()) {
+            HashMap<String, Object> reportParams = new HashMap<>();
+            reportParams.put("JNDIName", this.getCurrentPrgGrant().getSysprg().getRptjndi());
+            if (!this.model.getFilterFields().isEmpty()) {
+                reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
+            } else {
+                reportParams.put("filterFields", "");
+            }
+            if (!this.model.getSortFields().isEmpty()) {
+                reportParams.put("sortFields", BaseLib.convertMapToString(this.model.getSortFields()));
+            } else {
+                reportParams.put("sortFields", "");
+            }
+            //设置报表名称
+            String reportFormat;
+            if (this.getCurrentPrgGrant().getSysprg().getRptformat() != null) {
+                reportFormat = this.getCurrentPrgGrant().getSysprg().getRptformat();
+            } else {
+                reportFormat = reportOutputFormat;
+            }
+            this.fileName = this.getCurrentPrgGrant().getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + reportDesign;
+            String outputName = reportOutputPath + this.fileName;
+            this.reportViewPath = reportViewContext + this.fileName;
+            try {
+                if (this.getCurrentPrgGrant() != null && this.getCurrentPrgGrant().getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentPrgGrant().getSysprg().getRptclazz()).getClassLoader();
+                }
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
+                //预览报表
+                this.preview();
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+    }
+
     @Override
     public void preview() throws Exception {
         FacesContext.getCurrentInstance().getExternalContext().redirect(this.reportViewPath);

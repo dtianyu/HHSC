@@ -21,7 +21,6 @@ import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -84,14 +83,21 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
             return false;
         }
         if (this.detailList != null && !this.detailList.isEmpty()) {
-            for (PurchaseOrderDetail detail : detailList) {
-                if (detail.getItemmaster() == null) {
+            for (PurchaseOrderDetail d : detailList) {
+                if (d.getItemmaster() == null) {
                     showErrorMsg("Error", "请输入品号");
                     return false;
                 }
-                if ((detail.getQty().compareTo(BigDecimal.ZERO) == 1) || (detail.getPrice().compareTo(BigDecimal.ZERO) == 1)) {
+                if ((d.getQty().compareTo(BigDecimal.ZERO) < 1) || (d.getPrice().compareTo(BigDecimal.ZERO) < 1)) {
                     showErrorMsg("Error", "请输入数量或单价");
                     return false;
+                }
+                if (newEntity.getVendor().isAutotransfer()) {
+                    VendorItem vi = vendorItemBean.findByItemnoAndVendorno(d.getItemno(), newEntity.getVendor().getVendorno());
+                    if (vi == null) {
+                        showErrorMsg("Error", "没有" + d.getItemno() + "对应的供应商品号");
+                        return false;
+                    }
                 }
             }
         }
@@ -126,6 +132,24 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
                 showErrorMsg("Error", "数量或单价不能为零!");
                 return false;
             }
+            if (currentEntity.getVendor().isAutotransfer()) {
+                VendorItem vi = vendorItemBean.findByItemnoAndVendorno(detail.getItemno(), currentEntity.getVendor().getVendorno());
+                if (vi == null) {
+                    showErrorMsg("Error", "没有" + detail.getItemno() + "对应的供应商品号");
+                    return false;
+                }
+            }
+        }
+        if (currentEntity.getVendor().isAutotransfer()) {
+            String msg = purchaseOrderBean.initHHSCHH(currentEntity.getFormid());
+            String[] rm = msg.split("\\$");
+            if (rm != null && rm.length == 2 && rm[0].equals("200")) {
+                showInfoMsg("Info", "电商进货单号" + rm[1]);
+                return true;
+            } else {
+                showErrorMsg("Error", msg);
+                return false;
+            }
         }
         return true;
     }
@@ -143,7 +167,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         if (currentDetail.getItemno() != null && currentEntity.getVendor() != null) {
             VendorItem entity = vendorItemBean.findByItemnoAndVendorno(currentDetail.getItemno(), currentEntity.getVendor().getVendorno());
             if (entity != null) {
-                this.currentDetail.setVendoritemno(entity.getVendoritemno());
+                this.currentDetail.setVendoritemno(entity.getVendordesignno());
                 this.currentDetail.setVendorcolorno(entity.getVendoritemcolor());
             }
         }

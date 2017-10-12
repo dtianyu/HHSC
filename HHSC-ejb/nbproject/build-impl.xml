@@ -793,16 +793,32 @@ is divided into following sections:
     </target>
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
     <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
+        <copyfiles files="${libs.AXIS.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-logging-1.2.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-discovery-0.5.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.wsdl4j-1.6.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.LightShell.classpath}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
+        <basename file="${libs.AXIS.classpath}" property="manifest.libs.AXIS.classpath"/>
+        <basename file="${file.reference.commons-logging-1.2.jar}" property="manifest.file.reference.commons-logging-1.2.jar"/>
+        <basename file="${file.reference.commons-discovery-0.5.jar}" property="manifest.file.reference.commons-discovery-0.5.jar"/>
+        <basename file="${file.reference.wsdl4j-1.6.3.jar}" property="manifest.file.reference.wsdl4j-1.6.3.jar"/>
         <basename file="${libs.LightShell.classpath}" property="manifest.libs.LightShell.classpath"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 "/>
-            <attribute name="jar-1-Extension-Name" value="${manifest.libs.LightShell.classpath}"/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 "/>
+            <attribute name="jar-1-Extension-Name" value="${manifest.libs.AXIS.classpath}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.commons-logging-1.2.jar}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.commons-discovery-0.5.jar}"/>
+            <attribute name="jar-4-Extension-Name" value="${manifest.file.reference.wsdl4j-1.6.3.jar}"/>
+            <attribute name="jar-5-Extension-Name" value="${manifest.libs.LightShell.classpath}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
+        <copyfiles files="${libs.AXIS.classpath}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.commons-logging-1.2.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.commons-discovery-0.5.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.wsdl4j-1.6.3.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.LightShell.classpath}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>

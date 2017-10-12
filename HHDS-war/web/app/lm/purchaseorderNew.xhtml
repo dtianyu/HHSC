@@ -16,8 +16,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{purchaseOrderManagedBean.persist()}" icon="ui-icon-disk"
-                                     process="@this,plgHead"
-                                     update="formNew"/>
+                                     process="@this,plgHead" update="formNew"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="采购合同－新增">
@@ -26,7 +25,7 @@
                         <p:column styleClass="Wid20"><p:outputLabel value="编号" for="formid" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="formid" value="#{purchaseOrderManagedBean.newEntity.formid}" title="Formid"
-                                         required="true" requiredMessage="请输入编号" disabled="#{purchaseOrderManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                                         required="true" requiredMessage="请输入编号" readonly="#{purchaseOrderManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="采购日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
@@ -89,7 +88,7 @@
                                                 update="plgDetail" oncomplete="findVendorItemno()" />
                                     </p:commandButton>
                                     <p:remoteCommand id="findVendorItemno" name="findVendorItemno" actionListener="#{purchaseOrderManagedBean.findVendorItemForDetail()}"
-                                                     process="@this" update="vendoritemno"/>
+                                                     process="@this" update="vendoritemno,vendorcolorno"/>
                                 </p:column>
                                 <p:column styleClass="Wid20"><h:outputText value="商品名称"/></p:column>
                                 <p:column styleClass="Wid30">
@@ -97,7 +96,6 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉品号" for="vendoritemno" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="vendoritemno" value="#{purchaseOrderManagedBean.currentDetail.vendoritemno}" title="vendoritemno" />
@@ -167,17 +165,17 @@
                                 </f:facet>
                                 <h:outputText value="#{item.vendoritemno}"/>
                             </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vendorcolorno}"/>
+                            </p:column>
                             <p:column  styleClass="Wid10 TexAlRight">
                                 <f:facet name="header">
                                     <h:outputText value="数量"/>
                                 </f:facet>
                                 <h:outputText value="#{item.qty}"/>
-                            </p:column>
-                            <p:column styleClass="Wid10">
-                                <f:facet name="header">
-                                    <h:outputText value="单位"/>
-                                </f:facet>
-                                <h:outputText value="#{item.unit}"/>
                             </p:column>
                             <p:column  styleClass="Wid10 TexAlRight">
                                 <f:facet name="header">

@@ -86,7 +86,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
     protected boolean doBeforePersist() throws Exception {
         //排序
         if (getAddedList() == null || getAddedList().isEmpty()) {
-            showErrorMsg("Error", "没有可新增资料");
+            showErrorMsg("Error", "没有可导入资料");
             return false;
         }
         if (getAddedList().size() > 1) {

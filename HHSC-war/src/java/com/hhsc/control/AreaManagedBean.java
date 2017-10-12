@@ -24,9 +24,9 @@ public class AreaManagedBean extends SuperSingleBean<Area> {
 
     @EJB
     private AreaBean areaBean;
-    
+
     protected List<Area> areaList;
-   
+
     public AreaManagedBean() {
         super(Area.class);
     }
@@ -36,8 +36,8 @@ public class AreaManagedBean extends SuperSingleBean<Area> {
         this.superEJB = areaBean;
         setModel(new AreaModel(areaBean));
         this.areaList = areaBean.findAll();
-        super.init(); 
-    }   
+        super.init();
+    }
 
     /**
      * @return the areaList
@@ -52,5 +52,5 @@ public class AreaManagedBean extends SuperSingleBean<Area> {
     public void setAreaList(List<Area> areaList) {
         this.areaList = areaList;
     }
-    
+
 }

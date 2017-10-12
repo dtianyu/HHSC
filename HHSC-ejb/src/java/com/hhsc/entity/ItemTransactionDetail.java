@@ -28,10 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "itemtransactiondetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemTransactionDetail.findAll", query = "SELECT i FROM ItemTransactionDetail i"),
-    @NamedQuery(name = "ItemTransactionDetail.findById", query = "SELECT i FROM ItemTransactionDetail i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemTransactionDetail.findByPId", query = "SELECT i FROM ItemTransactionDetail i WHERE i.pid = :pid"),
-    @NamedQuery(name = "ItemTransactionDetail.findByTrtype", query = "SELECT i FROM ItemTransactionDetail i WHERE i.trtype = :trtype"),
+    @NamedQuery(name = "ItemTransactionDetail.findAll", query = "SELECT i FROM ItemTransactionDetail i")
+    ,
+    @NamedQuery(name = "ItemTransactionDetail.findById", query = "SELECT i FROM ItemTransactionDetail i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ItemTransactionDetail.findByPId", query = "SELECT i FROM ItemTransactionDetail i WHERE i.pid = :pid")
+    ,
+    @NamedQuery(name = "ItemTransactionDetail.findByTrtype", query = "SELECT i FROM ItemTransactionDetail i WHERE i.trtype = :trtype")
+    ,
     @NamedQuery(name = "ItemTransactionDetail.findByItemno", query = "SELECT i FROM ItemTransactionDetail i WHERE i.itemno = :itemno")})
 public class ItemTransactionDetail extends FormDetailEntity {
 

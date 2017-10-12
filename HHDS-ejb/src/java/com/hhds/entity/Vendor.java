@@ -68,6 +68,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Vendor.findByPurkind", query = "SELECT v FROM Vendor v WHERE v.purkind = :purkind")})
 public class Vendor extends SuperEntity {
 
+    @Column(name = "autotransfer")
+    private boolean autotransfer;
+    @Size(max = 20)
+    @Column(name = "relationno")
+    private String relationno;
+    @Size(max = 20)
+    @Column(name = "relationwh")
+    private String relationwh;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -539,6 +548,48 @@ public class Vendor extends SuperEntity {
      */
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    /**
+     * @return the autotransfer
+     */
+    public boolean isAutotransfer() {
+        return autotransfer;
+    }
+
+    /**
+     * @param autotransfer the autotransfer to set
+     */
+    public void setAutotransfer(boolean autotransfer) {
+        this.autotransfer = autotransfer;
+    }
+
+    /**
+     * @return the relationno
+     */
+    public String getRelationno() {
+        return relationno;
+    }
+
+    /**
+     * @param relationno the relationno to set
+     */
+    public void setRelationno(String relationno) {
+        this.relationno = relationno;
+    }
+
+    /**
+     * @return the relationwh
+     */
+    public String getRelationwh() {
+        return relationwh;
+    }
+
+    /**
+     * @param relationwh the relationwh to set
+     */
+    public void setRelationwh(String relationwh) {
+        this.relationwh = relationwh;
     }
 
 }

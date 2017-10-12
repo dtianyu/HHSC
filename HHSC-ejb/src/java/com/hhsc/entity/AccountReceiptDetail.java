@@ -26,8 +26,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "accountreceiptdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AccountReceiptDetail.findAll", query = "SELECT a FROM AccountReceiptDetail a"),
-    @NamedQuery(name = "AccountReceiptDetail.findById", query = "SELECT a FROM AccountReceiptDetail a WHERE a.id = :id"),
+    @NamedQuery(name = "AccountReceiptDetail.findAll", query = "SELECT a FROM AccountReceiptDetail a")
+    ,
+    @NamedQuery(name = "AccountReceiptDetail.findById", query = "SELECT a FROM AccountReceiptDetail a WHERE a.id = :id")
+    ,
     @NamedQuery(name = "AccountReceiptDetail.findByPId", query = "SELECT a FROM AccountReceiptDetail a WHERE a.pid = :pid")})
 public class AccountReceiptDetail extends FormDetailEntity {
 

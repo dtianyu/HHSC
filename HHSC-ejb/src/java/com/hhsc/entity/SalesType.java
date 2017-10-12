@@ -24,12 +24,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salestype")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesType.getRowCount", query = "SELECT COUNT(s) FROM SalesType s"),
-    @NamedQuery(name = "SalesType.findAll", query = "SELECT s FROM SalesType s"),
-    @NamedQuery(name = "SalesType.findById", query = "SELECT s FROM SalesType s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesType.findByType", query = "SELECT s FROM SalesType s WHERE s.type = :type"),
-    @NamedQuery(name = "SalesType.findByName", query = "SELECT s FROM SalesType s WHERE s.name = :name"),
-    @NamedQuery(name = "SalesType.findByProcess", query = "SELECT s FROM SalesType s WHERE s.process = :process"),
+    @NamedQuery(name = "SalesType.getRowCount", query = "SELECT COUNT(s) FROM SalesType s")
+    ,
+    @NamedQuery(name = "SalesType.findAll", query = "SELECT s FROM SalesType s")
+    ,
+    @NamedQuery(name = "SalesType.findById", query = "SELECT s FROM SalesType s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesType.findByType", query = "SELECT s FROM SalesType s WHERE s.type = :type")
+    ,
+    @NamedQuery(name = "SalesType.findByName", query = "SELECT s FROM SalesType s WHERE s.name = :name")
+    ,
+    @NamedQuery(name = "SalesType.findByProcess", query = "SELECT s FROM SalesType s WHERE s.process = :process")
+    ,
     @NamedQuery(name = "SalesType.findByStatus", query = "SELECT s FROM SalesType s WHERE s.status = :status")})
 public class SalesType extends SuperEntity {
 

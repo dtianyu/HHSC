@@ -31,16 +31,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseacceptancedetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findAll", query = "SELECT p FROM PurchaseAcceptanceDetail p"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findById", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByPId", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.pid = :pid"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByAcceptdate", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.acceptdate = :acceptdate"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByPurtype", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.purtype = :purtype"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByPurkind", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.purkind = :purkind"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByItemno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByColorno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.colorno = :colorno"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByVendoritemno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.vendoritemno = :vendoritemno"),
-    @NamedQuery(name = "PurchaseAcceptanceDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.vendorcolorno = :vendorcolorno"),
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findAll", query = "SELECT p FROM PurchaseAcceptanceDetail p")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findById", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByPId", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.pid = :pid")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByAcceptdate", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.acceptdate = :acceptdate")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByPurtype", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.purtype = :purtype")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByPurkind", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.purkind = :purkind")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByItemno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.itemno = :itemno")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByColorno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.colorno = :colorno")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByVendoritemno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.vendoritemno = :vendoritemno")
+    ,
+    @NamedQuery(name = "PurchaseAcceptanceDetail.findByVendorcolorno", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.vendorcolorno = :vendorcolorno")
+    ,
     @NamedQuery(name = "PurchaseAcceptanceDetail.findByStatus", query = "SELECT p FROM PurchaseAcceptanceDetail p WHERE p.status = :status")})
 public class PurchaseAcceptanceDetail extends FormDetailEntity {
 

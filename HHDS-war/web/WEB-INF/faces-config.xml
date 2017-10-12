@@ -70,6 +70,16 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>biztype</from-outcome>
+            <to-view-id>/app/sys/biztype.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>paykind</from-outcome>
+            <to-view-id>/app/sys/paykind.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>transactiontype</from-outcome>
             <to-view-id>/app/sys/transactiontype.xhtml</to-view-id>
             <redirect/>
@@ -90,6 +100,42 @@
         <navigation-case>
             <from-outcome>areaView</from-outcome>
             <to-view-id>/app/sys/areaView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/sys/biztype.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>biztypeNew</from-outcome>
+            <to-view-id>/app/sys/biztypeNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>biztypeEdit</from-outcome>
+            <to-view-id>/app/sys/biztypeEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>biztypeView</from-outcome>
+            <to-view-id>/app/sys/biztypeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/sys/paykind.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>paykindNew</from-outcome>
+            <to-view-id>/app/sys/paykindNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>paykindEdit</from-outcome>
+            <to-view-id>/app/sys/paykindEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>paykindView</from-outcome>
+            <to-view-id>/app/sys/paykindView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -124,12 +170,6 @@
         <navigation-case>
             <from-outcome>customer</from-outcome>
             <to-view-id>/app/sd/customer.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <description>电商渠道</description>
-            <from-outcome>marketingchannel</from-outcome>
-            <to-view-id>/app/sd/marketingchannel.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -243,33 +283,13 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>itemacceptance</from-outcome>
-            <to-view-id>/app/mm/itemacceptance.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>itemcategory</from-outcome>
             <to-view-id>/app/mm/itemcategory.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>itemcustomer</from-outcome>
-            <to-view-id>/app/mm/itemcustomer.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemdesign</from-outcome>
-            <to-view-id>/app/mm/itemdesign.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>itemexchange</from-outcome>
             <to-view-id>/app/mm/itemexchange.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemfinished</from-outcome>
-            <to-view-id>/app/mm/itemfinished.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -283,24 +303,6 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <description>采购明细查询</description>
-            <from-outcome>itempurchase</from-outcome>
-            <to-view-id>/app/mm/itempurchase.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <description>请购明细查询</description>
-            <from-outcome>itemrequest</from-outcome>
-            <to-view-id>/app/lm/itemrequest.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <description>直销产品登记</description>
-            <from-outcome>itemsales</from-outcome>
-            <to-view-id>/app/mm/itemsales.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <description>库存异动设定</description>
             <from-outcome>itemtransaction</from-outcome>
             <to-view-id>/app/mm/itemtransaction.xhtml</to-view-id>
@@ -309,7 +311,7 @@
         <!--进货点收-->
         <navigation-case>
             <from-outcome>purchaseacceptance</from-outcome>
-            <to-view-id>/app/mm/purchaseacceptance.xhtml</to-view-id>
+            <to-view-id>/app/lm/purchaseacceptance.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <!--采购明细查询-->
@@ -318,26 +320,10 @@
             <to-view-id>/app/lm/purchasedetail.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        <!--采购草稿-->
-        <navigation-case>
-            <from-outcome>purchasedraft</from-outcome>
-            <to-view-id>/app/lm/purchasedraft.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>purchaseinit</from-outcome>
-            <to-view-id>/app/lm/purchaseinit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
         <!--采购维护-->
         <navigation-case>
             <from-outcome>purchaseorder</from-outcome>
             <to-view-id>/app/lm/purchaseorder.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>purchasepayment</from-outcome>
-            <to-view-id>/app/lm/purchasepayment.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -418,43 +404,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <description>采购明细查询</description>
-        <from-view-id>/app/mm/itempurchase.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>itempurchaseView</from-outcome>
-            <to-view-id>/app/mm/itempurchaseView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <description>请购明细查询</description>
-        <from-view-id>/app/lm/itemrequest.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>itemrequestView</from-outcome>
-            <to-view-id>/app/lm/itemrequestView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <description>直销产品登记</description>
-        <from-view-id>/app/mm/itemsales.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>itemsalesNew</from-outcome>
-            <to-view-id>/app/mm/itemsalesNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemsalesEdit</from-outcome>
-            <to-view-id>/app/mm/itemsalesEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemsalesView</from-outcome>
-            <to-view-id>/app/mm/itemsalesView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <description>库存异动</description>
         <from-view-id>/app/mm/itemtransaction.xhtml</from-view-id>
         <navigation-case>
@@ -502,20 +451,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <description>采购草稿</description>
-        <from-view-id>/app/lm/purchasedraft.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>purchasedraftEdit</from-outcome>
-            <to-view-id>/app/lm/purchasedraftEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>purchasedraftView</from-outcome>
-            <to-view-id>/app/lm/purchasedraftView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <description>采购维护</description>
         <from-view-id>/app/lm/purchaseorder.xhtml</from-view-id>
         <navigation-case>
@@ -531,25 +466,6 @@
         <navigation-case>
             <from-outcome>purchaseorderView</from-outcome>
             <to-view-id>/app/lm/purchaseorderView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-        <description>采购付款</description>
-        <from-view-id>/app/lm/purchasepayment.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>purchasepaymentNew</from-outcome>
-            <to-view-id>/app/lm/purchasepaymentNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>purchasepaymentEdit</from-outcome>
-            <to-view-id>/app/lm/purchasepaymentEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>purchasepaymentView</from-outcome>
-            <to-view-id>/app/lm/purchasepaymentView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -624,49 +540,62 @@
         </navigation-case>
     </navigation-rule>
     <!--MM NavEnd-->
+    <!--FI NavStart-->
     <navigation-rule>
+        <description>收支模块一级导航</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>itemfinishedrequest</from-outcome>
-            <to-view-id>/app/lm/itemfinishedrequest.xhtml</to-view-id>
+            <description>每日收入</description>
+            <from-outcome>dailyin</from-outcome>
+            <to-view-id>/app/fi/dailyin.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>itemfinishedrequestNew</from-outcome>
-            <to-view-id>/app/lm/itemfinishedrequestNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemfinishedrequestEdit</from-outcome>
-            <to-view-id>/app/lm/itemfinishedrequestEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemfinishedrequestView</from-outcome>
-            <to-view-id>/app/lm/itemfinishedrequestView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemmasterrequest</from-outcome>
-            <to-view-id>/app/lm/itemmasterrequest.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemmasterrequestNew</from-outcome>
-            <to-view-id>/app/lm/itemmasterrequestNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemmasterrequestEdit</from-outcome>
-            <to-view-id>/app/lm/itemmasterrequestEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>itemmasterrequestView</from-outcome>
-            <to-view-id>/app/lm/itemmasterrequestView.xhtml</to-view-id>
+            <description>每日支出</description>
+            <from-outcome>dailyout</from-outcome>
+            <to-view-id>/app/fi/dailyout.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <description>日常收入</description>
+        <from-view-id>/app/fi/dailyin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dailyinNew</from-outcome>
+            <to-view-id>/app/fi/dailyinNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dailyinEdit</from-outcome>
+            <to-view-id>/app/fi/dailyinEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dailyinView</from-outcome>
+            <to-view-id>/app/fi/dailyinView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>日常开支</description>
+        <from-view-id>/app/fi/dailyout.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dailyoutNew</from-outcome>
+            <to-view-id>/app/fi/dailyoutNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dailyoutEdit</from-outcome>
+            <to-view-id>/app/fi/dailyoutEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dailyoutView</from-outcome>
+            <to-view-id>/app/fi/dailyoutView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <!--FI NavEnd-->
     <!--SYS NavStart-->
     <navigation-rule>
         <description>系统模块一级导航</description>
@@ -1008,31 +937,6 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>itemprocessSelect</from-outcome>
-            <to-view-id>/app/df/itemprocessSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>processgroupSelect</from-outcome>
-            <to-view-id>/app/df/processgroupSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>processresourceSelect</from-outcome>
-            <to-view-id>/app/df/processresourceSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>productionorderdetailSelect</from-outcome>
-            <to-view-id>/app/df/productionorderdetailSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>productionorderpickingSelect</from-outcome>
-            <to-view-id>/app/df/productionorderpickingSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>purchaseorderdetailSelect</from-outcome>
             <to-view-id>/app/df/purchaseorderdetailSelect.xhtml</to-view-id>
             <redirect/>
@@ -1045,21 +949,6 @@
         <navigation-case>
             <from-outcome>salesorderdetailSelect</from-outcome>
             <to-view-id>/app/df/salesorderdetailSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>salesordermaterialSelect</from-outcome>
-            <to-view-id>/app/df/salesordermaterialSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>salesorderproductionSelect</from-outcome>
-            <to-view-id>/app/df/salesorderproductionSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>samplingchargeSelect</from-outcome>
-            <to-view-id>/app/df/samplingchargeSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
