@@ -34,18 +34,25 @@
                         <p:column styleClass="Wid30">
                             <h:outputText id="itemcategory" value="#{itemMasterManagedBean.currentEntity.itemCategory.name}" />
                         </p:column>
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemMasterManagedBean.currentEntity.img1}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="编号"/></p:column>
                         <p:column styleClass="Wid30">
                             <h:outputText id="itemno" value="#{itemMasterManagedBean.currentEntity.itemno}" title="Itemno"/>
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="名称"/></p:column>
-                        <p:column styleClass="Wid30">
+                        <p:column><h:outputText value="名称"/></p:column>
+                        <p:column>
                             <h:outputText id="itemdesc" value="#{itemMasterManagedBean.currentEntity.itemdesc}" title="Itemdesc"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="单位"/></p:column>
-                        <p:column styleClass="Wid30">
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="单位"/></p:column>
+                        <p:column>
                             <h:outputText id="unit" value="#{itemMasterManagedBean.currentEntity.unit}" title="Unit"/>
                         </p:column>
                     </p:row>
@@ -54,6 +61,8 @@
                         <p:column>
                             <h:outputText id="itemspec" value="#{itemMasterManagedBean.currentEntity.itemspec}" title="Itemspec" />
                         </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column><h:outputText value="门幅" /></p:column>
                         <p:column>
                             <h:outputText id="itemwidth" value="#{itemMasterManagedBean.currentEntity.itemwidth}" title="Itemwidth" />

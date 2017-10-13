@@ -144,7 +144,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
             String msg = purchaseOrderBean.initHHSCHH(currentEntity.getFormid());
             String[] rm = msg.split("\\$");
             if (rm != null && rm.length == 2 && rm[0].equals("200")) {
-                showInfoMsg("Info", "电商进货单号" + rm[1]);
+                showInfoMsg("Info", "华卉销售合同" + rm[1]);
                 return true;
             } else {
                 showErrorMsg("Error", msg);

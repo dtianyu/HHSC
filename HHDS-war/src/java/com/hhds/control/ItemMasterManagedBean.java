@@ -323,23 +323,25 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     public void setCurrentEntity(ItemMaster currentEntity) {
         this.currentEntity = currentEntity;
         setToolBar();
-        if (currentEntity != null && currentEntity.getId() != null && this.model != null && !this.model.getDataList().isEmpty()) {
-            int idx = this.model.getDataList().indexOf(currentEntity);
-            if (idx == 0 && this.model.getDataList().size() == 1) {
-                setHasPrev(false);
-                setHasNext(false);
-            } else if (idx == 0 && this.model.getDataList().size() > 1) {
-                setHasPrev(false);
-                setHasNext(true);
-            } else if (idx == (this.model.getDataList().size() - 1)) {
-                setHasPrev(true);
-                setHasNext(false);
-            } else {
-                setHasPrev(true);
-                setHasNext(true);
+        if (currentEntity != null) {
+            if (currentEntity.getId() != null && this.model != null && !this.model.getDataList().isEmpty()) {
+                int idx = this.model.getDataList().indexOf(currentEntity);
+                if (idx == 0 && this.model.getDataList().size() == 1) {
+                    setHasPrev(false);
+                    setHasNext(false);
+                } else if (idx == 0 && this.model.getDataList().size() > 1) {
+                    setHasPrev(false);
+                    setHasNext(true);
+                } else if (idx == (this.model.getDataList().size() - 1)) {
+                    setHasPrev(true);
+                    setHasNext(false);
+                } else {
+                    setHasPrev(true);
+                    setHasNext(true);
+                }
             }
+            setDetailList(vendorItemBean.findByItemId(currentEntity.getId()));
         }
-        setDetailList(vendorItemBean.findByItemId(currentEntity.getId()));
         if (this.detailList == null) {
             this.detailList = new ArrayList<>();
         }

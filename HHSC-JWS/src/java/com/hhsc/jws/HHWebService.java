@@ -67,6 +67,8 @@ public class HHWebService {
     @EJB
     private com.hhds.ejb.PurchaseOrderBean dsPurchaseOrderBean;
     @EJB
+    private com.hhds.ejb.PurchaseOrderDetailBean dsPurchaseOrderDetailBean;
+    @EJB
     private com.hhds.ejb.VendorBean dsVendorBean;
     @EJB
     private com.hhds.ejb.VendorItemBean dsVendorItemBean;
@@ -273,7 +275,7 @@ public class HHWebService {
                 scsod.setSrcformid(d.getPid());
                 scsod.setSrcseq(d.getSeq());
                 scsod.calcTotalAmts(sccu.getTaxtype(), sccu.getTaxkind(), sccu.getTaxrate());
-//                //加入明细新增列表
+                //加入明细新增列表
                 scsodList.add(scsod);
 
                 scso = new SalesOrder();
@@ -300,6 +302,10 @@ public class HHWebService {
                 scso.setCredateToNow();
 
                 scSalesOrderBean.initByHHDS(scso, scsodList);
+                d.setSrcapi("HHSC");
+                d.setSrcformid(id);
+                d.setSrcseq(scsod.getSeq());
+                dsPurchaseOrderDetailBean.update(d);
             }
             return "200$" + "批量抛转成功";
         } catch (NullPointerException ex) {

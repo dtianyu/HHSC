@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s")
     , @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id")
-    , @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid")})
+    , @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid")
+    , @NamedQuery(name = "SalesOrderDetail.findBySrcformid", query = "SELECT s FROM SalesOrderDetail s WHERE s.srcformid = :srcformid")})
 public class SalesOrderDetail extends FormDetailEntity {
 
     @JoinColumn(name = "itemid", referencedColumnName = "id")

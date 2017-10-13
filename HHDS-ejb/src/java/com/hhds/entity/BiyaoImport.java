@@ -78,6 +78,9 @@ public class BiyaoImport extends FormEntity {
     @Size(max = 200)
     @Column(name = "salesremark")
     private String salesremark;
+    @Size(max = 200)
+    @Column(name = "packremark")
+    private String packremark;
     @Size(max = 10)
     @Column(name = "bill")
     private String bill;
@@ -152,7 +155,27 @@ public class BiyaoImport extends FormEntity {
     @Column(name = "itemspec2")
     private String itemspec2;
 
+    @Column(name = "firstdelivery")
+    @Temporal(TemporalType.DATE)
+    private Date firstdelivery;
+    @Column(name = "firsttime")
+    @Temporal(TemporalType.TIME)
+    private Date firsttime;
+    @Column(name = "lastdelivery")
+    @Temporal(TemporalType.DATE)
+    private Date lastdelivery;
+    @Column(name = "lasttime")
+    @Temporal(TemporalType.TIME)
+    private Date lasttime;
+    @Column(name = "printdate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date printdate;
+    @Column(name = "deliverydate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deliverydate;
+
     public BiyaoImport() {
+        this.refno = "1";
     }
 
     public String getRefno() {
@@ -257,6 +280,20 @@ public class BiyaoImport extends FormEntity {
 
     public void setSalesremark(String salesremark) {
         this.salesremark = salesremark;
+    }
+
+    /**
+     * @return the packremark
+     */
+    public String getPackremark() {
+        return packremark;
+    }
+
+    /**
+     * @param packremark the packremark to set
+     */
+    public void setPackremark(String packremark) {
+        this.packremark = packremark;
     }
 
     public String getBill() {
@@ -441,6 +478,90 @@ public class BiyaoImport extends FormEntity {
 
     public void setItemspec2(String itemspec2) {
         this.itemspec2 = itemspec2;
+    }
+
+    /**
+     * @return the firstdelivery
+     */
+    public Date getFirstdelivery() {
+        return firstdelivery;
+    }
+
+    /**
+     * @param firstdelivery the firstdelivery to set
+     */
+    public void setFirstdelivery(Date firstdelivery) {
+        this.firstdelivery = firstdelivery;
+    }
+
+    /**
+     * @return the firsttime
+     */
+    public Date getFirsttime() {
+        return firsttime;
+    }
+
+    /**
+     * @param firsttime the firsttime to set
+     */
+    public void setFirsttime(Date firsttime) {
+        this.firsttime = firsttime;
+    }
+
+    /**
+     * @return the lastdelivery
+     */
+    public Date getLastdelivery() {
+        return lastdelivery;
+    }
+
+    /**
+     * @param lastdelivery the lastdelivery to set
+     */
+    public void setLastdelivery(Date lastdelivery) {
+        this.lastdelivery = lastdelivery;
+    }
+
+    /**
+     * @return the lasttime
+     */
+    public Date getLasttime() {
+        return lasttime;
+    }
+
+    /**
+     * @param lasttime the lasttime to set
+     */
+    public void setLasttime(Date lasttime) {
+        this.lasttime = lasttime;
+    }
+
+    /**
+     * @return the printdate
+     */
+    public Date getPrintdate() {
+        return printdate;
+    }
+
+    /**
+     * @param printdate the printdate to set
+     */
+    public void setPrintdate(Date printdate) {
+        this.printdate = printdate;
+    }
+
+    /**
+     * @return the deliverydate
+     */
+    public Date getDeliverydate() {
+        return deliverydate;
+    }
+
+    /**
+     * @param deliverydate the deliverydate to set
+     */
+    public void setDeliverydate(Date deliverydate) {
+        this.deliverydate = deliverydate;
     }
 
     @Override

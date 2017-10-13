@@ -109,6 +109,12 @@
                             </h:outputText>
                         </p:column>
                     </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="packremark" value="#{salesOrderManagedBean.currentEntity.packremark}" title="packremark" />
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">

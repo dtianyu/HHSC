@@ -30,6 +30,11 @@
                                 <f:selectItems value="#{itemMasterManagedBean.itemCategoryList}" var="e" itemLabel="#{e.name}" itemValue="#{e}"/>
                             </p:selectOneMenu>
                         </p:column>
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemMasterManagedBean.currentEntity.img1}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="编号" for="itemno" /></p:column>
                         <p:column styleClass="Wid30">
                             <h:outputText id="itemno" value="#{itemMasterManagedBean.currentEntity.itemno}" title="Itemno"/>
@@ -41,6 +46,8 @@
                             <p:inputText id="itemdesc" value="#{itemMasterManagedBean.currentEntity.itemdesc}" title="Itemdesc"
                                          required="true" requiredMessage="请输入名称"/>
                         </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="单位" for="unit" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:inputText id="unit" value="#{itemMasterManagedBean.currentEntity.unit}" title="Unit" styleClass="inputWithButton"
@@ -57,9 +64,21 @@
                         <p:column>
                             <p:inputText id="itemspec" value="#{itemMasterManagedBean.currentEntity.itemspec}" title="Itemspec" />
                         </p:column>
+                    </p:row>
+                    <p:row>
                         <p:column><p:outputLabel value="门幅" for="itemwidth" /></p:column>
                         <p:column>
                             <p:inputText id="itemwidth" value="#{itemMasterManagedBean.currentEntity.itemwidth}" title="Itemwidth" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
+                        <p:column>
+                            <p:inputSwitch id="invtype" value="#{itemMasterManagedBean.currentEntity.invtype}" required="true"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="批号管理" for="bbstype" /></p:column>
+                        <p:column>
+                            <p:inputText id="bbstype" value="#{itemMasterManagedBean.currentEntity.bbstype}" title="bbstype" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -75,6 +94,9 @@
                         </p:column>
                     </p:row>
                 </p:panelGrid>
+                <p:fileUpload id="fileUpload" fileUploadListener="#{itemMasterManagedBean.handleFileUploadWhenEdit}" styleClass="fileUpload"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="5000000"
+                              label="选择" uploadLabel="上传" cancelLabel="取消" update=":formEdit:filename"/>
             </p:panel>
             <p:tabView id="tabView" styleClass="tabView">
                 <p:tab title="供应商品号">
@@ -140,17 +162,8 @@
                                 </p:column>
                                 <p:column><p:outputLabel value="供应商色号" for="vendoritemcolor" /></p:column>
                                 <p:column>
-                                    <p:inputText id="vendoritemcolor" value="#{itemMasterManagedBean.currentDetail.vendoritemcolor}" title="vendoritemdesc" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="库存管理" for="invtype" /></p:column>
-                                <p:column>
-                                    <p:inputSwitch id="invtype" value="#{itemMasterManagedBean.newEntity.invtype}" required="true"/>
-                                </p:column>
-                                <p:column><p:outputLabel value="批号管理" for="bbstype" /></p:column>
-                                <p:column>
-                                    <p:inputText id="bbstype" value="#{itemMasterManagedBean.newEntity.bbstype}" title="bbstype" />
+                                    <p:inputText id="vendoritemcolor" value="#{itemMasterManagedBean.currentDetail.vendoritemcolor}" title="vendoritemdesc" 
+                                                 required="true" requiredMessage="请输入供应商色号"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

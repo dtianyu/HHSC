@@ -32,6 +32,9 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
     private SalesOrderBean salesOrderBean;
 
     @EJB
+    private SalesOrderDetailBean salesOrderDetailBean;
+
+    @EJB
     private ItemMasterBean itemMasterBean;
 
     @EJB
@@ -53,6 +56,7 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
         try {
             for (BiyaoImport e : entityList) {
                 if (!formid.equals(e.getFormid())) {
+
                     if (so != null && !saelsOrderDetailList.isEmpty()) {
                         //保存并且清空前面资料
                         so.setTotalamts(totalAmts);
@@ -88,11 +92,15 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
                     so.setOthercharges(BigDecimal.ZERO);
                     so.setRemark(e.getRemark());
                     so.setSalesremark(e.getSalesremark());
+                    so.setPackremark(e.getPackremark());
                     so.setBill(e.getBill());
                     so.setBilltype(e.getBilltype());
                     so.setBilltitle(e.getBilltitle());
                     so.setUscc(e.getUscc());
                     so.setPaydate(e.getPaydate());
+                    so.setPrintdate(e.getPrintdate());
+                    so.setFirstdelivery(e.getFirstdelivery());
+                    so.setLastdelivery(e.getLastdelivery());
                     so.setStatusToNew();
                     so.setCreator(e.getCreator());
                     so.setCredateToNow();
@@ -116,8 +124,8 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
                     sod.setProqty(BigDecimal.ZERO);
                     sod.setInqty(BigDecimal.ZERO);
                     sod.setShipqty(BigDecimal.ZERO);
-                    sod.setRelformid(e.getFormid());
-                    sod.setRelseq(Integer.parseInt(e.getRefno()));
+                    sod.setSrcformid(e.getFormid());
+                    sod.setSrcseq(Integer.parseInt(e.getRefno()));
                     sod.setStatus("10");
                     //加入明细
                     saelsOrderDetailList.add(sod);
@@ -144,8 +152,8 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
                     sod.setProqty(BigDecimal.ZERO);
                     sod.setInqty(BigDecimal.ZERO);
                     sod.setShipqty(BigDecimal.ZERO);
-                    sod.setRelformid(e.getFormid());
-                    sod.setRelseq(Integer.parseInt(e.getRefno()));
+                    sod.setSrcformid(e.getFormid());
+                    sod.setSrcseq(Integer.parseInt(e.getRefno()));
                     sod.setStatus("10");
                     //加入明细
                     saelsOrderDetailList.add(sod);
@@ -160,6 +168,15 @@ public class BiyaoImportBean extends SuperBean<BiyaoImport> {
         } catch (RuntimeException ex) {
             Logger.getLogger(this.getClass().toString()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+
+    public boolean isImported(String value) {
+        List<SalesOrderDetail> data = salesOrderDetailBean.findBySrcformid(value);
+        if (data == null || data.isEmpty()) {
+            return false;
+        } else {
+            return true;
         }
     }
 

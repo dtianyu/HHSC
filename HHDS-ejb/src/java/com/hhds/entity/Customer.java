@@ -160,7 +160,7 @@ public class Customer extends SuperEntity {
     @Size(max = 45)
     @Column(name = "payment")
     protected String payment;
-    @Size(max = 10)
+    @Size(max = 200)
     @Column(name = "shipadd")
     private String shipadd;
 

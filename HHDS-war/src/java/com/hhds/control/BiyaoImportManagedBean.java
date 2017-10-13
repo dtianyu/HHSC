@@ -18,7 +18,6 @@ import com.hhds.web.SuperSingleBean;
 import com.lightshell.comm.BaseLib;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -107,6 +105,12 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
             showErrorMsg("Error", "没有选择明细资料");
             return false;
         }
+        for (BiyaoImport bi : entityList) {
+            if (biyaoImportBean.isImported(bi.getFormid())) {
+                showErrorMsg("Error", bi.getFormid() + "已经导入过，请删除旧资料");
+                return false;
+            }
+        }
         return prepare();
     }
 
@@ -132,74 +136,85 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                     e = new BiyaoImport();
                     c = r.getCell(0);
                     e.setFormid(BaseLib.convertExcelCell(String.class, c).trim());
+                    if (e.getFormid() == null || "".equals(e.getFormid())) {
+                        break;
+                    }
                     c = r.getCell(1);
-                    e.setRefno(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(2);
-                    e.setFormtype(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(3);
+                    //e.setRefno(BaseLib.convertExcelCell(String.class, c).trim());
+                    //c = r.getCell(2);
+                    //e.setFormtype(BaseLib.convertExcelCell(String.class, c).trim());
+                    //c = r.getCell(3);
                     e.setFormdate(BaseLib.convertExcelCell(Date.class, c));
-                    c = r.getCell(4);
+                    c = r.getCell(2);
                     e.setPaydate(BaseLib.convertExcelCell(Date.class, c));
-                    c = r.getCell(5);
+                    c = r.getCell(3);
                     e.setContacter(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(6);
+                    c = r.getCell(4);
                     e.setPhone(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(7);
+                    c = r.getCell(5);
                     e.setProvince(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(8);
+                    c = r.getCell(6);
                     e.setCity(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(9);
+                    c = r.getCell(7);
                     e.setArea(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(10);
+                    c = r.getCell(8);
                     e.setAddress(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(11);
-                    e.setZipcode(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(12);
+                    c = r.getCell(9);
+                    //e.setZipcode(BaseLib.convertExcelCell(String.class, c).trim());
+                    // = r.getCell(10);
                     e.setShipmarks(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(13);
+                    c = r.getCell(10);
                     e.setRemark(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(14);
+                    c = r.getCell(11);
                     e.setSalesremark(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(15);
+                    c = r.getCell(12);
                     e.setBill(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(16);
+                    c = r.getCell(13);
                     e.setBilltype(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(17);
+                    c = r.getCell(14);
                     e.setBilltitle(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(18);
+                    c = r.getCell(15);
                     e.setUscc(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(19);
+                    c = r.getCell(16);
                     e.setMailadd(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(20);
+                    c = r.getCell(17);
                     e.setMobile(BaseLib.convertExcelCell(String.class, c).trim());
                     if (e.getMobile() == null || e.getMobile().equals("")) {
                         e.setMobile(e.getPhone());
                     }
-                    c = r.getCell(21);
+                    c = r.getCell(18);
                     e.setItemOID(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(22);
+                    c = r.getCell(19);
                     e.setItemno(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(23);
+                    c = r.getCell(20);
                     e.setItemdesc(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(24);
+                    c = r.getCell(21);
                     e.setQty(BaseLib.convertExcelCell(BigDecimal.class, c));
-                    c = r.getCell(25);
+                    c = r.getCell(22);
                     e.setPrice(BaseLib.convertExcelCell(BigDecimal.class, c));
-                    c = r.getCell(26);
+                    c = r.getCell(23);
                     e.setDiscount(BaseLib.convertExcelCell(BigDecimal.class, c));
-                    c = r.getCell(27);
+                    c = r.getCell(24);
                     e.setAmts(BaseLib.convertExcelCell(BigDecimal.class, c));
                     if (e.getAmts() == null || e.getAmts().compareTo(BigDecimal.ZERO) == 0) {
                         e.setAmts(e.getQty().multiply(e.getPrice()));
                     }
-                    c = r.getCell(28);
+                    c = r.getCell(25);
                     e.setFreight(BaseLib.convertExcelCell(BigDecimal.class, c));
-                    c = r.getCell(29);
+                    c = r.getCell(26);
                     e.setPeriod(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(35);
+                    c = r.getCell(27);
                     e.setItemspec1(BaseLib.convertExcelCell(String.class, c).trim());
-                    c = r.getCell(36);
+                    c = r.getCell(28);
                     e.setItemspec2(BaseLib.convertExcelCell(String.class, c).trim());
+                    c = r.getCell(29);
+                    e.setPrintdate(BaseLib.convertExcelCell(Date.class, c));
+                    c = r.getCell(30);
+                    e.setFirstdelivery(BaseLib.convertExcelCell(Date.class, c));
+                    c = r.getCell(31);
+                    e.setLastdelivery(BaseLib.convertExcelCell(Date.class, c));
+                    c = r.getCell(34);
+                    e.setPackremark(BaseLib.convertExcelCell(String.class, c).trim());
                     e.setStatusToNew();
                     e.setCreator(this.userManagedBean.getCurrentUser().getUsername());
                     e.setCredateToNow();
@@ -211,7 +226,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                 showInfoMsg("Info", "导入成功");
             } catch (FileNotFoundException ex) {
                 showErrorMsg("Error", "导入失败,找不到导入文件");
-            } catch (IOException | InvalidFormatException ex) {
+            } catch (Exception ex) {
                 showErrorMsg("Error", "导入失败,文件格式错误");
                 Logger.getLogger(this.getClass().toString()).log(Level.SEVERE, null, ex);
             }
@@ -250,7 +265,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
             showErrorMsg("Error", "没有选择明细资料");
             return false;
         }
-        String itemOID = "";
+        String itemno = "";
         String customerno = "";
         ItemCategory itemCategory = itemCategoryBean.findByCategory("Biyao");
         Customer c;
@@ -288,13 +303,13 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                         customerBean.persist(c);
                     }
                 }
-                if (!itemOID.equals(e.getItemOID())) {
-                    itemOID = e.getItemOID();
-                    im = itemMasterBean.findByItemOID(itemOID);
+                if (!itemno.equals(e.getItemno())) {
+                    itemno = e.getItemno();
+                    im = itemMasterBean.findByItemno(itemno);
                     if (im == null) {
                         im = new ItemMaster();
                         im.setItemCategory(itemCategory);
-                        im.setItemOID(itemOID);
+                        im.setItemOID(e.getItemOID());
                         im.setItemno(e.getItemno());
                         im.setItemdesc(e.getItemdesc());
                         im.setItemspec(e.getItemspec1());
@@ -304,6 +319,9 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                         im.setCreator(userManagedBean.getCurrentUser().getUsername());
                         im.setCredateToNow();
                         itemMasterBean.persist(im);
+                    } else {
+                        im.setItemOID(e.getItemOID());
+                        itemMasterBean.update(im);
                     }
                 }
             }
