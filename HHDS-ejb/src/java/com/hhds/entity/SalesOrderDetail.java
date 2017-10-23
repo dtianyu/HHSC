@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SalesOrderDetail.findAll", query = "SELECT s FROM SalesOrderDetail s")
     , @NamedQuery(name = "SalesOrderDetail.findById", query = "SELECT s FROM SalesOrderDetail s WHERE s.id = :id")
     , @NamedQuery(name = "SalesOrderDetail.findByPId", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid")
+    , @NamedQuery(name = "SalesOrderDetail.findByPIdAndSeq", query = "SELECT s FROM SalesOrderDetail s WHERE s.pid = :pid AND s.seq=:seq")
     , @NamedQuery(name = "SalesOrderDetail.findBySrcformid", query = "SELECT s FROM SalesOrderDetail s WHERE s.srcformid = :srcformid")})
 public class SalesOrderDetail extends FormDetailEntity {
 
@@ -41,11 +42,17 @@ public class SalesOrderDetail extends FormDetailEntity {
     @ManyToOne(optional = false)
     private ItemMaster itemMaster;
 
+    @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
+    private Warehouse warehouse;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "itemno")
     private String itemno;
+    @Size(max = 20)
+    @Column(name = "colorno")
+    private String colorno;
     @Size(max = 20)
     @Column(name = "brand")
     private String brand;
@@ -130,6 +137,10 @@ public class SalesOrderDetail extends FormDetailEntity {
     private Integer relseq;
 
     public SalesOrderDetail() {
+        this.proqty = BigDecimal.ZERO;
+        this.inqty = BigDecimal.ZERO;
+        this.shipqty = BigDecimal.ZERO;
+        this.backqty = BigDecimal.ZERO;
     }
 
     public String getItemno() {
@@ -138,6 +149,20 @@ public class SalesOrderDetail extends FormDetailEntity {
 
     public void setItemno(String itemno) {
         this.itemno = itemno;
+    }
+
+    /**
+     * @return the colorno
+     */
+    public String getColorno() {
+        return colorno;
+    }
+
+    /**
+     * @param colorno the colorno to set
+     */
+    public void setColorno(String colorno) {
+        this.colorno = colorno;
     }
 
     public String getBrand() {
@@ -409,6 +434,20 @@ public class SalesOrderDetail extends FormDetailEntity {
      */
     public void setItemMaster(ItemMaster itemMaster) {
         this.itemMaster = itemMaster;
+    }
+
+    /**
+     * @return the warehouse
+     */
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    /**
+     * @param warehouse the warehouse to set
+     */
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
 
 }

@@ -8,6 +8,7 @@ package com.hhds.control;
 import com.hhds.ejb.ItemInventoryBean;
 import com.hhds.ejb.ItemTransactionBean;
 import com.hhds.ejb.ItemTransactionDetailBean;
+import com.hhds.ejb.VendorItemBean;
 import com.hhds.entity.Customer;
 import com.hhds.entity.ItemInventory;
 import com.hhds.entity.ItemMaster;
@@ -15,6 +16,7 @@ import com.hhds.entity.ItemTransaction;
 import com.hhds.entity.ItemTransactionDetail;
 import com.hhds.entity.TransactionType;
 import com.hhds.entity.Unit;
+import com.hhds.entity.VendorItem;
 import com.hhds.entity.Warehouse;
 import com.hhds.lazy.ItemTransactionModel;
 import com.hhds.web.FormMultiBean;
@@ -44,6 +46,9 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
     private ItemTransactionBean itemTransactionBean;
     @EJB
     private ItemTransactionDetailBean itemTransactionDetailBean;
+
+    @EJB
+    private VendorItemBean vendorItemBean;
 
     public ItemTransactionManagedBean() {
         super(ItemTransaction.class, ItemTransactionDetail.class);
@@ -242,6 +247,11 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
             this.currentDetail.setItemno(entity.getItemno());
             this.currentDetail.setUnit(entity.getUnit());
             this.currentDetail.setWarehouse(currentEntity.getWarehouse());
+            VendorItem vi = vendorItemBean.findFirstByItemno(entity.getItemno());
+            if (vi != null) {
+                currentDetail.setBatch(vi.getVendordesignno());
+                currentDetail.setColorno(vi.getVendoritemcolor());
+            }
         }
     }
 
@@ -269,41 +279,39 @@ public class ItemTransactionManagedBean extends FormMultiBean<ItemTransaction, I
                 showMsg(FacesMessage.SEVERITY_WARN, "Warn", "请输入异动类别");
                 return;
             }
-            if (null != view) {
-                switch (view) {
-                    case "objSelect":
-                        super.openDialog(currentEntity.getTransactionType().getObjselect());
-                        break;
-                    case "srcSelect":
-                        switch (currentEntity.getTransactionType().getSrcselect()) {
-                            case "salesordermaterialSelect":
-                                if (currentEntity.getObjno() != null) {
-                                    Map<String, List<String>> params = new HashMap<>();
-                                    List<String> customerno = new ArrayList<>();
-                                    customerno.add(currentEntity.getObjno());
-                                    params.put("customerno", customerno);
-                                    super.openDialog("salesordermaterialSelect", params);
-                                } else {
-                                    super.openDialog(currentEntity.getTransactionType().getSrcselect());
-                                }
-                                break;
-                            default:
+            switch (view) {
+                case "objSelect":
+                    super.openDialog(currentEntity.getTransactionType().getObjselect());
+                    break;
+                case "srcSelect":
+                    switch (currentEntity.getTransactionType().getSrcselect()) {
+                        case "salesordermaterialSelect":
+                            if (currentEntity.getObjno() != null) {
+                                Map<String, List<String>> params = new HashMap<>();
+                                List<String> customerno = new ArrayList<>();
+                                customerno.add(currentEntity.getObjno());
+                                params.put("customerno", customerno);
+                                super.openDialog("salesordermaterialSelect", params);
+                            } else {
                                 super.openDialog(currentEntity.getTransactionType().getSrcselect());
-                        }
-                        break;
-                    case "itemcolorSelect":
-                        if (currentDetail.getItemno() != null) {
-                            Map<String, List<String>> itemcolorParams = new HashMap<>();
-                            List<String> itemno = new ArrayList<>();
-                            itemno.add(currentDetail.getItemno());
-                            itemcolorParams.put("customeritemno", itemno);
-                            super.openDialog("itemcolorSelect", itemcolorParams);
-                        }
-                        break;
-                    default:
-                        super.openDialog(view);
-                        break;
-                }
+                            }
+                            break;
+                        default:
+                            super.openDialog(currentEntity.getTransactionType().getSrcselect());
+                    }
+                    break;
+                case "itemcolorSelect":
+                    if (currentDetail.getItemno() != null) {
+                        Map<String, List<String>> itemcolorParams = new HashMap<>();
+                        List<String> itemno = new ArrayList<>();
+                        itemno.add(currentDetail.getItemno());
+                        itemcolorParams.put("customeritemno", itemno);
+                        super.openDialog("itemcolorSelect", itemcolorParams);
+                    }
+                    break;
+                default:
+                    super.openDialog(view);
+                    break;
             }
         }
     }

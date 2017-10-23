@@ -21,9 +21,9 @@
                                      rendered="#{salesOrderManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" value="审核" action="#{salesOrderManagedBean.verify()}" icon="ui-icon-locked"
+                    <p:commandButton id="btnVerify" value="发货" action="#{salesOrderManagedBean.verify()}" icon="ui-icon-locked"
                                      rendered="#{salesOrderManagedBean.doCfm}" process="@this" update="formView">
-                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                        <p:confirm header="系统提示" message="发货吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
                                      rendered="#{salesOrderManagedBean.doPrt}"/>

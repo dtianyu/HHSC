@@ -167,8 +167,9 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         if (currentDetail.getItemno() != null && currentEntity.getVendor() != null) {
             VendorItem entity = vendorItemBean.findByItemnoAndVendorno(currentDetail.getItemno(), currentEntity.getVendor().getVendorno());
             if (entity != null) {
-                this.currentDetail.setVendoritemno(entity.getVendordesignno());
-                this.currentDetail.setVendorcolorno(entity.getVendoritemcolor());
+                this.currentDetail.setVendoritemno(entity.getVendordesignno());//花号
+                this.currentDetail.setVendorcolorno(entity.getVendoritemcolor());//色号
+                this.currentDetail.setBatch(entity.getVendoritemno());//面料
             }
         }
     }
@@ -215,10 +216,32 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         }
     }
 
+    public void handleDialogReturnBatchWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            com.hhsc.entity.ItemMaster entity = (com.hhsc.entity.ItemMaster) event.getObject();
+            currentDetail.setBatch(entity.getItemno());
+        }
+    }
+
     public void handleDialogReturnUnitWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null && currentDetail != null) {
             Unit entity = (Unit) event.getObject();
             this.currentDetail.setUnit(entity.getUnit());
+        }
+    }
+
+    public void handleDialogReturnVendorItemnoWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            com.hhsc.entity.ItemMaster entity = (com.hhsc.entity.ItemMaster) event.getObject();
+            currentDetail.setVendoritemno(entity.getItemno());
+        }
+    }
+
+    public void handleDialogReturnVendorColornoWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            com.hhsc.entity.ItemColor entity = (com.hhsc.entity.ItemColor) event.getObject();
+            currentDetail.setVendorcolorno(entity.getColorno());
+            currentDetail.setVendoritemno(entity.getItemno());
         }
     }
 

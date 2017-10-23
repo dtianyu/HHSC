@@ -84,31 +84,56 @@
                     <p:panel id="panelDetail">
                         <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
                             <p:row>
-                                <p:column><p:outputLabel value="商品编号" for="itemmaster" /></p:column>
-                                <p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="商品编号" for="itemmaster" /></p:column>
+                                <p:column styleClass="Wid30">
                                     <p:inputText id="itemmaster" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemno}" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入品号" readonly="true"/>
                                     <p:commandButton id="btnItemMaster" actionListener="#{purchaseOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnWhenDetailEdit}"
-                                                update="plgDetail" oncomplete="findVendorItemno()" />
+                                                update="itemmaster,itemdesc,itemspec,unit" oncomplete="findVendorItemno()" />
                                     </p:commandButton>
                                     <p:remoteCommand id="findVendorItemno" name="findVendorItemno" actionListener="#{purchaseOrderManagedBean.findVendorItemForDetail()}"
-                                                     process="@this" update="vendoritemno,vendorcolorno"/>
+                                                     process="@this" update="vendoritemno,vendorcolorno,batch"/>
                                 </p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="华卉品号" for="vendoritemno" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="vendoritemno" value="#{purchaseOrderManagedBean.currentDetail.vendoritemno}" title="vendoritemno"  styleClass="inputWithButton"/>
+                                    <p:commandButton id="btnVendorDesignnoSelect" actionListener="#{purchaseOrderManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnVendorItemnoWhenDetailEdit}"
+                                                update="vendoritemno" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="商品名称"/></p:column>
                                 <p:column styleClass="Wid30">
                                     <h:outputText id="itemdesc" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemdesc}" title="Customercolorno" />
                                 </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="华卉品号" for="vendoritemno" /></p:column>
-                                <p:column styleClass="Wid30">
-                                    <p:inputText id="vendoritemno" value="#{purchaseOrderManagedBean.currentDetail.vendoritemno}" title="vendoritemno" />
-                                </p:column>
                                 <p:column styleClass="Wid20"><p:outputLabel value="华卉色号" for="vendorcolorno" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="vendorcolorno" value="#{purchaseOrderManagedBean.currentDetail.vendorcolorno}" title="vendorcolorno" />
+                                    <p:inputText id="vendorcolorno" value="#{purchaseOrderManagedBean.currentDetail.vendorcolorno}" title="vendorcolorno" styleClass="inputWithButton"/>
+                                    <p:commandButton id="btnItemColorSelect" actionListener="#{purchaseOrderManagedBean.openDialog('itemcolorSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnVednorColornoWhenDetailEdit}"
+                                                update="vendorcolorno,vendoritemno" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="颜色"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemspec" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemspec}" title="itemspec" />
+                                </p:column>
+                                <p:column><p:outputLabel value="面料" for="batch" /></p:column>
+                                <p:column>
+                                    <p:inputText id="batch" value="#{purchaseOrderManagedBean.currentDetail.batch}" title="batch" styleClass="inputWithButton"/>
+                                    <p:commandButton id="btnVendorItemnoSelect" actionListener="#{purchaseOrderManagedBean.openDialog('itemfinshedSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnBatchWhenDetailEdit}"
+                                                update="batch" />
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>

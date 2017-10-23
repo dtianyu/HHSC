@@ -48,4 +48,13 @@ public class VendorItemBean extends SuperBean<VendorItem> {
         }
     }
 
+    public VendorItem findFirstByItemno(String itemno) {
+        List<VendorItem> data = findByItemno(itemno);
+        if (data != null && !data.isEmpty()) {
+            return data.get(0);
+        } else {
+            return null;
+        }
+    }
+
 }

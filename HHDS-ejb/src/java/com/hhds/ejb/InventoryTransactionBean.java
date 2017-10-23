@@ -51,6 +51,7 @@ public class InventoryTransactionBean extends SuperBean<InventoryTransaction> {
         if (entity.getColorno() == null) {
             entity.setColorno("");
         }
+        /*
         if (entity.getBrand() == null || entity.getItemmaster().getBbstype().substring(0, 1).equals("0")) {
             entity.setBrand("");
         }
@@ -58,6 +59,16 @@ public class InventoryTransactionBean extends SuperBean<InventoryTransaction> {
             entity.setBatch("");
         }
         if (entity.getSn() == null || entity.getItemmaster().getBbstype().substring(2).equals("0")) {
+            entity.setSn("");
+        }
+         */
+        if (entity.getBrand() == null) {
+            entity.setBrand("");
+        }
+        if (entity.getBatch() == null) {
+            entity.setBatch("");
+        }
+        if (entity.getSn() == null) {
             entity.setSn("");
         }
     }

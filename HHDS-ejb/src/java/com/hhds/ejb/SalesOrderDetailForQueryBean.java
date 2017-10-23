@@ -6,9 +6,18 @@
 package com.hhds.ejb;
 
 import com.hhds.comm.SuperBean;
+import com.hhds.entity.ItemTransaction;
+import com.hhds.entity.ItemTransactionDetail;
 import com.hhds.entity.SalesOrderDetailForQuery;
+import com.hhds.entity.TransactionType;
+import com.hhds.entity.VendorItem;
+import com.lightshell.comm.BaseLib;
+import com.lightshell.comm.SuperEJB;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.Query;
@@ -20,6 +29,15 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class SalesOrderDetailForQueryBean extends SuperBean<SalesOrderDetailForQuery> {
+
+    @EJB
+    private ItemTransactionBean itemTransactionBean;
+    @EJB
+    private ItemTransactionDetailBean itemTransactionDetailBean;
+    @EJB
+    private TransactionTypeBean transactionTypeBean;
+    @EJB
+    private VendorItemBean vendorItemBean;
 
     public SalesOrderDetailForQueryBean() {
         super(SalesOrderDetailForQuery.class);
@@ -46,6 +64,60 @@ public class SalesOrderDetailForQueryBean extends SuperBean<SalesOrderDetailForQ
             this.setQueryParam(query, filters);
         }
         return query.getResultList();
+    }
+
+    @Override
+    public SalesOrderDetailForQuery unverify(SalesOrderDetailForQuery entity) {
+        TransactionType transactionType = transactionTypeBean.findByTrtype("SDB");
+        if (transactionType == null) {
+            throw new RuntimeException("SDB交易类别没有定义");
+        }
+        VendorItem vi = vendorItemBean.findFirstByItemno(entity.getItemno());
+        if (vi == null) {
+            throw new RuntimeException(entity.getItemno() + "没有对应花号");
+        }
+        List<ItemTransactionDetail> addedDetail = new ArrayList<>();
+        HashMap<SuperEJB, List<?>> detailAdded = new HashMap<>();
+        detailAdded.put(itemTransactionDetailBean, addedDetail);
+        ItemTransaction it = new ItemTransaction();
+        it.setFormdate(BaseLib.getDate());
+        it.setTransactionType(transactionType);
+        it.setObjtype("salesorder");
+        it.setObjno(entity.getSalesOrder().getFormid());
+        it.setWarehouse(entity.getWarehouse());
+        it.setReason("退货");
+        it.setStatus("N");
+
+        ItemTransactionDetail itd = new ItemTransactionDetail();
+        itd.setSeq(1);
+        itd.setTrtype(transactionType.getTrtype());
+        itd.setItemmaster(entity.getItemMaster());
+        itd.setItemno(entity.getItemno());
+        itd.setColorno(vi.getVendoritemcolor());
+        itd.setBrand(entity.getBrand());
+        itd.setBatch(entity.getBatch() == null ? vi.getVendordesignno() : entity.getBatch());
+        itd.setSn(entity.getSn());
+        itd.setQty(entity.getQty());
+        itd.setUnit(entity.getUnit());
+        itd.setWarehouse(entity.getWarehouse());
+        itd.setSrcapi("salesorder");
+        itd.setSrcformid(entity.getSalesOrder().getFormid());
+        itd.setSrcseq(entity.getSeq());
+        addedDetail.add(itd);
+
+        String formid = itemTransactionBean.getFormId(it.getFormdate());
+        it.setFormid(formid);
+        itd.setPid(formid);
+        itemTransactionBean.persist(it, detailAdded, null, null);
+        it.setStatus("V");
+        itemTransactionBean.verify(it);
+
+        entity.setBackqty(entity.getBackqty().add(itd.getQty()));
+        entity.setRelapi("itemtransaction");
+        entity.setRelformid(formid);
+        entity.setRelseq(1);
+        SalesOrderDetailForQuery sod = getEntityManager().merge(entity);
+        return sod;
     }
 
 }

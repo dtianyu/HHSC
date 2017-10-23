@@ -168,6 +168,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>biyaoupdate</from-outcome>
+            <to-view-id>/app/sd/biyaoupdate.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>customer</from-outcome>
             <to-view-id>/app/sd/customer.xhtml</to-view-id>
             <redirect/>
@@ -275,11 +280,17 @@
     <navigation-rule>
         <description>库存模块一级导航</description>
         <from-view-id>/*</from-view-id>
-        <!--点验明细查询-->
+        <!--库存交易过程-->
         <navigation-case>
             <description>库存交易过程</description>
             <from-outcome>inventorytransaction</from-outcome>
             <to-view-id>/app/mm/inventorytransaction.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <description>库存调拨</description>
+            <from-outcome>itemadjust</from-outcome>
+            <to-view-id>/app/mm/itemadjust.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -288,11 +299,13 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <description>库存转换</description>
             <from-outcome>itemexchange</from-outcome>
             <to-view-id>/app/mm/itemexchange.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <description>商品库存</description>
             <from-outcome>iteminventory</from-outcome>
             <to-view-id>/app/mm/iteminventory.xhtml</to-view-id>
             <redirect/>
@@ -303,7 +316,7 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <description>库存异动设定</description>
+            <description>库存异动</description>
             <from-outcome>itemtransaction</from-outcome>
             <to-view-id>/app/mm/itemtransaction.xhtml</to-view-id>
             <redirect/>
@@ -882,11 +895,6 @@
         <description>模态开窗</description>
         <from-view-id>/*</from-view-id>
         <navigation-case>
-            <from-outcome>accountreceivableSelect</from-outcome>
-            <to-view-id>/app/df/accountreceivableSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>currencySelect</from-outcome>
             <to-view-id>/app/df/currencySelect.xhtml</to-view-id>
             <redirect/>
@@ -897,23 +905,8 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>customercolorSelect</from-outcome>
-            <to-view-id>/app/df/customercolorSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>deptSelect</from-outcome>
             <to-view-id>/app/df/deptSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>factoryorderdetailSelect</from-outcome>
-            <to-view-id>/app/df/factoryorderdetailSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>designspecSelect</from-outcome>
-            <to-view-id>/app/df/designspecSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -942,18 +935,8 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>purchasetransactionSelect</from-outcome>
-            <to-view-id>/app/df/purchasetransactionSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>salesorderdetailSelect</from-outcome>
             <to-view-id>/app/df/salesorderdetailSelect.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>sysprgSelect</from-outcome>
-            <to-view-id>/app/df/sysprgSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

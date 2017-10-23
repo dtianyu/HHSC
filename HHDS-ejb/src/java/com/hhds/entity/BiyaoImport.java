@@ -6,15 +6,11 @@
 package com.hhds.entity;
 
 import com.lightshell.comm.FormEntity;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -173,6 +169,9 @@ public class BiyaoImport extends FormEntity {
     @Column(name = "deliverydate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliverydate;
+    @Size(max = 45)
+    @Column(name = "deliveryno")
+    private String deliveryno;
 
     public BiyaoImport() {
         this.refno = "1";
@@ -562,6 +561,20 @@ public class BiyaoImport extends FormEntity {
      */
     public void setDeliverydate(Date deliverydate) {
         this.deliverydate = deliverydate;
+    }
+
+    /**
+     * @return the deliveryno
+     */
+    public String getDeliveryno() {
+        return deliveryno;
+    }
+
+    /**
+     * @param deliveryno the deliveryno to set
+     */
+    public void setDeliveryno(String deliveryno) {
+        this.deliveryno = deliveryno;
     }
 
     @Override

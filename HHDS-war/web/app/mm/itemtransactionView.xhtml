@@ -26,6 +26,10 @@
                                      rendered="#{itemTransactionManagedBean.doCfm}" process="@this" update="formView">
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
+                    <p:commandButton id="btnUnverify" value="还原"  actionListener="#{itemTransactionManagedBean.unverify()}" icon="ui-icon-unlocked"
+                                     rendered="#{itemTransactionManagedBean.doUnCfm}"  update="formView">
+                        <p:confirm header="系统提示" message="还原吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                     <p:commandButton id="btnPrint" value="打印" actionListener="#{itemTransactionManagedBean.print()}" icon="ui-icon-print"
                                      rendered="#{itemTransactionManagedBean.doPrt}"/>
                 </f:facet>
@@ -134,9 +138,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="色号"/></p:column>
-                        <p:column>
-                            <h:outputText value="#{itemTransactionManagedBean.currentDetail.colorno}" title="Colorid"/>
+                        <p:column styleClass="Wid20"><h:outputText value="花号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch" />
                         </p:column>
                         <p:column><h:outputText value="规格"/></p:column>
                         <p:column>
@@ -144,9 +148,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="批号"/></p:column>
-                        <p:column styleClass="Wid30">
-                            <h:outputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch" />
+                        <p:column><h:outputText value="色号"/></p:column>
+                        <p:column>
+                            <h:outputText value="#{itemTransactionManagedBean.currentDetail.colorno}" title="Colorid"/>
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="序号"/></p:column>
                         <p:column styleClass="Wid30">
@@ -179,7 +183,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnUnverify,btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

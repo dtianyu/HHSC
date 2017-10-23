@@ -37,6 +37,7 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
     public void init() {
         setSuperEJB(salesOrderDetailForQueryBean);
         setModel(new SalesOrderDetailForQueryModel(salesOrderDetailForQueryBean));
+        model.getFilterFields().put("salesOrder.status", "V");
         model.getSortFields().put("salesOrder.status", "ASC");
         model.getSortFields().put("salesOrder.formid", "DESC");
         super.init();
@@ -46,6 +47,7 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
+            model.getFilterFields().put("salesOrder.status", "V");
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("salesOrder.formid", queryFormId);
             }
@@ -70,6 +72,56 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
             if (queryDeliveryDateEnd != null) {
                 this.model.getFilterFields().put("firstdeliveryEnd", queryDeliveryDateEnd);
             }
+        }
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        model.getFilterFields().put("salesOrder.status", "V");
+    }
+
+    @Override
+    protected void setToolBar() {
+        if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
+            switch (currentEntity.getStatus()) {
+                case "AC":
+                    this.doEdit = false;
+                    this.doDel = false;
+                    this.doCfm = false;
+                    this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
+                    break;
+                default:
+                    this.doEdit = false;
+                    this.doDel = false;
+                    this.doCfm = false;
+                    this.doUnCfm = false;
+            }
+        } else {
+            this.doEdit = false;
+            this.doDel = false;
+            this.doCfm = false;
+            this.doUnCfm = false;
+        }
+    }
+
+    @Override
+    public void unverify() {
+        if (null != getCurrentEntity()) {
+            try {
+                if (doBeforeUnverify()) {
+                    currentEntity.setStatus("MC");
+                    superEJB.unverify(currentEntity);
+                    doAfterUnverify();
+                    showInfoMsg("Info", "退货成功");
+                } else {
+                    showWarnMsg("Warn", "退货前检查失败");
+                }
+            } catch (Exception ex) {
+                showErrorMsg("Error", ex.toString());
+            }
+        } else {
+            showWarnMsg("Warn", "没有可更新数据");
         }
     }
 

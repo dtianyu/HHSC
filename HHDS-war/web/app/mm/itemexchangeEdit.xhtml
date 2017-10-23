@@ -20,7 +20,7 @@
                                      process="formEdit" update="formEdit"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="库存转换－修改">
+            <p:panel id="panelHead" header="换货处理－修改">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="转换单号"/></p:column>
@@ -36,35 +36,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="需求部门" for="deptid" /></p:column>
-                        <p:column>
-                            <p:inputText id="deptid" value="#{itemExchangeManagedBean.currentEntity.dept.dept}" title="Deptid"
-                                         styleClass="inputWithButton" required="true" requiredMessage="请输入部门" readonly="true"/>
-                            <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink"
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWhenEdit}"
-                                        update="deptid" />
-                            </p:commandButton>
-                        </p:column>
-                        <p:column><p:outputLabel value="需求人" for="userid" /></p:column>
-                        <p:column>
-                            <p:inputText id="userid" value="#{itemExchangeManagedBean.currentEntity.systemUser.username}" title="Salesman" styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入业务员" readonly="true"/>
-                            <p:commandButton id="btnSelectSalesman" actionListener="#{itemExchangeManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink"
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUserWhenEdit}"
-                                        update="userid" />
-                            </p:commandButton>
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column><p:outputLabel value="异动对象" for="objno" /></p:column>
                         <p:column>
                             <p:inputText id="objno" value="#{itemExchangeManagedBean.currentEntity.objno}" styleClass="inputWithButton" />
                             <p:commandButton id="btnObjectSelect" actionListener="#{itemExchangeManagedBean.openDialog('objSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnObjectWhenEdit}"
-                                        update="objno,remark" />
+                                        update="objno,remark,formEdit:tabView:plgBase" />
                             </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="异动原因" for="reason" /></p:column>

@@ -13,6 +13,10 @@
         <param-value>resources//upload//img</param-value>
     </context-param>
     <context-param>
+        <param-name>com.hhsc.web.defaultwarehouse</param-name>
+        <param-value>W001</param-value>
+    </context-param>
+    <context-param>
         <param-name>com.hhsc.web.reportpath</param-name>
         <param-value>rpt//</param-value>
     </context-param>

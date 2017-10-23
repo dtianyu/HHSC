@@ -7,6 +7,7 @@ package com.hhds.ejb;
 
 import com.hhds.comm.SuperBean;
 import com.hhds.entity.ItemInventory;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -24,6 +25,34 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
 
     public ItemInventoryBean() {
         super(ItemInventory.class);
+    }
+
+    //增加数量
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void add(ItemInventory entity) throws RuntimeException {
+        if (entity.getItemmaster().getInvtype()) {
+            try {
+                setDefaultValue(entity);
+                ItemInventory e = findItemInventory(entity);
+                if (e == null) {
+                    persist(entity);
+                } else {
+                    e.setPreqty(e.getPreqty().add(entity.getPreqty()));
+                    e.setQty(e.getQty().add(entity.getQty()));
+                    update(e);
+                }
+            } catch (RuntimeException ex) {
+                throw new RuntimeException(ex.toString());
+            }
+        }
+    }
+
+    //增加数量
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void add(List<ItemInventory> entities) {
+        for (ItemInventory e : entities) {
+            add(e);
+        }
     }
 
     public ItemInventory findItemInventory(ItemInventory entity) {
@@ -85,31 +114,18 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
         return query.getResultList();
     }
 
-    //增加数量
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void add(ItemInventory entity) throws RuntimeException {
-        if (entity.getItemmaster().getInvtype()) {
-            try {
-                setDefaultValue(entity);
-                ItemInventory e = findItemInventory(entity);
-                if (e == null) {
-                    persist(entity);
-                } else {
-                    e.setPreqty(e.getPreqty().add(entity.getPreqty()));
-                    e.setQty(e.getQty().add(entity.getQty()));
-                    update(e);
-                }
-            } catch (RuntimeException ex) {
-                throw new RuntimeException(ex.toString());
+    public boolean isGreatThenInventory(ItemInventory entity) {
+        ItemInventory ii = findItemInventory(entity);
+        if (ii == null) {
+            return true;
+        } else {
+            BigDecimal qty = ii.getQty().subtract(ii.getPreqty());
+            BigDecimal other = entity.getQty().add(entity.getPreqty());
+            if (other.compareTo(qty) > 1) {
+                return true;
+            } else {
+                return false;
             }
-        }
-    }
-
-    //增加数量
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void add(List<ItemInventory> entities) {
-        for (ItemInventory e : entities) {
-            add(e);
         }
     }
 
@@ -145,6 +161,7 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
         if (entity.getColorno() == null) {
             entity.setColorno("");
         }
+        /*
         if (entity.getBrand() == null || entity.getItemmaster().getBbstype().substring(0, 1).equals("0")) {
             entity.setBrand("");
         }
@@ -152,6 +169,16 @@ public class ItemInventoryBean extends SuperBean<ItemInventory> {
             entity.setBatch("");
         }
         if (entity.getSn() == null || entity.getItemmaster().getBbstype().substring(2).equals("0")) {
+            entity.setSn("");
+        }
+         */
+        if (entity.getBrand() == null) {
+            entity.setBrand("");
+        }
+        if (entity.getBatch() == null) {
+            entity.setBatch("");
+        }
+        if (entity.getSn() == null) {
             entity.setSn("");
         }
     }

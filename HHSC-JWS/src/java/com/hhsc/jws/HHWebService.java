@@ -230,16 +230,16 @@ public class HHWebService {
                 if (dsvi == null) {
                     throw new NullPointerException("没有" + d.getItemno() + "对应的供应商品号");
                 }
-                scid = scItemMasterBean.findByItemno(dsvi.getVendordesignno());
+                scid = scItemMasterBean.findByItemno(d.getVendoritemno());
                 if (scid == null) {
-                    throw new NullPointerException("华卉品号" + dsvi.getVendordesignno() + "不存在");
+                    throw new NullPointerException("华卉品号" + d.getVendoritemno() + "不存在");
                 }
-                scim = scItemMasterBean.findByItemno(dsvi.getVendoritemno());
+                scim = scItemMasterBean.findByItemno(d.getBatch());
                 if (scim == null) {
-                    throw new NullPointerException("华卉品号" + dsvi.getVendoritemno() + "不存在");
+                    throw new NullPointerException("华卉品号" + d.getBatch() + "不存在");
                 }
-                scciList = scCustomerItemBean.findCustomerItemno(dsvi.getVendoritemno(), sccu.getCustomerno());
-                scci = scCustomerItemBean.findCustomerItemno(dsvi.getVendoritemno(), sccu.getCustomerno(), d.getItemno());
+                scciList = scCustomerItemBean.findCustomerItemno(d.getVendoritemno(), sccu.getCustomerno());
+                scci = scCustomerItemBean.findCustomerItemno(d.getVendoritemno(), sccu.getCustomerno(), d.getItemno());
                 if (scci == null) {
                     if (scciList == null || scciList.isEmpty()) {
                         seq = 1;
@@ -262,7 +262,7 @@ public class HHWebService {
                 scsod = new SalesOrderDetail();
                 scsod.setPid(id);
                 scsod.setSeq(seq);
-                scsod.setColorno(dsvi.getVendoritemcolor());
+                scsod.setColorno(d.getVendorcolorno());
                 scsod.setItemmaster(scim);
                 scsod.setItemno(scim.getItemno());
                 scsod.setQty(d.getQty());

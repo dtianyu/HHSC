@@ -55,9 +55,9 @@
                                      update=":formList"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataGrid value="#{itemInventoryQueryBean.model}" var="item" layout="grid" paginator="true" paginatorPosition="bottom" rows="12"  columns="3"
+            <p:dataGrid value="#{itemInventoryQueryBean.model}" var="item" layout="grid" paginator="true" paginatorPosition="bottom" rows="12"  columns="4"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,18"  lazy="true"  >
+                        rowsPerPageTemplate="8,12,16"  lazy="true"  >
                 <p:column>
                     <p:panel header="#{item.itemmaster.itemno}" styleClass="panelView TexAlCenter">
                         <p:panelGrid styleClass="plgView Wid100">
@@ -77,6 +77,14 @@
                                 </p:column>
                                 <p:column styleClass="Wid50">
                                     <h:outputText value="#{item.qty}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid50">
+                                    <h:outputText value="#{item.batch}"/>
+                                </p:column>
+                                <p:column styleClass="Wid50">
+                                    <h:outputText value="#{item.colorno}"/>
                                 </p:column>
                             </p:row>
                             <p:row>

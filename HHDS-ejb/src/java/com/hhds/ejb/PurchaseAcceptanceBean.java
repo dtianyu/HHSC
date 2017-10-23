@@ -162,6 +162,7 @@ public class PurchaseAcceptanceBean extends SuperBean<PurchaseAcceptance> {
                 t.setCfmdate(e.getCfmdate());
                 inventoryTransactionBean.setDefaultValue(t);
                 inventoryTransactionBean.persist(t);
+                //更新库存数量
                 ItemInventory i = new ItemInventory();
                 i.setItemmaster(detail.getItemmaster());
                 i.setColorno(detail.getColorno() == null ? detail.getVendorcolorno() : detail.getColorno());

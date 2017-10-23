@@ -126,12 +126,28 @@
                             <p:commandButton actionListener="#{itemTransactionManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnWhenDetailEdit}"
-                                        update="itemno,itemdesc,itemspec,unit,warehouse" />
+                                        update="plgDetail" />
                             </p:commandButton>
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="名称"/></p:column>
                         <p:column styleClass="Wid30">
                             <h:outputText id="itemdesc" value="#{itemTransactionManagedBean.currentDetail.itemmaster.itemdesc}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="花号" for="batch"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch"
+                                         styleClass="inputWithButton"/>
+                            <p:commandButton actionListener="#{itemTransactionManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnBatchWhenDetailEdit}"
+                                        update="batch" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{itemTransactionManagedBean.currentDetail.itemmaster.itemspec}" title="itemspec" />
                         </p:column>
                     </p:row>
                     <p:row>
@@ -142,22 +158,6 @@
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnColornoWhenDetailEdit}"
                                         update="colorno,batch" />
-                            </p:commandButton>
-                        </p:column>
-                        <p:column><h:outputText value="规格"/></p:column>
-                        <p:column>
-                            <h:outputText id="itemspec" value="#{itemTransactionManagedBean.currentDetail.itemmaster.itemspec}" title="itemspec" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="批号" for="batch"/></p:column>
-                        <p:column styleClass="Wid30">
-                            <p:inputText id="batch" value="#{itemTransactionManagedBean.currentDetail.batch}" title="batch"
-                                         styleClass="inputWithButton"/>
-                            <p:commandButton actionListener="#{itemTransactionManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemTransactionManagedBean.handleDialogReturnBatchWhenDetailEdit}"
-                                        update="batch" />
                             </p:commandButton>
                         </p:column>
                         <p:column styleClass="Wid20"><p:outputLabel value="序号" for="sn"/></p:column>
@@ -226,7 +226,7 @@
                         <f:facet name="header">
                             <h:outputText value="批号"/>
                         </f:facet>
-                        <h:outputText value="#{item.brand}"/>
+                        <h:outputText value="#{item.batch}"/>
                     </p:column>
                     <p:column styleClass="Wid10 TexAlRight">
                         <f:facet name="header">

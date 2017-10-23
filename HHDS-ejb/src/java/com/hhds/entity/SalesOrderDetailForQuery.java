@@ -47,6 +47,10 @@ public class SalesOrderDetailForQuery extends BaseEntity {
     @ManyToOne(optional = false)
     protected SalesOrder salesOrder;
 
+    @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
+    @ManyToOne(optional = false)
+    private Warehouse warehouse;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "seq")
@@ -60,6 +64,9 @@ public class SalesOrderDetailForQuery extends BaseEntity {
     @Size(min = 1, max = 45)
     @Column(name = "itemno")
     private String itemno;
+    @Size(max = 20)
+    @Column(name = "colorno")
+    private String colorno;
     @Size(max = 20)
     @Column(name = "brand")
     private String brand;
@@ -168,6 +175,20 @@ public class SalesOrderDetailForQuery extends BaseEntity {
         this.itemno = itemno;
     }
 
+    /**
+     * @return the colorno
+     */
+    public String getColorno() {
+        return colorno;
+    }
+
+    /**
+     * @param colorno the colorno to set
+     */
+    public void setColorno(String colorno) {
+        this.colorno = colorno;
+    }
+
     public String getBrand() {
         return brand;
     }
@@ -254,6 +275,20 @@ public class SalesOrderDetailForQuery extends BaseEntity {
 
     public void setDeliverydate(Date deliverydate) {
         this.deliverydate = deliverydate;
+    }
+
+    /**
+     * @return the warehouse
+     */
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    /**
+     * @param warehouse the warehouse to set
+     */
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
 
     public String getRemark() {

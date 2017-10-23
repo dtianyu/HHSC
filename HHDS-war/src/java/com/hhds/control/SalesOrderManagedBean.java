@@ -8,6 +8,7 @@ package com.hhds.control;
 import com.hhds.ejb.SalesOrderBean;
 import com.hhds.ejb.SalesOrderDetailBean;
 import com.hhds.ejb.SalesTypeBean;
+import com.hhds.ejb.VendorItemBean;
 import com.hhds.entity.Currency;
 import com.hhds.entity.Customer;
 import com.hhds.entity.SalesOrder;
@@ -16,12 +17,14 @@ import com.hhds.entity.ItemMaster;
 import com.hhds.entity.SalesType;
 import com.hhsc.entity.SystemUser;
 import com.hhds.entity.Unit;
+import com.hhds.entity.VendorItem;
 import com.hhds.lazy.SalesOrderModel;
 import com.hhds.web.FormMultiBean;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.Tax;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
@@ -48,12 +51,17 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     @EJB
     protected SalesOrderDetailBean salesOrderDetailBean;
 
+    @EJB
+    private VendorItemBean vendorItemBean;
+
     protected List<SalesType> salesTypeList;
 
     protected Boolean doTransfer;
 
     protected String queryCustomerno;
     protected String queryItemno;
+    protected Date queryDeliveryDateBegin;
+    protected Date queryDeliveryDateEnd;
 
     /**
      * Creates a new instance of SalesOrderManagedBean
@@ -175,10 +183,15 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
 
     @Override
     protected boolean doBeforeVerify() throws Exception {
-        if (currentEntity != null && !detailList.isEmpty()) {
-
+        if (super.doBeforeVerify()) {
+            for (SalesOrderDetail d : detailList) {
+                if (!salesOrderBean.hasInventory(d)) {
+                    showErrorMsg("Error", d.getItemno() + "库存数量不足");
+                    return false;
+                }
+            }
         }
-        return super.doBeforeVerify();
+        return true;
     }
 
     @Override
@@ -191,6 +204,11 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         this.currentDetail.setFirsttime(currentEntity.getFirsttime());
         this.currentDetail.setLastdelivery(currentEntity.getLastdelivery());
         this.currentDetail.setLasttime(currentEntity.getLasttime());
+        VendorItem vi = vendorItemBean.findFirstByItemno(this.currentDetail.getItemno());
+        if (vi != null) {
+            this.currentDetail.setBatch(vi.getVendordesignno());
+            this.currentDetail.setColorno(vi.getVendoritemcolor());
+        }
         super.doConfirmDetail();
     }
 
@@ -357,11 +375,14 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
-            if (queryFormId != null && !"".equals(queryFormId)) {
-                this.model.getFilterFields().put("formid", queryFormId);
+            if (queryCustomerno != null && !"".equals(queryCustomerno)) {
+                this.model.getFilterFields().put("customer.customerno", queryCustomerno);
             }
             if (queryName != null && !"".equals(queryName)) {
                 this.model.getFilterFields().put("customer.customer", queryName);
+            }
+            if (queryFormId != null && !"".equals(queryFormId)) {
+                this.model.getFilterFields().put("formid", queryFormId);
             }
             if (queryItemno != null && !"".equals(queryItemno)) {
                 this.model.getFilterFields().put("itemno", queryItemno);
@@ -371,6 +392,12 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
             }
             if (queryDateEnd != null) {
                 this.model.getFilterFields().put("formdateEnd", queryDateEnd);
+            }
+            if (queryDeliveryDateBegin != null) {
+                this.model.getFilterFields().put("firstdeliveryBegin", queryDeliveryDateBegin);
+            }
+            if (queryDeliveryDateEnd != null) {
+                this.model.getFilterFields().put("firstdeliveryEnd", queryDeliveryDateEnd);
             }
             if (queryState != null && !"ALL".equals(queryState)) {
                 this.model.getFilterFields().put("status", queryState);
@@ -456,6 +483,34 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
      */
     public void setSalesTypeList(List<SalesType> salesTypeList) {
         this.salesTypeList = salesTypeList;
+    }
+
+    /**
+     * @return the queryDeliveryDateBegin
+     */
+    public Date getQueryDeliveryDateBegin() {
+        return queryDeliveryDateBegin;
+    }
+
+    /**
+     * @param queryDeliveryDateBegin the queryDeliveryDateBegin to set
+     */
+    public void setQueryDeliveryDateBegin(Date queryDeliveryDateBegin) {
+        this.queryDeliveryDateBegin = queryDeliveryDateBegin;
+    }
+
+    /**
+     * @return the queryDeliveryDateEnd
+     */
+    public Date getQueryDeliveryDateEnd() {
+        return queryDeliveryDateEnd;
+    }
+
+    /**
+     * @param queryDeliveryDateEnd the queryDeliveryDateEnd to set
+     */
+    public void setQueryDeliveryDateEnd(Date queryDeliveryDateEnd) {
+        this.queryDeliveryDateEnd = queryDeliveryDateEnd;
     }
 
 }

@@ -21,6 +21,10 @@
                                      rendered="#{salesDetailQueryBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
+                    <p:commandButton id="btnUnverify" value="退货" action="#{salesDetailQueryBean.unverify()}" icon="ui-icon-locked"
+                                     rendered="#{salesDetailQueryBean.doUnCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="退货吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="订单明细－查看">

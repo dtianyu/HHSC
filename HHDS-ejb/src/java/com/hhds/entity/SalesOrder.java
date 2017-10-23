@@ -130,7 +130,7 @@ public class SalesOrder extends FormEntity {
     @Size(max = 200)
     @Column(name = "shipmarks")
     private String shipmarks;
-    @Size(max = 10)
+    @Size(max = 45)
     @Column(name = "deliverytype")
     private String deliverytype;
     @Column(name = "freight")
@@ -591,6 +591,13 @@ public class SalesOrder extends FormEntity {
      */
     public Date getDeliverydate() {
         return deliverydate;
+    }
+
+    /**
+     * @param deliverydate the deliverydate to set
+     */
+    public void setDeliverydate(Date deliverydate) {
+        this.deliverydate = deliverydate;
     }
 
 }

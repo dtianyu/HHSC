@@ -11,8 +11,11 @@ import com.hhds.entity.ItemInventory;
 import com.hhds.entity.ItemTransaction;
 import com.hhds.entity.ItemTransactionDetail;
 import com.hhds.entity.SalesOrderDetail;
+import com.hhsc.ejb.SysprgBean;
+import com.hhsc.entity.Sysprg;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -27,8 +30,9 @@ import javax.ejb.LocalBean;
 public class ItemTransactionBean extends SuperBean<ItemTransaction> {
 
     @EJB
+    private SysprgBean sysprgBean;
+    @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
-
     @EJB
     private InventoryTransactionBean inventoryTransactionBean;
     @EJB
@@ -42,6 +46,14 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
 
     public ItemTransactionBean() {
         super(ItemTransaction.class);
+    }
+
+    public String getFormId(Date day) {
+        Sysprg sp = sysprgBean.findBySystemAndAPI("HHDS", "itemtransaction");
+        if (sp == null) {
+            return "";
+        }
+        return super.getFormId(day, sp.getNolead(), sp.getNoformat(), sp.getNoseqlen());
     }
 
     @Override
@@ -86,7 +98,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
                     //更新客供面料入库数量
                     SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
                     if (s != null) {
-                        s.setInqty(s.getInqty().subtract(d.getQty()));
+                        s.setBackqty(s.getBackqty().subtract(d.getQty()));
                         salesOrderDetailBean.update(s);
                     }
                 }
@@ -146,15 +158,6 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
                 i.setPreqty(BigDecimal.ZERO);
                 i.setQty(d.getQty().multiply(BigDecimal.valueOf(e.getTransactionType().getIocode())));//出库就 x(-1)
                 inventoryList.add(i);
-
-                if ("IKA".equals(e.getTransactionType().getTrtype()) && d.getSrcformid() != null && d.getSeq() > 0) {
-                    //更新客供面料入库数量
-                    SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
-                    if (s != null) {
-                        s.setInqty(s.getInqty().add(d.getQty()));
-                        salesOrderDetailBean.update(s);
-                    }
-                }
 
             }
             itemInventoryBean.add(inventoryList);//出库变负值,加负值等于减

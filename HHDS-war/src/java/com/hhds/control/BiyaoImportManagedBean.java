@@ -55,8 +55,8 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
     @EJB
     private BiyaoImportBean biyaoImportBean;
 
-    private List<BiyaoImport> addedList;
-
+    protected List<BiyaoImport> addedList;
+    private String defaultwarehouse;
     private BigDecimal importQty;
     private BigDecimal importAmts;
 
@@ -213,6 +213,12 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                     e.setFirstdelivery(BaseLib.convertExcelCell(Date.class, c));
                     c = r.getCell(31);
                     e.setLastdelivery(BaseLib.convertExcelCell(Date.class, c));
+                    //发货时间
+                    c = r.getCell(32);
+                    e.setDeliverydate(BaseLib.convertExcelCell(Date.class, c));
+                    //运单编号
+                    c = r.getCell(33);
+                    e.setDeliveryno(BaseLib.convertExcelCell(String.class, c));
                     c = r.getCell(34);
                     e.setPackremark(BaseLib.convertExcelCell(String.class, c).trim());
                     e.setStatusToNew();
@@ -241,6 +247,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
         model = new BiyaoImportModel(biyaoImportBean);
         model.getFilterFields().put("status", "N");
         super.init();
+        defaultwarehouse = ec.getInitParameter("com.hhsc.web.defaultwarehouse");
     }
 
     @Override
@@ -359,7 +366,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                 showErrorMsg("Error", "抛转前检核失败");
                 return;
             }
-            if (biyaoImportBean.verify(entityList)) {
+            if (biyaoImportBean.verify(entityList,defaultwarehouse)) {
                 showInfoMsg("Info", "抛转成功");
             } else {
                 showErrorMsg("Error", "抛转失败");

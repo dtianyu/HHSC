@@ -32,6 +32,10 @@
                     <p:calendar id="queryDateBegin" value="#{salesOrderManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
                     <p:calendar id="queryDateEnd" value="#{salesOrderManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="发货日期" for="queryDeliveryDateBegin" />
+                    <p:calendar id="queryDeliveryDateBegin" value="#{salesOrderManagedBean.queryDeliveryDateBegin}" title="发货日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="发货截止" for="queryDeliveryDateEnd" />
+                    <p:calendar id="queryDeliveryDateEnd" value="#{salesOrderManagedBean.queryDeliveryDateEnd}" title="发货截止" pattern="yyyy/MM/dd"/>
                 </p:panelGrid>
             </p:panel>
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>

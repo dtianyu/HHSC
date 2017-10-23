@@ -20,7 +20,7 @@
                                      process="formNew" update="formNew"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="库存转换－新增">
+            <p:panel id="panelHead" header="换货处理－新增">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><p:outputLabel value="转换单号" for="formid"/></p:column>
@@ -37,35 +37,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column styleClass="Wid20"><p:outputLabel value="需求部门" for="deptid" /></p:column>
-                        <p:column styleClass="Wid30">
-                            <p:inputText id="deptid" value="#{itemExchangeManagedBean.newEntity.dept.dept}" title="Deptid"
-                                         styleClass="inputWithButton" required="true" requiredMessage="请输入部门" readonly="true"/>
-                            <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('deptSelect')}" icon="ui-icon-extlink"
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnWhenNew}"
-                                        update="deptid" />
-                            </p:commandButton>
-                        </p:column>
-                        <p:column><p:outputLabel value="需求人" for="userid" /></p:column>
-                        <p:column>
-                            <p:inputText id="userid" value="#{itemExchangeManagedBean.newEntity.systemUser.username}" title="Salesman" styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入业务员" readonly="true"/>
-                            <p:commandButton id="btnSelectSalesman" actionListener="#{itemExchangeManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink"
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnUserWhenNew}"
-                                        update="userid" />
-                            </p:commandButton>
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column><p:outputLabel value="异动对象" for="objno" /></p:column>
                         <p:column>
                             <p:inputText id="objno" value="#{itemExchangeManagedBean.newEntity.objno}" styleClass="inputWithButton" />
                             <p:commandButton id="btnObjectSelect" actionListener="#{itemExchangeManagedBean.openDialog('objSelect')}" icon="ui-icon-extlink"
                                              process="@this" >
                                 <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnObjectWhenNew}"
-                                        update="objno,remark" />
+                                        update="objno,remark,formNew:tabView:plgBase" />
                             </p:commandButton>
                         </p:column>
                         <p:column><p:outputLabel value="异动原因" for="reason" /></p:column>
@@ -179,7 +157,7 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="batch1" value="#{itemExchangeManagedBean.newEntity.batchfrom}" title="batch"
                                                  styleClass="inputWithButton"/>
-                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
+                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnBatchFromWhenNew}"
                                                 update="batch1" />
@@ -189,7 +167,7 @@
                                 <p:column styleClass="Wid30">
                                     <p:inputText id="batch2" value="#{itemExchangeManagedBean.newEntity.batchto}" title="batch"
                                                  styleClass="inputWithButton"/>
-                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
+                                    <p:commandButton actionListener="#{itemExchangeManagedBean.openDialog('itemfinishedSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{itemExchangeManagedBean.handleDialogReturnBatchToWhenNew}"
                                                 update="batch2" />

@@ -22,7 +22,7 @@
                                      rendered="#{itemExchangeManagedBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>
-            <p:panel id="panelHead" header="库存转换-查看">
+            <p:panel id="panelHead" header="换货处理-查看">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="转换单号"/></p:column>
@@ -34,16 +34,6 @@
                             <h:outputText id="formdate" value="#{itemExchangeManagedBean.currentEntity.formdate}" title="Formdate" >
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="需求部门"/></p:column>
-                        <p:column>
-                            <h:outputText id="deptid" value="#{itemExchangeManagedBean.currentEntity.dept.dept}" title="Deptid" />
-                        </p:column>
-                        <p:column><h:outputText value="需求人"/></p:column>
-                        <p:column>
-                            <h:outputText id="userid" value="#{itemExchangeManagedBean.currentEntity.systemUser.username}" title="SystemUser"/>
                         </p:column>
                     </p:row>
                     <p:row>

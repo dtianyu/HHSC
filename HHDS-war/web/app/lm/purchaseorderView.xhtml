@@ -109,23 +109,33 @@
             <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
                 <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
                     <p:row>
-                        <p:column><h:outputText value="商品编号"/></p:column>
-                        <p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="商品编号"/></p:column>
+                        <p:column styleClass="Wid30">
                             <h:outputText id="itemmaster" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemno}"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="商品名称"/></p:column>
-                        <p:column styleClass="Wid30">
-                            <h:outputText id="itemdesc" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemdesc}" title="Customercolorno" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="华卉品号"/></p:column>
                         <p:column styleClass="Wid30">
                             <h:outputText id="vendoritemno" value="#{purchaseOrderManagedBean.currentDetail.vendoritemno}" title="vendoritemno" />
                         </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="华卉色号"/></p:column>
-                        <p:column styleClass="Wid30">
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="商品名称"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemdesc" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemdesc}" title="Customercolorno" />
+                        </p:column>
+                        <p:column><h:outputText value="华卉色号"/></p:column>
+                        <p:column>
                             <h:outputText id="vendorcolorno" value="#{purchaseOrderManagedBean.currentDetail.vendorcolorno}" title="vendorcolorno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="颜色"/></p:column>
+                        <p:column>
+                            <h:outputText id="itemspec" value="#{purchaseOrderManagedBean.currentDetail.itemmaster.itemspec}" title="itemspec" />
+                        </p:column>
+                        <p:column><h:outputText value="面料"/></p:column>
+                        <p:column>
+                            <h:outputText id="batch" value="#{purchaseOrderManagedBean.currentDetail.batch}" title="batch" />
                         </p:column>
                     </p:row>
                     <p:row>
