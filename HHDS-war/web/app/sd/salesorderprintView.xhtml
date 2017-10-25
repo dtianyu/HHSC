@@ -12,21 +12,17 @@
             <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="salesorder" icon="ui-icon-arrowreturn-1-w"  />
-                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesOrderManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                    <p:button id="btnReturn" value="返回" outcome="salesorderprint" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesOrderBatchPrintBean.toPrev()}" icon="ui-icon-carat-1-w"
                                      process="@this" update="formView"
-                                     rendered="#{salesOrderManagedBean.hasPrev}"/>
-                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesOrderManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     rendered="#{salesOrderBatchPrintBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesOrderBatchPrintBean.toNext()}" icon="ui-icon-carat-1-e"
                                      process="@this" update="formView"
-                                     rendered="#{salesOrderManagedBean.hasNext}"/>
+                                     rendered="#{salesOrderBatchPrintBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnVerify" value="发货" actionListener="#{salesOrderManagedBean.verify()}" icon="ui-icon-locked"
-                                     rendered="#{salesOrderManagedBean.doCfm}" process="@this" update="formView">
-                        <p:confirm header="系统提示" message="发货吗?" icon="ui-icon-alert" />
-                    </p:commandButton>
-                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
-                                     rendered="#{salesOrderManagedBean.doPrt}"/>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderBatchPrintBean.print()}" icon="ui-icon-print"
+                                     rendered="#{salesOrderBatchPrintBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售订单－查看">
@@ -34,11 +30,11 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="订单编号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="formid" value="#{salesOrderManagedBean.currentEntity.formid}" title="Formid"/>
+                            <h:outputText id="formid" value="#{salesOrderBatchPrintBean.currentEntity.formid}" title="Formid"/>
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="订单日期"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="formdate" value="#{salesOrderManagedBean.currentEntity.formdate}" title="Formdate">
+                            <h:outputText id="formdate" value="#{salesOrderBatchPrintBean.currentEntity.formdate}" title="Formdate">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
@@ -46,51 +42,51 @@
                     <p:row>
                         <p:column><h:outputText value="订单类型" /></p:column>
                         <p:column>
-                            <h:outputText id="formtype" value="#{salesOrderManagedBean.currentEntity.formtype}" title="formtype"/>
+                            <h:outputText id="formtype" value="#{salesOrderBatchPrintBean.currentEntity.formtype}" title="formtype"/>
                         </p:column>
                         <p:column><h:outputText value="客户"/></p:column>
                         <p:column>
-                            <h:outputText id="customer" value="#{salesOrderManagedBean.currentEntity.customer.customerno}#{salesOrderManagedBean.newEntity.customer.customer}" title="customer"  />
+                            <h:outputText id="customer" value="#{salesOrderBatchPrintBean.currentEntity.customer.customerno}#{salesOrderBatchPrintBean.newEntity.customer.customer}" title="customer"  />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="送货时间"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="shipmarks" value="#{salesOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks" />
+                            <h:outputText id="shipmarks" value="#{salesOrderBatchPrintBean.currentEntity.shipmarks}" title="Shipmarks" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="客户留言"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="remark" value="#{salesOrderManagedBean.currentEntity.remark}" title="Remark" />
+                            <h:outputText id="remark" value="#{salesOrderBatchPrintBean.currentEntity.remark}" title="Remark" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="客服备注"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="salesremark" value="#{salesOrderManagedBean.currentEntity.salesremark}" title="Salesremark" />
+                            <h:outputText id="salesremark" value="#{salesOrderBatchPrintBean.currentEntity.salesremark}" title="Salesremark" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="商品总额" /></p:column>
                         <p:column>
-                            <h:outputText id="totalamts" value="#{salesOrderManagedBean.currentEntity.totalamts}" title="Totalamts" />
+                            <h:outputText id="totalamts" value="#{salesOrderBatchPrintBean.currentEntity.totalamts}" title="Totalamts" />
                         </p:column>
                         <p:column><h:outputText value="运费"/></p:column>
                         <p:column>
-                            <h:outputText id="freight" value="#{salesOrderManagedBean.currentEntity.freight}" title="Freight"/>
+                            <h:outputText id="freight" value="#{salesOrderBatchPrintBean.currentEntity.freight}" title="Freight"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="最快发货" /></p:column>
                         <p:column>
-                            <h:outputText id="firstdelivery" value="#{salesOrderManagedBean.currentEntity.firstdelivery}" title="Firstdelivery">
+                            <h:outputText id="firstdelivery" value="#{salesOrderBatchPrintBean.currentEntity.firstdelivery}" title="Firstdelivery">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
                         <p:column><h:outputText value="最快时间"/></p:column>
                         <p:column>
-                            <h:outputText id="firsttime" value="#{salesOrderManagedBean.currentEntity.firsttime}" title="Firsttime">
+                            <h:outputText id="firsttime" value="#{salesOrderBatchPrintBean.currentEntity.firsttime}" title="Firsttime">
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>
                         </p:column>
@@ -98,13 +94,13 @@
                     <p:row>
                         <p:column><h:outputText value="最晚发货"/></p:column>
                         <p:column>
-                            <h:outputText id="lastdelivery" value="#{salesOrderManagedBean.currentEntity.lastdelivery}" title="Lastdelivery">
+                            <h:outputText id="lastdelivery" value="#{salesOrderBatchPrintBean.currentEntity.lastdelivery}" title="Lastdelivery">
                                 <f:convertDateTime pattern="yyyy/MM/dd" />
                             </h:outputText>
                         </p:column>
                         <p:column><h:outputText value="最晚时间"/></p:column>
                         <p:column>
-                            <h:outputText id="lasttime" value="#{salesOrderManagedBean.currentEntity.lasttime}" title="Lasttime">
+                            <h:outputText id="lasttime" value="#{salesOrderBatchPrintBean.currentEntity.lasttime}" title="Lasttime">
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>
                         </p:column>
@@ -112,7 +108,7 @@
                     <p:row>
                         <p:column><h:outputText value="备注"/></p:column>
                         <p:column colspan="3">
-                            <h:outputText id="packremark" value="#{salesOrderManagedBean.currentEntity.packremark}" title="packremark" />
+                            <h:outputText id="packremark" value="#{salesOrderBatchPrintBean.currentEntity.packremark}" title="packremark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -124,65 +120,65 @@
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="联系人"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="contacter" value="#{salesOrderManagedBean.currentEntity.contacter}" title="Contacter" />
+                                    <h:outputText id="contacter" value="#{salesOrderBatchPrintBean.currentEntity.contacter}" title="Contacter" />
                                 </p:column>
                                 <p:column styleClass="Wid20"><h:outputText value="手机号码"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="mobile" value="#{salesOrderManagedBean.currentEntity.mobile}" title="Mobile" />
+                                    <h:outputText id="mobile" value="#{salesOrderBatchPrintBean.currentEntity.mobile}" title="Mobile" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="省份"/></p:column>
                                 <p:column>
-                                    <h:outputText id="province" value="#{salesOrderManagedBean.currentEntity.province}" title="Province" />
+                                    <h:outputText id="province" value="#{salesOrderBatchPrintBean.currentEntity.province}" title="Province" />
                                 </p:column>
                                 <p:column><h:outputText value="城市"/></p:column>
                                 <p:column>
-                                    <h:outputText id="city" value="#{salesOrderManagedBean.currentEntity.city}" title="City" />
+                                    <h:outputText id="city" value="#{salesOrderBatchPrintBean.currentEntity.city}" title="City" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="地区"/></p:column>
                                 <p:column>
-                                    <h:outputText id="area" value="#{salesOrderManagedBean.currentEntity.area}" title="Area" />
+                                    <h:outputText id="area" value="#{salesOrderBatchPrintBean.currentEntity.area}" title="Area" />
                                 </p:column>
                                 <p:column><h:outputText value="邮政编码"/></p:column>
                                 <p:column>
-                                    <h:outputText id="zipcode" value="#{salesOrderManagedBean.currentEntity.zipcode}" title="Zipcode" />
+                                    <h:outputText id="zipcode" value="#{salesOrderBatchPrintBean.currentEntity.zipcode}" title="Zipcode" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="地址"/></p:column>
                                 <p:column colspan="3">
-                                    <h:outputText id="address" value="#{salesOrderManagedBean.currentEntity.address}" title="Address" />
+                                    <h:outputText id="address" value="#{salesOrderBatchPrintBean.currentEntity.address}" title="Address" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="支付日期"/></p:column>
                                 <p:column>
-                                    <h:outputText id="paydate" value="#{salesOrderManagedBean.currentEntity.paydate}" title="Paydate" >
+                                    <h:outputText id="paydate" value="#{salesOrderBatchPrintBean.currentEntity.paydate}" title="Paydate" >
                                         <f:convertDateTime pattern="yyyy/MM/dd" />
                                     </h:outputText>
                                 </p:column>
                                 <p:column><h:outputText value="需要发票"/></p:column>
                                 <p:column>
-                                    <h:outputText id="bill" value="#{salesOrderManagedBean.currentEntity.bill}" title="Bill" />
+                                    <h:outputText id="bill" value="#{salesOrderBatchPrintBean.currentEntity.bill}" title="Bill" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="发票类型"/></p:column>
                                 <p:column>
-                                    <h:outputText id="billtype" value="#{salesOrderManagedBean.currentEntity.billtype}" title="Billtype" />
+                                    <h:outputText id="billtype" value="#{salesOrderBatchPrintBean.currentEntity.billtype}" title="Billtype" />
                                 </p:column>
                                 <p:column><h:outputText value="统一编号"/></p:column>
                                 <p:column>
-                                    <h:outputText id="uscc" value="#{salesOrderManagedBean.currentEntity.uscc}" title="Uscc" />
+                                    <h:outputText id="uscc" value="#{salesOrderBatchPrintBean.currentEntity.uscc}" title="Uscc" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column><h:outputText value="发票抬头" /></p:column>
                                 <p:column colspan="3">
-                                    <h:outputText id="billtitle" value="#{salesOrderManagedBean.currentEntity.billtitle}" title="Billtitle" />
+                                    <h:outputText id="billtitle" value="#{salesOrderBatchPrintBean.currentEntity.billtitle}" title="Billtitle" />
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -190,8 +186,8 @@
                 </p:tab>
                 <p:tab title="订单明细">
                     <p:panel id="panelDetail">
-                        <p:dataTable id="detailList" value="#{salesOrderManagedBean.detailList}" var="item" styleClass="tableList"
-                                     selectionMode="single" selection="#{salesOrderManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                        <p:dataTable id="detailList" value="#{salesOrderBatchPrintBean.detailList}" var="item" styleClass="tableList"
+                                     selectionMode="single" selection="#{salesOrderBatchPrintBean.currentDetail}" rowKey="#{item.seq}" >
                             <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show()" />
                             <p:ajax event="rowUnselect"  update="formView:plgDetail" oncomplete="" />
                             <p:column styleClass="Wid20">
@@ -239,51 +235,51 @@
                     <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="商品编号"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="itemmaster" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemno}"/>
+                            <h:outputText id="itemmaster" value="#{salesOrderBatchPrintBean.currentDetail.itemMaster.itemno}"/>
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="商品名称"/></p:column>
                         <p:column styleClass="Wid30">
-                            <h:outputText id="itemdesc" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemdesc}" title="itemdesc" />
+                            <h:outputText id="itemdesc" value="#{salesOrderBatchPrintBean.currentDetail.itemMaster.itemdesc}" title="itemdesc" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="颜色"/></p:column>
                         <p:column>
-                            <h:outputText id="itemspec" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemspec}" title="itemspec" />
+                            <h:outputText id="itemspec" value="#{salesOrderBatchPrintBean.currentDetail.itemMaster.itemspec}" title="itemspec" />
                         </p:column>
-                        <p:column><h:outputText value="色号"/></p:column>
+                        <p:column><h:outputText value="尺寸"/></p:column>
                         <p:column>
-                            <h:outputText id="itemwidth" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemwidth}" title="itemwidth" />
+                            <h:outputText id="itemwidth" value="#{salesOrderBatchPrintBean.currentDetail.itemMaster.itemwidth}" title="itemwidth" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="花号"/></p:column>
                         <p:column>
-                            <h:outputText id="batch" value="#{salesOrderManagedBean.currentDetail.batch}" title="batch" />
+                            <h:outputText id="batch" value="#{salesOrderBatchPrintBean.currentDetail.batch}" title="batch" />
                         </p:column>
                         <p:column><h:outputText value="色号"/></p:column>
                         <p:column>
-                            <h:outputText id="colorno" value="#{salesOrderManagedBean.currentDetail.colorno}" title="colorno" />
+                            <h:outputText id="colorno" value="#{salesOrderBatchPrintBean.currentDetail.colorno}" title="colorno" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="数量"/></p:column>
                         <p:column>
-                            <h:outputText id="qty" value="#{salesOrderManagedBean.currentDetail.qty}" title="Qty"/>
+                            <h:outputText id="qty" value="#{salesOrderBatchPrintBean.currentDetail.qty}" title="Qty"/>
                         </p:column>
                         <p:column><h:outputText value="单位"/></p:column>
                         <p:column>
-                            <h:outputText id="unit" value="#{salesOrderManagedBean.currentDetail.unit}" title="unit" />
+                            <h:outputText id="unit" value="#{salesOrderBatchPrintBean.currentDetail.unit}" title="unit" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column><h:outputText value="单价"/></p:column>
                         <p:column>
-                            <h:outputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price"/>
+                            <h:outputText id="price" value="#{salesOrderBatchPrintBean.currentDetail.price}" title="Price"/>
                         </p:column>
                         <p:column><h:outputText value="小计"/></p:column>
                         <p:column>
-                            <h:outputText id="amts" value="#{salesOrderManagedBean.currentDetail.amts}" title="amts"/>
+                            <h:outputText id="amts" value="#{salesOrderBatchPrintBean.currentDetail.amts}" title="amts"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -292,7 +288,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+            <p:blockUI id="blockUI" block="formView" trigger="btnPrint">
                 <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
             </p:blockUI>
         </h:form>

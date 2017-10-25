@@ -190,8 +190,10 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
                     return false;
                 }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     @Override
@@ -331,7 +333,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         setSuperEJB(salesOrderBean);
         setDetailEJB(salesOrderDetailBean);
         setModel(new SalesOrderModel(salesOrderBean));
-        getModel().getFilterFields().put("status", "N");
+        model.getFilterFields().put("status", "N");
         salesTypeList = salesTypeBean.findAll();
         super.init();
     }
@@ -407,26 +409,14 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
 
     @Override
     public void reset() {
-        if (this.model != null && this.model.getFilterFields() != null) {
-            this.model.getFilterFields().clear();
-            this.model.getFilterFields().put("status", "N");
-        }
+        super.reset();
+        model.getFilterFields().put("status", "N");
     }
 
     @Override
     protected void setToolBar() {
         super.setToolBar();
-        if (currentEntity != null && "V".equals(currentEntity.getStatus())) {
-            this.doTransfer = true;
-        } else {
-            this.doTransfer = false;
-        }
-        if (currentEntity != null && "T".equals(currentEntity.getStatus())) {
-            this.doEdit = false;
-            this.doDel = false;
-            this.doCfm = false;
-            this.doUnCfm = !salesOrderBean.hasPurchaseRequest(currentEntity.getFormid());
-        }
+        this.doUnCfm = false;
     }
 
     /**

@@ -49,17 +49,27 @@ public class SalesOrderBean extends SuperBean<SalesOrder> {
     }
 
     public boolean hasInventory(SalesOrderDetail sod) {
-        VendorItem vi = vendorItemBean.findFirstByItemno(sod.getItemno());
-        ItemInventory i = new ItemInventory();
-        i.setItemmaster(sod.getItemMaster());
-        i.setColorno(sod.getColorno() == null ? vi.getVendoritemcolor() : sod.getColorno());
-        i.setBrand(sod.getBrand());
-        i.setBatch(sod.getBatch() == null ? vi.getVendordesignno() : sod.getBatch());
-        i.setSn(sod.getSn());
-        i.setWarehouse(sod.getWarehouse());
-        i.setPreqty(BigDecimal.ZERO);
-        i.setQty(sod.getQty());
-        return !itemInventoryBean.isGreatThenInventory(i);
+        try {
+            VendorItem vi = vendorItemBean.findFirstByItemno(sod.getItemno());
+            ItemInventory i = new ItemInventory();
+            i.setItemmaster(sod.getItemMaster());
+            if (vi != null) {
+                i.setColorno(sod.getColorno() == null ? vi.getVendoritemcolor() : sod.getColorno());
+                i.setBrand(sod.getBrand());
+                i.setBatch(sod.getBatch() == null ? vi.getVendordesignno() : sod.getBatch());
+            } else {
+                i.setColorno(sod.getColorno());
+                i.setBrand(sod.getBrand());
+                i.setBatch(sod.getBatch());
+            }
+            i.setSn(sod.getSn());
+            i.setWarehouse(sod.getWarehouse());
+            i.setPreqty(BigDecimal.ZERO);
+            i.setQty(sod.getQty());
+            return !itemInventoryBean.isGreatThenInventory(i);
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     public boolean hasPurchaseRequest(String formid) {

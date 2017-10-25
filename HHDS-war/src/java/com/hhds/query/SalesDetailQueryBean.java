@@ -37,7 +37,7 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
     public void init() {
         setSuperEJB(salesOrderDetailForQueryBean);
         setModel(new SalesOrderDetailForQueryModel(salesOrderDetailForQueryBean));
-        model.getFilterFields().put("salesOrder.status", "V");
+        model.getFilterFields().put("salesOrder.status", "N");
         model.getSortFields().put("salesOrder.status", "ASC");
         model.getSortFields().put("salesOrder.formid", "DESC");
         super.init();
@@ -47,7 +47,6 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
             this.model.getFilterFields().clear();
-            model.getFilterFields().put("salesOrder.status", "V");
             if (queryFormId != null && !"".equals(queryFormId)) {
                 this.model.getFilterFields().put("salesOrder.formid", queryFormId);
             }
@@ -78,7 +77,7 @@ public class SalesDetailQueryBean extends SuperQueryBean<SalesOrderDetailForQuer
     @Override
     public void reset() {
         super.reset();
-        model.getFilterFields().put("salesOrder.status", "V");
+        model.getFilterFields().put("salesOrder.status", "N");
     }
 
     @Override

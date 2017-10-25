@@ -178,14 +178,14 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>salesdetail</from-outcome>
-            <to-view-id>/app/sd/salesdetail.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <description>订单维护</description>
             <from-outcome>salesorder</from-outcome>
             <to-view-id>/app/sd/salesorder.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>salesorderprint</from-outcome>
+            <to-view-id>/app/sd/salesorderprint.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

@@ -28,8 +28,10 @@
                     <h:outputLabel value="订单状态" for="state" />
                     <p:selectOneMenu id="state" value="#{salesDetailQueryBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
-                        <f:selectItem itemLabel="未提交" itemValue="N"/>
-                        <f:selectItem itemLabel="已提交" itemValue="V"/>
+                        <f:selectItem itemLabel="未发货" itemValue="N"/>
+                        <f:selectItem itemLabel="已发货" itemValue="V"/>
+                        <f:selectItem itemLabel="已收货" itemValue="R"/>
+                        <f:selectItem itemLabel="已退货" itemValue="T"/>
                     </p:selectOneMenu>
                     <h:outputLabel value="发货日期" for="queryDeliveryDateBegin" />
                     <p:calendar id="queryDeliveryDateBegin" value="#{salesDetailQueryBean.queryDeliveryDateBegin}" title="发货日期" pattern="yyyy/MM/dd"/>
