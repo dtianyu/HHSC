@@ -198,8 +198,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     protected boolean doBeforeVerify() throws Exception {
         if (currentEntity != null && !detailList.isEmpty()) {
             for (SalesOrderDetail d : detailList) {
-                if (currentEntity.getCustomer().isAutotransfer() && (currentEntity.getCustomeritemno() == null || d.getCustomercolorno() == null)) {
-                    showErrorMsg("Error", "必须维护客户品号和客户色号");
+                if (currentEntity.getCustomer().isAutotransfer() && currentEntity.getCustomeritemno() == null) {
+                    showErrorMsg("Error", "必须维护客户品号");
                     return false;
                 }
                 if (!itemColorBean.isExist(currentEntity.getItemno(), d.getColorno(), currentEntity.getCustomeritemno(), d.getCustomercolorno())) {

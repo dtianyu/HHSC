@@ -251,6 +251,7 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
             ItemMaster entity = (ItemMaster) event.getObject();
             this.currentDetail.setItemmaster(entity);
             this.currentDetail.setItemno(entity.getItemno());
+            this.currentDetail.setPrice(entity.getPurprice());
             if (entity.getUnit() != null) {
                 this.currentDetail.setUnit(entity.getUnit());
             }

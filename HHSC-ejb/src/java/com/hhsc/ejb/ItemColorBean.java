@@ -25,6 +25,9 @@ public class ItemColorBean extends SuperBean<ItemColor> {
     }
 
     public boolean isExist(String itemno, String colorno, String customeritemno, String customercolorno) {
+        if (customercolorno == null) {
+            customercolorno = "";
+        }
         ItemColor ic = findByItemnoAndColorno(itemno, colorno, customeritemno, customercolorno);
         return !(ic == null);
     }

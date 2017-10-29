@@ -50,7 +50,7 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "salesShipmentManagedBean")
 @SessionScoped
 public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, SalesShipmentDetail> {
-
+    
     @EJB
     private CustomerItemBean customerItemBean;
     @EJB
@@ -61,17 +61,17 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     private SalesTypeBean salesTypeBean;
     @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
-
+    
     @EJB
     protected SalesShipmentBean salesShipmentBean;
     @EJB
     protected SalesShipmentDetailBean salesShipmentDetailBean;
-
+    
     @EJB
     private SalesTransactionBean salesTransactionBean;
-
+    
     private List<SalesType> salesTypeList;
-
+    
     private String queryCustomerno;
 
     /**
@@ -80,7 +80,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     public SalesShipmentManagedBean() {
         super(SalesShipment.class, SalesShipmentDetail.class);
     }
-
+    
     @Override
     public void create() {
         super.create();
@@ -97,7 +97,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         this.newEntity.setTotalamts(BigDecimal.ZERO);
         this.setCurrentEntity(this.newEntity);
     }
-
+    
     @Override
     public void createDetail() {
         super.createDetail();
@@ -108,7 +108,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         this.newDetail.setStatus("40");
         this.setCurrentDetail(newDetail);
     }
-
+    
     @Override
     protected boolean doAfterVerify() throws Exception {
         if (!super.doAfterVerify()) {
@@ -128,7 +128,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         }
         return true;
     }
-
+    
     @Override
     protected boolean doBeforeUnverify() throws Exception {
         if (!super.doBeforeUnverify()) {
@@ -155,7 +155,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         }
         return true;
     }
-
+    
     @Override
     protected boolean doBeforeUpdate() throws Exception {
         if (!super.doBeforeUpdate()) {
@@ -179,7 +179,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         }
         return true;
     }
-
+    
     @Override
     protected boolean doBeforeVerify() throws Exception {
         if (!super.doBeforeVerify()) {
@@ -210,7 +210,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         }
         return true;
     }
-
+    
     @Override
     public void doConfirmDetail() {
         if (currentDetail.getBadqty().compareTo(BigDecimal.ZERO) != 0 && currentDetail.getWarehouse2() == null) {
@@ -227,7 +227,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         this.currentDetail.setTaxes(t.getTaxes());
         super.doConfirmDetail();
     }
-
+    
     public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             Currency entity = (Currency) event.getObject();
@@ -235,7 +235,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             this.currentEntity.setExchange(entity.getExchange());
         }
     }
-
+    
     public void handleDialogReturnCurrencyWhenNew(SelectEvent event) {
         if (event.getObject() != null) {
             Currency entity = (Currency) event.getObject();
@@ -243,43 +243,43 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             this.newEntity.setExchange(entity.getExchange());
         }
     }
-
+    
     public void handleDialogReturnDeptWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             currentEntity.setDept((Department) event.getObject());
         }
     }
-
+    
     public void handleDialogReturnDeptWhenNew(SelectEvent event) {
         if (event.getObject() != null) {
             newEntity.setDept((Department) event.getObject());
         }
     }
-
+    
     public void handleDialogReturnSalesmanWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             currentEntity.setSalesman((SystemUser) event.getObject());
         }
     }
-
+    
     public void handleDialogReturnSalesmanWhenNew(SelectEvent event) {
         if (event.getObject() != null) {
             newEntity.setSalesman((SystemUser) event.getObject());
         }
     }
-
+    
     public void handleDialogReturnWarehouseWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
             currentEntity.setWarehouse((Warehouse) event.getObject());
         }
     }
-
+    
     public void handleDialogReturnWarehouseWhenNew(SelectEvent event) {
         if (event.getObject() != null) {
             newEntity.setWarehouse((Warehouse) event.getObject());
         }
     }
-
+    
     @Override
     public void handleDialogReturnWhenEdit(SelectEvent event) {
         if (event.getObject() != null) {
@@ -297,7 +297,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             this.deletedDetailList.clear();
         }
     }
-
+    
     @Override
     public void handleDialogReturnWhenNew(SelectEvent event) {
         if (event.getObject() != null) {
@@ -315,19 +315,19 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             this.deletedDetailList.clear();
         }
     }
-
+    
     public void handleDialogReturnWarehouseWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null && currentDetail != null) {
             currentDetail.setWarehouse((Warehouse) event.getObject());
         }
     }
-
+    
     public void handleDialogReturnWarehouse2WhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null && currentDetail != null) {
             currentDetail.setWarehouse2((Warehouse) event.getObject());
         }
     }
-
+    
     @Override
     public void handleDialogReturnWhenDetailEdit(SelectEvent event) {
         if (event.getObject() != null) {
@@ -371,14 +371,19 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                 this.currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
                 this.currentDetail.setSrcseq(entity.getSeq());
             }
+            if (entity.getSrcapi().equals("HHDS")) {
+                this.currentDetail.setRelapi(entity.getSrcapi());
+                this.currentDetail.setRelformid(entity.getSrcformid());
+                this.currentDetail.setRelseq(entity.getSrcseq());
+            }
         }
     }
-
+    
     @Override
     public void handleDialogReturnWhenDetailNew(SelectEvent event) {
         handleDialogReturnWhenDetailEdit(event);
     }
-
+    
     @Override
     public void init() {
         setSuperEJB(salesShipmentBean);
@@ -388,7 +393,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
         salesTypeList = salesTypeBean.findAll();
         super.init();
     }
-
+    
     @Override
     public void openDialog(String view) {
         switch (view) {
@@ -434,7 +439,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                 super.openDialog(view);
         }
     }
-
+    
     @Override
     public void query() {
         if (this.model != null && this.model.getFilterFields() != null) {
@@ -456,7 +461,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
             }
         }
     }
-
+    
     @Override
     public void reset() {
         if (this.model != null && this.model.getFilterFields() != null) {
@@ -492,5 +497,5 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
     public void setSalesTypeList(List<SalesType> salesTypeList) {
         this.salesTypeList = salesTypeList;
     }
-
+    
 }

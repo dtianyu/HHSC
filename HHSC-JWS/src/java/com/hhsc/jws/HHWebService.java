@@ -94,7 +94,7 @@ public class HHWebService {
         com.hhds.entity.VendorItem dsvi;
         com.hhds.entity.ItemMaster dsim;
         com.hhds.entity.Warehouse dswh;
-        PurchaseAcceptanceDetail pad;
+        com.hhds.entity.PurchaseAcceptanceDetail pad;
         List<PurchaseAcceptanceDetail> padList = new ArrayList<>();
 
         scss = scSalesShipmentBean.findByFormId(formid);
@@ -172,6 +172,11 @@ public class HHWebService {
                 pad.setRelformid(d.getPid());
                 pad.setRelseq(d.getSeq());
                 pad.setStatus("10");
+                if(d.getRelapi().equals("HHDS")){
+                    pad.setSrcapi("purchaserorder");
+                    pad.setSrcformid(d.getRelformid());
+                    pad.setSrcseq(d.getRelseq());
+                }
                 //加入明细新增列表
                 padList.add(pad);
             }
@@ -261,7 +266,7 @@ public class HHWebService {
                 //每个采购明细生成一张订单
                 scsod = new SalesOrderDetail();
                 scsod.setPid(id);
-                scsod.setSeq(seq);
+                scsod.setSeq(1);
                 scsod.setColorno(d.getVendorcolorno());
                 scsod.setItemmaster(scim);
                 scsod.setItemno(scim.getItemno());

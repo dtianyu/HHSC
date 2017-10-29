@@ -85,7 +85,7 @@
                                     <p:commandButton id="btnItemMaster" actionListener="#{purchaseOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
                                                      process="@this" >
                                         <p:ajax event="dialogReturn" listener="#{purchaseOrderManagedBean.handleDialogReturnWhenDetailEdit}"
-                                                update="itemmaster,itemdesc,itemspec,unit" oncomplete="findVendorItemno()" />
+                                                update="plgDetail" oncomplete="findVendorItemno()" />
                                     </p:commandButton>
                                     <p:remoteCommand id="findVendorItemno" name="findVendorItemno" actionListener="#{purchaseOrderManagedBean.findVendorItemForDetail()}"
                                                      process="@this" update="vendoritemno,vendorcolorno,batch"/>
