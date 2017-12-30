@@ -81,6 +81,10 @@ public class ItemExchange extends FormEntity {
     @Size(min = 1, max = 10)
     @Column(name = "unitfrom")
     private String unitfrom;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "amtsfrom")
+    private BigDecimal amtsfrom;
     @JoinColumn(name = "warehousefrom", referencedColumnName = "warehouseno")
     @ManyToOne(optional = false)
     private Warehouse warehouseFrom;
@@ -114,6 +118,10 @@ public class ItemExchange extends FormEntity {
     @Size(min = 1, max = 10)
     @Column(name = "unitto")
     private String unitto;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "amtsto")
+    private BigDecimal amtsto;
     @JoinColumn(name = "warehouseto", referencedColumnName = "warehouseno")
     @ManyToOne(optional = false)
     private Warehouse warehouseTo;
@@ -126,6 +134,8 @@ public class ItemExchange extends FormEntity {
     private String remark;
 
     public ItemExchange() {
+        this.amtsfrom = BigDecimal.ZERO;
+        this.amtsto = BigDecimal.ZERO;
     }
 
     public TransactionType getTransactionType() {
@@ -200,6 +210,20 @@ public class ItemExchange extends FormEntity {
         this.unitfrom = unitfrom;
     }
 
+    /**
+     * @return the amtsfrom
+     */
+    public BigDecimal getAmtsfrom() {
+        return amtsfrom;
+    }
+
+    /**
+     * @param amtsfrom the amtsfrom to set
+     */
+    public void setAmtsfrom(BigDecimal amtsfrom) {
+        this.amtsfrom = amtsfrom;
+    }
+
     public Warehouse getWarehouseFrom() {
         return warehouseFrom;
     }
@@ -270,6 +294,20 @@ public class ItemExchange extends FormEntity {
 
     public void setUnitto(String unitto) {
         this.unitto = unitto;
+    }
+
+    /**
+     * @return the amtsto
+     */
+    public BigDecimal getAmtsto() {
+        return amtsto;
+    }
+
+    /**
+     * @param amtsto the amtsto to set
+     */
+    public void setAmtsto(BigDecimal amtsto) {
+        this.amtsto = amtsto;
     }
 
     public Warehouse getWarehouseTo() {

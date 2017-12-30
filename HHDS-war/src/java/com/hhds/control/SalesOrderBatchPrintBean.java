@@ -81,7 +81,7 @@ public class SalesOrderBatchPrintBean extends SalesOrderManagedBean {
             for (SalesOrder e : entityList) {
                 currentEntity = e;
                 if (!doBeforeVerify()) {
-                    showErrorMsg("Error", "审核前检查失败");
+                    showErrorMsg("Error", currentEntity.getFormid() + "审核前检查失败");
                     return;
                 }
             }
@@ -92,6 +92,7 @@ public class SalesOrderBatchPrintBean extends SalesOrderManagedBean {
                 e.setCfmdateToNow();
                 superEJB.verify(e);
                 doAfterVerify();
+                showInfoMsg("Info", "批量发货操作成功");
             }
         } catch (Exception ex) {
             showErrorMsg("Error", ex.getMessage());

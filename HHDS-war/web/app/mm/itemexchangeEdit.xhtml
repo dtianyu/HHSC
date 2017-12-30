@@ -209,6 +209,18 @@
                                     </p:commandButton>
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="转出金额" for="amtsfrom" /></p:column>
+                                <p:column>
+                                    <p:inputText id="amtsfrom" value="#{itemExchangeManagedBean.currentEntity.amtsfrom}" title="amts"
+                                                 required="true" requiredMessage="请输入转出金额"/>
+                                </p:column>
+                                <p:column><p:outputLabel value="转入金额" for="amtsto" /></p:column>
+                                <p:column>
+                                    <p:inputText id="amtsto" value="#{itemExchangeManagedBean.currentEntity.amtsto}" title="amts"
+                                                 required="true" requiredMessage="请输入转入金额"/>
+                                </p:column>
+                            </p:row>
                         </p:panelGrid>
                     </p:panel>
                 </p:tab>

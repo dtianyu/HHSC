@@ -30,18 +30,12 @@
             <p:panel id="panelHead" header="商品登记－查看">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="类别"/></p:column>
-                        <p:column styleClass="Wid30">
-                            <h:outputText id="itemcategory" value="#{itemMasterManagedBean.currentEntity.itemCategory.name}" />
-                        </p:column>
-                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
-                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemMasterManagedBean.currentEntity.img1}"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
                         <p:column styleClass="Wid20"><h:outputText value="编号"/></p:column>
                         <p:column styleClass="Wid30">
                             <h:outputText id="itemno" value="#{itemMasterManagedBean.currentEntity.itemno}" title="Itemno"/>
+                        </p:column>
+                        <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                            <p:graphicImage id="filename" value="/resources/upload/img/#{itemMasterManagedBean.currentEntity.img1}"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -66,6 +60,16 @@
                         <p:column><h:outputText value="尺寸" /></p:column>
                         <p:column>
                             <h:outputText id="itemwidth" value="#{itemMasterManagedBean.currentEntity.itemwidth}" title="Itemwidth" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="组合管理" for="maketype" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="maketype" value="#{itemMasterManagedBean.currentEntity.maketype}" title="maketype"
+                                             required="true" requiredMessage="请选择组合管理" disabled="true">
+                                <f:selectItem itemLabel="否" itemValue="P"/>
+                                <f:selectItem itemLabel="是" itemValue="V"/>
+                            </p:selectOneMenu>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -137,6 +141,37 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
+                </p:tab>
+                <p:tab title="商品组合">
+                    <p:dataTable id="tableList2" value="#{itemMasterManagedBean.detailList2}" var="item" styleClass="tableList Wid100 Mtop10"
+                                 selectionMode="single" selection="#{itemMasterManagedBean.currentDetail2}" rowKey="#{item.seq}" >
+                        <p:ajax event="rowSelect"  update="" oncomplete="" />
+                        <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                        <p:column styleClass="Wid10">
+                            <f:facet name="header">
+                                <h:outputText value="序号"/>
+                            </f:facet>
+                            <h:outputText value="#{item.seq}"/>
+                        </p:column>
+                        <p:column styleClass="Wid30">
+                            <f:facet name="header">
+                                <h:outputText value="商品编号"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemMaster.itemno}"/>
+                        </p:column>
+                        <p:column styleClass="Wid40">
+                            <f:facet name="header">
+                                <h:outputText value="商品名称"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemMaster.itemdesc}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20">
+                            <f:facet name="header">
+                                <h:outputText value="数量"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qty}"/>
+                        </p:column>
+                    </p:dataTable>
                 </p:tab>
             </p:tabView>
         </h:form>

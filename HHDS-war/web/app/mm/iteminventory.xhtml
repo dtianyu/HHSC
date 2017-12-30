@@ -55,50 +55,55 @@
                                      update=":formList"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataGrid value="#{itemInventoryQueryBean.model}" var="item" layout="grid" paginator="true" paginatorPosition="bottom" rows="12"  columns="4"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="8,12,16"  lazy="true"  >
-                <p:column>
-                    <p:panel header="#{item.itemmaster.itemno}" styleClass="panelView TexAlCenter">
-                        <p:panelGrid styleClass="plgView Wid100">
-                            <p:row>
-                                <p:column colspan="2">
-                                    <h:outputText value="#{item.itemmaster.itemdesc}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="2" styleClass="TexAlCenter">
-                                    <p:graphicImage value="/resources/upload/img/#{item.itemmaster.img1}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid50">
-                                    <h:outputText value="#{item.warehouse.name}"/>
-                                </p:column>
-                                <p:column styleClass="Wid50">
-                                    <h:outputText value="#{item.qty}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid50">
-                                    <h:outputText value="#{item.batch}"/>
-                                </p:column>
-                                <p:column styleClass="Wid50">
-                                    <h:outputText value="#{item.colorno}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="2" styleClass="TexAlCenter">
-                                    <p:commandLink update=":formList:dlgDetail" oncomplete="PF('dlgDetail').show()" title="查看明细">
-                                        <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
-                                        <f:setPropertyActionListener value="#{item}" target="#{itemInventoryQueryBean.currentEntity}" />
-                                    </p:commandLink>
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>
-                    </p:panel>
+            <p:dataTable value="#{itemInventoryQueryBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45" lazy="true"
+                         selectionMode="single" selection="#{itemInventoryQueryBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    库存查询
+                </f:facet>
+                <p:ajax event="rowSelect"  update=":formList:toolbar,:formList:dlgDetail" oncomplete="PF('dlgDetail').show()" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid10">
+                    <p:graphicImage value="/resources/upload/img/#{item.itemmaster.img1}" style="width:60px;height:32px"/>
                 </p:column>
-            </p:dataGrid>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="品号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemmaster.itemno}"/>
+                </p:column>
+                <p:column styleClass="Wid30">
+                    <f:facet name="header">
+                        <h:outputText value="名称"/>
+                    </f:facet>
+                    <h:outputText value="#{item.itemmaster.itemdesc}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="花号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.batch}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="色号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.colorno}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="仓库"/>
+                    </f:facet>
+                    <h:outputText value="#{item.warehouse.name}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlRight">
+                    <f:facet name="header">
+                        <h:outputText value="库存"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qty}"/>
+                </p:column>
+            </p:dataTable>
             <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>

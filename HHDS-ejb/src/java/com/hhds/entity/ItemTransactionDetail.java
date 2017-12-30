@@ -74,7 +74,10 @@ public class ItemTransactionDetail extends FormDetailEntity {
     @Size(max = 10)
     @Column(name = "unit")
     private String unit;
-
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "amts")
+    private BigDecimal amts;
     @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
     @ManyToOne(optional = false)
     private Warehouse warehouse;
@@ -100,6 +103,7 @@ public class ItemTransactionDetail extends FormDetailEntity {
     private String remark;
 
     public ItemTransactionDetail() {
+        this.amts = BigDecimal.ZERO;
     }
 
     public String getTrtype() {
@@ -164,6 +168,20 @@ public class ItemTransactionDetail extends FormDetailEntity {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    /**
+     * @return the amts
+     */
+    public BigDecimal getAmts() {
+        return amts;
+    }
+
+    /**
+     * @param amts the amts to set
+     */
+    public void setAmts(BigDecimal amts) {
+        this.amts = amts;
     }
 
     public String getSrcapi() {

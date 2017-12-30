@@ -561,7 +561,7 @@ return false;]]></method>
                     <label id="383">
                         <property name="fontSize">12pt</property>
                         <property name="textAlign">center</property>
-                        <text-property name="text">出货单</text-property>
+                        <text-property name="text">订单</text-property>
                     </label>
                 </cell>
                 <cell id="381"/>
@@ -581,7 +581,7 @@ return false;]]></method>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <label id="267">
-                        <text-property name="text">出货单号</text-property>
+                        <text-property name="text">订单编号</text-property>
                     </label>
                 </cell>
                 <cell id="236">
@@ -608,7 +608,7 @@ return false;]]></method>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <label id="268">
-                        <text-property name="text">出货日期</text-property>
+                        <text-property name="text">订单日期</text-property>
                     </label>
                 </cell>
                 <cell id="573">
@@ -666,7 +666,7 @@ return false;]]></method>
                     <property name="borderRightStyle">solid</property>
                     <property name="borderRightWidth">thin</property>
                     <label id="262">
-                        <text-property name="text">出货类型</text-property>
+                        <text-property name="text">订单类型</text-property>
                     </label>
                 </cell>
                 <cell id="575">
@@ -881,6 +881,18 @@ return false;]]></method>
                     <expression name="expression" type="javascript">dataSetRow["srcseq"]</expression>
                     <property name="dataType">string</property>
                 </structure>
+                <structure>
+                    <property name="name">totalQty</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["qty"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <column id="350">
                 <property name="textAlign">center</property>
@@ -1028,6 +1040,9 @@ return false;]]></method>
                         <property name="borderRightStyle">solid</property>
                         <property name="borderRightWidth">thin</property>
                         <property name="textAlign">right</property>
+                        <data id="635">
+                            <property name="resultSetColumn">totalQty</property>
+                        </data>
                     </cell>
                     <cell id="347">
                         <property name="borderRightStyle">solid</property>

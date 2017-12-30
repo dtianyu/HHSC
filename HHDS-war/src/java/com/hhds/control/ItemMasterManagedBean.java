@@ -7,15 +7,17 @@ package com.hhds.control;
 
 import com.hhds.ejb.ItemCategoryBean;
 import com.hhds.ejb.ItemMasterBean;
+import com.hhds.ejb.ItembomBean;
 import com.hhds.ejb.SalesOrderDetailBean;
 import com.hhds.ejb.VendorItemBean;
 import com.hhds.entity.ItemCategory;
 import com.hhds.entity.ItemMaster;
+import com.hhds.entity.Itembom;
 import com.hhds.entity.Unit;
 import com.hhds.entity.Vendor;
 import com.hhds.entity.VendorItem;
 import com.hhds.lazy.ItemMasterModel;
-import com.hhds.web.SuperMultiBean;
+import com.hhds.web.SuperMulti2Bean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +35,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "itemMasterManagedBean")
 @SessionScoped
-public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem> {
+public class ItemMasterManagedBean extends SuperMulti2Bean<ItemMaster, VendorItem, Itembom> {
 
     @EJB
     private SalesOrderDetailBean salesOrderDetailBean;
@@ -43,17 +45,20 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     protected ItemMasterBean itemMasterBean;
     @EJB
     protected VendorItemBean vendorItemBean;
+    @EJB
+    protected ItembomBean itembomBean;
 
     protected List<ItemCategory> itemCategoryList;
     protected String queryItemspec;
 
     public ItemMasterManagedBean() {
-        super(ItemMaster.class, VendorItem.class);
+        super(ItemMaster.class, VendorItem.class, Itembom.class);
     }
 
     @Override
     public void create() {
         super.create();
+        newEntity.setMaketype("P");
         newEntity.setUnittype("1");
         newEntity.setQcpass(false);
         newEntity.setUnitexch(BigDecimal.ONE);
@@ -103,6 +108,13 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
                     return false;
                 }
             }
+            //组合商品（虚拟商品）
+            if (newEntity.getMaketype().equals("V")) {
+                if (detailList2 == null || detailList2.isEmpty()) {
+                    showErrorMsg("Error", "请设定商品组合信息");
+                    return false;
+                }
+            }
             if (this.addedDetailList != null && !this.addedDetailList.isEmpty()) {
                 this.addedDetailList.forEach((detail) -> {
                     detail.setItemno(newEntity.getItemno());
@@ -133,6 +145,13 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
                     detail.setItemno(this.currentEntity.getItemno());
                 }
             }
+            //组合商品（虚拟商品）
+            if (currentEntity.getMaketype().equals("V")) {
+                if (detailList2 == null || detailList2.isEmpty()) {
+                    showErrorMsg("Error", "请设定商品组合信息");
+                    return false;
+                }
+            }
             return true;
         }
         return false;
@@ -156,6 +175,17 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
         if (this.detailList.isEmpty()) {
             showErrorMsg("Error", "请设定供应商品号信息");
             return false;
+        }
+        //组合商品（虚拟商品）
+        if (currentEntity.getMaketype().equals("V")) {
+            if (detailList2 != null && !detailList2.isEmpty()) {
+                detailList2.clear();
+            }
+            detailList2 = itembomBean.findByPId(currentEntity.getId());
+            if (detailList2 == null || detailList2.isEmpty()) {
+                showErrorMsg("Error", "请设定商品组合信息");
+                return false;
+            }
         }
         return true;
     }
@@ -186,6 +216,17 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     }
 
     @Override
+    public void handleDialogReturnWhenDetail2Edit(SelectEvent event) {
+        if (event.getObject() != null && this.currentDetail2 != null) {
+            ItemMaster item = (ItemMaster) event.getObject();
+            this.currentDetail2.setPid(currentEntity.getId());
+            this.currentDetail2.setItemMaster(item);
+            this.currentDetail2.setItemno(item.getItemno());
+            this.currentDetail2.setQty(BigDecimal.ONE);
+        }
+    }
+
+    @Override
     public void handleDialogReturnWhenEdit(SelectEvent event) {
         if (event.getObject() != null && currentEntity != null) {
             Unit entity = (Unit) event.getObject();
@@ -202,14 +243,6 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
     }
 
     @Override
-    public void handleFileUploadWhenNew(FileUploadEvent event) {
-        super.handleFileUploadWhenNew(event);
-        if (this.fileName != null && this.newEntity != null) {
-            this.newEntity.setImg1(fileName);
-        }
-    }
-
-    @Override
     public void handleFileUploadWhenEdit(FileUploadEvent event) {
         super.handleFileUploadWhenEdit(event);
         if (this.fileName != null && this.currentEntity != null) {
@@ -222,6 +255,7 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
         superEJB = itemMasterBean;
         model = new ItemMasterModel(itemMasterBean);
         detailEJB = vendorItemBean;
+        detailEJB2 = itembomBean;
         itemCategoryList = itemCategoryBean.findAll();
         super.init();
     }
@@ -252,6 +286,21 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
                             return detail;
                         }).forEach((detail) -> {
                             this.detailEJB.persist(detail);
+                        });
+                    }
+                    if (getEditedDetailList2() != null && !getEditedDetailList2().isEmpty()) {
+                        this.editedDetailList2.stream().forEach((detail) -> {
+                            this.detailEJB2.update(detail);
+                        });
+                    }
+                    if (getDeletedDetailList2() != null && !getDeletedDetailList2().isEmpty()) {
+                        this.deletedDetailList2.stream().forEach((detail) -> {
+                            this.detailEJB2.delete(detail);
+                        });
+                    }
+                    if (getAddedDetailList2() != null && !getAddedDetailList2().isEmpty()) {
+                        this.addedDetailList2.stream().forEach((detail) -> {
+                            this.detailEJB2.persist(detail);
                         });
                     }
                     doAfterPersist();
@@ -306,6 +355,21 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
                             this.detailEJB.persist(detail);
                         }
                     }
+                    if (getEditedDetailList2() != null && !getEditedDetailList2().isEmpty()) {
+                        this.editedDetailList2.stream().forEach((detail) -> {
+                            this.detailEJB2.update(detail);
+                        });
+                    }
+                    if (getDeletedDetailList2() != null && !getDeletedDetailList2().isEmpty()) {
+                        this.deletedDetailList2.stream().forEach((detail) -> {
+                            this.detailEJB2.delete(detail);
+                        });
+                    }
+                    if (getAddedDetailList2() != null && !getAddedDetailList2().isEmpty()) {
+                        this.addedDetailList2.stream().forEach((detail) -> {
+                            this.detailEJB2.persist(detail);
+                        });
+                    }
                     doAfterUpdate();
                     showInfoMsg("Info", "更新成功");
                 } else {
@@ -341,9 +405,13 @@ public class ItemMasterManagedBean extends SuperMultiBean<ItemMaster, VendorItem
                 }
             }
             setDetailList(vendorItemBean.findByItemId(currentEntity.getId()));
+            detailList2 = itembomBean.findByPId(currentEntity.getId());
         }
         if (this.detailList == null) {
             this.detailList = new ArrayList<>();
+        }
+        if (this.detailList2 == null) {
+            this.detailList2 = new ArrayList<>();
         }
     }
 

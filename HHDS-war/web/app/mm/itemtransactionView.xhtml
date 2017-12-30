@@ -168,13 +168,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column><h:outputText value="金额"/></p:column>
+                        <p:column>
+                            <h:outputText id="amts" value="#{itemTransactionManagedBean.currentDetail.amts}" title="amts"/>
+                        </p:column>
                         <p:column><h:outputText value="仓库"/></p:column>
                         <p:column>
                             <h:outputText id="warehouse" value="#{itemTransactionManagedBean.currentDetail.warehouse.name}" title="warehouse" />
-                        </p:column>
-                        <p:column></p:column>
-                        <p:column>
-
                         </p:column>
                     </p:row>
                 </p:panelGrid>

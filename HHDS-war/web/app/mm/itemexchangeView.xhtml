@@ -138,6 +138,16 @@
                                     <h:outputText id="unit2" value="#{itemExchangeManagedBean.currentEntity.unitto}"  title="Unit" />
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="转出金额"/></p:column>
+                                <p:column>
+                                    <h:outputText id="amtsfrom" value="#{itemExchangeManagedBean.currentEntity.amtsfrom}" title="amts"/>
+                                </p:column>
+                                <p:column><h:outputText value="转入金额"/></p:column>
+                                <p:column>
+                                    <h:outputText id="amtsto" value="#{itemExchangeManagedBean.currentEntity.amtsto}" title="amts"/>
+                                </p:column>
+                            </p:row>
                         </p:panelGrid>
                     </p:panel>
                 </p:tab>

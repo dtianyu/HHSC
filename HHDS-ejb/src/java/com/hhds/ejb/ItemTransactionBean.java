@@ -28,7 +28,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class ItemTransactionBean extends SuperBean<ItemTransaction> {
-
+    
     @EJB
     private SysprgBean sysprgBean;
     @EJB
@@ -39,15 +39,15 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
     private ItemInventoryBean itemInventoryBean;
     @EJB
     private ItemTransactionDetailBean itemTransactionDetailBean;
-
+    
     private List<ItemTransactionDetail> detailList;
-
+    
     private List<ItemInventory> inventoryList;
-
+    
     public ItemTransactionBean() {
         super(ItemTransaction.class);
     }
-
+    
     public String getFormId(Date day) {
         Sysprg sp = sysprgBean.findBySystemAndAPI("HHDS", "itemtransaction");
         if (sp == null) {
@@ -55,7 +55,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
         }
         return super.getFormId(day, sp.getNolead(), sp.getNoformat(), sp.getNoseqlen());
     }
-
+    
     @Override
     public void setDetail(Object value) {
         setDetailList(itemTransactionDetailBean.findByPId(value));
@@ -63,7 +63,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
             setDetailList(new ArrayList<>());
         }
     }
-
+    
     @Override
     public ItemTransaction unverify(ItemTransaction entity) {
         if (inventoryList == null) {
@@ -80,7 +80,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
             if (transactionList != null && !transactionList.isEmpty()) {
                 inventoryTransactionBean.delete(transactionList);
             }
-
+            
             for (ItemTransactionDetail d : detailList) {
                 //更新库存数量
                 ItemInventory i = new ItemInventory();
@@ -93,7 +93,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
                 i.setPreqty(BigDecimal.ZERO);
                 i.setQty(d.getQty().multiply(BigDecimal.valueOf(e.getTransactionType().getIocode())));//出库就 x(-1)
                 inventoryList.add(i);
-
+                
                 if ("IKA".equals(e.getTransactionType().getTrtype()) && d.getSrcformid() != null && d.getSeq() > 0) {
                     //更新客供面料入库数量
                     SalesOrderDetail s = salesOrderDetailBean.findByPIdAndSeq(d.getSrcformid(), d.getSrcseq());
@@ -109,7 +109,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
             throw new RuntimeException(ex);
         }
     }
-
+    
     @Override
     public ItemTransaction verify(ItemTransaction entity) {
         if (inventoryList == null) {
@@ -134,10 +134,12 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
                 t.setSn(d.getSn());
                 t.setQty(d.getQty());
                 t.setUnit(d.getUnit());
+                t.setAmts(d.getAmts());
                 t.setWarehouse(d.getWarehouse());
                 t.setIocode(e.getTransactionType().getIocode());
                 t.setProptype(d.getItemmaster().getProptype());
                 t.setMaketype(d.getItemmaster().getMaketype());
+                t.setCostma(d.getItemmaster().getPurprice().multiply(d.getQty()));
                 t.setSrcapi(d.getSrcapi());
                 t.setSrcformid(d.getSrcformid());
                 t.setSrcseq(d.getSrcseq());
@@ -158,7 +160,7 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
                 i.setPreqty(BigDecimal.ZERO);
                 i.setQty(d.getQty().multiply(BigDecimal.valueOf(e.getTransactionType().getIocode())));//出库就 x(-1)
                 inventoryList.add(i);
-
+                
             }
             itemInventoryBean.add(inventoryList);//出库变负值,加负值等于减
             return e;
@@ -180,5 +182,5 @@ public class ItemTransactionBean extends SuperBean<ItemTransaction> {
     public void setDetailList(List<ItemTransactionDetail> detailList) {
         this.detailList = detailList;
     }
-
+    
 }

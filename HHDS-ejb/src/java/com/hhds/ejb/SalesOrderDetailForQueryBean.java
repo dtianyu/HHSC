@@ -8,6 +8,7 @@ package com.hhds.ejb;
 import com.hhds.comm.SuperBean;
 import com.hhds.entity.ItemTransaction;
 import com.hhds.entity.ItemTransactionDetail;
+import com.hhds.entity.Itembom;
 import com.hhds.entity.SalesOrderDetailForQuery;
 import com.hhds.entity.TransactionType;
 import com.hhds.entity.VendorItem;
@@ -38,6 +39,8 @@ public class SalesOrderDetailForQueryBean extends SuperBean<SalesOrderDetailForQ
     private TransactionTypeBean transactionTypeBean;
     @EJB
     private VendorItemBean vendorItemBean;
+    @EJB
+    private ItembomBean itembomBean;
 
     public SalesOrderDetailForQueryBean() {
         super(SalesOrderDetailForQuery.class);
@@ -72,13 +75,11 @@ public class SalesOrderDetailForQueryBean extends SuperBean<SalesOrderDetailForQ
         if (transactionType == null) {
             throw new RuntimeException("SDB交易类别没有定义");
         }
-        VendorItem vi = vendorItemBean.findFirstByItemno(entity.getItemno());
-        if (vi == null) {
-            throw new RuntimeException(entity.getItemno() + "没有对应花号");
-        }
         List<ItemTransactionDetail> addedDetail = new ArrayList<>();
         HashMap<SuperEJB, List<?>> detailAdded = new HashMap<>();
         detailAdded.put(itemTransactionDetailBean, addedDetail);
+        VendorItem vi;
+
         ItemTransaction it = new ItemTransaction();
         it.setFormdate(BaseLib.getDate());
         it.setTransactionType(transactionType);
@@ -88,31 +89,75 @@ public class SalesOrderDetailForQueryBean extends SuperBean<SalesOrderDetailForQ
         it.setReason("退货");
         it.setStatus("N");
 
-        ItemTransactionDetail itd = new ItemTransactionDetail();
-        itd.setSeq(1);
-        itd.setTrtype(transactionType.getTrtype());
-        itd.setItemmaster(entity.getItemMaster());
-        itd.setItemno(entity.getItemno());
-        itd.setColorno(vi.getVendoritemcolor());
-        itd.setBrand(entity.getBrand());
-        itd.setBatch(entity.getBatch() == null ? vi.getVendordesignno() : entity.getBatch());
-        itd.setSn(entity.getSn());
-        itd.setQty(entity.getQty());
-        itd.setUnit(entity.getUnit());
-        itd.setWarehouse(entity.getWarehouse());
-        itd.setSrcapi("salesorder");
-        itd.setSrcformid(entity.getSalesOrder().getFormid());
-        itd.setSrcseq(entity.getSeq());
-        addedDetail.add(itd);
+        int seq = 0;
+        if ("V".equals(entity.getItemMaster().getMaketype())) {
+            //虚拟件按BOM展开计算库存
+            List<Itembom> itembomList = itembomBean.findByPId(entity.getItemMaster().getId());
+            for (Itembom bom : itembomList) {
+                vi = vendorItemBean.findFirstByItemno(bom.getItemno());
+                seq++;
+                ItemTransactionDetail itd = new ItemTransactionDetail();
+                itd.setSeq(seq);
+                itd.setTrtype(transactionType.getTrtype());
+                itd.setItemmaster(bom.getItemMaster());
+                itd.setItemno(bom.getItemno());
+                if (vi != null) {
+                    itd.setColorno(entity.getColorno() == null ? vi.getVendoritemcolor() : entity.getColorno());
+                    itd.setBrand(entity.getBrand());
+                    itd.setBatch(entity.getBatch() == null ? vi.getVendordesignno() : entity.getBatch());
+                } else {
+                    itd.setColorno(entity.getColorno());
+                    itd.setBrand(entity.getBrand());
+                    itd.setBatch(entity.getBatch());
+                }
+                itd.setSn(entity.getSn());
+                itd.setQty(entity.getQty().multiply(bom.getQty()));//乘以BOM用量
+                itd.setUnit(entity.getUnit());
+                itd.setAmts(entity.getAmts());
+                itd.setWarehouse(entity.getWarehouse());
+                itd.setSrcapi("salesorder");
+                itd.setSrcformid(entity.getSalesOrder().getFormid());
+                itd.setSrcseq(entity.getSeq());
+                addedDetail.add(itd);
+            }
+        } else {
+            vi = vendorItemBean.findFirstByItemno(entity.getItemno());
+            seq++;
+            ItemTransactionDetail itd = new ItemTransactionDetail();
+            itd.setSeq(seq);
+            itd.setTrtype(transactionType.getTrtype());
+            itd.setItemmaster(entity.getItemMaster());
+            itd.setItemno(entity.getItemno());
+            if (vi != null) {
+                itd.setColorno(entity.getColorno() == null ? vi.getVendoritemcolor() : entity.getColorno());
+                itd.setBrand(entity.getBrand());
+                itd.setBatch(entity.getBatch() == null ? vi.getVendordesignno() : entity.getBatch());
+            } else {
+                itd.setColorno(entity.getColorno());
+                itd.setBrand(entity.getBrand());
+                itd.setBatch(entity.getBatch());
+            }
+            itd.setSn(entity.getSn());
+            itd.setQty(entity.getQty());
+            itd.setUnit(entity.getUnit());
+            itd.setAmts(entity.getAmts());
+            itd.setWarehouse(entity.getWarehouse());
+            itd.setSrcapi("salesorder");
+            itd.setSrcformid(entity.getSalesOrder().getFormid());
+            itd.setSrcseq(entity.getSeq());
+            addedDetail.add(itd);
+        }
 
         String formid = itemTransactionBean.getFormId(it.getFormdate());
         it.setFormid(formid);
-        itd.setPid(formid);
+        addedDetail.forEach((d) -> {
+            d.setPid(formid);
+        });
         itemTransactionBean.persist(it, detailAdded, null, null);
         it.setStatus("V");
         itemTransactionBean.verify(it);
 
-        entity.setBackqty(entity.getBackqty().add(itd.getQty()));
+        entity.setBackqty(entity.getQty());
         entity.setRelapi("itemtransaction");
         entity.setRelformid(formid);
         entity.setRelseq(1);

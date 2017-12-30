@@ -83,7 +83,10 @@ public class InventoryTransaction extends FormEntity {
     @Size(max = 10)
     @Column(name = "unit")
     private String unit;
-
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "amts")
+    private BigDecimal amts;
     @JoinColumn(name = "warehouseno", referencedColumnName = "warehouseno")
     @ManyToOne(optional = false)
     protected Warehouse warehouse;
@@ -131,6 +134,7 @@ public class InventoryTransaction extends FormEntity {
     private BigDecimal cost;
 
     public InventoryTransaction() {
+        this.amts = BigDecimal.ZERO;
         this.costma = BigDecimal.ZERO;
         this.costla = BigDecimal.ZERO;
         this.costex = BigDecimal.ZERO;
@@ -209,6 +213,20 @@ public class InventoryTransaction extends FormEntity {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    /**
+     * @return the amts
+     */
+    public BigDecimal getAmts() {
+        return amts;
+    }
+
+    /**
+     * @param amts the amts to set
+     */
+    public void setAmts(BigDecimal amts) {
+        this.amts = amts;
     }
 
     public Warehouse getWarehouse() {

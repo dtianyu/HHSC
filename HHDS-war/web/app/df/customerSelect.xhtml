@@ -32,13 +32,13 @@
                          selectionMode="single" selection="#{customerQueryBean.currentEntity}" rowKey="#{item.id}" >
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
-                <p:column styleClass="Wid20">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
                         <h:outputText value="编号"/>
                     </f:facet>
                     <h:outputText value="#{item.customerno}"/>
                 </p:column>
-                <p:column styleClass="Wid80">
+                <p:column styleClass="Wid70">
                     <f:facet name="header">
                         <h:outputText value="名称"/>
                     </f:facet>

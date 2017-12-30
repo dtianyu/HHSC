@@ -117,10 +117,12 @@ public class ItemExchangeBean extends SuperBean<ItemExchange> {
             t.setSn(entity.getSnfrom());
             t.setQty(entity.getQtyfrom());
             t.setUnit(entity.getUnitfrom());
+            t.setAmts(entity.getAmtsfrom());
             t.setWarehouse(entity.getWarehouseFrom());
             t.setIocode(-1);
             t.setProptype(entity.getItemMasterFrom().getProptype());
             t.setMaketype(entity.getItemMasterFrom().getMaketype());
+            t.setCostma(entity.getItemMasterFrom().getPurprice().multiply(entity.getQtyfrom()));
             t.setStatus(entity.getStatus());
             t.setCfmuser(e.getCfmuser());
             t.setCfmdate(e.getCfmdate());
@@ -139,10 +141,12 @@ public class ItemExchangeBean extends SuperBean<ItemExchange> {
             t.setSn(entity.getSnto());
             t.setQty(entity.getQtyto());
             t.setUnit(entity.getUnitto());
+            t.setAmts(entity.getAmtsto());
             t.setWarehouse(entity.getWarehouseTo());
             t.setIocode(1);
             t.setProptype(entity.getItemMasterTo().getProptype());
             t.setMaketype(entity.getItemMasterTo().getMaketype());
+            t.setCostma(entity.getItemMasterTo().getPurprice().multiply(entity.getQtyto()));
             t.setStatus(entity.getStatus());
             t.setCfmuser(e.getCfmuser());
             t.setCfmdate(e.getCfmdate());

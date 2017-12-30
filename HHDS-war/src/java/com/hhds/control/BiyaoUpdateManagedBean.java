@@ -42,6 +42,9 @@ public class BiyaoUpdateManagedBean extends BiyaoImportManagedBean {
                 if (so != null) {
                     so.setPaydate(bi.getPaydate());
                     so.setFreight(bi.getFreight());
+                    so.setPrintdate(bi.getPrintdate());
+                    so.setFirstdelivery(bi.getFirstdelivery());
+                    so.setLastdelivery(bi.getLastdelivery());
                     so.setDeliverydate(bi.getDeliverydate());
                     so.setDeliverytype(bi.getDeliveryno());
                     salesOrderBean.update(so);

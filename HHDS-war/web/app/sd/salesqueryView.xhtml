@@ -42,13 +42,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="订单类型" /></p:column>
-                        <p:column>
-                            <h:outputText id="formtype" value="#{salesDetailQueryBean.currentEntity.salesOrder.formtype}" title="formtype" />
-                        </p:column>
                         <p:column><h:outputText value="客户" /></p:column>
                         <p:column>
                             <h:outputText id="customer" value="#{salesDetailQueryBean.currentEntity.salesOrder.customer.customer}" title="customer" />
+                        </p:column>
+                        <p:column><h:outputText value="运单编号" /></p:column>
+                        <p:column>
+                            <h:outputText id="deliverytype" value="#{salesDetailQueryBean.currentEntity.salesOrder.deliverytype}" title="deliverytype"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -105,6 +105,18 @@
                             <h:outputText id="lasttime" value="#{salesDetailQueryBean.currentEntity.salesOrder.lasttime}" title="Lasttime">
                                 <f:convertDateTime pattern="HH:mm" />
                             </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="发货时间" /></p:column>
+                        <p:column>
+                            <h:outputText id="deliverydate" value="#{salesDetailQueryBean.currentEntity.salesOrder.deliverydate}" title="deliverydate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column>
+                            <h:outputText id="packremark" value="#{salesDetailQueryBean.currentEntity.salesOrder.packremark}" title="packremark" />
                         </p:column>
                     </p:row>
                 </p:panelGrid>

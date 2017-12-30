@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -371,7 +372,7 @@ public class SalesShipmentManagedBean extends FormMultiBean<SalesShipment, Sales
                 this.currentDetail.setSrcformid(entity.getSalesOrder().getFormid());
                 this.currentDetail.setSrcseq(entity.getSeq());
             }
-            if (entity.getSrcapi().equals("HHDS")) {
+            if (Objects.equals(entity.getSrcapi(),"HHDS")) {
                 this.currentDetail.setRelapi(entity.getSrcapi());
                 this.currentDetail.setRelformid(entity.getSrcformid());
                 this.currentDetail.setRelseq(entity.getSrcseq());

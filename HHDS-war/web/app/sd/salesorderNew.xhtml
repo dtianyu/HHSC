@@ -37,10 +37,6 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="订单类型" for="formtype" /></p:column>
-                        <p:column>
-                            <p:inputText id="formtype" value="#{salesOrderManagedBean.newEntity.formtype}" title="formtype"/>
-                        </p:column>
                         <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                         <p:column>
                             <p:inputText id="customer" value="#{salesOrderManagedBean.newEntity.customer.customerno}#{salesOrderManagedBean.newEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
@@ -50,6 +46,10 @@
                                 <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCustomerWhenNew}"
                                         update="plgHead,:formNew:tabView:plgBase" />
                             </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="运单编号" for="deliverytype" /></p:column>
+                        <p:column>
+                            <p:inputText id="deliverytype" value="#{salesOrderManagedBean.newEntity.deliverytype}" title="deliverytype"/>
                         </p:column>
                     </p:row>
                     <p:row>

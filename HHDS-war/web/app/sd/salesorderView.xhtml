@@ -44,13 +44,13 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="订单类型" /></p:column>
-                        <p:column>
-                            <h:outputText id="formtype" value="#{salesOrderManagedBean.currentEntity.formtype}" title="formtype"/>
-                        </p:column>
                         <p:column><h:outputText value="客户"/></p:column>
                         <p:column>
                             <h:outputText id="customer" value="#{salesOrderManagedBean.currentEntity.customer.customerno}#{salesOrderManagedBean.newEntity.customer.customer}" title="customer"  />
+                        </p:column>
+                        <p:column><h:outputText value="运单编号" /></p:column>
+                        <p:column>
+                            <h:outputText id="deliverytype" value="#{salesOrderManagedBean.currentEntity.deliverytype}" title="deliverytype"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -110,8 +110,14 @@
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column><h:outputText value="发货时间" /></p:column>
+                        <p:column>
+                            <h:outputText id="deliverydate" value="#{salesOrderManagedBean.currentEntity.deliverydate}" title="deliverydate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
                         <p:column><h:outputText value="备注"/></p:column>
-                        <p:column colspan="3">
+                        <p:column>
                             <h:outputText id="packremark" value="#{salesOrderManagedBean.currentEntity.packremark}" title="packremark" />
                         </p:column>
                     </p:row>
