@@ -26,10 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "processgroup")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProcessGroup.getRowCount", query = "SELECT COUNT(p) FROM ProcessGroup p"),
-    @NamedQuery(name = "ProcessGroup.findAll", query = "SELECT p FROM ProcessGroup p"),
-    @NamedQuery(name = "ProcessGroup.findById", query = "SELECT p FROM ProcessGroup p WHERE p.id = :id"),
-    @NamedQuery(name = "ProcessGroup.findByGroupno", query = "SELECT p FROM ProcessGroup p WHERE p.groupno = :groupno"),
+    @NamedQuery(name = "ProcessGroup.getRowCount", query = "SELECT COUNT(p) FROM ProcessGroup p")
+    ,
+    @NamedQuery(name = "ProcessGroup.findAll", query = "SELECT p FROM ProcessGroup p")
+    ,
+    @NamedQuery(name = "ProcessGroup.findById", query = "SELECT p FROM ProcessGroup p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "ProcessGroup.findByGroupno", query = "SELECT p FROM ProcessGroup p WHERE p.groupno = :groupno")
+    ,
     @NamedQuery(name = "ProcessGroup.findByStatus", query = "SELECT p FROM ProcessGroup p WHERE p.status = :status")})
 public class ProcessGroup extends SuperEntity {
 

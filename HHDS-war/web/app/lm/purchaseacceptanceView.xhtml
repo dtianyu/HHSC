@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="purchaseacceptance" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{purchaseAcceptanceManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{purchaseAcceptanceManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{purchaseAcceptanceManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
+                                     rendered="#{purchaseAcceptanceManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{purchaseAcceptanceManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{purchaseAcceptanceManagedBean.doCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseAcceptanceManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchaseAcceptanceManagedBean.doPrt}"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="进货点收－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{purchaseAcceptanceManagedBean.currentEntity.formid}" title="formid"  />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="点收日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{purchaseAcceptanceManagedBean.currentEntity.formdate}" title="Formdate">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="供应商"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="vendor" value="#{purchaseAcceptanceManagedBean.currentEntity.vendor.vendor}" title="Deptid"  />
+                        </p:column>
+                        <p:column><h:outputText value="默认仓库"/></p:column>
+                        <p:column>
+                            <h:outputText id="warehouse" value="#{purchaseAcceptanceManagedBean.currentEntity.warehouse.name}" title="warehouse"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:dataTable id="tableList" value="#{purchaseAcceptanceManagedBean.detailList}" var="item" styleClass="tableList"
+                             selectionMode="single" selection="#{purchaseAcceptanceManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                    <p:ajax event="rowSelect" update=":formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                    <p:ajax event="rowUnselect" update="formView:plgDetail" oncomplete="" />
+                    <p:column styleClass="Wid10">
+                        <f:facet name="header">
+                            <h:outputText value="采购单号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.srcformid}"/>
+                    </p:column>
+                    <p:column styleClass="Wid5">
+                        <f:facet name="header">
+                            <h:outputText value="序号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.srcseq}"/>
+                    </p:column>
+                    <p:column styleClass="Wid20">
+                        <f:facet name="header">
+                            <h:outputText value="品号"/>
+                        </f:facet>
+                        <h:outputText value="#{item.itemno}"/>
+                    </p:column>
+                    <p:column styleClass="Wid30">
+                        <f:facet name="header">
+                            <h:outputText value="品名"/>
+                        </f:facet>
+                        <h:outputText value="#{item.itemmaster.itemdesc}"/>
+                    </p:column>
+                    <p:column styleClass="Wid10 TexAlRight">
+                        <f:facet name="header">
+                            <h:outputText value="送货数量"/>
+                        </f:facet>
+                        <h:outputText value="#{item.qty}"/>
+                    </p:column>
+                    <p:column styleClass="Wid5">
+                        <f:facet name="header">
+                            <h:outputText value="单位"/>
+                        </f:facet>
+                        <h:outputText value="#{item.unit}"/>
+                    </p:column>
+                    <p:column styleClass="Wid20">
+                        <f:facet name="header">
+                            <h:outputText value="仓库"/>
+                        </f:facet>
+                        <h:outputText value="#{item.warehouse.name}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
+                <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100" >
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="采购单号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="srcformid" value="#{purchaseAcceptanceManagedBean.currentDetail.srcformid}" title="srcid" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="商品编号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemno}" title="Itemno"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="品名"/></p:column>
+                        <p:column>
+                            <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemmaster.itemdesc}" title="itemdesc"/>
+                        </p:column>
+                        <p:column><h:outputText value="规格"/></p:column>
+                        <p:column>
+                            <h:outputText value="#{purchaseAcceptanceManagedBean.currentDetail.itemmaster.itemwidth}" title="itemwidth"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="华卉品号"/></p:column>
+                        <p:column>
+                            <h:outputText id="vendoritemno" value="#{purchaseAcceptanceManagedBean.currentDetail.vendoritemno}" title="vendoritemno" />
+                        </p:column>
+                        <p:column><h:outputText value="华卉色号"/></p:column>
+                        <p:column>
+                            <h:outputText id="vendorcolorno" value="#{purchaseAcceptanceManagedBean.currentDetail.vendorcolorno}" title="vendorcolorno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="可入库量"/></p:column>
+                        <p:column>
+                            <h:outputText id="allowqty" value="#{purchaseAcceptanceManagedBean.currentDetail.allowqty}" title="Qty" />
+                        </p:column>
+                        <p:column><h:outputText value="送货数量"/></p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{purchaseAcceptanceManagedBean.currentDetail.qty}" title="Qty" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="仓库"/></p:column>
+                        <p:column>
+                            <h:outputText id="warehouseno" value="#{purchaseAcceptanceManagedBean.currentDetail.warehouse.name}" title="warehouse" />
+                        </p:column>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{purchaseAcceptanceManagedBean.currentDetail.unit}" title="unit" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify,btnPrint">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

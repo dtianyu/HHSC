@@ -30,15 +30,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salestransaction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesTransaction.getRowCount", query = "SELECT COUNT(s) FROM SalesTransaction s"),
-    @NamedQuery(name = "SalesTransaction.findAll", query = "SELECT s FROM SalesTransaction s"),
-    @NamedQuery(name = "SalesTransaction.findById", query = "SELECT s FROM SalesTransaction s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesTransaction.findByFormid", query = "SELECT s FROM SalesTransaction s WHERE s.formid = :formid"),
-    @NamedQuery(name = "SalesTransaction.findByFormidAndSeq", query = "SELECT s FROM SalesTransaction s WHERE s.formid = :formid AND s.seq=:seq"),
-    @NamedQuery(name = "SalesTransaction.findByPId", query = "SELECT s FROM SalesTransaction s WHERE s.pid = :pid"),
-    @NamedQuery(name = "SalesTransaction.findByAbroad", query = "SELECT s FROM SalesTransaction s WHERE s.abroad = :abroad"),
-    @NamedQuery(name = "SalesTransaction.findByCustomerId", query = "SELECT s FROM SalesTransaction s WHERE s.customer.id = :customerid"),
-    @NamedQuery(name = "SalesTransaction.findBySalerid", query = "SELECT s FROM SalesTransaction s WHERE s.salerid = :salerid"),
+    @NamedQuery(name = "SalesTransaction.getRowCount", query = "SELECT COUNT(s) FROM SalesTransaction s")
+    ,
+    @NamedQuery(name = "SalesTransaction.findAll", query = "SELECT s FROM SalesTransaction s")
+    ,
+    @NamedQuery(name = "SalesTransaction.findById", query = "SELECT s FROM SalesTransaction s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesTransaction.findByFormid", query = "SELECT s FROM SalesTransaction s WHERE s.formid = :formid")
+    ,
+    @NamedQuery(name = "SalesTransaction.findByFormidAndSeq", query = "SELECT s FROM SalesTransaction s WHERE s.formid = :formid AND s.seq=:seq")
+    ,
+    @NamedQuery(name = "SalesTransaction.findByPId", query = "SELECT s FROM SalesTransaction s WHERE s.pid = :pid")
+    ,
+    @NamedQuery(name = "SalesTransaction.findByAbroad", query = "SELECT s FROM SalesTransaction s WHERE s.abroad = :abroad")
+    ,
+    @NamedQuery(name = "SalesTransaction.findByCustomerId", query = "SELECT s FROM SalesTransaction s WHERE s.customer.id = :customerid")
+    ,
+    @NamedQuery(name = "SalesTransaction.findBySalerid", query = "SELECT s FROM SalesTransaction s WHERE s.salerid = :salerid")
+    ,
     @NamedQuery(name = "SalesTransaction.findByStatus", query = "SELECT s FROM SalesTransaction s WHERE s.status = :status")})
 public class SalesTransaction extends FormDetailEntity {
 

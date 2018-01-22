@@ -10,4 +10,19 @@
             <context-root>HHSC-war</context-root>
         </web>
     </module>
+    <module>
+        <web>
+            <web-uri>HHDS-war.war</web-uri>
+            <context-root>/HHDS-war</context-root>
+        </web>
+    </module>
+    <module>
+        <ejb>HHDS-ejb.jar</ejb>
+    </module>
+    <module>
+        <web>
+            <web-uri>HHSC-JWS.war</web-uri>
+            <context-root>/HHSC-JWS</context-root>
+        </web>
+    </module>
 </application>

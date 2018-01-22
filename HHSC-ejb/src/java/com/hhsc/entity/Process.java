@@ -26,11 +26,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "process")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Process.getRowCount", query = "SELECT COUNT(p) FROM Process p"),
-    @NamedQuery(name = "Process.findAll", query = "SELECT p FROM Process p"),
-    @NamedQuery(name = "Process.findById", query = "SELECT p FROM Process p WHERE p.id = :id"),
-    @NamedQuery(name = "Process.findByProcessno", query = "SELECT p FROM Process p WHERE p.processno = :processno"),
-    @NamedQuery(name = "Process.findByProcess", query = "SELECT p FROM Process p WHERE p.process = :process"),
+    @NamedQuery(name = "Process.getRowCount", query = "SELECT COUNT(p) FROM Process p")
+    ,
+    @NamedQuery(name = "Process.findAll", query = "SELECT p FROM Process p")
+    ,
+    @NamedQuery(name = "Process.findById", query = "SELECT p FROM Process p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "Process.findByProcessno", query = "SELECT p FROM Process p WHERE p.processno = :processno")
+    ,
+    @NamedQuery(name = "Process.findByProcess", query = "SELECT p FROM Process p WHERE p.process = :process")
+    ,
     @NamedQuery(name = "Process.findByStatus", query = "SELECT p FROM Process p WHERE p.status = :status")})
 public class Process extends SuperEntity {
 

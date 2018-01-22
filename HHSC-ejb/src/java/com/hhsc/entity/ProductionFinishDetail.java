@@ -31,8 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionfinishdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionFinishDetail.findAll", query = "SELECT f FROM ProductionFinishDetail f"),
-    @NamedQuery(name = "ProductionFinishDetail.findById", query = "SELECT f FROM ProductionFinishDetail f WHERE f.id = :id"),
+    @NamedQuery(name = "ProductionFinishDetail.findAll", query = "SELECT f FROM ProductionFinishDetail f")
+    ,
+    @NamedQuery(name = "ProductionFinishDetail.findById", query = "SELECT f FROM ProductionFinishDetail f WHERE f.id = :id")
+    ,
     @NamedQuery(name = "ProductionFinishDetail.findByPId", query = "SELECT f FROM ProductionFinishDetail f WHERE f.pid = :pid"),})
 public class ProductionFinishDetail extends FormDetailEntity {
 
@@ -80,8 +82,8 @@ public class ProductionFinishDetail extends FormDetailEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date cfmdate;
 
-    @JoinColumn(name = "designid",referencedColumnName="id")
-    @ManyToOne(optional=false)
+    @JoinColumn(name = "designid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
     private ItemMaster design;
     @Basic(optional = false)
     @NotNull

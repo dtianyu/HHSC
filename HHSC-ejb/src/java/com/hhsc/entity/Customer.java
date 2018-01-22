@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,22 +27,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "customer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.getRowCount", query = "SELECT COUNT(c) FROM Customer c"),
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
-    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
-    @NamedQuery(name = "Customer.findByCustomerno", query = "SELECT c FROM Customer c WHERE c.customerno = :customerno"),
-    @NamedQuery(name = "Customer.findByCustomer", query = "SELECT c FROM Customer c WHERE c.customer = :customer"),
-    @NamedQuery(name = "Customer.findByFullname", query = "SELECT c FROM Customer c WHERE c.fullname = :fullname"),
-    @NamedQuery(name = "Customer.findBySimplecode", query = "SELECT c FROM Customer c WHERE c.simplecode = :simplecode"),
-    @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country"),
-    @NamedQuery(name = "Customer.findByArea", query = "SELECT c FROM Customer c WHERE c.area = :area"),
-    @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city"),
-    @NamedQuery(name = "Customer.findBySalerId", query = "SELECT c FROM Customer c WHERE c.salerid = :salerid"),
-    @NamedQuery(name = "Customer.findByDeptId", query = "SELECT c FROM Customer c WHERE c.deptid = :deptid"),
-    @NamedQuery(name = "Customer.findByPricingtype", query = "SELECT c FROM Customer c WHERE c.pricingtype = :pricingtype"),
+    @NamedQuery(name = "Customer.getRowCount", query = "SELECT COUNT(c) FROM Customer c")
+    ,
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
+    ,
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id")
+    ,
+    @NamedQuery(name = "Customer.findByCustomerno", query = "SELECT c FROM Customer c WHERE c.customerno = :customerno")
+    ,
+    @NamedQuery(name = "Customer.findByCustomer", query = "SELECT c FROM Customer c WHERE c.customer = :customer")
+    ,
+    @NamedQuery(name = "Customer.findByFullname", query = "SELECT c FROM Customer c WHERE c.fullname = :fullname")
+    ,
+    @NamedQuery(name = "Customer.findBySimplecode", query = "SELECT c FROM Customer c WHERE c.simplecode = :simplecode")
+    ,
+    @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country")
+    ,
+    @NamedQuery(name = "Customer.findByArea", query = "SELECT c FROM Customer c WHERE c.area = :area")
+    ,
+    @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city")
+    ,
+    @NamedQuery(name = "Customer.findByPricingtype", query = "SELECT c FROM Customer c WHERE c.pricingtype = :pricingtype")
+    ,
     @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
 public class Customer extends SuperEntity {
 
+    @Column(name = "autotransfer")
+    private boolean autotransfer;
+    @Size(max = 20)
+    @Column(name = "relationno")
+    private String relationno;
+    @Size(max = 20)
+    @Column(name = "relationwh")
+    private String relationwh;
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
@@ -112,10 +131,14 @@ public class Customer extends SuperEntity {
     @Size(max = 10)
     @Column(name = "city")
     private String city;
-    @Column(name = "salerid")
-    private Integer salerid;
-    @Column(name = "deptid")
-    private Integer deptid;
+
+    @JoinColumn(name = "salerid", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private SystemUser saler;
+    @JoinColumn(name = "deptid", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private Department dept;
+
     @Size(max = 10)
     @Column(name = "pricingtype")
     private String pricingtype;
@@ -171,6 +194,7 @@ public class Customer extends SuperEntity {
     private String bankaccount;
 
     public Customer() {
+        this.autotransfer = false;
     }
 
     public Customer(String customerno, String customer, String fullname, String currency, String taxtype, BigDecimal taxrate, String tradetype, String status) {
@@ -181,6 +205,7 @@ public class Customer extends SuperEntity {
         this.taxtype = taxtype;
         this.taxrate = taxrate;
         this.tradetype = tradetype;
+        this.autotransfer = false;
         this.status = status;
     }
 
@@ -296,20 +321,20 @@ public class Customer extends SuperEntity {
         this.city = city;
     }
 
-    public Integer getSalerid() {
-        return salerid;
+    public SystemUser getSaler() {
+        return saler;
     }
 
-    public void setSalerid(Integer salerid) {
-        this.salerid = salerid;
+    public void setSaler(SystemUser saler) {
+        this.saler = saler;
     }
 
-    public Integer getDeptid() {
-        return deptid;
+    public Department getDept() {
+        return dept;
     }
 
-    public void setDeptid(Integer deptid) {
-        this.deptid = deptid;
+    public void setDept(Department dept) {
+        this.dept = dept;
     }
 
     public String getPricingtype() {
@@ -523,6 +548,48 @@ public class Customer extends SuperEntity {
      */
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    /**
+     * @return the relationno
+     */
+    public String getRelationno() {
+        return relationno;
+    }
+
+    /**
+     * @param relationno the relationno to set
+     */
+    public void setRelationno(String relationno) {
+        this.relationno = relationno;
+    }
+
+    /**
+     * @return the relationwh
+     */
+    public String getRelationwh() {
+        return relationwh;
+    }
+
+    /**
+     * @param relationwh the relationwh to set
+     */
+    public void setRelationwh(String relationwh) {
+        this.relationwh = relationwh;
+    }
+
+    /**
+     * @return the autotransfer
+     */
+    public boolean isAutotransfer() {
+        return autotransfer;
+    }
+
+    /**
+     * @param autotransfer the autotransfer to set
+     */
+    public void setAutotransfer(boolean autotransfer) {
+        this.autotransfer = autotransfer;
     }
 
 }

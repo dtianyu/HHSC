@@ -28,11 +28,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "processdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProcessDetail.getRowCount", query = "SELECT COUNT(p) FROM ProcessDetail p"),
-    @NamedQuery(name = "ProcessDetail.findAll", query = "SELECT p FROM ProcessDetail p"),
-    @NamedQuery(name = "ProcessDetail.findById", query = "SELECT p FROM ProcessDetail p WHERE p.id = :id"),
-    @NamedQuery(name = "ProcessDetail.findByPId", query = "SELECT p FROM ProcessDetail p WHERE p.pid = :pid"),
-    @NamedQuery(name = "ProcessDetail.findByKind", query = "SELECT p FROM ProcessDetail p WHERE p.kind = :kind"),
+    @NamedQuery(name = "ProcessDetail.getRowCount", query = "SELECT COUNT(p) FROM ProcessDetail p")
+    ,
+    @NamedQuery(name = "ProcessDetail.findAll", query = "SELECT p FROM ProcessDetail p")
+    ,
+    @NamedQuery(name = "ProcessDetail.findById", query = "SELECT p FROM ProcessDetail p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "ProcessDetail.findByPId", query = "SELECT p FROM ProcessDetail p WHERE p.pid = :pid")
+    ,
+    @NamedQuery(name = "ProcessDetail.findByKind", query = "SELECT p FROM ProcessDetail p WHERE p.kind = :kind")
+    ,
     @NamedQuery(name = "ProcessDetail.findByContent", query = "SELECT p FROM ProcessDetail p WHERE p.content = :content")})
 public class ProcessDetail extends SuperDetailEntity {
 

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="paykind" icon="ui-icon-arrowreturn-1-w"/> 
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{payKindManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
+                                     process="@this" update="formView" 
+                                     rendered="#{payKindManagedBean.hasPrev}"/> 
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{payKindManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
+                                     process="@this" update="formView" 
+                                     rendered="#{payKindManagedBean.hasNext}"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{payKindManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{payKindManagedBean.doCfm}" process="@this" update="formView">
+                        <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{payKindManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{payKindManagedBean.doPrt}"/>  
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelHead" header="支付方式－维护">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="类别"/></p:column>
+                        <p:column styleClass="Wis30">
+                            <h:outputText id="paykind" value="#{payKindManagedBean.currentEntity.paykind}" title="paykind"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="名称"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="name" value="#{payKindManagedBean.currentEntity.name}" title="name" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="remark" value="#{payKindManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

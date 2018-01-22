@@ -23,11 +23,11 @@ public class ItemResourceBean extends SuperBean<ItemResource> {
     public ItemResourceBean() {
         super(ItemResource.class);
     }
-    
-    public List<ItemResource> findByItemno(String itemno){
+
+    public List<ItemResource> findByItemno(String itemno) {
         Query query = getEntityManager().createNamedQuery("ItemResource.findByItemno");
         query.setParameter("itemno", itemno);
-        return query.getResultList();      
+        return query.getResultList();
     }
 
 }

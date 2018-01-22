@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class CurrencyModel extends BaseLazyModel<Currency>{
-    
-    public CurrencyModel(SuperEJB superEJB){
+public class CurrencyModel extends BaseLazyModel<Currency> {
+
+    public CurrencyModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

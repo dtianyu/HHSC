@@ -23,19 +23,19 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class ItemProcessBean extends SuperBean<ItemProcess> {
-    
+
     @EJB
     private ProcessResourceBean processResourceBean;
-    
+
     @EJB
     private ItemResourceBean itemResourceBean;
-    
+
     private List<ItemResource> detailList;
-    
+
     public ItemProcessBean() {
         super(ItemProcess.class);
     }
-    
+
     public List<ItemProcess> findByItemno(String itemno) {
         Query query = this.getEntityManager().createNamedQuery("ItemProcess.findByItemno");
         query.setParameter("itemno", itemno);
@@ -45,7 +45,7 @@ public class ItemProcessBean extends SuperBean<ItemProcess> {
             return null;
         }
     }
-    
+
     public ItemProcess findLastByItemno(String itemno) {
         List<ItemProcess> list = this.findByItemno(itemno);
         if (!list.isEmpty()) {
@@ -54,7 +54,7 @@ public class ItemProcessBean extends SuperBean<ItemProcess> {
             return null;
         }
     }
-    
+
     public void initResource(ItemProcess entity) {
         List<ProcessResource> processResourceList = processResourceBean.findAll();
         if (processResourceList != null) {
@@ -78,13 +78,13 @@ public class ItemProcessBean extends SuperBean<ItemProcess> {
             }
         }
     }
-    
+
     @Override
     public void persist(ItemProcess entity) {
         super.persist(entity);
         //initResource(entity);改为手动添加
     }
-    
+
     @Override
     public void setDetail(Object value) {
         setDetailList(itemResourceBean.findByPId(value));
@@ -106,5 +106,5 @@ public class ItemProcessBean extends SuperBean<ItemProcess> {
     public void setDetailList(List<ItemResource> detailList) {
         this.detailList = detailList;
     }
-    
+
 }

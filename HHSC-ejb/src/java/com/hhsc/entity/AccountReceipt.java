@@ -25,14 +25,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "accountreceipt")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AccountReceipt.getRowCount", query = "SELECT COUNT(a) FROM AccountReceipt a"),
-    @NamedQuery(name = "AccountReceipt.findAll", query = "SELECT a FROM AccountReceipt a"),
-    @NamedQuery(name = "AccountReceipt.findById", query = "SELECT a FROM AccountReceipt a WHERE a.id = :id"),
-    @NamedQuery(name = "AccountReceipt.findByFormid", query = "SELECT a FROM AccountReceipt a WHERE a.formid = :formid"),
-    @NamedQuery(name = "AccountReceipt.findByFormdate", query = "SELECT a FROM AccountReceipt a WHERE a.formdate = :formdate"),
-    @NamedQuery(name = "AccountReceipt.findByFormtype", query = "SELECT a FROM AccountReceipt a WHERE a.formtype = :formtype"),
-    @NamedQuery(name = "AccountReceipt.findByFormkind", query = "SELECT a FROM AccountReceipt a WHERE a.formkind = :formkind"),
-    @NamedQuery(name = "AccountReceipt.findByDeptid", query = "SELECT a FROM AccountReceipt a WHERE a.dept.id = :deptid"),
+    @NamedQuery(name = "AccountReceipt.getRowCount", query = "SELECT COUNT(a) FROM AccountReceipt a")
+    ,
+    @NamedQuery(name = "AccountReceipt.findAll", query = "SELECT a FROM AccountReceipt a")
+    ,
+    @NamedQuery(name = "AccountReceipt.findById", query = "SELECT a FROM AccountReceipt a WHERE a.id = :id")
+    ,
+    @NamedQuery(name = "AccountReceipt.findByFormid", query = "SELECT a FROM AccountReceipt a WHERE a.formid = :formid")
+    ,
+    @NamedQuery(name = "AccountReceipt.findByFormdate", query = "SELECT a FROM AccountReceipt a WHERE a.formdate = :formdate")
+    ,
+    @NamedQuery(name = "AccountReceipt.findByFormtype", query = "SELECT a FROM AccountReceipt a WHERE a.formtype = :formtype")
+    ,
+    @NamedQuery(name = "AccountReceipt.findByFormkind", query = "SELECT a FROM AccountReceipt a WHERE a.formkind = :formkind")
+    ,
+    @NamedQuery(name = "AccountReceipt.findByDeptid", query = "SELECT a FROM AccountReceipt a WHERE a.dept.id = :deptid")
+    ,
     @NamedQuery(name = "AccountReceipt.findByStatus", query = "SELECT a FROM AccountReceipt a WHERE a.status = :status")})
 public class AccountReceipt extends FormEntity {
 

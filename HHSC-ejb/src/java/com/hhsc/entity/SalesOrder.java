@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,22 +28,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "salesorder")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SalesOrder.getRowCount", query = "SELECT COUNT(s) FROM SalesOrder s"),
-    @NamedQuery(name = "SalesOrder.findAll", query = "SELECT s FROM SalesOrder s"),
-    @NamedQuery(name = "SalesOrder.findById", query = "SELECT s FROM SalesOrder s WHERE s.id = :id"),
-    @NamedQuery(name = "SalesOrder.findByFormid", query = "SELECT s FROM SalesOrder s WHERE s.formid = :formid"),
-    @NamedQuery(name = "SalesOrder.findByFormdate", query = "SELECT s FROM SalesOrder s WHERE s.formdate = :formdate"),
-    @NamedQuery(name = "SalesOrder.findByCustomerId", query = "SELECT s FROM SalesOrder s WHERE s.customer.id = :customerid"),
-    @NamedQuery(name = "SalesOrder.findByDeptId", query = "SELECT s FROM SalesOrder s WHERE s.dept.id = :deptid"),
-    @NamedQuery(name = "SalesOrder.findBySalesmanId", query = "SELECT s FROM SalesOrder s WHERE s.salesman.id = :salesmanid"),
-    @NamedQuery(name = "SalesOrder.findByItemId", query = "SELECT s FROM SalesOrder s WHERE s.itemmaster.id = :itemmasterid"),
-    @NamedQuery(name = "SalesOrder.findByItemno", query = "SELECT s FROM SalesOrder s WHERE s.itemno = :itemno"),
-    @NamedQuery(name = "SalesOrder.findByCustomeritemno", query = "SELECT s FROM SalesOrder s WHERE s.customeritemno = :customeritemno"),
-    @NamedQuery(name = "SalesOrder.findByTradetype", query = "SELECT s FROM SalesOrder s WHERE s.tradetype = :tradetype"),
-    @NamedQuery(name = "SalesOrder.findByTradename", query = "SELECT s FROM SalesOrder s WHERE s.tradename = :tradename"),
-    @NamedQuery(name = "SalesOrder.findByPaymentid", query = "SELECT s FROM SalesOrder s WHERE s.paymentid = :paymentid"),
-    @NamedQuery(name = "SalesOrder.findByPayment", query = "SELECT s FROM SalesOrder s WHERE s.payment = :payment"),
-    @NamedQuery(name = "SalesOrder.findByRefno", query = "SELECT s FROM SalesOrder s WHERE s.refno = :refno"),
+    @NamedQuery(name = "SalesOrder.getRowCount", query = "SELECT COUNT(s) FROM SalesOrder s")
+    ,
+    @NamedQuery(name = "SalesOrder.findAll", query = "SELECT s FROM SalesOrder s")
+    ,
+    @NamedQuery(name = "SalesOrder.findById", query = "SELECT s FROM SalesOrder s WHERE s.id = :id")
+    ,
+    @NamedQuery(name = "SalesOrder.findByFormid", query = "SELECT s FROM SalesOrder s WHERE s.formid = :formid")
+    ,
+    @NamedQuery(name = "SalesOrder.findByFormdate", query = "SELECT s FROM SalesOrder s WHERE s.formdate = :formdate")
+    ,
+    @NamedQuery(name = "SalesOrder.findByCustomerId", query = "SELECT s FROM SalesOrder s WHERE s.customer.id = :customerid")
+    ,
+    @NamedQuery(name = "SalesOrder.findByDeptId", query = "SELECT s FROM SalesOrder s WHERE s.dept.id = :deptid")
+    ,
+    @NamedQuery(name = "SalesOrder.findBySalesmanId", query = "SELECT s FROM SalesOrder s WHERE s.salesman.id = :salesmanid")
+    ,
+    @NamedQuery(name = "SalesOrder.findByItemId", query = "SELECT s FROM SalesOrder s WHERE s.itemmaster.id = :itemmasterid")
+    ,
+    @NamedQuery(name = "SalesOrder.findByItemno", query = "SELECT s FROM SalesOrder s WHERE s.itemno = :itemno")
+    ,
+    @NamedQuery(name = "SalesOrder.findByCustomeritemno", query = "SELECT s FROM SalesOrder s WHERE s.customeritemno = :customeritemno")
+    ,
+    @NamedQuery(name = "SalesOrder.findByTradetype", query = "SELECT s FROM SalesOrder s WHERE s.tradetype = :tradetype")
+    ,
+    @NamedQuery(name = "SalesOrder.findByTradename", query = "SELECT s FROM SalesOrder s WHERE s.tradename = :tradename")
+    ,
+    @NamedQuery(name = "SalesOrder.findByPaymentid", query = "SELECT s FROM SalesOrder s WHERE s.paymentid = :paymentid")
+    ,
+    @NamedQuery(name = "SalesOrder.findByPayment", query = "SELECT s FROM SalesOrder s WHERE s.payment = :payment")
+    ,
+    @NamedQuery(name = "SalesOrder.findByRefno", query = "SELECT s FROM SalesOrder s WHERE s.refno = :refno")
+    ,
     @NamedQuery(name = "SalesOrder.findByStatus", query = "SELECT s FROM SalesOrder s WHERE s.status = :status")})
 public class SalesOrder extends FormEntity {
 
@@ -155,8 +172,19 @@ public class SalesOrder extends FormEntity {
     @Size(max = 200)
     @Column(name = "packremark")
     private String packremark;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "contract")
+    private String contract;
 
     public SalesOrder() {
+        this.designsets = 0;
+        this.designprice = BigDecimal.ZERO;
+        this.exchange = BigDecimal.ZERO;
+        this.totaldesign = BigDecimal.ZERO;
+        this.totalextax = BigDecimal.ZERO;
+        this.totaltaxes = BigDecimal.ZERO;
+        this.totalamts = BigDecimal.ZERO;
     }
 
     public SalesType getOrdertype() {
@@ -429,6 +457,20 @@ public class SalesOrder extends FormEntity {
 
     public void setPackremark(String packremark) {
         this.packremark = packremark;
+    }
+
+    /**
+     * @return the contract
+     */
+    public String getContract() {
+        return contract;
+    }
+
+    /**
+     * @param contract the contract to set
+     */
+    public void setContract(String contract) {
+        this.contract = contract;
     }
 
     @Override

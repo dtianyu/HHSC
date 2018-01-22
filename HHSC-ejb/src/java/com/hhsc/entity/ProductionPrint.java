@@ -27,13 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionprint")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionPrint.findAll", query = "SELECT p FROM ProductionPrint p"),
-    @NamedQuery(name = "ProductionPrint.findById", query = "SELECT p FROM ProductionPrint p WHERE p.id = :id"),
+    @NamedQuery(name = "ProductionPrint.findAll", query = "SELECT p FROM ProductionPrint p")
+    ,
+    @NamedQuery(name = "ProductionPrint.findById", query = "SELECT p FROM ProductionPrint p WHERE p.id = :id")
+    ,
     @NamedQuery(name = "ProductionPrint.findByPId", query = "SELECT p FROM ProductionPrint p WHERE p.pid = :pid")})
 public class ProductionPrint extends FormDetailEntity {
-   
-    @JoinColumn(name = "deptid",referencedColumnName="id")
-    @ManyToOne(optional=false)
+
+    @JoinColumn(name = "deptid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
     private Department dept;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
@@ -96,5 +98,5 @@ public class ProductionPrint extends FormDetailEntity {
     public String toString() {
         return "com.hhsc.entity.ProductionPrint[ id=" + id + " ]";
     }
-    
+
 }

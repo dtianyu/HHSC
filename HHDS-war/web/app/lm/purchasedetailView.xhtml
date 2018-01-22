@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="purchasedetail" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{purchaseDetailQueryBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{purchaseDetailQueryBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{purchaseDetailQueryBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
+                                     rendered="#{purchaseDetailQueryBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{purchaseDetailQueryBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{purchaseDetailQueryBean.doCfm}" process="@this" update="formView"/>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{purchaseDetailQueryBean.print()}" icon="ui-icon-print"
+                                     rendered="#{purchaseDetailQueryBean.doPrt}"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="采购明细查询">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="采购单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{purchaseDetailQueryBean.currentEntity.purchaseOrder.formid}-#{purchaseDetailQueryBean.currentEntity.seq}" title="Formid" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="采购日期" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{purchaseDetailQueryBean.currentEntity.purchaseOrder.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="采购明细">
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="商品编号" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemmaster" value="#{purchaseDetailQueryBean.currentEntity.itemmaster.itemno}"  />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="商品名称"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc" value="#{purchaseDetailQueryBean.currentEntity.itemmaster.itemdesc}" title="itemdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><h:outputText value="华卉品号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="vendoritemno" value="#{purchaseDetailQueryBean.currentEntity.vendoritemno}" title="vendoritemno" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="华卉色号"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="colorno" value="#{purchaseDetailQueryBean.currentEntity.colorno}" title="Colorno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="采购数量"/></p:column>
+                                <p:column>
+                                    <h:outputText id="qty" value="#{purchaseDetailQueryBean.currentEntity.qty}" title="Qty" />
+                                </p:column>
+                                <p:column><h:outputText value="验收数量"/></p:column>
+                                <p:column>
+                                    <h:outputText id="inqty" value="#{purchaseDetailQueryBean.currentEntity.inqty}" title="Qty" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="单价"/></p:column>
+                                <p:column>
+                                    <h:outputText id="price" value="#{purchaseDetailQueryBean.currentEntity.price}" title="Price" />
+                                </p:column>
+                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column>
+                                    <h:outputText id="unit" value="#{purchaseDetailQueryBean.currentEntity.unit}" title="Unit" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="备注" /></p:column>
+                                <p:column colspan="3">
+                                    <h:outputText id="dremark" value="#{purchaseDetailQueryBean.currentEntity.remark}" title="Remark" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

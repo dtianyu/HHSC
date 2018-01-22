@@ -34,8 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "SysGrantPrg.findById", query = "SELECT s FROM SysGrantPrg s WHERE s.id = :id")
     , @NamedQuery(name = "SysGrantPrg.findByPId", query = "SELECT s FROM SysGrantPrg s WHERE s.pid = :pid")
     , @NamedQuery(name = "SysGrantPrg.findByKind", query = "SELECT s FROM SysGrantPrg s WHERE s.kind = :kind")
-    , @NamedQuery(name = "SysGrantPrg.findByUserId", query = "SELECT s FROM SysGrantPrg s WHERE s.kind='U' AND s.systemUser.id = :userid")
-    , @NamedQuery(name = "SysGrantPrg.findByRoleId", query = "SELECT s FROM SysGrantPrg s WHERE s.kind='R' AND s.systemRole.id = :roleid")})
+    , @NamedQuery(name = "SysGrantPrg.findByUserId", query = "SELECT s FROM SysGrantPrg s WHERE s.kind='U' AND s.systemUser.id = :userid ORDER BY s.sysprg.sysmodule.sortid,s.sysprg.sortid")
+    , @NamedQuery(name = "SysGrantPrg.findByRoleId", query = "SELECT s FROM SysGrantPrg s WHERE s.kind='R' AND s.systemRole.id = :roleid ORDER BY s.sysprg.sysmodule.sortid,s.sysprg.sortid")
+    ,
+    @NamedQuery(name = "SysGrantPrg.findBySystemNameAndUserId", query = "SELECT s FROM SysGrantPrg s WHERE s.kind='U' AND s.sysprg.sysmodule.sysname=:sysname AND s.systemUser.id = :userid ORDER BY s.sysprg.sysmodule.sortid,s.sysprg.sortid ")
+    ,
+    @NamedQuery(name = "SysGrantPrg.findBySystemNameAndRoleId", query = "SELECT s FROM SysGrantPrg s WHERE s.kind='R' AND s.sysprg.sysmodule.sysname=:sysname AND s.systemRole.id = :roleid ORDER BY s.sysprg.sysmodule.sortid,s.sysprg.sortid ")})
 public class SysGrantPrg extends SuperDetailEntity {
 
     @JoinColumn(name = "prgid", referencedColumnName = "id")

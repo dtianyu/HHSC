@@ -18,7 +18,7 @@
                 <f:facet name="right">
                     <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.persist()}" icon="ui-icon-disk"
                                      rendered="#{customerManagedBean.doAdd}"
-                                     process="@this,plgNew,:formNew:tabView:plgEdit" update="formNew"/>
+                                     process="@this,plgNew,formNew:tabView:plgEdit,formNew:tabView:plgHHDS" update="formNew"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelNew" header="客户登记－新增">
@@ -267,6 +267,28 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
+                </p:tab>
+                <p:tab title="电商整合">
+                    <p:panelGrid id="plgHHDS" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><p:outputLabel value="关联电商" for="autotransfer" /></p:column>
+                            <p:column>
+                                <p:inputSwitch  id="autotransfer" value="#{customerManagedBean.newEntity.autotransfer}" />
+                            </p:column>
+                            <p:column><p:outputLabel value="电商编号" for="relationno" /></p:column>
+                            <p:column>
+                                <p:inputText id="relationno" value="#{customerManagedBean.newEntity.relationno}" title="relationno" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="电商仓库" for="relationwh" /></p:column>
+                            <p:column>
+                                <p:inputText id="relationwh" value="#{customerManagedBean.newEntity.relationwh}" title="relationwh" />
+                            </p:column>
+                            <p:column></p:column>
+                            <p:column></p:column>
+                        </p:row>
+                    </p:panelGrid>
                 </p:tab>
             </p:tabView>
         </h:form>

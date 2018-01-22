@@ -28,17 +28,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchasekind")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseKind.getRowCount", query = "SELECT COUNT(p) FROM PurchaseKind p"),
-    @NamedQuery(name = "PurchaseKind.findAll", query = "SELECT p FROM PurchaseKind p"),
-    @NamedQuery(name = "PurchaseKind.findById", query = "SELECT p FROM PurchaseKind p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseKind.findByPurkind", query = "SELECT p FROM PurchaseKind p WHERE p.purkind = :purkind"),
-    @NamedQuery(name = "PurchaseKind.findByName", query = "SELECT p FROM PurchaseKind p WHERE p.name = :name"),
-    @NamedQuery(name = "PurchaseKind.findByProptype", query = "SELECT p FROM PurchaseKind p WHERE p.proptype = :proptype"),
-    @NamedQuery(name = "PurchaseKind.findByCharge", query = "SELECT p FROM PurchaseKind p WHERE p.charge = :charge"),
-    @NamedQuery(name = "PurchaseKind.findByIocode", query = "SELECT p FROM PurchaseKind p WHERE p.iocode = :iocode"),
-    @NamedQuery(name = "PurchaseKind.findByTradeId", query = "SELECT p FROM PurchaseKind p WHERE p.tradeid = :tradeid"),
+    @NamedQuery(name = "PurchaseKind.getRowCount", query = "SELECT COUNT(p) FROM PurchaseKind p")
+    ,
+    @NamedQuery(name = "PurchaseKind.findAll", query = "SELECT p FROM PurchaseKind p")
+    ,
+    @NamedQuery(name = "PurchaseKind.findById", query = "SELECT p FROM PurchaseKind p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseKind.findByPurkind", query = "SELECT p FROM PurchaseKind p WHERE p.purkind = :purkind")
+    ,
+    @NamedQuery(name = "PurchaseKind.findByName", query = "SELECT p FROM PurchaseKind p WHERE p.name = :name")
+    ,
+    @NamedQuery(name = "PurchaseKind.findByProptype", query = "SELECT p FROM PurchaseKind p WHERE p.proptype = :proptype")
+    ,
+    @NamedQuery(name = "PurchaseKind.findByCharge", query = "SELECT p FROM PurchaseKind p WHERE p.charge = :charge")
+    ,
+    @NamedQuery(name = "PurchaseKind.findByIocode", query = "SELECT p FROM PurchaseKind p WHERE p.iocode = :iocode")
+    ,
+    @NamedQuery(name = "PurchaseKind.findByTradeId", query = "SELECT p FROM PurchaseKind p WHERE p.tradeid = :tradeid")
+    ,
     @NamedQuery(name = "PurchaseKind.findByStatus", query = "SELECT p FROM PurchaseKind p WHERE p.status = :status")})
 public class PurchaseKind implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -249,5 +259,5 @@ public class PurchaseKind implements Serializable {
     public String toString() {
         return "com.hhsc.entity.PurchaseKind[ id=" + id + " ]";
     }
-    
+
 }

@@ -27,12 +27,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "inventorytransaction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "InventoryTransaction.getRowCount", query = "SELECT COUNT(i) FROM InventoryTransaction i"),
-    @NamedQuery(name = "InventoryTransaction.findAll", query = "SELECT i FROM InventoryTransaction i"),
-    @NamedQuery(name = "InventoryTransaction.findById", query = "SELECT i FROM InventoryTransaction i WHERE i.id = :id"),
-    @NamedQuery(name = "InventoryTransaction.findByTrtype", query = "SELECT i FROM InventoryTransaction i WHERE i.trtype.trtype = :trtype"),
-    @NamedQuery(name = "InventoryTransaction.findByFormid", query = "SELECT i FROM InventoryTransaction i WHERE i.formid = :formid"),
-    @NamedQuery(name = "InventoryTransaction.findByFormidAndSeq", query = "SELECT i FROM InventoryTransaction i WHERE i.formid = :formid AND i.seq=:seq "),
+    @NamedQuery(name = "InventoryTransaction.getRowCount", query = "SELECT COUNT(i) FROM InventoryTransaction i")
+    ,
+    @NamedQuery(name = "InventoryTransaction.findAll", query = "SELECT i FROM InventoryTransaction i")
+    ,
+    @NamedQuery(name = "InventoryTransaction.findById", query = "SELECT i FROM InventoryTransaction i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "InventoryTransaction.findByTrtype", query = "SELECT i FROM InventoryTransaction i WHERE i.trtype.trtype = :trtype")
+    ,
+    @NamedQuery(name = "InventoryTransaction.findByFormid", query = "SELECT i FROM InventoryTransaction i WHERE i.formid = :formid")
+    ,
+    @NamedQuery(name = "InventoryTransaction.findByFormidAndSeq", query = "SELECT i FROM InventoryTransaction i WHERE i.formid = :formid AND i.seq=:seq ")
+    ,
     @NamedQuery(name = "InventoryTransaction.findByItemno", query = "SELECT i FROM InventoryTransaction i WHERE i.itemmaster.itemno = :itemno")})
 public class InventoryTransaction extends FormEntity {
 

@@ -20,7 +20,7 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class SystemUserBean extends SuperEJB<SystemUser> {
-            
+
     @PersistenceContext(unitName = "HHSC-ejbPU")
     protected EntityManager em;
 

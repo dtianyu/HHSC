@@ -13,10 +13,10 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class ItemColorModel extends BaseLazyModel<ItemColor>{
-    
-    public ItemColorModel(SuperEJB superEJB){
+public class ItemColorModel extends BaseLazyModel<ItemColor> {
+
+    public ItemColorModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
-    
+
 }

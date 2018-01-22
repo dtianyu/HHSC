@@ -6,11 +6,9 @@
 package com.hhsc.entity;
 
 import com.lightshell.comm.SuperEntity;
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,11 +24,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "unit")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Unit.getRowCount", query = "SELECT COUNT(u) FROM Unit u"),
-    @NamedQuery(name = "Unit.findAll", query = "SELECT u FROM Unit u"),
-    @NamedQuery(name = "Unit.findById", query = "SELECT u FROM Unit u WHERE u.id = :id"),
-    @NamedQuery(name = "Unit.findByUnit", query = "SELECT u FROM Unit u WHERE u.unit = :unit"),
-    @NamedQuery(name = "Unit.findByEnunit", query = "SELECT u FROM Unit u WHERE u.enunit = :enunit"),
+    @NamedQuery(name = "Unit.getRowCount", query = "SELECT COUNT(u) FROM Unit u")
+    ,
+    @NamedQuery(name = "Unit.findAll", query = "SELECT u FROM Unit u")
+    ,
+    @NamedQuery(name = "Unit.findById", query = "SELECT u FROM Unit u WHERE u.id = :id")
+    ,
+    @NamedQuery(name = "Unit.findByUnit", query = "SELECT u FROM Unit u WHERE u.unit = :unit")
+    ,
+    @NamedQuery(name = "Unit.findByEnunit", query = "SELECT u FROM Unit u WHERE u.enunit = :enunit")
+    ,
     @NamedQuery(name = "Unit.findByStatus", query = "SELECT u FROM Unit u WHERE u.status = :status")})
 public class Unit extends SuperEntity {
 

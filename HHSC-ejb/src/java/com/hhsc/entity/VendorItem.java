@@ -26,19 +26,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "vendoritem")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "VendorItem.getRowCount", query = "SELECT COUNT(v) FROM VendorItem v"),
-    @NamedQuery(name = "VendorItem.findAll", query = "SELECT v FROM VendorItem v"),
-    @NamedQuery(name = "VendorItem.findById", query = "SELECT v FROM VendorItem v WHERE v.id = :id"),
-    @NamedQuery(name = "VendorItem.findByPId", query = "SELECT v FROM VendorItem v WHERE v.pid = :pid"),
-    @NamedQuery(name = "VendorItem.findByVendorno", query = "SELECT v FROM VendorItem v WHERE v.vendor.vendorno = :vendorno"),
-    @NamedQuery(name = "VendorItem.findByItemId", query = "SELECT v FROM VendorItem v WHERE v.itemid = :itemid"),
-    @NamedQuery(name = "VendorItem.findByItemno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno"),
-    @NamedQuery(name = "VendorItem.findByItemnoAndVendorno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno AND v.vendor.vendorno = :vendorno"),
+    @NamedQuery(name = "VendorItem.getRowCount", query = "SELECT COUNT(v) FROM VendorItem v")
+    ,
+    @NamedQuery(name = "VendorItem.findAll", query = "SELECT v FROM VendorItem v")
+    ,
+    @NamedQuery(name = "VendorItem.findById", query = "SELECT v FROM VendorItem v WHERE v.id = :id")
+    ,
+    @NamedQuery(name = "VendorItem.findByPId", query = "SELECT v FROM VendorItem v WHERE v.pid = :pid")
+    ,
+    @NamedQuery(name = "VendorItem.findByVendorno", query = "SELECT v FROM VendorItem v WHERE v.vendor.vendorno = :vendorno")
+    ,
+    @NamedQuery(name = "VendorItem.findByItemId", query = "SELECT v FROM VendorItem v WHERE v.itemid = :itemid")
+    ,
+    @NamedQuery(name = "VendorItem.findByItemno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno")
+    ,
+    @NamedQuery(name = "VendorItem.findByItemnoAndVendorno", query = "SELECT v FROM VendorItem v WHERE v.itemno = :itemno AND v.vendor.vendorno = :vendorno")
+    ,
     @NamedQuery(name = "VendorItem.findByVendoritemno", query = "SELECT v FROM VendorItem v WHERE v.vendoritemno = :vendoritemno")})
 public class VendorItem extends SuperDetailEntity {
 
-    @JoinColumn(name = "vendorno",referencedColumnName="vendorno")
-    @ManyToOne(optional=true)
+    @JoinColumn(name = "vendorno", referencedColumnName = "vendorno")
+    @ManyToOne(optional = true)
     private Vendor vendor;
     @Basic(optional = false)
     @NotNull

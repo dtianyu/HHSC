@@ -24,7 +24,6 @@ public class PurchaseDraftBean extends SuperBean<PurchaseDraft> {
     @EJB
     private PurchaseOrderDetailBean purchaseOrderDetailBean;
 
-
     public PurchaseDraftBean() {
         super(PurchaseDraft.class);
     }

@@ -13,12 +13,12 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class SysprgModel extends BaseLazyModel<Sysprg>{
-    
-    public SysprgModel(SuperEJB superEJB){
+public class SysprgModel extends BaseLazyModel<Sysprg> {
+
+    public SysprgModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
         this.sortFields.put("sysmodule.sortid", "ASC");
         this.sortFields.put("sortid", "ASC");
     }
-    
+
 }

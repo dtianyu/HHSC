@@ -28,8 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionpickingdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionPickingDetail.findAll", query = "SELECT p FROM ProductionPickingDetail p"),
-    @NamedQuery(name = "ProductionPickingDetail.findById", query = "SELECT p FROM ProductionPickingDetail p WHERE p.id = :id"),
+    @NamedQuery(name = "ProductionPickingDetail.findAll", query = "SELECT p FROM ProductionPickingDetail p")
+    ,
+    @NamedQuery(name = "ProductionPickingDetail.findById", query = "SELECT p FROM ProductionPickingDetail p WHERE p.id = :id")
+    ,
     @NamedQuery(name = "ProductionPickingDetail.findByPId", query = "SELECT p FROM ProductionPickingDetail p WHERE p.pid = :pid")})
 public class ProductionPickingDetail extends FormDetailEntity {
 

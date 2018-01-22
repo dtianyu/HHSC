@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <h:form id="formEdit">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="salesorder" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesOrderManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formEdit"
+                                     rendered="#{salesOrderManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesOrderManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formEdit"
+                                     rendered="#{salesOrderManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{salesOrderManagedBean.update()}" icon="ui-icon-disk"
+                                     rendered="#{salesOrderManagedBean.doEdit}" process="@this,plgHead,formEdit:tabView:plgBase"
+                                     update="formEdit"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="销售订单－修改">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="订单编号" for="formid" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="formid" value="#{salesOrderManagedBean.currentEntity.formid}" title="Formid"
+                                         required="true" requiredMessage="请输入订单编号" readonly="#{salesOrderManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="订单日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{salesOrderManagedBean.currentEntity.formdate}" title="Formdate"
+                                        pattern="yyyy/MM/dd" required="true" requiredMessage="请输入订单日期">
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="客户" for="customer" /></p:column>
+                        <p:column>
+                            <p:inputText id="customer" value="#{salesOrderManagedBean.currentEntity.customer.customerno}#{salesOrderManagedBean.newEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入客户" readonly="true"/>
+                            <p:commandButton id="btnSelect" actionListener="#{salesOrderManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnCustomerWhenEdit}"
+                                        update="plgHead,:formEdit:tabView:plgBase" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="运单编号" for="deliverytype" /></p:column>
+                        <p:column>
+                            <p:inputText id="deliverytype" value="#{salesOrderManagedBean.currentEntity.deliverytype}" title="deliverytype"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="送货时间" for="shipmarks" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="shipmarks" value="#{salesOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="客户留言" for="remark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="remark" value="#{salesOrderManagedBean.currentEntity.remark}" title="Remark" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="客服备注" for="salesremark" /></p:column>
+                        <p:column colspan="3">
+                            <p:inputText id="salesremark" value="#{salesOrderManagedBean.currentEntity.salesremark}" title="Salesremark" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="商品总额" /></p:column>
+                        <p:column>
+                            <h:outputText id="totalamts" value="#{salesOrderManagedBean.currentEntity.totalamts}" title="Totalamts" />
+                        </p:column>
+                        <p:column><p:outputLabel value="运费" for="freight" /></p:column>
+                        <p:column>
+                            <p:inputText id="freight" value="#{salesOrderManagedBean.currentEntity.freight}" title="Freight"
+                                         required="true" requiredMessage="请输入运费"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="最快发货" for="firstdelivery" /></p:column>
+                        <p:column>
+                            <p:calendar id="firstdelivery" value="#{salesOrderManagedBean.currentEntity.firstdelivery}" title="Firstdelivery"
+                                        pattern="yyyy/MM/dd">
+                            </p:calendar>
+                        </p:column>
+                        <p:column><p:outputLabel value="最快时间" for="firsttime" /></p:column>
+                        <p:column>
+                            <p:calendar id="firsttime" value="#{salesOrderManagedBean.currentEntity.firsttime}" title="Firsttime"
+                                        pattern="HH:mm" timeOnly="true">
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="最晚发货" for="lastdelivery" /></p:column>
+                        <p:column>
+                            <p:calendar id="lastdelivery" value="#{salesOrderManagedBean.currentEntity.lastdelivery}" title="Lastdelivery"
+                                        pattern="yyyy/MM/dd">
+                            </p:calendar>
+                        </p:column>
+                        <p:column><p:outputLabel value="最晚时间" for="lasttime" /></p:column>
+                        <p:column>
+                            <p:calendar id="lasttime" value="#{salesOrderManagedBean.currentEntity.lasttime}" title="Lasttime"
+                                        pattern="HH:mm" timeOnly="true" >
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="发货时间" for="deliverydate" /></p:column>
+                        <p:column>
+                            <p:calendar id="deliverydate" value="#{salesOrderManagedBean.currentEntity.deliverydate}" title="deliverydate"
+                                        pattern="yyyy/MM/dd">
+                            </p:calendar>
+                        </p:column>
+                        <p:column><h:outputText value="备注"/></p:column>
+                        <p:column>
+                            <h:outputText id="packremark" value="#{salesOrderManagedBean.currentEntity.packremark}" title="packremark" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgHead Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="联系人" for="contacter" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="contacter" value="#{salesOrderManagedBean.currentEntity.contacter}" title="Contacter" />
+                                </p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="手机号码" for="mobile" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="mobile" value="#{salesOrderManagedBean.currentEntity.mobile}" title="Mobile" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="省份" for="province" /></p:column>
+                                <p:column>
+                                    <p:inputText id="province" value="#{salesOrderManagedBean.currentEntity.province}" title="Province" />
+                                </p:column>
+                                <p:column><p:outputLabel value="城市" for="city" /></p:column>
+                                <p:column>
+                                    <p:inputText id="city" value="#{salesOrderManagedBean.currentEntity.city}" title="City" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="地区" for="area" /></p:column>
+                                <p:column>
+                                    <p:inputText id="area" value="#{salesOrderManagedBean.currentEntity.area}" title="Area" />
+                                </p:column>
+                                <p:column><p:outputLabel value="邮政编码" for="zipcode" /></p:column>
+                                <p:column>
+                                    <p:inputText id="zipcode" value="#{salesOrderManagedBean.currentEntity.zipcode}" title="Zipcode" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="地址" for="address" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="address" value="#{salesOrderManagedBean.currentEntity.address}" title="Address" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="支付日期" for="paydate" /></p:column>
+                                <p:column>
+                                    <p:inputText id="paydate" value="#{salesOrderManagedBean.currentEntity.paydate}" title="Paydate" >
+                                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                                    </p:inputText>
+                                </p:column>
+                                <p:column><p:outputLabel value="需要发票" for="bill" /></p:column>
+                                <p:column>
+                                    <p:inputText id="bill" value="#{salesOrderManagedBean.currentEntity.bill}" title="Bill" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="发票类型" for="billtype" /></p:column>
+                                <p:column>
+                                    <p:inputText id="billtype" value="#{salesOrderManagedBean.currentEntity.billtype}" title="Billtype" />
+                                </p:column>
+                                <p:column><p:outputLabel value="统一编号" for="uscc" /></p:column>
+                                <p:column>
+                                    <p:inputText id="uscc" value="#{salesOrderManagedBean.currentEntity.uscc}" title="Uscc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="发票抬头" for="billtitle" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="billtitle" value="#{salesOrderManagedBean.currentEntity.billtitle}" title="Billtitle" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="订单明细">
+                    <p:toolbar id="detailToolbar" styleClass="detailToolbar">
+                        <f:facet name="left">
+                            <p:commandButton id="btnAddDetail" widgetVar="btnAddDetail" value="添加" actionListener="#{salesOrderManagedBean.createDetail()}" icon="ui-icon-plus"
+                                             oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').enable();"
+                                             process="@this" update="plgDetail" />
+                            <p:commandButton id="btnDeleteDetail" widgetVar="btnDeleteDetail" value="删除" actionListener="#{salesOrderManagedBean.deleteDetail()}" icon="ui-icon-trash"
+                                             oncomplete="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             process="@this" update="plgDetail,formEdit:tabView:detailList,"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton id="btnSaveDetail" widgetVar="btnSaveDetail" value="确定" actionListener="#{salesOrderManagedBean.doConfirmDetail()}" icon="ui-icon-disk"
+                                             onsuccess="PF('btnAddDetail').enable();PF('btnDeleteDetail').disable();PF('btnSaveDetail').disable();"
+                                             process="@this,plgDetail,formEdit:plgHead" update="plgDetail,formEdit:tabView:detailList"/>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelDetail">
+                        <p:panelGrid id="plgDetail" styleClass="plgHead Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="商品编号" for="itemmaster" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="itemmaster" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemno}" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入商品编号" readonly="true"/>
+                                    <p:commandButton id="btnItemMaster" actionListener="#{salesOrderManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnWhenDetailEdit}"
+                                                update="itemmaster,itemdesc,itemspec,itemwidth,unit" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="商品名称"/></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemdesc}" title="itemdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="颜色"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemspec" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemspec}" title="itemspec" />
+                                </p:column>
+                                <p:column><h:outputText value="尺寸"/></p:column>
+                                <p:column>
+                                    <h:outputText id="itemwidth" value="#{salesOrderManagedBean.currentDetail.itemMaster.itemwidth}" title="itemwidth" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="花号"/></p:column>
+                                <p:column>
+                                    <h:outputText id="batch" value="#{salesOrderManagedBean.currentDetail.batch}" title="batch" />
+                                </p:column>
+                                <p:column><h:outputText value="色号"/></p:column>
+                                <p:column>
+                                    <h:outputText id="colorno" value="#{salesOrderManagedBean.currentDetail.colorno}" title="colorno" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="数量" for="qty" /></p:column>
+                                <p:column>
+                                    <p:inputText id="qty" value="#{salesOrderManagedBean.currentDetail.qty}" title="Qty"
+                                                 required="true" requiredMessage="请输入数量"/>
+                                </p:column>
+                                <p:column><h:outputText value="单位"/></p:column>
+                                <p:column>
+                                    <p:inputText id="unit" value="#{salesOrderManagedBean.currentDetail.unit}" title="unit" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入单位"/>
+                                    <p:commandButton id="btnUnit" actionListener="#{salesOrderManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnUnitWhenDetailEdit}"
+                                                update="unit" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="单价" for="price" /></p:column>
+                                <p:column>
+                                    <p:inputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price"
+                                                 required="true" requiredMessage="请输入单价"/>
+                                </p:column>
+                                <p:column><p:outputLabel value="小计" for="amts" /></p:column>
+                                <p:column>
+                                    <p:inputText id="amts" value="#{salesOrderManagedBean.currentDetail.amts}" title="amts"
+                                                 required="true" requiredMessage="请输入小计"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <p:dataTable id="detailList" value="#{salesOrderManagedBean.detailList}" var="item" styleClass="tableList"
+                                     selectionMode="single" selection="#{salesOrderManagedBean.currentDetail}" rowKey="#{item.seq}" >
+                            <p:ajax event="rowSelect"  update=":formEdit:tabView:plgDetail" oncomplete="PF('btnAddDetail').disable();PF('btnDeleteDetail').enable();PF('btnSaveDetail').enable();" />
+                            <p:ajax event="rowUnselect"  update=":formEdit:tabView:plgDetail" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="商品编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemMaster.itemno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid40">
+                                <f:facet name="header">
+                                    <h:outputText value="品名"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemMaster.itemdesc}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="单价"/>
+                                </f:facet>
+                                <h:outputText value="#{item.price}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="金额"/>
+                                </f:facet>
+                                <h:outputText value="#{item.amts}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

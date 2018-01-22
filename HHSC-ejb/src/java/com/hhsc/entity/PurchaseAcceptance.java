@@ -22,13 +22,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseacceptance")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseAcceptance.getRowCount", query = "SELECT COUNT(p) FROM PurchaseAcceptance p"),
-    @NamedQuery(name = "PurchaseAcceptance.findAll", query = "SELECT p FROM PurchaseAcceptance p"),
-    @NamedQuery(name = "PurchaseAcceptance.findById", query = "SELECT p FROM PurchaseAcceptance p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseAcceptance.findByFormid", query = "SELECT p FROM PurchaseAcceptance p WHERE p.formid = :formid"),
-    @NamedQuery(name = "PurchaseAcceptance.findByFormdate", query = "SELECT p FROM PurchaseAcceptance p WHERE p.formdate = :formdate"),
-    @NamedQuery(name = "PurchaseAcceptance.findByVendorId", query = "SELECT p FROM PurchaseAcceptance p WHERE p.vendor.id = :vendorid"),
-    @NamedQuery(name = "PurchaseAcceptance.findByDeptId", query = "SELECT p FROM PurchaseAcceptance p WHERE p.dept.id = :deptid"),
+    @NamedQuery(name = "PurchaseAcceptance.getRowCount", query = "SELECT COUNT(p) FROM PurchaseAcceptance p")
+    ,
+    @NamedQuery(name = "PurchaseAcceptance.findAll", query = "SELECT p FROM PurchaseAcceptance p")
+    ,
+    @NamedQuery(name = "PurchaseAcceptance.findById", query = "SELECT p FROM PurchaseAcceptance p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseAcceptance.findByFormid", query = "SELECT p FROM PurchaseAcceptance p WHERE p.formid = :formid")
+    ,
+    @NamedQuery(name = "PurchaseAcceptance.findByFormdate", query = "SELECT p FROM PurchaseAcceptance p WHERE p.formdate = :formdate")
+    ,
+    @NamedQuery(name = "PurchaseAcceptance.findByVendorId", query = "SELECT p FROM PurchaseAcceptance p WHERE p.vendor.id = :vendorid")
+    ,
+    @NamedQuery(name = "PurchaseAcceptance.findByDeptId", query = "SELECT p FROM PurchaseAcceptance p WHERE p.dept.id = :deptid")
+    ,
     @NamedQuery(name = "PurchaseAcceptance.findByStatus", query = "SELECT p FROM PurchaseAcceptance p WHERE p.status = :status")})
 public class PurchaseAcceptance extends FormEntity {
 

@@ -95,7 +95,7 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             purchaseOrderDetailBean.update(p);
 
             return e;
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -146,7 +146,7 @@ public class PurchaseStorageBean extends SuperBean<PurchaseStorage> {
             itemInventoryBean.add(i);
             //更新验收应付
             PurchaseTransaction pt = purchaseTransactionBean.createFromPurchaseStorage(entity);
-            purchaseTransactionBean.persist(pt);          
+            purchaseTransactionBean.persist(pt);
             //不良入库处理
             if (e.getBadqty().compareTo(BigDecimal.ZERO) != 0 && e.getBadwarehouse() != null) {
                 //更新库存交易

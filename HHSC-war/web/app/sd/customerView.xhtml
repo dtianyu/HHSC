@@ -96,7 +96,7 @@
                             </p:column>
                             <p:column><h:outputText value="收款条件"/></p:column>
                             <p:column>
-                                <h:outputText id="payment" value="#{salesOrderManagedBean.currentEntity.payment}" title="Payment" />
+                                <h:outputText id="payment" value="#{customerManagedBean.currentEntity.payment}" title="Payment" />
                             </p:column>
                         </p:row>
                         <p:row>
@@ -217,6 +217,28 @@
                             </p:column>
                         </p:dataTable>
                     </p:panel>
+                </p:tab>
+                <p:tab title="电商整合">
+                    <p:panelGrid id="plgHHDS" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><h:outputText value="关联电商" /></p:column>
+                            <p:column>
+                                <p:inputSwitch  id="autotransfer" value="#{customerManagedBean.currentEntity.autotransfer}"  disabled="true"/>
+                            </p:column>
+                            <p:column><h:outputText value="电商编号" /></p:column>
+                            <p:column>
+                                <h:outputText id="relationno" value="#{customerManagedBean.currentEntity.relationno}" title="relationno" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="电商仓库"/></p:column>
+                            <p:column>
+                                <h:outputText id="relationwh" value="#{customerManagedBean.currentEntity.relationwh}" title="relationwh" />
+                            </p:column>
+                            <p:column></p:column>
+                            <p:column></p:column>
+                        </p:row>
+                    </p:panelGrid>
                 </p:tab>
             </p:tabView>
         </h:form>

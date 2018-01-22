@@ -31,10 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "processresource")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProcessResource.findAll", query = "SELECT i FROM ProcessResource i ORDER BY i.process.sortid,i.seq"),
-    @NamedQuery(name = "ProcessResource.findById", query = "SELECT i FROM ProcessResource i WHERE i.id = :id"),
-    @NamedQuery(name = "ProcessResource.findByPId", query = "SELECT i FROM ProcessResource i WHERE i.pid = :pid ORDER BY i.pid,i.seq"),
-    @NamedQuery(name = "ProcessResource.findByKind", query = "SELECT i FROM ProcessResource i WHERE i.kind = :kind"),
+    @NamedQuery(name = "ProcessResource.findAll", query = "SELECT i FROM ProcessResource i ORDER BY i.process.sortid,i.seq")
+    ,
+    @NamedQuery(name = "ProcessResource.findById", query = "SELECT i FROM ProcessResource i WHERE i.id = :id")
+    ,
+    @NamedQuery(name = "ProcessResource.findByPId", query = "SELECT i FROM ProcessResource i WHERE i.pid = :pid ORDER BY i.pid,i.seq")
+    ,
+    @NamedQuery(name = "ProcessResource.findByKind", query = "SELECT i FROM ProcessResource i WHERE i.kind = :kind")
+    ,
     @NamedQuery(name = "ProcessResource.findByStatus", query = "SELECT i FROM ProcessResource i WHERE i.status = :status")})
 public class ProcessResource extends SuperDetailEntity {
 

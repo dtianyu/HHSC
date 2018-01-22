@@ -25,27 +25,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "vendor")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Vendor.findAll", query = "SELECT v FROM Vendor v"),
-    @NamedQuery(name = "Vendor.findById", query = "SELECT v FROM Vendor v WHERE v.id = :id"),
-    @NamedQuery(name = "Vendor.findByVendorno", query = "SELECT v FROM Vendor v WHERE v.vendorno = :vendorno"),
-    @NamedQuery(name = "Vendor.findByVendor", query = "SELECT v FROM Vendor v WHERE v.vendor = :vendor"),
-    @NamedQuery(name = "Vendor.findByFullname", query = "SELECT v FROM Vendor v WHERE v.fullname = :fullname"),
-    @NamedQuery(name = "Vendor.findBySimplecode", query = "SELECT v FROM Vendor v WHERE v.simplecode = :simplecode"),
-    @NamedQuery(name = "Vendor.findByContacter", query = "SELECT v FROM Vendor v WHERE v.contacter = :contacter"),
-    @NamedQuery(name = "Vendor.findByContactadd", query = "SELECT v FROM Vendor v WHERE v.contactadd = :contactadd"),
-    @NamedQuery(name = "Vendor.findByZipcode", query = "SELECT v FROM Vendor v WHERE v.zipcode = :zipcode"),
-    @NamedQuery(name = "Vendor.findByCountry", query = "SELECT v FROM Vendor v WHERE v.country = :country"),
-    @NamedQuery(name = "Vendor.findByArea", query = "SELECT v FROM Vendor v WHERE v.area = :area"),
-    @NamedQuery(name = "Vendor.findByCity", query = "SELECT v FROM Vendor v WHERE v.city = :city"),
-    @NamedQuery(name = "Vendor.findByBuyerid", query = "SELECT v FROM Vendor v WHERE v.buyerid = :buyerid"),
-    @NamedQuery(name = "Vendor.findByDeptid", query = "SELECT v FROM Vendor v WHERE v.deptid = :deptid"),
-    @NamedQuery(name = "Vendor.findByAbroad", query = "SELECT v FROM Vendor v WHERE v.abroad = :abroad"),
-    @NamedQuery(name = "Vendor.findByCurrency", query = "SELECT v FROM Vendor v WHERE v.currency = :currency"),
-    @NamedQuery(name = "Vendor.findByTaxtype", query = "SELECT v FROM Vendor v WHERE v.taxtype = :taxtype"),
-    @NamedQuery(name = "Vendor.findByTaxkind", query = "SELECT v FROM Vendor v WHERE v.taxkind = :taxkind"),
-    @NamedQuery(name = "Vendor.findByTaxrate", query = "SELECT v FROM Vendor v WHERE v.taxrate = :taxrate"),
-    @NamedQuery(name = "Vendor.findByTradetype", query = "SELECT v FROM Vendor v WHERE v.tradetype = :tradetype"),
-    @NamedQuery(name = "Vendor.findByPaymentid", query = "SELECT v FROM Vendor v WHERE v.paymentid = :paymentid"),
+    @NamedQuery(name = "Vendor.findAll", query = "SELECT v FROM Vendor v")
+    ,
+    @NamedQuery(name = "Vendor.findById", query = "SELECT v FROM Vendor v WHERE v.id = :id")
+    ,
+    @NamedQuery(name = "Vendor.findByVendorno", query = "SELECT v FROM Vendor v WHERE v.vendorno = :vendorno")
+    ,
+    @NamedQuery(name = "Vendor.findByVendor", query = "SELECT v FROM Vendor v WHERE v.vendor = :vendor")
+    ,
+    @NamedQuery(name = "Vendor.findByFullname", query = "SELECT v FROM Vendor v WHERE v.fullname = :fullname")
+    ,
+    @NamedQuery(name = "Vendor.findBySimplecode", query = "SELECT v FROM Vendor v WHERE v.simplecode = :simplecode")
+    ,
+    @NamedQuery(name = "Vendor.findByContacter", query = "SELECT v FROM Vendor v WHERE v.contacter = :contacter")
+    ,
+    @NamedQuery(name = "Vendor.findByContactadd", query = "SELECT v FROM Vendor v WHERE v.contactadd = :contactadd")
+    ,
+    @NamedQuery(name = "Vendor.findByZipcode", query = "SELECT v FROM Vendor v WHERE v.zipcode = :zipcode")
+    ,
+    @NamedQuery(name = "Vendor.findByCountry", query = "SELECT v FROM Vendor v WHERE v.country = :country")
+    ,
+    @NamedQuery(name = "Vendor.findByArea", query = "SELECT v FROM Vendor v WHERE v.area = :area")
+    ,
+    @NamedQuery(name = "Vendor.findByCity", query = "SELECT v FROM Vendor v WHERE v.city = :city")
+    ,
+    @NamedQuery(name = "Vendor.findByBuyerid", query = "SELECT v FROM Vendor v WHERE v.buyerid = :buyerid")
+    ,
+    @NamedQuery(name = "Vendor.findByDeptid", query = "SELECT v FROM Vendor v WHERE v.deptid = :deptid")
+    ,
+    @NamedQuery(name = "Vendor.findByAbroad", query = "SELECT v FROM Vendor v WHERE v.abroad = :abroad")
+    ,
+    @NamedQuery(name = "Vendor.findByCurrency", query = "SELECT v FROM Vendor v WHERE v.currency = :currency")
+    ,
+    @NamedQuery(name = "Vendor.findByTaxtype", query = "SELECT v FROM Vendor v WHERE v.taxtype = :taxtype")
+    ,
+    @NamedQuery(name = "Vendor.findByTaxkind", query = "SELECT v FROM Vendor v WHERE v.taxkind = :taxkind")
+    ,
+    @NamedQuery(name = "Vendor.findByTaxrate", query = "SELECT v FROM Vendor v WHERE v.taxrate = :taxrate")
+    ,
+    @NamedQuery(name = "Vendor.findByTradetype", query = "SELECT v FROM Vendor v WHERE v.tradetype = :tradetype")
+    ,
+    @NamedQuery(name = "Vendor.findByPaymentid", query = "SELECT v FROM Vendor v WHERE v.paymentid = :paymentid")
+    ,
     @NamedQuery(name = "Vendor.findByPurkind", query = "SELECT v FROM Vendor v WHERE v.purkind = :purkind")})
 public class Vendor extends SuperEntity {
 

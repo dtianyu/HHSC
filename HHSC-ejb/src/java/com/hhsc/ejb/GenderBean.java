@@ -26,7 +26,6 @@ public class GenderBean {
         genders.add(new Gender("F", "女"));
     }
 
-
     /**
      * @return the genders
      */

@@ -8,16 +8,16 @@
 
     <ui:define name="content">
         <h:form id="formView">
-            <h:outputScript name="detailEdit.js" library="js" /> 
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="salesorder" icon="ui-icon-arrowreturn-1-w"  /> 
-                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesOrderManagedBean.toPrev()}" icon="ui-icon-carat-1-w" 
-                                     process="@this" update="formView" 
-                                     rendered="#{salesOrderManagedBean.hasPrev}"/> 
-                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesOrderManagedBean.toNext()}" icon="ui-icon-carat-1-e" 
-                                     process="@this" update="formView" 
+                    <p:button id="btnReturn" value="返回" outcome="salesorder" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{salesOrderManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{salesOrderManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{salesOrderManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
                                      rendered="#{salesOrderManagedBean.hasNext}"/>
                 </f:facet>
                 <f:facet name="right">
@@ -38,9 +38,9 @@
                         <p:confirm header="系统提示" message="审核吗?" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:commandButton id="btnPrint" value="打印合同" actionListener="#{salesOrderManagedBean.print()}" icon="ui-icon-print"
-                                     rendered="#{salesOrderManagedBean.doPrt}"/> 
+                                     rendered="#{salesOrderManagedBean.doPrt}"/>
                     <p:commandButton id="btnPrint2" value="任务单" actionListener="#{salesOrderManagedBean.print('salestransfer.rptdesign')}" icon="ui-icon-print"
-                                     rendered="#{salesOrderManagedBean.doPrt}"/> 
+                                     rendered="#{salesOrderManagedBean.doPrt}"/>
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelHead" header="销售合同－查看">
@@ -91,10 +91,10 @@
                         <p:column><h:outputText value="税别" /></p:column>
                         <p:column>
                             <p:selectOneMenu id="taxtype" value="#{salesOrderManagedBean.currentEntity.taxtype}" title="Taxtype" disabled="true">
-                                <f:selectItem itemLabel="内含" itemValue="0" />  
-                                <f:selectItem itemLabel="外加" itemValue="1" />  
+                                <f:selectItem itemLabel="内含" itemValue="0" />
+                                <f:selectItem itemLabel="外加" itemValue="1" />
                                 <f:selectItem itemLabel="零税" itemValue="2" />
-                                <f:selectItem itemLabel="免税" itemValue="3" /> 
+                                <f:selectItem itemLabel="免税" itemValue="3" />
                             </p:selectOneMenu>
                         </p:column>
                         <p:column styleClass="Wid20"><h:outputText value="税率"/></p:column>
@@ -118,7 +118,7 @@
                 <p:tab title="基础信息">
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgNew Wid100">
-                            <p:row> 
+                            <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="华卉花号" /></p:column>
                                 <p:column styleClass="Wid30">
                                     <h:outputText id="itemdesign" value="#{salesOrderManagedBean.currentEntity.itemmaster.itemno}" />
@@ -137,8 +137,8 @@
                                 <p:column><h:outputText value="成品规格" /></p:column>
                                 <p:column>
                                     <h:outputText  value="#{salesOrderManagedBean.currentEntity.itemspec}" title="itemdesignspec" />
-                                    <p:commandButton id="btnDesignspecSelect" actionListener="#{salesOrderManagedBean.openDialog('designspecSelect')}" icon="ui-icon-extlink" 
-                                                      styleClass="inputWithButton" process="@this" />
+                                    <p:commandButton id="btnDesignspecSelect" actionListener="#{salesOrderManagedBean.openDialog('designspecSelect')}" icon="ui-icon-extlink"
+                                                     styleClass="inputWithButton" process="@this" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -160,35 +160,35 @@
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="测试要求" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputTextarea rows="2" id="testremark" value="#{salesOrderManagedBean.currentEntity.testremark}" title="Testremark" 
+                                    <p:inputTextarea rows="2" id="testremark" value="#{salesOrderManagedBean.currentEntity.testremark}" title="Testremark"
                                                      styleClass="Wid100" readonly="true"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="成品要求" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputTextarea rows="2" id="productremark" value="#{salesOrderManagedBean.currentEntity.productremark}" title="Productremark" 
+                                    <p:inputTextarea rows="2" id="productremark" value="#{salesOrderManagedBean.currentEntity.productremark}" title="Productremark"
                                                      styleClass="Wid100" readonly="true"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="包装要求" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputTextarea rows="2" id="packremark" value="#{salesOrderManagedBean.currentEntity.packremark}" title="Packremark" 
-                                                     styleClass="Wid100" readonly="true"/>  
+                                    <p:inputTextarea rows="2" id="packremark" value="#{salesOrderManagedBean.currentEntity.packremark}" title="Packremark"
+                                                     styleClass="Wid100" readonly="true"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="出货方式" /></p:column>
                                 <p:column colspan="3">
-                                    <p:inputTextarea rows="2" id="shipadd" value="#{salesOrderManagedBean.currentEntity.shipadd}" title="Shpadd" 
-                                                     styleClass="Wid100" readonly="true"/> 
+                                    <p:inputTextarea rows="2" id="shipadd" value="#{salesOrderManagedBean.currentEntity.shipadd}" title="Shpadd"
+                                                     styleClass="Wid100" readonly="true"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column styleClass="Wid20"><h:outputText value="箱唛"/></p:column>
                                 <p:column colspan="3">
-                                    <p:inputTextarea rows="2" id="shipmarks" value="#{salesOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks" 
+                                    <p:inputTextarea rows="2" id="shipmarks" value="#{salesOrderManagedBean.currentEntity.shipmarks}" title="Shipmarks"
                                                      styleClass="Wid100" readonly="true"/>
                                 </p:column>
                             </p:row>
@@ -252,6 +252,18 @@
                         </p:dataTable>
                     </p:panel>
                 </p:tab>
+                <p:tab title="合同条款">
+                    <p:panel id="panelBase2">
+                        <p:panelGrid id="plgBase2" styleClass="plg Wid100">
+                            <p:row>
+                                <p:column><p:outputLabel value="内容" for="contract" /></p:column>
+                                <p:column>
+                                    <p:textEditor id="contract" value="#{salesOrderManagedBean.currentEntity.contract}" height="400" readonly="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
             </p:tabView>
             <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
                 <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
@@ -304,7 +316,7 @@
                         <p:column>
                             <h:outputText id="price" value="#{salesOrderManagedBean.currentDetail.price}" title="Price" />
                         </p:column>
-                    </p:row>                 
+                    </p:row>
                     <p:row>
                         <p:column><h:outputText value="印花交期" /></p:column>
                         <p:column>

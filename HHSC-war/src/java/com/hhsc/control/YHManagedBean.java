@@ -82,9 +82,9 @@ public class YHManagedBean extends ProductionOrderManagedBean {
         return true;
     }
 
-    public void handleDialogReturnDeptWhenDetailEdit(SelectEvent event){
-        if(event.getObject()!=null){
-            Department e = (Department)event.getObject();
+    public void handleDialogReturnDeptWhenDetailEdit(SelectEvent event) {
+        if (event.getObject() != null) {
+            Department e = (Department) event.getObject();
             currentDetail3.setDept(e);
         }
     }

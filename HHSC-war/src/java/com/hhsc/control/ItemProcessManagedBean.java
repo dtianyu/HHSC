@@ -136,7 +136,7 @@ public class ItemProcessManagedBean extends SuperMultiBean<ItemProcess, ItemReso
             List<ProcessDetail> processDetails = processDetailBean.findByPId(g.getId());
             if (processDetails != null && !processDetails.isEmpty()) {
                 for (ProcessDetail r : processDetails) {
-                    this.createDetail();                   
+                    this.createDetail();
                     currentDetail.setItemno(currentEntity.getItemno());
                     currentDetail.setProcess(r.getProcess());
                     currentDetail.setProcseq(r.getSeq());

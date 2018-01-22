@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:panel id="panelQuery">
+                <f:facet name="header">
+                    查询条件
+                </f:facet>
+                <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
+                    <h:outputLabel value="手机号码" for="queryCustomerno" />
+                    <p:inputText id="queryCustomerno" value="#{salesOrderBatchPrintBean.queryCustomerno}" title="手机号码" />
+                    <h:outputLabel value="收件人" for="queryName" />
+                    <p:inputText id="queryName" value="#{salesOrderBatchPrintBean.queryName}" title="收件人" />
+                    <h:outputLabel value="订单编号" for="queryFormId" />
+                    <p:inputText id="queryFormId" value="#{salesOrderBatchPrintBean.queryFormId}" title="订单编号" />
+                    <h:outputLabel value="订单状态" for="queryState" />
+                    <p:selectOneMenu id="queryState" value="#{salesOrderBatchPrintBean.queryState}" title="状态" >
+                        <f:selectItem itemLabel="全部" itemValue="ALL"/>
+                        <f:selectItem itemLabel="未发货" itemValue="N"/>
+                        <f:selectItem itemLabel="已发货" itemValue="V"/>
+                        <f:selectItem itemLabel="已收货" itemValue="R"/>
+                        <f:selectItem itemLabel="已退货" itemValue="T"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="接单日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{salesOrderBatchPrintBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="截止日期" for="queryDateEnd" />
+                    <p:calendar id="queryDateEnd" value="#{salesOrderBatchPrintBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="发货日期" for="queryDeliveryDateBegin" />
+                    <p:calendar id="queryDeliveryDateBegin" value="#{salesOrderBatchPrintBean.queryDeliveryDateBegin}" title="发货日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="发货截止" for="queryDeliveryDateEnd" />
+                    <p:calendar id="queryDeliveryDateEnd" value="#{salesOrderBatchPrintBean.queryDeliveryDateEnd}" title="发货截止" pattern="yyyy/MM/dd"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{salesOrderBatchPrintBean.init()}" icon="ui-icon-search"
+                                     update=":formList"/>
+                    <p:commandButton id="btnView" value="查看" action="#{salesOrderBatchPrintBean.view('salesorderprintView')}" icon="ui-icon-document"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{salesOrderBatchPrintBean.batchPrint()}" icon="ui-icon-print"
+                                     rendered="#{salesOrderBatchPrintBean.doPrt}"/>
+                    <p:commandButton id="btnVerify" value="发货" actionListener="#{salesOrderBatchPrintBean.batchVerify()}"  icon="ui-icon-locked"
+                                     rendered="#{salesOrderBatchPrintBean.doCfm}" update=":formList">
+                        <p:confirm header="系统提示" message="发货吗?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{salesOrderBatchPrintBean.reset()}"  icon="ui-icon-refresh"
+                                     update=":formList"/>
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{salesOrderBatchPrintBean.query()}"  icon="ui-icon-search"
+                                     update=":formList"/>
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable value="#{salesOrderBatchPrintBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
+                         selection="#{salesOrderBatchPrintBean.entityList}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    销售订单批量打印
+                </f:facet>
+                <p:column selectionMode="multiple" style="width: 26px;text-align: center;"/>
+                <p:ajax event="rowSelect" update=":formList:toolbar" listener="#{salesOrderBatchPrintBean.handleRowSelect}" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="订单编号"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formid}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="下单时间"/>
+                    </f:facet>
+                    <h:outputText value="#{item.formdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="客户姓名"/>
+                    </f:facet>
+                    <h:outputText value="#{item.contacter}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="手机"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mobile}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="城市"/>
+                    </f:facet>
+                    <h:outputText value="#{item.city}"/>
+                </p:column>
+                <p:column styleClass="Wid30">
+                    <f:facet name="header">
+                        <h:outputText value="地址"/>
+                    </f:facet>
+                    <h:outputText value="#{item.address}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="状态"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formList" trigger="btnPrint,btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

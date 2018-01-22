@@ -333,7 +333,7 @@ importPackage(Packages.com.hhsc.rpt);
 ejbClient = new AccountReceivableQueryReport();
 ejbClient.setEJB(params["JNDIName"]);
 
-detail = ejbClient.findByFilters(params["filterFields"],params["sortFields"]);
+detail = ejbClient.findByFilters(params["filterFields"],params["sortFields"],true);
 
 currentRow = 0;]]></method>
             <method name="fetch"><![CDATA[if (currentRow < detail.size()){

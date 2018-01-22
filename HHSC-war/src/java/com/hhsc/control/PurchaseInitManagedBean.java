@@ -19,7 +19,6 @@ import com.hhsc.web.SuperSingleBean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -61,7 +60,7 @@ public class PurchaseInitManagedBean extends SuperSingleBean<PurchaseDraft> {
             showWarnMsg("Warn", "没有可抛转数据");
             return false;
         }
-        purchaseorderSysprg = sysprgBean.findByAPI("purchaseorder");
+        purchaseorderSysprg = sysprgBean.findBySystemAndAPI("HHSC", "purchaseorder");
         if (purchaseorderSysprg == null) {
             showErrorMsg("Error", "采购作业设定错误");
             return false;

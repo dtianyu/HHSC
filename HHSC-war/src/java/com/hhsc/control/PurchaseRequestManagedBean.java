@@ -130,7 +130,7 @@ public class PurchaseRequestManagedBean extends FormMultiBean<PurchaseRequest, P
 
     public void findCustomerItem() {
         if (currentDetail.getDesignno() != null && currentDetail.getCustomer() != null) {
-            CustomerItem entity = customerItemBean.findByItemnoAndCustomerno(currentDetail.getDesignno(), currentDetail.getCustomer().getCustomerno());
+            CustomerItem entity = customerItemBean.findFirstCustomerItemno(currentDetail.getDesignno(), currentDetail.getCustomer().getCustomerno());
             if (entity != null) {
                 this.currentDetail.setCustomeritemno(entity.getCustomeritemno());
             }

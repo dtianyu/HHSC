@@ -31,16 +31,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "purchaseacceptancedetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PurchaseStorage.findAll", query = "SELECT p FROM PurchaseStorage p"),
-    @NamedQuery(name = "PurchaseStorage.findById", query = "SELECT p FROM PurchaseStorage p WHERE p.id = :id"),
-    @NamedQuery(name = "PurchaseStorage.findByPId", query = "SELECT p FROM PurchaseStorage p WHERE p.purchaseAcceptance.formid = :pid"),
-    @NamedQuery(name = "PurchaseStorage.findByAcceptdate", query = "SELECT p FROM PurchaseStorage p WHERE p.acceptdate = :acceptdate"),
-    @NamedQuery(name = "PurchaseStorage.findByPurtype", query = "SELECT p FROM PurchaseStorage p WHERE p.purtype = :purtype"),
-    @NamedQuery(name = "PurchaseStorage.findByPurkind", query = "SELECT p FROM PurchaseStorage p WHERE p.purkind = :purkind"),
-    @NamedQuery(name = "PurchaseStorage.findByItemno", query = "SELECT p FROM PurchaseStorage p WHERE p.itemno = :itemno"),
-    @NamedQuery(name = "PurchaseStorage.findByColorno", query = "SELECT p FROM PurchaseStorage p WHERE p.colorno = :colorno"),
-    @NamedQuery(name = "PurchaseStorage.findByVendoritemno", query = "SELECT p FROM PurchaseStorage p WHERE p.vendoritemno = :vendoritemno"),
-    @NamedQuery(name = "PurchaseStorage.findByVendorcolorno", query = "SELECT p FROM PurchaseStorage p WHERE p.vendorcolorno = :vendorcolorno"),
+    @NamedQuery(name = "PurchaseStorage.findAll", query = "SELECT p FROM PurchaseStorage p")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findById", query = "SELECT p FROM PurchaseStorage p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByPId", query = "SELECT p FROM PurchaseStorage p WHERE p.purchaseAcceptance.formid = :pid")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByAcceptdate", query = "SELECT p FROM PurchaseStorage p WHERE p.acceptdate = :acceptdate")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByPurtype", query = "SELECT p FROM PurchaseStorage p WHERE p.purtype = :purtype")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByPurkind", query = "SELECT p FROM PurchaseStorage p WHERE p.purkind = :purkind")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByItemno", query = "SELECT p FROM PurchaseStorage p WHERE p.itemno = :itemno")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByColorno", query = "SELECT p FROM PurchaseStorage p WHERE p.colorno = :colorno")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByVendoritemno", query = "SELECT p FROM PurchaseStorage p WHERE p.vendoritemno = :vendoritemno")
+    ,
+    @NamedQuery(name = "PurchaseStorage.findByVendorcolorno", query = "SELECT p FROM PurchaseStorage p WHERE p.vendorcolorno = :vendorcolorno")
+    ,
     @NamedQuery(name = "PurchaseStorage.findByStatus", query = "SELECT p FROM PurchaseStorage p WHERE p.status = :status")})
 public class PurchaseStorage extends SuperEntity {
 

@@ -17,25 +17,25 @@ import java.util.List;
  * @author kevindong
  */
 public class ProductionOrderReport extends SuperMultiReportBean<ProductionOrderBean, ProductionOrder, ProductionOrderDetail> {
-    
+
     public ProductionOrderReport() {
-        
+
     }
-    
+
     @Override
     public List<ProductionOrderDetail> getDetail(Object value) throws Exception {
         superEJB.setDetail(value);
         return superEJB.getDetailList();
     }
-    
+
     public List<ProductionResource> getResource(Object value) throws Exception {
         superEJB.setResource(value);
         return superEJB.getResourceList();
     }
-    
+
     @Override
     public ProductionOrder getEntity(int i) throws Exception {
         return superEJB.findById(i);
     }
-    
+
 }

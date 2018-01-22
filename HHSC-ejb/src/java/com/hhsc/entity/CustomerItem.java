@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,
     @NamedQuery(name = "CustomerItem.findByItemnoAndCustomerno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customer.customerno=:customerno")
     ,
-    @NamedQuery(name = "CustomerItem.findByItemnoAndCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customeritemno=:customeritemno")
+    @NamedQuery(name = "CustomerItem.findByItemnoAndCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.itemno = :itemno AND c.customer.customerno=:customerno AND c.customeritemno=:customeritemno")
     ,
     @NamedQuery(name = "CustomerItem.findByCustomeritemno", query = "SELECT c FROM CustomerItem c WHERE c.customeritemno = :customeritemno")})
 public class CustomerItem extends SuperDetailEntity {

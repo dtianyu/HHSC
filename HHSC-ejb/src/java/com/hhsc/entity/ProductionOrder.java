@@ -29,10 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionorder")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionOrder.getRowCount", query = "SELECT COUNT(p) FROM ProductionOrder p"),
-    @NamedQuery(name = "ProductionOrder.findAll", query = "SELECT p FROM ProductionOrder p"),
-    @NamedQuery(name = "ProductionOrder.findById", query = "SELECT p FROM ProductionOrder p WHERE p.id = :id"),
-    @NamedQuery(name = "ProductionOrder.findByFormid", query = "SELECT p FROM ProductionOrder p WHERE p.formid = :formid"),
+    @NamedQuery(name = "ProductionOrder.getRowCount", query = "SELECT COUNT(p) FROM ProductionOrder p")
+    ,
+    @NamedQuery(name = "ProductionOrder.findAll", query = "SELECT p FROM ProductionOrder p")
+    ,
+    @NamedQuery(name = "ProductionOrder.findById", query = "SELECT p FROM ProductionOrder p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "ProductionOrder.findByFormid", query = "SELECT p FROM ProductionOrder p WHERE p.formid = :formid")
+    ,
     @NamedQuery(name = "ProductionOrder.findByStatus", query = "SELECT p FROM ProductionOrder p WHERE p.status = :status")})
 public class ProductionOrder extends FormEntity {
 

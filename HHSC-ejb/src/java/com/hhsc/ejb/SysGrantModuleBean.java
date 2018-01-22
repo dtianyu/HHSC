@@ -46,4 +46,18 @@ public class SysGrantModuleBean extends SuperBean<SysGrantModule> {
         return query.getResultList();
     }
 
+    public List<SysGrantModule> findBySystemNameAndUserId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SysGrantModule.findBySystemNameAndUserId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
+
+    public List<SysGrantModule> findBySystemNameAndRoleId(String sysname, int id) {
+        Query query = this.getEntityManager().createNamedQuery("SysGrantModule.findBySystemNameAndRoleId");
+        query.setParameter("sysname", sysname);
+        query.setParameter("roleid", id);
+        return query.getResultList();
+    }
+
 }

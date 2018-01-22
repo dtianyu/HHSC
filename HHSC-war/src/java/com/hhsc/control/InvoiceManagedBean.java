@@ -9,6 +9,7 @@ import com.hhsc.ejb.CurrencyBean;
 import com.hhsc.ejb.InvoiceBean;
 import com.hhsc.ejb.InvoiceDetailBean;
 import com.hhsc.ejb.ItemMasterBean;
+import com.hhsc.ejb.UnitBean;
 import com.hhsc.entity.Currency;
 import com.hhsc.entity.Invoice;
 import com.hhsc.entity.InvoiceDetail;
@@ -35,6 +36,9 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "invoiceManagedBean")
 @SessionScoped
 public class InvoiceManagedBean extends FormMultiBean<Invoice, InvoiceDetail> {
+
+    @EJB
+    private UnitBean unitBean;
 
     @EJB
     private CurrencyBean currencyBean;
@@ -68,6 +72,7 @@ public class InvoiceManagedBean extends FormMultiBean<Invoice, InvoiceDetail> {
             newEntity.setCurrency("CNY");
             newEntity.setExchange(BigDecimal.ONE);
         }
+        newEntity.setCountry("CHINA");
         newEntity.setTaxtype("3");
         newEntity.setTaxrate(BigDecimal.ZERO);
         newEntity.setTaxkind("VAT");
@@ -144,7 +149,12 @@ public class InvoiceManagedBean extends FormMultiBean<Invoice, InvoiceDetail> {
             this.currentDetail.setItemmake(entity.getItemmake());
             this.currentDetail.setItemwidth(entity.getItemwidth());
             if (entity.getUnit() != null) {
-                this.currentDetail.setUnit(entity.getUnit());
+                Unit u = unitBean.findByFormId(entity.getUnit());
+                if (u != null) {
+                    this.currentDetail.setUnit(u.getEnunit());
+                } else {
+                    this.currentDetail.setUnit(entity.getUnit());
+                }
             }
         }
     }

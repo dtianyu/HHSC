@@ -36,10 +36,22 @@ public class CustomerItemBean extends SuperBean<CustomerItem> {
         return query.getResultList();
     }
 
-    public CustomerItem findByItemnoAndCustomerno(String itemno, String customerno) {
+    public List<CustomerItem> findCustomerItemno(String itemno, String customerno) {
         Query query = getEntityManager().createNamedQuery("CustomerItem.findByItemnoAndCustomerno");
         query.setParameter("itemno", itemno);
         query.setParameter("customerno", customerno);
+        try {
+            return query.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public CustomerItem findCustomerItemno(String itemno, String customerno, String customeritemno) {
+        Query query = getEntityManager().createNamedQuery("CustomerItem.findByItemnoAndCustomeritemno");
+        query.setParameter("itemno", itemno);
+        query.setParameter("customerno", customerno);
+        query.setParameter("customeritemno", customeritemno);
         try {
             Object o = query.getSingleResult();
             return (CustomerItem) o;
@@ -48,13 +60,14 @@ public class CustomerItemBean extends SuperBean<CustomerItem> {
         }
     }
 
-    public CustomerItem findByItemnoAndCustomeritemno(String itemno, String customeritemno) {
-        Query query = getEntityManager().createNamedQuery("CustomerItem.findByItemnoAndCustomeritemno");
-        query.setParameter("itemno", itemno);
-        query.setParameter("customeritemno", customeritemno);
+    public CustomerItem findFirstCustomerItemno(String itemno, String customerno) {
         try {
-            Object o = query.getSingleResult();
-            return (CustomerItem) o;
+            List<CustomerItem> data = findCustomerItemno(itemno, customerno);
+            if (data != null && !data.isEmpty()) {
+                return data.get(0);
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             return null;
         }

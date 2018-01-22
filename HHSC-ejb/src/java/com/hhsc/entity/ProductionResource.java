@@ -28,15 +28,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "productionresource")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ProductionResource.findAll", query = "SELECT p FROM ProductionResource p"),
-    @NamedQuery(name = "ProductionResource.findById", query = "SELECT p FROM ProductionResource p WHERE p.id = :id"),
-    @NamedQuery(name = "ProductionResource.findByPId", query = "SELECT p FROM ProductionResource p WHERE p.pid = :pid ORDER BY p.process.sortid,p.procseq"),
+    @NamedQuery(name = "ProductionResource.findAll", query = "SELECT p FROM ProductionResource p")
+    ,
+    @NamedQuery(name = "ProductionResource.findById", query = "SELECT p FROM ProductionResource p WHERE p.id = :id")
+    ,
+    @NamedQuery(name = "ProductionResource.findByPId", query = "SELECT p FROM ProductionResource p WHERE p.pid = :pid ORDER BY p.process.sortid,p.procseq")
+    ,
     @NamedQuery(name = "ProductionResource.findByKind", query = "SELECT p FROM ProductionResource p WHERE p.kind = :kind")})
 public class ProductionResource extends FormDetailEntity {
 
-  
-    @JoinColumn(name = "procid",referencedColumnName="id")
-    @ManyToOne(optional=false)
+    @JoinColumn(name = "procid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
     private Process process;
     @Basic(optional = false)
     @NotNull
@@ -182,7 +184,7 @@ public class ProductionResource extends FormDetailEntity {
         if (Objects.equals(this.process.getId(), other.process.getId()) && Objects.equals(this.kind, other.kind) && this.procseq == other.procseq) {
             return true;
         }
-        return this.seq==other.seq;
+        return this.seq == other.seq;
     }
 
     @Override

@@ -23,7 +23,7 @@ public class UnitManagedBean extends SuperSingleBean<Unit> {
 
     @EJB
     private UnitBean unitBean;
-   
+
     public UnitManagedBean() {
         super(Unit.class);
     }
@@ -32,7 +32,7 @@ public class UnitManagedBean extends SuperSingleBean<Unit> {
     public void init() {
         this.superEJB = unitBean;
         setModel(new UnitModel(unitBean));
-        super.init(); 
-    }   
-    
+        super.init();
+    }
+
 }

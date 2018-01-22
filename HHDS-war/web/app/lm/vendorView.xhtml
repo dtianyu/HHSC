@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formView">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="vendor" icon="ui-icon-arrowreturn-1-w"/>
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{vendorManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{vendorManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{vendorManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
+                                     rendered="#{vendorManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="提交" action="#{vendorManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{vendorManagedBean.doCfm}" update="toolbar"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelView" header="厂商登记－查看">
+                <p:panelGrid id="plgView"  styleClass="plgView Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="厂商编号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="vendorno" value="#{vendorManagedBean.currentEntity.vendorno}" title="vendorno" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="厂商简称"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="vendor" value="#{vendorManagedBean.currentEntity.vendor}" title="vendor" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="厂商全称"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="fullname" value="#{vendorManagedBean.currentEntity.fullname}" title="Fullname" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="注册地"/></p:column>
+                        <p:column colspan="3">
+                            <h:outputText id="regaddress" value="#{vendorManagedBean.currentEntity.regaddress}" title="regaddress"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基本信息">
+                    <p:panelGrid id="plgView" styleClass="plgView Wid100">
+                        <p:row>
+                            <p:column styleClass="Wid20"><h:outputText value="税别"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <p:selectOneMenu id="taxtype" value="#{vendorManagedBean.currentEntity.taxtype}" title="Taxtype"  disabled="true"
+                                                 required="true" requiredMessage="税别不可空白">
+                                    <f:selectItem itemLabel="内含" itemValue="0" />
+                                    <f:selectItem itemLabel="外加" itemValue="1" />
+                                    <f:selectItem itemLabel="零税" itemValue="2" />
+                                    <f:selectItem itemLabel="免税" itemValue="3" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column styleClass="Wid20"><h:outputText value="税率"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <h:outputText id="taxrate" value="#{vendorManagedBean.currentEntity.taxrate}" title="taxrate" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="交易币别"/></p:column>
+                            <p:column>
+                                <h:outputText id="currency" value="#{vendorManagedBean.currentEntity.currency}" title="currency" />
+                            </p:column>
+                            <p:column><h:outputText value="付款条件"/></p:column>
+                            <p:column>
+                                <h:outputText id="payment" value="#{vendorManagedBean.currentEntity.payment}" title="Payment" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="开票信息"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="taxid" value="#{vendorManagedBean.currentEntity.taxid}" title="Taxid" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="Wid20"><h:outputText value="公司电话"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <h:outputText id="tel" value="#{vendorManagedBean.currentEntity.tel}" title="Tel" />
+                            </p:column>
+                            <p:column styleClass="Wid20"><h:outputText value="公司传真"/></p:column>
+                            <p:column styleClass="Wid30">
+                                <h:outputText id="fax" value="#{vendorManagedBean.currentEntity.fax}" title="Fax" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="法人代表"/></p:column>
+                            <p:column>
+                                <h:outputText id="boss" value="#{vendorManagedBean.currentEntity.boss}" title="Boss" />
+                            </p:column>
+                            <p:column><h:outputText value="联系人"/></p:column>
+                            <p:column>
+                                <h:outputText id="contacter" value="#{vendorManagedBean.currentEntity.contacter}" title="Contacter" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="联系电话"/></p:column>
+                            <p:column>
+                                <h:outputText id="tel2" value="#{vendorManagedBean.currentEntity.tel2}" title="Tel2" />
+                            </p:column>
+                            <p:column><h:outputText value="联系传真"/></p:column>
+                            <p:column>
+                                <h:outputText id="fax2" value="#{vendorManagedBean.currentEntity.fax2}" title="Fax2" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="国家"/></p:column>
+                            <p:column>
+                                <h:outputText id="country" value="#{vendorManagedBean.currentEntity.country}" title="Country" />
+                            </p:column>
+                            <p:column><h:outputText value="地区"/></p:column>
+                            <p:column>
+                                <h:outputText id="area" value="#{vendorManagedBean.currentEntity.area}" title="Area" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="城市"/></p:column>
+                            <p:column>
+                                <h:outputText id="city" value="#{vendorManagedBean.currentEntity.city}" title="City" />
+                            </p:column>
+                            <p:column><h:outputText value="邮编"/></p:column>
+                            <p:column>
+                                <h:outputText id="zipcode" value="#{vendorManagedBean.currentEntity.zipcode}" title="Zipcode" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="网址"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="weburl" value="#{vendorManagedBean.currentEntity.weburl}" title="Weburl" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><h:outputText value="备注"/></p:column>
+                            <p:column colspan="3">
+                                <h:outputText id="remark" value="#{vendorManagedBean.currentEntity.remark}" title="Remark" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="系统整合">
+                    <p:panelGrid id="plgHHDS" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><h:outputText value="关联系统"/></p:column>
+                            <p:column>
+                                <p:inputSwitch  id="autotransfer" value="#{vendorManagedBean.currentEntity.autotransfer}" disabled="true"/>
+                            </p:column>
+                            <p:column><h:outputText value="客户编号"/></p:column>
+                            <p:column>
+                                <h:outputText id="relationno" value="#{vendorManagedBean.currentEntity.relationno}" title="relationno" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formView" trigger="btnVerify">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

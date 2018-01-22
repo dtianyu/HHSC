@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+
+        <cc:attribute name="id"/> 
+        <cc:attribute name="inputDisplay"/>
+        <cc:attribute name="inputDisabled"/>
+        <cc:attribute name="inputReadonly"/>
+        <cc:attribute name="inputStyle"/>
+        <cc:attribute name="inputValue"/>
+
+        <cc:attribute name="rendered"/>
+        <cc:attribute name="required"/>
+        <cc:attribute name="requiredMessage"/>
+
+        <cc:attribute name="styleClass"/>
+        <cc:attribute name="tabindex"/>
+
+        <cc:attribute name="btnProcess"/>
+        <cc:attribute name="btnUpdate"/> 
+        <cc:attribute name="btnValue"/>
+
+        <cc:attribute name="ajaxProcess"/>
+        <cc:attribute name="ajaxUpdate"/> 
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+
+        <h:form>
+            <p:inputText id="#{cc.attrs.id}_text" value="#{cc.attrs.inputValue}" styleClass="#{cc.attrs.inputStyle}"
+                         required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" 
+                         readonly="#{cc.attrs.inputReadonly}" disabled="#{cc.attrs.inputDisabled}" rendered="#{cc.attrs.rendered}"/> 
+            <p:commandButton id="#{cc.attrs.id}_btn" value="#{cc.attrs.btnValue}" actionListener="#{itemMasterRequestManagedBean.openDialog('sysuserSelect')}" icon="ui-icon-extlink" 
+                             process="#{cc.attrs.btnProcess}" >
+                <p:ajax event="dialogReturn" listener="#{itemMasterRequestManagedBean.handleDialogReturnBuyerWhenEdit}" 
+                        update="#{cc.attrs.ajaxUpdate}" />
+            </p:commandButton>
+        </h:form>   
+
+    </cc:implementation>
+</html>

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="formNew">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="customer" icon="ui-icon-arrowreturn-1-w"  />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{customerManagedBean.persist()}" icon="ui-icon-disk"
+                                     rendered="#{customerManagedBean.doAdd}"
+                                     process="@this,plgNew,:formNew:tabView:plgEdit" update="formNew"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelNew" header="客户登记－新增">
+                <p:panelGrid id="plgNew" styleClass="plgNew Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户来源" for="src" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="src" value="#{customerManagedBean.newEntity.src}" title="Src"
+                                             required="true" requiredMessage="来源不能为空.">
+                                <f:selectItem itemLabel="必要" itemValue="Biyao"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="客户类别" for="grade" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:selectOneMenu id="grade" value="#{customerManagedBean.newEntity.grade}" title="Grade"
+                                             required="true" requiredMessage="类别不能为空.">
+                                <f:selectItem itemLabel="公司" itemValue="C"/>
+                                <f:selectItem itemLabel="个人" itemValue="P"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="客户编号" for="customerno" /></p:column>
+                        <p:column>
+                            <p:inputText id="customerno" value="#{customerManagedBean.newEntity.customerno}" title="Customerno"
+                                         required="true" requiredMessage="编号不能为空." disabled="#{customerManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                        </p:column>
+                        <p:column><p:outputLabel value="客户简称" for="customer" /></p:column>
+                        <p:column>
+                            <p:inputText id="customer" value="#{customerManagedBean.newEntity.customer}" title="Customer"
+                                         required="true" requiredMessage="简称不能为空."/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基本信息">
+                    <p:panelGrid id="plgEdit" styleClass="plgEdit Wid100">
+                        <p:row>
+                            <p:column><p:outputLabel value="联系人" for="contacter" /></p:column>
+                            <p:column>
+                                <p:inputText id="contacter" value="#{customerManagedBean.newEntity.contacter}" title="Contacter"/>
+                            </p:column>
+                            <p:column><p:outputLabel value="电话" for="tel" /></p:column>
+                            <p:column>
+                                <p:inputText id="tel" value="#{customerManagedBean.newEntity.tel}" title="Tel"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="省份" for="country" /></p:column>
+                            <p:column>
+                                <p:inputText id="country" value="#{customerManagedBean.newEntity.country}" title="Country" />
+                            </p:column>
+                            <p:column><p:outputLabel value="城市" for="city" /></p:column>
+                            <p:column>
+                                <p:inputText id="city" value="#{customerManagedBean.newEntity.city}" title="City" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="地区" for="area" /></p:column>
+                            <p:column>
+                                <p:inputText id="area" value="#{customerManagedBean.newEntity.area}" title="Area" />
+                            </p:column>
+                            <p:column><p:outputLabel value="邮编" for="zipcode" /></p:column>
+                            <p:column>
+                                <p:inputText id="zipcode" value="#{customerManagedBean.newEntity.zipcode}" title="Zipcode" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="地址" for="contactadd" /></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="contactadd" value="#{customerManagedBean.newEntity.contactadd}" title="contactadd"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="remark" value="#{customerManagedBean.newEntity.remark}" title="Remark" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

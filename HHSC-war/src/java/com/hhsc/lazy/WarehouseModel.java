@@ -17,8 +17,8 @@ import org.primefaces.model.SortOrder;
  * @author kevindong
  */
 public class WarehouseModel extends BaseLazyModel<Warehouse> {
-    
-    public WarehouseModel(SuperEJB superEJB){
+
+    public WarehouseModel(SuperEJB superEJB) {
         this.superEJB = superEJB;
     }
 
@@ -26,9 +26,7 @@ public class WarehouseModel extends BaseLazyModel<Warehouse> {
     public List<Warehouse> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         this.sortFields.put("status", "ASC");
         this.sortFields.put("id", "DESC");
-        return super.load(first, pageSize, sortField, sortOrder, filters); 
+        return super.load(first, pageSize, sortField, sortOrder, filters);
     }
-    
-    
-    
+
 }

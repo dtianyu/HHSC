@@ -37,7 +37,7 @@ public class SalesQueryQueryBean extends SuperQueryBean<SalesOrderDetailForQuery
         setSuperEJB(salesOrderDetailForQueryBean);
         setModel(new SalesOrderDetailForQueryModel(salesOrderDetailForQueryBean));
         super.init();
-        if(getCurrentPrgGrant()!=null){
+        if (getCurrentPrgGrant() != null) {
             this.doPriv = getCurrentPrgGrant().getDopriv();
             this.doPriv = userManagedBean.getCurrentUser().getSuperuser();
         }
