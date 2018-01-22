@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -171,6 +172,10 @@ public class SalesOrder extends FormEntity {
     @Size(max = 200)
     @Column(name = "packremark")
     private String packremark;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "contract")
+    private String contract;
 
     public SalesOrder() {
         this.designsets = 0;
@@ -452,6 +457,20 @@ public class SalesOrder extends FormEntity {
 
     public void setPackremark(String packremark) {
         this.packremark = packremark;
+    }
+
+    /**
+     * @return the contract
+     */
+    public String getContract() {
+        return contract;
+    }
+
+    /**
+     * @param contract the contract to set
+     */
+    public void setContract(String contract) {
+        this.contract = contract;
     }
 
     @Override

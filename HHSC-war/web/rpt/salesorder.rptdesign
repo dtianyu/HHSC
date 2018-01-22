@@ -225,76 +225,81 @@
                 </structure>
                 <structure>
                     <property name="position">35</property>
+                    <property name="name">contract</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">36</property>
                     <property name="name">seq</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">36</property>
+                    <property name="position">37</property>
                     <property name="name">customercolorno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">37</property>
+                    <property name="position">38</property>
                     <property name="name">colorno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">38</property>
+                    <property name="position">39</property>
                     <property name="name">itemno</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">39</property>
+                    <property name="position">40</property>
                     <property name="name">itemdesc</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">40</property>
+                    <property name="position">41</property>
                     <property name="name">itemyarncount</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">41</property>
+                    <property name="position">42</property>
                     <property name="name">itemmake</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">42</property>
+                    <property name="position">43</property>
                     <property name="name">itemwidth</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">43</property>
+                    <property name="position">44</property>
                     <property name="name">itemweight</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">44</property>
+                    <property name="position">45</property>
                     <property name="name">qty</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">45</property>
+                    <property name="position">46</property>
                     <property name="name">unit</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">46</property>
+                    <property name="position">47</property>
                     <property name="name">issqty</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">47</property>
+                    <property name="position">48</property>
                     <property name="name">price</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">48</property>
+                    <property name="position">49</property>
                     <property name="name">amts</property>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
-                    <property name="position">49</property>
+                    <property name="position">50</property>
                     <property name="name">deliverydate</property>
                     <property name="dataType">date</property>
                 </structure>
@@ -401,6 +406,9 @@
                 </structure>
                 <structure>
                     <property name="columnName">packremark</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contract</property>
                 </structure>
                 <structure>
                     <property name="columnName">seq</property>
@@ -622,76 +630,81 @@
                     </structure>
                     <structure>
                         <property name="position">35</property>
+                        <property name="name">contract</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">36</property>
                         <property name="name">seq</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">36</property>
+                        <property name="position">37</property>
                         <property name="name">customercolorno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">37</property>
+                        <property name="position">38</property>
                         <property name="name">colorno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">38</property>
+                        <property name="position">39</property>
                         <property name="name">itemno</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">39</property>
+                        <property name="position">40</property>
                         <property name="name">itemdesc</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">40</property>
+                        <property name="position">41</property>
                         <property name="name">itemyarncount</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">41</property>
+                        <property name="position">42</property>
                         <property name="name">itemmake</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">42</property>
+                        <property name="position">43</property>
                         <property name="name">itemwidth</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">43</property>
+                        <property name="position">44</property>
                         <property name="name">itemweight</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">44</property>
+                        <property name="position">45</property>
                         <property name="name">qty</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">45</property>
+                        <property name="position">46</property>
                         <property name="name">unit</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">46</property>
+                        <property name="position">47</property>
                         <property name="name">issqty</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">47</property>
+                        <property name="position">48</property>
                         <property name="name">price</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">48</property>
+                        <property name="position">49</property>
                         <property name="name">amts</property>
                         <property name="dataType">float</property>
                     </structure>
                     <structure>
-                        <property name="position">49</property>
+                        <property name="position">50</property>
                         <property name="name">deliverydate</property>
                         <property name="dataType">date</property>
                     </structure>
@@ -747,14 +760,15 @@ if(currentRow < detail.size()){
 		dataSetRow["unit"] = detail.get(currentRow).getUnit();	
 		dataSetRow["price"] = detail.get(currentRow).getPrice();	
 		dataSetRow["amts"] = detail.get(currentRow).getAmts();
-		dataSetRow["deliverydate"] = detail.get(currentRow).getDeliverydate();	
+		dataSetRow["deliverydate"] = detail.get(currentRow).getDeliverydate();
+		
 		dataSetRow["payment"] = master.getPayment();	
 		dataSetRow["testremark"] = master.getTestremark();	
 		dataSetRow["productremark"] = master.getProductremark();
 		dataSetRow["packremark"] = master.getPackremark();	
 		dataSetRow["shiptype"] = master.getShipadd();				
 		dataSetRow["shipmarks"] = master.getShipmarks();	
-	
+		dataSetRow["contract"] = master.getContract();
 		currentRow++;
 		return true;	
 
@@ -1814,6 +1828,15 @@ return false;]]></method>
         </grid>
         <grid id="513">
             <property name="height">3.6944444444444446in</property>
+            <property name="dataSet">dataDetail</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">contract</property>
+                    <text-property name="displayName">contract</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["contract"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
             <column id="514"/>
             <column id="515"/>
             <row id="516">
@@ -1829,19 +1852,10 @@ return false;]]></method>
                 <cell id="523">
                     <property name="colSpan">2</property>
                     <property name="rowSpan">1</property>
-                    <text id="512">
-                        <property name="contentType">auto</property>
-                        <text-property name="content"><![CDATA[一、质量与验收标准：                          为标准，根据《GB/T 17760-1999印染布布面疵点检验方法》或《GB/T 18132-2000丝绸服装》检验，一等品        ％，二等品        ％。二等品超出双方约定可协商解决。面料开剪后我司将不承担任何责任。
-
-二、数量超差幅度：            ％
-
-三、本合同自：            之日起生效，合同执行期内甲乙双方均不得随意变更或解除合同。如有变化须经双方共同协商，并作出书面补充，补充内容与本合同具有同等效力。
-
-四、违约责任：按照《中华人民共和国合同法》有关规定执行。
-
-五、根据《中华人民共和国合同法》规定，经双方协商一致，签订本合同，以资共同信守。本合同一式二份，甲乙双方各执一份。
-]]></text-property>
-                    </text>
+                    <text-data id="581">
+                        <expression name="valueExpr">row["contract"]</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
                 </cell>
             </row>
             <row id="525">

@@ -8,6 +8,7 @@ package com.hhsc.control;
 import com.hhsc.ejb.CustomerItemBean;
 import com.hhsc.ejb.ItemColorBean;
 import com.hhsc.ejb.PurchaseRequestBean;
+import com.hhsc.ejb.SalesContractBean;
 import com.hhsc.ejb.SalesOrderBean;
 import com.hhsc.ejb.SalesOrderDetailBean;
 import com.hhsc.ejb.SalesTypeBean;
@@ -21,6 +22,7 @@ import com.hhsc.entity.SalesOrderDetail;
 import com.hhsc.entity.ItemMaster;
 import com.hhsc.entity.PurchaseRequest;
 import com.hhsc.entity.PurchaseRequestDetail;
+import com.hhsc.entity.SalesContract;
 import com.hhsc.entity.SalesType;
 import com.hhsc.entity.Sysprg;
 import com.hhsc.entity.SystemUser;
@@ -57,6 +59,9 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
     private ItemColorBean itemColorBean;
 
     @EJB
+    private SalesContractBean salesContractBean;
+
+    @EJB
     private SalesTypeBean salesTypeBean;
 
     @EJB
@@ -77,6 +82,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
 
     private String queryCustomerno;
     private String queryItemno;
+
+    private SalesContract contract;
 
     /**
      * Creates a new instance of SalesOrderManagedBean
@@ -152,6 +159,9 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         this.newEntity.setTotalextax(BigDecimal.ZERO);
         this.newEntity.setTotaltaxes(BigDecimal.ZERO);
         this.newEntity.setTotalamts(BigDecimal.ZERO);
+        if (contract != null) {
+            this.newEntity.setContract(contract.getContent());
+        }
         this.setCurrentEntity(this.newEntity);
     }
 
@@ -226,6 +236,20 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         this.currentDetail.setExtax(t.getExtax());
         this.currentDetail.setTaxes(t.getTaxes());
         super.doConfirmDetail();
+    }
+
+    public void handleDialogReturnContractWhenEdit(SelectEvent event) {
+        if (event.getObject() != null && currentEntity != null) {
+            SalesContract entity = (SalesContract) event.getObject();
+            this.currentEntity.setContract(entity.getContent());
+        }
+    }
+
+    public void handleDialogReturnContractWhenNew(SelectEvent event) {
+        if (event.getObject() != null && newEntity != null) {
+            SalesContract entity = (SalesContract) event.getObject();
+            this.newEntity.setContract(entity.getContent());
+        }
     }
 
     public void handleDialogReturnCurrencyWhenEdit(SelectEvent event) {
@@ -422,6 +446,7 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         setModel(new SalesOrderModel(salesOrderBean, userManagedBean));
         getModel().getFilterFields().put("status", "N");
         salesTypeList = salesTypeBean.findAll();
+        contract = salesContractBean.findDefault();
         super.init();
     }
 
