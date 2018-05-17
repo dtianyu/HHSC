@@ -18,6 +18,7 @@ import com.hhds.web.SuperSingleBean;
 import com.lightshell.comm.BaseLib;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -161,7 +163,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                     e.setAddress(BaseLib.convertExcelCell(String.class, c).trim());
                     c = r.getCell(9);
                     //e.setZipcode(BaseLib.convertExcelCell(String.class, c).trim());
-                    // = r.getCell(10);
+                    //c = r.getCell(10);
                     e.setShipmarks(BaseLib.convertExcelCell(String.class, c).trim());
                     c = r.getCell(10);
                     e.setRemark(BaseLib.convertExcelCell(String.class, c).trim());
@@ -232,7 +234,7 @@ public class BiyaoImportManagedBean extends SuperSingleBean<BiyaoImport> {
                 showInfoMsg("Info", "导入成功");
             } catch (FileNotFoundException ex) {
                 showErrorMsg("Error", "导入失败,找不到导入文件");
-            } catch (Exception ex) {
+            } catch (IOException | InvalidFormatException ex) {
                 showErrorMsg("Error", "导入失败,文件格式错误");
                 Logger.getLogger(this.getClass().toString()).log(Level.SEVERE, null, ex);
             }

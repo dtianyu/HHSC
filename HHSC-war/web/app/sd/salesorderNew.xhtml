@@ -384,18 +384,18 @@
                     </p:panel>
                 </p:tab>
                 <p:tab title="合同条款">
+                    <p:toolbar id="detailToolbar2" styleClass="detailToolbar">
+                        <f:facet name="left">
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton id="btnContractSelect" value="选择" actionListener="#{salesOrderManagedBean.openDialog('salescontractSelect')}" icon="ui-icon-extlink"
+                                             process="@this">
+                                <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnContractWhenNew}"
+                                        update="formNew:tabView:plgBase2" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:toolbar>
                     <p:panel id="panelBase2">
-                        <p:toolbar id="detailToolbar2" styleClass="detailToolbar">
-                            <f:facet name="left">
-                            </f:facet>
-                            <f:facet name="right">
-                                <p:commandButton id="btnContractSelect" value="选择" actionListener="#{salesOrderManagedBean.openDialog('salescontractSelect')}" icon="ui-icon-extlink"
-                                                 process="@this">
-                                    <p:ajax event="dialogReturn" listener="#{salesOrderManagedBean.handleDialogReturnContractWhenNew}"
-                                            update="formNew:tabView:plgBase2" />
-                                </p:commandButton>
-                            </f:facet>
-                        </p:toolbar>
                         <p:panelGrid id="plgBase2" styleClass="plg Wid100">
                             <p:row>
                                 <p:column><p:outputLabel value="内容" for="contract" /></p:column>
