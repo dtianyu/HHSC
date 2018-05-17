@@ -12,6 +12,7 @@ import com.hhsc.entity.ItemProcess;
 import com.hhsc.entity.SalesOrderDetailForQuery;
 import com.hhsc.lazy.ItemFrameModel;
 import com.hhsc.web.SuperSingleBean;
+import com.lightshell.comm.BaseLib;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -212,6 +213,42 @@ public class ItemFrameManagedBean extends SuperSingleBean<ItemFrame> {
                     break;
                 default:
                     super.openDialog(view);
+            }
+        }
+    }
+
+    public void print(String reportDesignFile,String reportFormat) throws Exception {
+        if (getCurrentPrgGrant() != null && getCurrentPrgGrant().getDoprt()) {
+            HashMap<String, Object> reportParams = new HashMap<>();
+            reportParams.put("JNDIName", this.getCurrentPrgGrant().getSysprg().getRptjndi());
+            if (!this.model.getFilterFields().isEmpty()) {
+                reportParams.put("filterFields", BaseLib.convertMapToStringWithClass(this.model.getFilterFields()));
+            } else {
+                reportParams.put("filterFields", "");
+            }
+            if (!this.model.getSortFields().isEmpty()) {
+                reportParams.put("sortFields", BaseLib.convertMapToString(this.model.getSortFields()));
+            } else {
+                reportParams.put("sortFields", "");
+            }
+            //设置报表名称
+            
+            this.fileName = this.getCurrentPrgGrant().getSysprg().getApi() + BaseLib.formatDate("yyyyMMddHHss", this.getDate()) + "." + reportFormat;
+            String reportName = reportPath + reportDesignFile;
+            String outputName = reportOutputPath + this.fileName;
+            this.reportViewPath = reportViewContext + this.fileName;
+            try {
+                if (this.getCurrentPrgGrant() != null && this.getCurrentPrgGrant().getSysprg().getRptclazz() != null) {
+                    reportClassLoader = Class.forName(this.getCurrentPrgGrant().getSysprg().getRptclazz()).getClassLoader();
+                }
+                //初始配置
+                this.reportInitAndConfig();
+                //生成报表
+                this.reportRunAndOutput(reportName, reportParams, outputName, reportFormat, null);
+                //预览报表
+                this.preview();
+            } catch (Exception ex) {
+                throw ex;
             }
         }
     }

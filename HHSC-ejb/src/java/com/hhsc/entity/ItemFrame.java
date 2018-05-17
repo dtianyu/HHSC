@@ -5,6 +5,8 @@
  */
 package com.hhsc.entity;
 
+import com.hhsc.entity.Customer;
+import com.hhsc.entity.ItemProcess;
 import com.lightshell.comm.FormEntity;
 import java.util.Date;
 import javax.persistence.Basic;
