@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formView">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="shipmentpacking" icon="ui-icon-arrowreturn-1-w"  />
+                    <p:commandButton id="btnPrev" value="向前" actionListener="#{shipmentPackingManagedBean.toPrev()}" icon="ui-icon-carat-1-w"
+                                     process="@this" update="formView"
+                                     rendered="#{shipmentPackingManagedBean.hasPrev}"/>
+                    <p:commandButton id="btnNext" value="向后" actionListener="#{shipmentPackingManagedBean.toNext()}" icon="ui-icon-carat-1-e"
+                                     process="@this" update="formView"
+                                     rendered="#{shipmentPackingManagedBean.hasNext}"/>
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnVerify" value="审核" action="#{shipmentPackingManagedBean.verify()}" icon="ui-icon-locked"
+                                     rendered="#{shipmentPackingManagedBean.doCfm}" process="@this" update="formView"/>
+                    <p:commandButton id="btnPrint" value="打印" actionListener="#{shipmentPackingManagedBean.print()}" icon="ui-icon-print"
+                                     rendered="#{shipmentPackingManagedBean.doPrt}"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="出货装箱－查看">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="装箱单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formid" value="#{shipmentPackingManagedBean.currentEntity.formid}" title="Formid"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="装箱日期"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="formdate" value="#{shipmentPackingManagedBean.currentEntity.formdate}" title="Formdate" >
+                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="客户编号" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customerno" value="#{shipmentPackingManagedBean.currentEntity.customerno}" title="customerno"  />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="客户简称"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customer" value="#{shipmentPackingManagedBean.currentEntity.customer}" title="customer"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="装箱类别"/></p:column>
+                        <p:column>
+                            <h:outputText id="formtype" value="#{shipmentPackingManagedBean.currentEntity.formtype}" title="formtype" />
+                        </p:column>
+                        <p:column><h:outputText value="状态" /></p:column>
+                        <p:column>
+                            <h:outputText id="status" value="#{shipmentPackingManagedBean.currentEntity.status}" title="status" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="备注"/></p:column>
+                        <p:column colspan="3">
+                            <p:inputTextarea rows="2" id="remark" value="#{shipmentPackingManagedBean.currentEntity.remark}" title="remark"
+                                             styleClass="Wid100" readonly="true"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="装箱明细">
+                    <p:panel id="panelDetail">
+                        <p:dataTable id="detailList" value="#{shipmentPackingManagedBean.detailList}" var="item" styleClass="tableList"
+                                     selectionMode="single" selection="#{shipmentPackingManagedBean.currentDetail}" rowKey="#{item.id}" >
+                            <p:ajax event="rowSelect"  update="formView:plgDetail" oncomplete="PF('dlgDetail').show();" />
+                            <p:ajax event="rowUnselect"  update="" oncomplete="" />
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="客户单号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.customerrefno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="花号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.designno}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="成份"/>
+                                </f:facet>
+                                <h:outputText value="#{item.designMake}"/>
+                            </p:column>
+                            <p:column styleClass="Wid20">
+                                <f:facet name="header">
+                                    <h:outputText value="客户编号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.customeritemno}"/>
+                            </p:column>
+
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="客户色号"/>
+                                </f:facet>
+                                <h:outputText value="#{item.customercolorno}"/>
+                            </p:column>
+                            <p:column  styleClass="Wid10 TexAlRight">
+                                <f:facet name="header">
+                                    <h:outputText value="数量"/>
+                                </f:facet>
+                                <h:outputText value="#{item.qty}"/>
+                            </p:column>
+                            <p:column styleClass="Wid10">
+                                <f:facet name="header">
+                                    <h:outputText value="单位"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unit}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:dialog id="dlgDetail" widgetVar="dlgDetail" width="80%">
+                <p:panelGrid id="plgDetail" styleClass="plgDetail Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="客户单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="customerrefno" value="#{shipmentPackingManagedBean.currentDetail.customerrefno}" title="customerrefno" />
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="出货单号"/></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="srcformid" value="#{shipmentPackingManagedBean.currentDetail.srcformid}" title="srcid"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="客户品号"/></p:column>
+                        <p:column>
+                            <h:outputText id="customeritemno" value="#{shipmentPackingManagedBean.currentDetail.customeritemno}" title="customeritemno" />
+                        </p:column>
+                        <p:column><h:outputText value="华卉花号" /></p:column>
+                        <p:column>
+                            <h:outputText id="designno" value="#{shipmentPackingManagedBean.currentDetail.designno}" title="designno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="客户色号"/></p:column>
+                        <p:column>
+                            <h:outputText id="customercolorno" value="#{shipmentPackingManagedBean.currentDetail.customercolorno}" title="Customercolorno" />
+                        </p:column>
+                        <p:column><h:outputText value="华卉色号" /></p:column>
+                        <p:column>
+                            <h:outputText id="colorno" value="#{shipmentPackingManagedBean.currentDetail.colorno}" title="Colorno" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="数量"/></p:column>
+                        <p:column>
+                            <h:outputText id="qty" value="#{shipmentPackingManagedBean.currentDetail.qty}" title="Qty"/>
+                        </p:column>
+                        <p:column><h:outputText value="单位" /></p:column>
+                        <p:column>
+                            <h:outputText id="unit" value="#{shipmentPackingManagedBean.currentDetail.unit}" title="Unit" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="净重"/></p:column>
+                        <p:column>
+                            <h:outputText id="netTotal" value="#{shipmentPackingManagedBean.currentDetail.netTotal}" title="netTotal"/>
+                        </p:column>
+                        <p:column><h:outputText value="毛重"/></p:column>
+                        <p:column>
+                            <h:outputText id="roughTotal" value="#{shipmentPackingManagedBean.currentDetail.roughTotal}" title="roughTotal"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="箱数"/></p:column>
+                        <p:column>
+                            <h:outputText id="boxNum" value="#{shipmentPackingManagedBean.currentDetail.boxNum}" title="boxNum"/>
+                        </p:column>
+                        <p:column><h:outputText value="箱规"/></p:column>
+                        <p:column>
+                            <h:outputText id="boxSize" value="#{shipmentPackingManagedBean.currentDetail.boxSize}" title="boxSize"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column styleClass="Wid20"><h:outputText value="备注" /></p:column>
+                        <p:column colspan="3">
+                            <h:outputText  id="dremark" value="#{shipmentPackingManagedBean.currentDetail.remark}" title="dremark"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -151,8 +151,8 @@ public class SalesOrderManagedBean extends FormMultiBean<SalesOrder, SalesOrderD
         this.newEntity.setCurrency("CNY");
         this.newEntity.setExchange(BigDecimal.ONE);
         this.newEntity.setTaxtype("0");
-        this.newEntity.setTaxkind("VAT17");
-        this.newEntity.setTaxrate(BigDecimal.valueOf(17));
+        this.newEntity.setTaxkind("VAT16");
+        this.newEntity.setTaxrate(BigDecimal.valueOf(16));
         this.newEntity.setDesignsets(0);
         this.newEntity.setDesignprice(BigDecimal.ZERO);
         this.newEntity.setTotaldesign(BigDecimal.ZERO);

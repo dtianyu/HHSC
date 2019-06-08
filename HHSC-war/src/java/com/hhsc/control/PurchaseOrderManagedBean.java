@@ -69,8 +69,8 @@ public class PurchaseOrderManagedBean extends FormMultiBean<PurchaseOrder, Purch
         newEntity.setCurrency("CNY");
         newEntity.setExchange(BigDecimal.ONE);
         newEntity.setTaxtype("0");
-        newEntity.setTaxkind("VAT17");
-        newEntity.setTaxrate(BigDecimal.valueOf(17));
+        newEntity.setTaxkind("VAT16");
+        newEntity.setTaxrate(BigDecimal.valueOf(16));
         newEntity.setDesignsets(0);
         newEntity.setDesignprice(BigDecimal.ZERO);
         newEntity.setTotaldesign(BigDecimal.ZERO);

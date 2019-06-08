@@ -46,8 +46,8 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
         super.create();
         this.newEntity.setCurrency("CNY");
         this.newEntity.setTaxtype("0");
-        this.newEntity.setTaxkind("VAT17");
-        this.newEntity.setTaxrate(BigDecimal.valueOf(17));
+        this.newEntity.setTaxkind("VAT16");
+        this.newEntity.setTaxrate(BigDecimal.valueOf(16));
         this.newEntity.setTradetype("C&F");
     }
 

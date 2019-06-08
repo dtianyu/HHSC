@@ -231,6 +231,12 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <description>出货包装</description>
+            <from-outcome>shipmentpacking</from-outcome>
+            <to-view-id>/app/sd/shipmentpacking.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <description>出货未开发票</description>
             <from-outcome>shipmentnotinvoice</from-outcome>
             <to-view-id>/app/sd/shipmentnotinvoice.xhtml</to-view-id>
@@ -330,25 +336,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <description>出货通知</description>
-        <from-view-id>/app/sd/shipmentadvice.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>shipmentadviceNew</from-outcome>
-            <to-view-id>/app/sd/shipmentadviceNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>shipmentadviceEdit</from-outcome>
-            <to-view-id>/app/sd/shipmentadviceEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>shipmentadviceView</from-outcome>
-            <to-view-id>/app/sd/shipmentadviceView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <description>销售出货</description>
         <from-view-id>/app/mm/salesshipment.xhtml</from-view-id>
         <navigation-case>
@@ -382,6 +369,44 @@
         <navigation-case>
             <from-outcome>salestypeView</from-outcome>
             <to-view-id>/app/sys/salestypeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>出货通知</description>
+        <from-view-id>/app/sd/shipmentadvice.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>shipmentadviceNew</from-outcome>
+            <to-view-id>/app/sd/shipmentadviceNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>shipmentadviceEdit</from-outcome>
+            <to-view-id>/app/sd/shipmentadviceEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>shipmentadviceView</from-outcome>
+            <to-view-id>/app/sd/shipmentadviceView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>出货装箱</description>
+        <from-view-id>/app/sd/shipmentpacking.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>shipmentpackingNew</from-outcome>
+            <to-view-id>/app/sd/shipmentpackingNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>shipmentpackingEdit</from-outcome>
+            <to-view-id>/app/sd/shipmentpackingEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>shipmentpackingView</from-outcome>
+            <to-view-id>/app/sd/shipmentpackingView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -1631,6 +1656,11 @@
         <navigation-case>
             <from-outcome>itemprocessSelect</from-outcome>
             <to-view-id>/app/df/itemprocessSelect.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>packingdetailSelect</from-outcome>
+            <to-view-id>/app/df/packingdetailSelect.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

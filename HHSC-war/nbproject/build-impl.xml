@@ -1010,7 +1010,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.BeanUtils.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.BIRT.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.JSF_2.2.8.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.PrimeFaces_6.0.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.PrimeFaces_6.1.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.PrimeSentinel2.1.2.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.LightShell.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${reference.HHSC-ejb.dist}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}"/>
@@ -1021,7 +1021,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.BeanUtils.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.BIRT.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.JSF_2.2.8.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.PrimeFaces_6.0.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.PrimeFaces_6.1.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.PrimeSentinel2.1.2.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.LightShell.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.HHSC-ejb.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -1435,8 +1435,8 @@ exists or setup the property manually. For example like this:
     <target depends="init,-pre-debug-fix,-do-debug-fix-test" if="netbeans.home" name="debug-fix-test"/>
     <!--
                 
-        CLEANUP SECTION
-    -->
+                CLEANUP SECTION
+            -->
     <target depends="init" name="deps-clean" unless="no.deps">
         <ant antfile="${project.HHDS-ejb}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.HHSC-ejb}/build.xml" inheritall="false" target="clean"/>

@@ -12,14 +12,16 @@ import com.hhsc.web.SuperQueryBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author kevindong
  */
-@ManagedBean(name = "salesShipmentDetailQueryBean")
+@ManagedBean(name = "shipmentDetailForPackingQueryBean")
 @ViewScoped
-public class SalesShipmentDetailQueryBean extends SuperQueryBean<SalesShipmentDetailForQuery> {
+public class ShipmentDetailForPackingQueryBean extends SuperQueryBean<SalesShipmentDetailForQuery> {
 
     @EJB
     protected SalesShipmentDetailForQueryBean salesShipmentDetailForQueryBean;
@@ -28,14 +30,31 @@ public class SalesShipmentDetailQueryBean extends SuperQueryBean<SalesShipmentDe
     private String queryCustomer;
     private String queryItemno;
 
-    public SalesShipmentDetailQueryBean() {
+    public ShipmentDetailForPackingQueryBean() {
         super(SalesShipmentDetailForQuery.class);
+    }
+
+    @Override
+    public void closeDialog() {
+        if (entityList != null) {
+            RequestContext.getCurrentInstance().closeDialog(entityList);
+        } else {
+            showWarnMsg("Warn", "没有选择数据!");
+        }
     }
 
     @Override
     public void init() {
         this.superEJB = salesShipmentDetailForQueryBean;
         setModel(new SalesShipmentDetailForQueryModel(salesShipmentDetailForQueryBean));
+        this.model.getSortFields().put("salesShipment.formid", "DESC");
+        params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterValuesMap();
+        if (params != null) {
+            if (params.containsKey("customerno")) {
+                queryCustomerno = params.get("customerno")[0];
+                this.model.getFilterFields().put("salesShipment.customer.customerno", queryCustomerno);
+            }
+        }
         super.init();
     }
 
@@ -73,7 +92,9 @@ public class SalesShipmentDetailQueryBean extends SuperQueryBean<SalesShipmentDe
     @Override
     public void reset() {
         super.reset();
-        this.model.getFilterFields().put("salesShipment.status", "N");
+        if (this.queryCustomerno != null && !"".equals(this.queryCustomerno)) {
+            this.model.getFilterFields().put("salesShipment.customer.customerno", queryCustomerno);
+        }
     }
 
     /**
